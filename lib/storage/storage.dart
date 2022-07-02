@@ -17,15 +17,16 @@ class Storage {
   /// Loads all Data.
   /// Make sure to call this Method before doing anything
   /// else
-  static void init() async {
+  static Future<void> init() async {
     Hive.registerAdapter(BookAdapter());
     _bookBox = await Hive.openBox<Book>(_bookBoxKEY);
+    _loadBooks();
   }
 
   /// Loads all the Books
   /// from the Storage and adds it to
   /// the List of Books.
-  static void loadBooks() {
+  static void _loadBooks() {
     for (Book book in _bookBox!.values) {
       BookList.addBook(book);
     }

@@ -1,30 +1,57 @@
 library main;
 
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_flutter/hive_flutter.dart' show Hive, HiveX;
+import 'package:reading_diary/logic/navigating/routes.dart';
+import 'package:reading_diary/logic/navigating/widget_router.dart';
 import 'package:reading_diary/screens/shared/unknown_screen.dart';
 import 'package:reading_diary/storage/storage.dart';
+import 'package:reading_diary/style/themes.dart';
 import 'package:reading_diary/values/translations.dart';
 import 'package:string_translate/string_translate.dart'
-    show Translation, TranslationDelegates, TranslationLocales;
+    hide StandardTranslations;
 
 void main() async {
   await Hive.initFlutter();
   // TODO: check if await is needed here.
-  Storage.init();
+  await Storage.init();
   runApp(const ReadingDiary());
 }
 
+/// Determines the Platform this Apps is running on.
+/// Also sets the [WidgetRouter.isDesktop] Variable.
+void _isDesktop() {
+  const desktopOS = <String>{'macos', 'windows', 'linux'};
+  if (desktopOS.contains(Platform.operatingSystem)) {
+    WidgetRouter.isDesktop = true;
+  } else {
+    WidgetRouter.isDesktop = false;
+  }
+}
+
+/// The Main widget for this App.
+/// Returns the Material App.
 class ReadingDiary extends StatelessWidget {
   const ReadingDiary({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    _isDesktop();
+
     Translation.init(
-      supportedLocales: {},
+      supportedLocales: {
+        TranslationLocales.english,
+        TranslationLocales.french,
+        TranslationLocales.german,
+        TranslationLocales.portuguese,
+        TranslationLocales.spanish,
+      },
       defaultLocale: TranslationLocales.english,
       translations: translations,
     );
+
     const String title = 'Reading Diary';
 
     return MaterialApp(
@@ -42,6 +69,7 @@ class ReadingDiary extends StatelessWidget {
       scrollBehavior: const MaterialScrollBehavior(),
       title: title,
       restorationScopeId: '$title restauration scope ID',
+      useInheritedMediaQuery: false,
 
       // Locales
       locale: Translation.activeLocale,
@@ -59,10 +87,15 @@ class ReadingDiary extends StatelessWidget {
 
       // Routes
       routes: _routes,
-      initialRoute: '/',
+      initialRoute: Routes.homescreen,
       onUnknownRoute: (settings) => _onUnkownRoute(settings),
 
       // Themes,
+      themeMode: Themes.themeMode,
+      theme: Themes.lightTheme,
+      darkTheme: Themes.darkTheme,
+      highContrastTheme: Themes.highContrastLightTheme,
+      highContrastDarkTheme: Themes.highContrastDarkTheme,
     );
   }
 
@@ -70,7 +103,10 @@ class ReadingDiary extends StatelessWidget {
   /// Only contains Routes that don't have
   /// a paramter to pass.
   Map<String, Widget Function(BuildContext)> get _routes {
-    return {};
+    return {
+      Routes.homescreen: (_) => WidgetRouter.homescreen(),
+      Routes.unknownscreen: (_) => WidgetRouter.unknownScreen(),
+    };
   }
 
   /// Returnst the Unknown Screen.
