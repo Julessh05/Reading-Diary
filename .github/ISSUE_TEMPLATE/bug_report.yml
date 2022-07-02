@@ -1,0 +1,36 @@
+name: Bug Report
+description: Report a Bug to help us improve
+title: "Bug: "
+labels: ["bug"]
+assignees:
+  - Jules-sh
+body:
+  - type: markdown
+    attributes:
+      value: |
+      Thanks for helping us improving the App
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: The Problem
+      description: What happended? What sould have happened?
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: What version of our software are you using?
+      options:
+      - 1.0.0
+      validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/Jules-sh/Reading-Diary/blob/main/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
