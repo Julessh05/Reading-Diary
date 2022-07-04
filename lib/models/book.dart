@@ -1,6 +1,6 @@
 library models;
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show Image;
 import 'package:hive/hive.dart';
 
 part 'book.g.dart';

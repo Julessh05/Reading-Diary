@@ -77,17 +77,17 @@ class StatisticContainerMobile extends StatelessWidget {
   }
 
   TextStyle get _tStyle {
-    return TextStyle(
+    return const TextStyle(
       fontSize: 30,
-      fontStyle: FontStyle.italic,
-      fontWeight: FontWeight.bold,
+      fontStyle: FontStyle.normal,
+      fontWeight: FontWeight.w600,
     );
   }
 
   TextStyle get _ctStyle {
-    return TextStyle(
+    return const TextStyle(
       fontSize: 17,
-      fontStyle: FontStyle.italic,
+      fontStyle: FontStyle.normal,
       fontWeight: FontWeight.w400,
     );
   }

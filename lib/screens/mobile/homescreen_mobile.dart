@@ -2,8 +2,9 @@ library mobile_screens;
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:reading_diary/components/mobile/book_container_mobile.dart';
+import 'package:reading_diary/components/mobile/entry_container_mobile.dart';
 import 'package:reading_diary/components/mobile/statistic_container_mobile.dart';
+import 'package:reading_diary/models/diary_entry.dart';
 import 'package:string_translate/string_translate.dart';
 
 /// Homescreen for mobile devices
@@ -77,9 +78,10 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
             shrinkWrap: true,
             itemCount: 2,
             itemBuilder: (_, counter) {
-              return BookContainerMobile(
-                date: DateTime.now(),
-                title: 'First Entry',
+              return EntryContainerMobile(
+                entry: DiaryEntry(
+                  entry: '',
+                ),
               );
             },
           ),
