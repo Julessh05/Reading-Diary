@@ -55,6 +55,13 @@ class Themes {
           ((states) => _lightBottomNavigationBarMouseCursor(states)),
         ),
       ),
+
+      // Scroll Bar Theme
+      scrollbarTheme: ScrollbarThemeData(
+        interactive: true,
+        radius: const Radius.circular(20),
+        thumbVisibility: MaterialStateProperty.all<bool>(true),
+      ),
     );
   }
 

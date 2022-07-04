@@ -2,7 +2,8 @@ library mobile_screens;
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:reading_diary/components/mobile/mobile_book_container.dart';
+import 'package:reading_diary/components/mobile/book_container_mobile.dart';
+import 'package:reading_diary/components/mobile/statistic_container_mobile.dart';
 import 'package:string_translate/string_translate.dart';
 
 /// Homescreen for mobile devices
@@ -21,7 +22,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
       body: _body,
       bottomNavigationBar: _bottomBar,
       extendBody: true,
-      extendBodyBehindAppBar: false,
+      extendBodyBehindAppBar: true,
     );
   }
 
@@ -39,13 +40,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// Homescreen
   Widget get _body {
     return Scrollbar(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        textBaseline: TextBaseline.alphabetic,
-        textDirection: TextDirection.ltr,
-        verticalDirection: VerticalDirection.down,
+      child: ListView(
         children: <Widget>[
           SizedBox(
             height: MediaQuery.of(context).size.height / 4.6,
@@ -62,7 +57,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
               shrinkWrap: true,
               itemCount: 2,
               itemBuilder: ((_, conter) {
-                return const MobileBookContainer(
+                return const StatisticContainerMobile(
                   title: 'Title',
                   content: 'Content',
                 );
@@ -79,9 +74,13 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
             physics: const BouncingScrollPhysics(),
             reverse: false,
             scrollDirection: Axis.vertical,
-            itemCount: 100,
+            shrinkWrap: true,
+            itemCount: 2,
             itemBuilder: (_, counter) {
-              return Container();
+              return BookContainerMobile(
+                date: DateTime.now(),
+                title: 'First Entry',
+              );
             },
           ),
         ],
