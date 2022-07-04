@@ -27,9 +27,11 @@ class WidgetRouter extends StatelessWidget {
     _routeName = Routes.unknownscreen;
   }
 
+  // TODO: make final
+
   /// Whether the App is running on a
   /// Desktop OS (true) or not (false) (mostly mobile)
-  static late final bool isDesktop;
+  static late bool isDesktop;
 
   /// Route Name the Widget Router works with
   late final String _routeName;

@@ -14,17 +14,23 @@ class Themes {
     return ThemeData(
       /* General */
       useMaterial3: true,
+      brightness: Brightness.light,
 
       /* Colors */
+      scaffoldBackgroundColor: Colors.white,
+      backgroundColor: Colors.white,
+      dialogBackgroundColor: Colors.white,
 
       /* Icon Themes */
       iconTheme: const IconThemeData(
         color: Colors.black,
-        opacity: 0.0,
-        shadows: <Shadow>[
-          BoxShadow(),
-          Shadow(),
-        ],
+        opacity: 1.0,
+      ),
+
+      appBarTheme: AppBarTheme(
+        centerTitle: true,
+        color: Colors.blue.shade800,
+        foregroundColor: Colors.white,
       ),
 
       // Bottom Navigation Bar Theme
@@ -32,6 +38,16 @@ class Themes {
         elevation: 10.0,
         enableFeedback: true,
         landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
+        selectedIconTheme: const IconThemeData(
+          color: Colors.white,
+          opacity: 1.0,
+        ),
+        unselectedIconTheme: const IconThemeData(
+          color: Colors.white,
+          opacity: 1.0,
+        ),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
         showSelectedLabels: true,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.shifting,
@@ -42,6 +58,8 @@ class Themes {
     );
   }
 
+  /// Returns the Mouse Curser for the Bottom Navigation Bar
+  /// in the light Mode, depending on the Material State
   static MouseCursor _lightBottomNavigationBarMouseCursor(
       Set<MaterialState> states) {
     const localStates = <MaterialState>{
