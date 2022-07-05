@@ -1,7 +1,8 @@
 library models;
 
 import 'package:flutter/material.dart' show Image;
-import 'package:hive/hive.dart';
+import 'package:hive/hive.dart'
+    show BinaryReader, BinaryWriter, HiveField, HiveType, TypeAdapter;
 
 part 'book.g.dart';
 

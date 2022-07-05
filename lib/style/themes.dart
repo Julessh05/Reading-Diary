@@ -32,12 +32,14 @@ class Themes {
         centerTitle: true,
         color: Colors.blue.shade800,
         foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(30),
+            bottomRight: Radius.circular(30),
+          ),
         ),
       ),
-
-      bottomAppBarTheme: BottomAppBarTheme(),
+      bottomAppBarTheme: const BottomAppBarTheme(),
 
       // Bottom Navigation Bar Theme
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -82,11 +84,86 @@ class Themes {
         ),
       ),
 
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          alignment: Alignment.center,
+          backgroundColor: MaterialStateProperty.all(Colors.blue.shade800),
+          foregroundColor: MaterialStateProperty.all(Colors.white),
+        ),
+      ),
+
+      textButtonTheme: const TextButtonThemeData(
+        style: ButtonStyle(
+          alignment: Alignment.center,
+          enableFeedback: true,
+        ),
+      ),
+
       // Scroll Bar Theme
       scrollbarTheme: ScrollbarThemeData(
         interactive: true,
         radius: const Radius.circular(20),
         thumbVisibility: MaterialStateProperty.all<bool>(true),
+      ),
+
+      // Input Decoration Theme
+      inputDecorationTheme: InputDecorationTheme(
+        alignLabelWithHint: true,
+        filled: false,
+        floatingLabelAlignment: FloatingLabelAlignment.center,
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        helperMaxLines: 2,
+        isCollapsed: false,
+        isDense: false,
+        floatingLabelStyle: TextStyle(color: Colors.blue.shade800),
+        border: OutlineInputBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          borderSide: BorderSide(
+            color: Colors.blue.shade800,
+            style: BorderStyle.solid,
+            width: 0.7,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          borderSide: BorderSide(
+            color: Colors.red.shade800,
+            style: BorderStyle.solid,
+            width: 0.7,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          borderSide: BorderSide(
+            color: Colors.blue.shade800,
+            style: BorderStyle.solid,
+            width: 0.5,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          borderSide: BorderSide(
+            color: Colors.blue.shade800,
+            style: BorderStyle.solid,
+            width: 0.7,
+          ),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          borderSide: BorderSide(
+            color: Colors.grey.shade300,
+            style: BorderStyle.solid,
+            width: 0.3,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          borderSide: BorderSide(
+            color: Colors.red.shade800,
+            style: BorderStyle.solid,
+            width: 1.0,
+          ),
+        ),
       ),
     );
   }

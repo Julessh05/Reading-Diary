@@ -13,7 +13,7 @@ class HomescreenBloc extends Bloc {
   /// on the Homescreen.
   int _currentBottomNavigationBarIndex = 0;
 
-  /// Wether the Floating Action Button should be extended or no .
+  /// Whether the Floating Action Button should be extended or no .
   bool fabExtended = true;
 
   /// getter for the current Index of the Navigation Bar.
@@ -27,7 +27,7 @@ class HomescreenBloc extends Bloc {
   }
 
   void onFabTap(BuildContext context) {
-    Navigator.pushNamed(context, Routes.unknownscreen);
+    Navigator.pushNamed(context, Routes.addEntryScreen);
   }
 
   @override

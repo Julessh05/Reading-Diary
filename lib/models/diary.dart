@@ -8,7 +8,7 @@ import 'package:reading_diary/models/diary_entry.dart';
 class Diary {
   /// A List of all Entries
   /// stored in this Diary
-  static const List<DiaryEntry> _entries = [];
+  static final List<DiaryEntry> _entries = [];
 
   /// Returns an umodifiable View
   /// of the List containing all Entries.

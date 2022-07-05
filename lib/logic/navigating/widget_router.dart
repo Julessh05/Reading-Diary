@@ -2,9 +2,12 @@ library logic;
 
 import 'package:bloc_implementation/bloc_implementation.dart';
 import 'package:flutter/material.dart';
+import 'package:reading_diary/blocs/add_entry_bloc.dart';
 import 'package:reading_diary/blocs/homescreen_bloc.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
+import 'package:reading_diary/screens/desktop/add_entry_screen_desktop.dart';
 import 'package:reading_diary/screens/desktop/homescreen_desktop.dart';
+import 'package:reading_diary/screens/mobile/add_entry_screen_mobile.dart';
 import 'package:reading_diary/screens/mobile/homescreen_mobile.dart';
 import 'package:reading_diary/screens/shared/unknown_screen.dart';
 
@@ -20,6 +23,12 @@ class WidgetRouter extends StatelessWidget {
   /// Widget Router for the Homescreen
   WidgetRouter.homescreen({Key? key}) : super(key: key) {
     _routeName = Routes.homescreen;
+  }
+
+  /// Widget Router to push the Screen with which you can
+  /// add a new Diary Entry
+  WidgetRouter.addEntryScreen({Key? key}) : super(key: key) {
+    _routeName = Routes.addEntryScreen;
   }
 
   /// Shows the Unknown Screen
@@ -46,6 +55,14 @@ class WidgetRouter extends StatelessWidget {
           bloc: HomescreenBloc(),
           child:
               isDesktop ? const HomescreenDesktop() : const HomescreenMobile(),
+        );
+
+      case Routes.addEntryScreen:
+        return BlocParent(
+          bloc: AddEntryBloc(),
+          child: isDesktop
+              ? const AddEntryScreenDesktop()
+              : const AddEntryScreenMobile(),
         );
 
       // Case for the Unknown Screen.

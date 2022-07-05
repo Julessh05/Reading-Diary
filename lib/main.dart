@@ -105,6 +105,7 @@ class ReadingDiary extends StatelessWidget {
   Map<String, Widget Function(BuildContext)> get _routes {
     return {
       Routes.homescreen: (_) => WidgetRouter.homescreen(),
+      Routes.addEntryScreen: (_) => WidgetRouter.addEntryScreen(),
       Routes.unknownscreen: (_) => WidgetRouter.unknownScreen(),
     };
   }

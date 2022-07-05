@@ -11,4 +11,9 @@ class Routes {
   /// is never shown on purpose.
   /// Only used in Production.
   static const String unknownscreen = '/unknown';
+
+  /// Route Name of the
+  /// Screen with which you can add
+  /// a new Entry to your Diary.
+  static const String addEntryScreen = '/add_entry';
 }

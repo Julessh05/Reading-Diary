@@ -24,11 +24,11 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// Bloc for the Homescreen.
   /// Is initialized once,
   /// shouldn't be changed
-  HomescreenBloc? bloc;
+  HomescreenBloc? _bloc;
 
   /// Scroll Controller for the
   /// Diary Screen.
-  /// Controlls wether the Floating Action Button
+  /// Controlls whether the Floating Action Button
   /// on that screen is extended or not.
   final ScrollController _diarySController = ScrollController();
 
@@ -39,12 +39,12 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
       if (_diarySController.position.userScrollDirection ==
           ScrollDirection.reverse) {
         setState(() {
-          bloc!.fabExtended = false;
+          _bloc!.fabExtended = false;
         });
       } else if (_diarySController.position.userScrollDirection ==
           ScrollDirection.forward) {
         setState(() {
-          bloc!.fabExtended = true;
+          _bloc!.fabExtended = true;
         });
       }
     });
@@ -54,7 +54,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   @override
   Widget build(BuildContext context) {
     // Init Bloc
-    bloc ??= BlocParent.of(context);
+    _bloc ??= BlocParent.of(context);
 
     return Scaffold(
       appBar: _appBar,
@@ -67,11 +67,11 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   }
 
   /// Returns the floating Action Button
-  /// depending on the current Index [bloc.currentBNBIndex] of the
+  /// depending on the current Index [_bloc.currentBNBIndex] of the
   /// Bottom Navigation Bar.
   Widget? get _fab {
     final Set<Widget?> afab = {null, _diaryFab};
-    return afab.elementAt(bloc!.currentBNBIndex);
+    return afab.elementAt(_bloc!.currentBNBIndex);
   }
 
   /// Extended Floating Action Button
@@ -80,7 +80,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// Only shown if you scroll upwards.
   FloatingActionButton get _diaryEFab {
     return FloatingActionButton.extended(
-      onPressed: () => bloc!.onFabTap(context),
+      onPressed: () => _bloc!.onFabTap(context),
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       label: Text('Add Entry'.tr()),
@@ -96,7 +96,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// bother the user.
   FloatingActionButton get _shrinkedDiaryFab {
     return FloatingActionButton(
-      onPressed: () => bloc!.onFabTap(context),
+      onPressed: () => _bloc!.onFabTap(context),
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       isExtended: false,
@@ -117,7 +117,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
       child: AnimatedCrossFade(
         duration: aDur,
         reverseDuration: aDur,
-        crossFadeState: bloc!.fabExtended
+        crossFadeState: _bloc!.fabExtended
             ? CrossFadeState.showFirst
             : CrossFadeState.showSecond,
         firstChild: _diaryEFab,
@@ -133,7 +133,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// bottom navigation bar.
   AppBar get _appBar {
     final Set<AppBar> aB = {_homeAppBar, _diaryAppBar};
-    return aB.elementAt(bloc!.currentBNBIndex);
+    return aB.elementAt(_bloc!.currentBNBIndex);
   }
 
   /// The AppBar for the mobile
@@ -158,7 +158,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// at the current Index.
   Scrollbar get _body {
     final Set<Scrollbar> pB = {_homeBody, _diaryBody};
-    return pB.elementAt(bloc!.currentBNBIndex);
+    return pB.elementAt(_bloc!.currentBNBIndex);
   }
 
   /// The Body of the mobile
@@ -248,8 +248,8 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: BottomNavigationBar(
-        currentIndex: bloc!.currentBNBIndex,
-        onTap: (newI) => setState(() => bloc!.onBNBTap(newI)),
+        currentIndex: _bloc!.currentBNBIndex,
+        onTap: (newI) => setState(() => _bloc!.onBNBTap(newI)),
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: const Icon(Icons.home_outlined),

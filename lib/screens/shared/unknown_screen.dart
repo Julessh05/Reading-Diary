@@ -3,12 +3,18 @@ library shared_screens;
 import 'package:flutter/material.dart';
 import 'package:string_translate/string_translate.dart';
 
+/// The Screen shown when something went wrong
+/// and the original screen wasn't found
 class UnknwonScreen extends StatelessWidget {
   const UnknwonScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        title: const Text('Huhh?'),
+      ),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
