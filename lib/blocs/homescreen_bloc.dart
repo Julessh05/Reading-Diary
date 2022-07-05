@@ -33,8 +33,18 @@ class HomescreenBloc extends Bloc {
     _currentBottomNavigationBarIndex = newIndex;
   }
 
-  Future<void> onFabTap(BuildContext context) async {
+  /// Called when the Button the
+  /// the Diary Screen
+  /// is tapped
+  Future<void> onDiaryFabTap(BuildContext context) async {
     Navigator.pushNamed(context, Routes.addEntryScreen);
+  }
+
+  /// Called when the Button the
+  /// the Wishlist Screen
+  /// is tapped
+  Future<void> onWishlistFabTap(BuildContext context) async {
+    Navigator.pushNamed(context, Routes.addWishScreen);
   }
 
   @override

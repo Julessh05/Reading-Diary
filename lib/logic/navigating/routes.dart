@@ -20,4 +20,8 @@ class Routes {
   /// The Route Name of the Screen used
   /// to add a new Book
   static const String addBookScreen = '/add_book';
+
+  /// Route Name for the screen with which you can
+  /// add a Wish to your Wishlist.
+  static const String addWishScreen = '/add_wish';
 }

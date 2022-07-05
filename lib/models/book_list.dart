@@ -6,6 +6,7 @@ import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/storage/storage.dart';
 
 class BookList {
+  /// The Actual List of Books
   static final List<Book> _books = [];
 
   /// List of all Books the User stored.

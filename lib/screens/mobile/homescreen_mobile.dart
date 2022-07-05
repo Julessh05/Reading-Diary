@@ -100,7 +100,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// Only shown if you scroll upwards.
   FloatingActionButton get _diaryEFab {
     return FloatingActionButton.extended(
-      onPressed: () => _bloc!.onFabTap(context).then(
+      onPressed: () => _bloc!.onDiaryFabTap(context).then(
             (value) => setState(() {}),
           ),
       autofocus: false,
@@ -108,7 +108,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
       label: Text('Add Entry'.tr()),
       icon: const Icon(Icons.note_add_rounded),
       isExtended: true,
-      heroTag: 'Extended Floating Action Button',
+      heroTag: 'Extended Diary Floating Action Button',
     );
   }
 
@@ -118,13 +118,13 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// bother the user.
   FloatingActionButton get _shrinkedDiaryFab {
     return FloatingActionButton(
-      onPressed: () => _bloc!.onFabTap(context).then(
+      onPressed: () => _bloc!.onDiaryFabTap(context).then(
             (value) => setState(() {}),
           ),
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       isExtended: false,
-      heroTag: 'Shrinked Floating Action Button',
+      heroTag: 'Shrinked Diary Floating Action Button',
       child: const Icon(Icons.note_add_rounded),
     );
   }
@@ -265,7 +265,10 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
 
   /// AppBar for the Wishlist screen
   AppBar get _wishlistAppBar {
-    return AppBar();
+    return AppBar(
+      automaticallyImplyLeading: false,
+      title: Text('Wishlist'.tr()),
+    );
   }
 
   /// Body of the Wishlist Screen.
@@ -316,13 +319,32 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// The disabled Version of the Floating Action Button
   /// used to add a new Wish on the Wishlist.
   FloatingActionButton get _shrinkedWishlistFab {
-    return FloatingActionButton(onPressed: () {});
+    return FloatingActionButton(
+      onPressed: () => _bloc!.onWishlistFabTap(context).then(
+            (value) => setState(() {}),
+          ),
+      autofocus: false,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      isExtended: false,
+      heroTag: 'Shrinked Wishlist Floating Action Button',
+      child: const Icon(Icons.bookmark_add_rounded),
+    );
   }
 
   /// The enabled Version of the Floating Action Button
   /// used to add a new Wish on the Wishlist.
   FloatingActionButton get _wishlistEFab {
-    return FloatingActionButton(onPressed: () {});
+    return FloatingActionButton.extended(
+      onPressed: () => _bloc!.onWishlistFabTap(context).then(
+            (value) => setState(() {}),
+          ),
+      autofocus: false,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      label: Text('Add Wish'.tr()),
+      icon: const Icon(Icons.note_add_rounded),
+      isExtended: true,
+      heroTag: 'Extended Wishlist Floating Action Button',
+    );
   }
 
   /// Bottom Navigation Bar for
