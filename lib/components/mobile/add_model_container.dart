@@ -6,7 +6,9 @@ import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show MaxLengthEnforcement;
 
-/// A Container with an input Dialog and a
+/// A Container with an input field and
+/// the Option to replace that input field
+/// with your own Widget [child]
 class AddModelContainer extends StatelessWidget {
   const AddModelContainer({
     required this.name,
@@ -28,13 +30,38 @@ class AddModelContainer extends StatelessWidget {
         ),
         super(key: key);
 
+  /// The Name of the Input Field.
+  /// Shown on top of the Field
   final String name;
+
+  /// Whether or not the Field should be targeted
+  /// by autofocus
   final bool autofocus;
+
+  /// The Keyboard Type for the
+  /// TextField
   final TextInputType keyboardType;
+
+  /// The Text Input Action, determining what
+  /// should be done after filling in the
+  /// TextField
   final TextInputAction textInputAction;
+
+  /// The max Lines for the TextField
   final int? maxLines;
+
+  /// The Function beeing called, when the
+  /// User has finished entering
+  /// his Text
   final void Function(String)? done;
+
+  /// An Optional child Widget,
+  /// if you don't need a TextField
   final Widget? child;
+
+  /// If you want the Card
+  /// to be bigger than normal,
+  /// set this to true.
   final bool big;
 
   @override

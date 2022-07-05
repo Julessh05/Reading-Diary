@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 
 /// Bloc for the Add Book Screens
 class AddBookBloc extends Bloc {
+  /// The Variable that determines whether the
+  /// Done Button is enabled or not.
+  bool _doneButtonEnabled = false;
+
   /// Title of the Book
   String _title = '';
 
@@ -17,6 +21,9 @@ class AddBookBloc extends Bloc {
   /// The number of pages this
   /// book has
   int _pages = 0;
+
+  /// The Page the user is currently on
+  int? _currentPage;
 
   /// Notes you have to that book.
   String _notes = '';
@@ -36,11 +43,26 @@ class AddBookBloc extends Bloc {
   /// Setter for the Pages this Book has
   set pages(int pages) => _pages = pages;
 
+  /// Setter for The Page the user is currently on
+  set currentPage(int page) => _currentPage = page;
+
   /// Setter for the Notes you have to that Book
   set notes(String notes) => _notes = notes;
 
   /// Setter for the Price of the Book
   set price(double price) => _price = price;
+
+  /// The Variable that determines whether the
+  /// Done Button is enabled or not.
+  bool get doneButtonEnabled => _doneButtonEnabled;
+
+  void checkForVars() {
+    if (_title.isNotEmpty && _pages < 0) {
+      _doneButtonEnabled = true;
+    } else {
+      _doneButtonEnabled = false;
+    }
+  }
 
   @override
   void dispose() {}

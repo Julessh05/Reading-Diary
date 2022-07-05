@@ -134,12 +134,13 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
                   _bloc!.doneButtonEnabled ? _enabledButton : _disabledButton,
             ),
           ),
-          const SizedBox(height: 20)
+          const SizedBox(height: 20),
         ],
       ),
     );
   }
 
+  /// The enabled done Button
   ElevatedButton get _enabledButton {
     return ElevatedButton(
       autofocus: false,
@@ -157,6 +158,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
     );
   }
 
+  /// The Disabled done Button
   ElevatedButton get _disabledButton {
     return ElevatedButton(
       autofocus: false,
