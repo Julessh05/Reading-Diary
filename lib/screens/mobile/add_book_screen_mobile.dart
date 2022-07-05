@@ -50,7 +50,7 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           textBaseline: TextBaseline.alphabetic,
           textDirection: TextDirection.ltr,
           children: <Widget>[
@@ -97,8 +97,10 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
               name: 'Price'.tr(),
               done: (str) {
                 _bloc!.price = double.parse(str);
-                _bloc!.createBook();
-                Navigator.pop(context);
+                final success = _bloc!.createBook();
+                if (!success) {
+                  // TODO: implement Dialog
+                }
               },
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.done,

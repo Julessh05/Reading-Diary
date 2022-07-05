@@ -5,6 +5,7 @@ import 'dart:collection' show UnmodifiableListView;
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/storage/storage.dart';
 
+/// Represents the List of all Books.
 class BookList {
   /// The Actual List of Books
   static final List<Book> _books = [];

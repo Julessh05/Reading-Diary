@@ -72,7 +72,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           textBaseline: TextBaseline.alphabetic,
           textDirection: TextDirection.ltr,
           verticalDirection: VerticalDirection.down,
