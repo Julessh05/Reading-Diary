@@ -9,7 +9,7 @@ import 'package:flutter/services.dart' show MaxLengthEnforcement;
 /// A Container with an input field and
 /// the Option to replace that input field
 /// with your own Widget [child]
-class AddModelContainer extends StatelessWidget {
+class AddModelContainer extends StatefulWidget {
   const AddModelContainer({
     required this.name,
     this.autofocus = false,
@@ -65,9 +65,14 @@ class AddModelContainer extends StatelessWidget {
   final bool big;
 
   @override
+  State<AddModelContainer> createState() => _AddModelContainerState();
+}
+
+class _AddModelContainerState extends State<AddModelContainer> {
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: big
+      height: widget.big
           ? MediaQuery.of(context).size.height / 3.3
           : MediaQuery.of(context).size.height / 4.5,
       child: Card(
@@ -98,17 +103,14 @@ class AddModelContainer extends StatelessWidget {
             textDirection: TextDirection.ltr,
             verticalDirection: VerticalDirection.down,
             children: [
-              Text(
-                name,
-                style: _tStyle,
-              ),
+              Text(widget.name, style: _tStyle),
               const SizedBox(height: 18),
-              child ??
+              widget.child ??
                   SizedBox(
                     height: 80,
                     child: TextField(
                       autocorrect: true,
-                      autofocus: autofocus,
+                      autofocus: widget.autofocus,
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       dragStartBehavior: DragStartBehavior.down,
                       enableIMEPersonalizedLearning: true,
@@ -119,7 +121,7 @@ class AddModelContainer extends StatelessWidget {
                       obscureText: false,
                       keyboardAppearance: Theme.of(context).brightness,
                       scrollPhysics: const BouncingScrollPhysics(),
-                      keyboardType: keyboardType,
+                      keyboardType: widget.keyboardType,
                       readOnly: false,
                       smartDashesType: SmartDashesType.enabled,
                       smartQuotesType: SmartQuotesType.enabled,
@@ -135,14 +137,14 @@ class AddModelContainer extends StatelessWidget {
                       scribbleEnabled: true,
                       selectionControls: MaterialTextSelectionControls(),
                       textDirection: TextDirection.ltr,
-                      textInputAction: textInputAction,
-                      maxLines: maxLines,
+                      textInputAction: widget.textInputAction,
+                      maxLines: widget.maxLines,
                       minLines: 1,
                       selectionHeightStyle: BoxHeightStyle.tight,
                       selectionWidthStyle: BoxWidthStyle.tight,
                       showCursor: true,
-                      onSubmitted: done,
-                      onChanged: done,
+                      onSubmitted: widget.done,
+                      onChanged: widget.done,
                       maxLengthEnforcement:
                           MaxLengthEnforcement.truncateAfterCompositionEnds,
                     ),

@@ -57,7 +57,7 @@ class AddBookBloc extends Bloc {
   bool get doneButtonEnabled => _doneButtonEnabled;
 
   void checkForVars() {
-    if (_title.isNotEmpty && _pages < 0) {
+    if (_title.isNotEmpty && _pages > 0) {
       _doneButtonEnabled = true;
     } else {
       _doneButtonEnabled = false;

@@ -40,74 +40,78 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
   /// Body for this Screen.
   Widget get _body {
     return Scrollbar(
-      child: ListView(
-        addAutomaticKeepAlives: true,
-        addRepaintBoundaries: true,
-        addSemanticIndexes: true,
+      child: SingleChildScrollView(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         dragStartBehavior: DragStartBehavior.down,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         physics: const BouncingScrollPhysics(),
         reverse: false,
         scrollDirection: Axis.vertical,
-        children: <Widget>[
-          AddModelContainer(
-            name: 'Title'.tr(),
-            done: (str) {
-              setState(() {
-                _bloc!.title = str;
-                _bloc!.checkForVars();
-              });
-            },
-            autofocus: true,
-            maxLines: 1,
-          ),
-          AddModelContainer(
-            name: 'Author'.tr(),
-            done: (str) => _bloc!.author = str,
-            maxLines: 1,
-          ),
-
-          // TODO: add option to add am Image
-
-          AddModelContainer(
-            name: 'Pages'.tr(),
-            done: (str) {
-              setState(() {
-                _bloc!.pages = int.parse(str);
-                _bloc!.checkForVars();
-              });
-            },
-            keyboardType: TextInputType.number,
-          ),
-          AddModelContainer(
-            name: 'Current Page'.tr(),
-            done: (str) => _bloc!.currentPage = int.parse(str),
-            keyboardType: TextInputType.number,
-          ),
-          AddModelContainer(
-            name: 'Notes'.tr(),
-            done: (str) => _bloc!.notes = str,
-            maxLines: 1000,
-          ),
-          AddModelContainer(
-            name: 'Price'.tr(),
-            done: (str) => _bloc!.price = double.parse(str),
-            keyboardType: TextInputType.number,
-            textInputAction: TextInputAction.done,
-          ),
-          FittedBox(
-            alignment: Alignment.center,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            fit: BoxFit.scaleDown,
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child:
-                  _bloc!.doneButtonEnabled ? _enabledButton : _disabledButton,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          textBaseline: TextBaseline.alphabetic,
+          textDirection: TextDirection.ltr,
+          children: <Widget>[
+            AddModelContainer(
+              name: 'Title'.tr(),
+              done: (str) {
+                setState(() {
+                  _bloc!.title = str;
+                  _bloc!.checkForVars();
+                });
+              },
+              autofocus: true,
+              maxLines: 1,
             ),
-          ),
-          const SizedBox(height: 20),
-        ],
+            AddModelContainer(
+              name: 'Author'.tr(),
+              done: (str) => _bloc!.author = str,
+              maxLines: 1,
+            ),
+
+            // TODO: add option to add am Image
+
+            AddModelContainer(
+              name: 'Pages'.tr(),
+              done: (str) {
+                setState(() {
+                  _bloc!.pages = int.parse(str);
+                  _bloc!.checkForVars();
+                });
+              },
+              keyboardType: TextInputType.number,
+            ),
+            AddModelContainer(
+              name: 'Current Page'.tr(),
+              done: (str) => _bloc!.currentPage = int.parse(str),
+              keyboardType: TextInputType.number,
+            ),
+            AddModelContainer(
+              name: 'Notes'.tr(),
+              done: (str) => _bloc!.notes = str,
+              maxLines: 1000,
+            ),
+            AddModelContainer(
+              name: 'Price'.tr(),
+              done: (str) => _bloc!.price = double.parse(str),
+              keyboardType: TextInputType.number,
+              textInputAction: TextInputAction.done,
+            ),
+            FittedBox(
+              alignment: Alignment.center,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              fit: BoxFit.scaleDown,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child:
+                    _bloc!.doneButtonEnabled ? _enabledButton : _disabledButton,
+              ),
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

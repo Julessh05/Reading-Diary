@@ -62,80 +62,84 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
   /// Body for the Mobile Add Entry Screen.
   Scrollbar get _body {
     return Scrollbar(
-      child: ListView(
-        addAutomaticKeepAlives: true,
-        addRepaintBoundaries: true,
-        addSemanticIndexes: true,
+      child: SingleChildScrollView(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         dragStartBehavior: DragStartBehavior.down,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         physics: const BouncingScrollPhysics(),
         reverse: false,
         scrollDirection: Axis.vertical,
-        children: <Widget>[
-          AddModelContainer(
-            name: 'Title'.tr(),
-            autofocus: true,
-            maxLines: 1,
-            done: (title) => _bloc!.entryTitle = title,
-          ),
-          AddModelContainer(
-            name: 'Content'.tr(),
-            done: (ct) {
-              setState(() {
-                _bloc!.entryContent = ct;
-                _bloc!.checkForVars();
-              });
-            },
-          ),
-          AddModelContainer(
-            name: 'Date'.tr(),
-            child: _dateContainer,
-          ),
-
-          // TODO: add possibility to add an Image
-
-          AddModelContainer(
-            name: 'Book'.tr(),
-            child: DropdownButton<String>(
-              items: _bookDropDownItems,
-              alignment: Alignment.center,
-              autofocus: false,
-              enableFeedback: true,
-              value:
-                  _bloc!.entryBook == null ? 'None' : _bloc!.entryBook!.title,
-              onChanged: (bookName) {
-                if (bookName == null || bookName == 'None') {
-                  _bloc!.entryBook = null;
-                } else if (bookName == _addBookIdentifier) {
-                  _bloc!
-                      .openAddBookScreen(context)
-                      .then((value) => setState(() {}));
-                } else {
-                  _bloc!.entryBook = BookList.books
-                      .where((element) => element.title == bookName)
-                      .first;
-                }
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          textBaseline: TextBaseline.alphabetic,
+          textDirection: TextDirection.ltr,
+          verticalDirection: VerticalDirection.down,
+          children: <Widget>[
+            AddModelContainer(
+              name: 'Title'.tr(),
+              autofocus: true,
+              maxLines: 1,
+              done: (title) => _bloc!.entryTitle = title,
+            ),
+            AddModelContainer(
+              name: 'Content'.tr(),
+              done: (ct) {
+                setState(() {
+                  _bloc!.entryContent = ct;
+                  _bloc!.checkForVars();
+                });
               },
             ),
-          ),
-          AddModelContainer(
-            name: 'Pages read'.tr(),
-            big: true,
-            child: _pagesReadChild,
-          ),
-          FittedBox(
-            alignment: Alignment.center,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            fit: BoxFit.scaleDown,
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child:
-                  _bloc!.doneButtonEnabled ? _enabledButton : _disabledButton,
+            AddModelContainer(
+              name: 'Date'.tr(),
+              child: _dateContainer,
             ),
-          ),
-          const SizedBox(height: 20),
-        ],
+
+            // TODO: add possibility to add an Image
+            AddModelContainer(
+              name: 'Book'.tr(),
+              child: DropdownButton<String>(
+                items: _bookDropDownItems,
+                alignment: Alignment.center,
+                autofocus: false,
+                enableFeedback: true,
+                value:
+                    _bloc!.entryBook == null ? 'None' : _bloc!.entryBook!.title,
+                onChanged: (bookName) {
+                  if (bookName == null || bookName == 'None') {
+                    _bloc!.entryBook = null;
+                  } else if (bookName == _addBookIdentifier) {
+                    _bloc!
+                        .openAddBookScreen(context)
+                        .then((value) => setState(() {}));
+                  } else {
+                    _bloc!.entryBook = BookList.books
+                        .where((element) => element.title == bookName)
+                        .first;
+                  }
+                },
+              ),
+            ),
+            AddModelContainer(
+              name: 'Pages read'.tr(),
+              big: true,
+              child: _pagesReadChild,
+            ),
+            FittedBox(
+              alignment: Alignment.center,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              fit: BoxFit.scaleDown,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child:
+                    _bloc!.doneButtonEnabled ? _enabledButton : _disabledButton,
+              ),
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

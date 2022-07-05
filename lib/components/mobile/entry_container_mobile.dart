@@ -1,14 +1,17 @@
 library mobile_components;
 
 import 'package:flutter/material.dart';
-import 'package:reading_diary/models/diary_entry.dart';
+import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
 
+/// A Container to display a single Diary Entry
+/// on mobile Devices.
 class EntryContainerMobile extends StatelessWidget {
   const EntryContainerMobile({
     required this.entry,
     Key? key,
   }) : super(key: key);
 
+  /// The Entry this Container correpsonds to
   final DiaryEntry entry;
 
   @override
