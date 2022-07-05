@@ -7,7 +7,7 @@ import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show MaxLengthEnforcement;
 import 'package:reading_diary/blocs/add_entry_bloc.dart';
-import 'package:reading_diary/components/mobile/add_entry_container.dart';
+import 'package:reading_diary/components/mobile/add_model_container.dart';
 import 'package:reading_diary/models/book.dart';
 import 'package:reading_diary/models/book_list.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
@@ -22,6 +22,11 @@ class AddEntryScreenMobile extends StatefulWidget {
 }
 
 class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
+  /// String which is used
+  /// in the Dropdown Menu, if the User wants to add
+  /// a new Book
+  static const String _addBookIdentifier = '<new_book>';
+
   /// Corresponding Bloc for this Widget.
   /// Should only be set once.
   AddEntryBloc? _bloc;
@@ -68,13 +73,13 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
         reverse: false,
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          AddEntryContainer(
+          AddModelContainer(
             name: 'Title'.tr(),
             autofocus: true,
             maxLines: 1,
             done: (title) => _bloc!.entryTitle = title,
           ),
-          AddEntryContainer(
+          AddModelContainer(
             name: 'Content'.tr(),
             done: (ct) {
               setState(() {
@@ -83,40 +88,38 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
               });
             },
           ),
-          AddEntryContainer(
+          AddModelContainer(
             name: 'Date'.tr(),
-            child: ElevatedButton(
-              onPressed: _dateDialog,
-              autofocus: false,
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              child: Text('Pick a Date'.tr()),
-            ),
+            child: _dateContainer,
           ),
 
           // TODO: add possibility to add an Image
 
-          AddEntryContainer(
+          AddModelContainer(
             name: 'Book'.tr(),
             child: DropdownButton<String>(
               items: _bookDropDownItems,
               alignment: Alignment.center,
               autofocus: false,
               enableFeedback: true,
-              value: _bloc!.book == null ? 'None' : _bloc!.book!.name,
+              value:
+                  _bloc!.entryBook == null ? 'None' : _bloc!.entryBook!.title,
               onChanged: (bookName) {
-                if (bookName == null) {
+                if (bookName == null || bookName == 'None') {
                   _bloc!.entryBook = null;
-                } else if (bookName == 'None') {
-                  _bloc!.entryBook = null;
+                } else if (bookName == _addBookIdentifier) {
+                  _bloc!
+                      .openAddBookScreen(context)
+                      .then((value) => setState(() {}));
                 } else {
                   _bloc!.entryBook = BookList.books
-                      .where((element) => element.name == bookName)
+                      .where((element) => element.title == bookName)
                       .first;
                 }
               },
             ),
           ),
-          AddEntryContainer(
+          AddModelContainer(
             name: 'Pages read'.tr(),
             big: true,
             child: _pagesReadChild,
@@ -192,14 +195,14 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
         DropdownMenuItem(
           alignment: Alignment.center,
           enabled: true,
-          value: book.name,
+          value: book.title,
           onTap: () {
             setState(() {
               _bloc!.entryBook = book;
               _pagesRead = RangeValues(0, book.pages.toDouble());
             });
           },
-          child: Text(book.name),
+          child: Text(book.title),
         ),
       );
     }
@@ -207,10 +210,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
       DropdownMenuItem(
         alignment: Alignment.center,
         enabled: true,
-        value: null,
-        onTap: () {
-          // TODO: implement onTap
-        },
+        value: _addBookIdentifier,
         child: Text(
           'Add Book'.tr(),
         ),
@@ -223,7 +223,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
   /// Returns the Widget with which you
   /// can make an input, of how many pages you read.
   Widget get _pagesReadChild {
-    if (_bloc!.book == null) {
+    if (_bloc!.entryBook == null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -340,8 +340,8 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
           const SizedBox(height: 25),
           RangeSlider(
             min: 0.0,
-            max: _bloc!.book!.pages.toDouble(),
-            divisions: _bloc!.book!.pages,
+            max: _bloc!.entryBook!.pages.toDouble(),
+            divisions: _bloc!.entryBook!.pages,
             onChanged: (RangeValues value) {
               setState(() {
                 _pagesRead = value;
@@ -362,28 +362,91 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
     }
   }
 
+  /// The Container that either shows
+  /// a Button to choose the Date or
+  /// the chosen Date.
+  Widget get _dateContainer {
+    if (_bloc!.entryDate == null) {
+      return Column(
+        children: [
+          ElevatedButton(
+            onPressed: _dateDialog,
+            autofocus: false,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            child: Text('Pick a Date'.tr()),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            '${'Current Date:'.tr()} ${DateTime.now().day}.${DateTime.now().month}.${DateTime.now().year}',
+          )
+        ],
+      );
+    } else {
+      return GestureDetector(
+        dragStartBehavior: DragStartBehavior.down,
+        behavior: HitTestBehavior.translucent,
+        onTap: _dateDialog,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          textBaseline: TextBaseline.alphabetic,
+          textDirection: TextDirection.ltr,
+          children: [
+            const SizedBox(height: 10),
+            Text(
+              '${_bloc!.entryDate!.day}.${_bloc!.entryDate!.month}.${_bloc!.entryDate!.year}',
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w400,
+                fontStyle: FontStyle.normal,
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text('Tap to change'.tr()),
+          ],
+        ),
+      );
+    }
+  }
+
   /// Returns the Dialog to choose a Date
   /// for this Entry
   void _dateDialog() async {
     _bloc!.entryDate = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2005),
-        lastDate: DateTime(2222, 02, 22),
-        cancelText: 'Cancel'.tr(),
-        confirmText: 'Confirm'.tr(),
-        currentDate: DateTime.now(),
-        initialDatePickerMode: DatePickerMode.day,
-        initialEntryMode: DatePickerEntryMode.calendar,
-        textDirection: TextDirection.ltr,
-        keyboardType: TextInputType.datetime,
-        builder: (_, child) {
-          return Theme(
-            data: ThemeData(
-              primaryColor: Colors.blue.shade800,
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2005),
+      lastDate: DateTime(2222, 02, 22),
+      cancelText: 'Cancel'.tr(),
+      confirmText: 'Confirm'.tr(),
+      currentDate: DateTime.now(),
+      initialDatePickerMode: DatePickerMode.day,
+      initialEntryMode: DatePickerEntryMode.calendar,
+      textDirection: TextDirection.ltr,
+      keyboardType: TextInputType.datetime,
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            dialogBackgroundColor: Colors.white,
+            colorScheme: ColorScheme(
+              brightness: Brightness.light,
+              primary: Colors.blue.shade800,
+              onPrimary: Colors.white,
+              secondary: Colors.white,
+              onSecondary: Colors.black,
+              error: Colors.red,
+              onError: Colors.white,
+              background: Colors.white,
+              onBackground: Colors.black,
+              surface: Colors.blue.shade900,
+              onSurface: Colors.black,
             ),
-            child: child!,
-          );
-        });
+          ),
+          child: child!,
+        );
+      },
+    );
+    setState(() {});
   }
 }

@@ -16,4 +16,8 @@ class Routes {
   /// Screen with which you can add
   /// a new Entry to your Diary.
   static const String addEntryScreen = '/add_entry';
+
+  /// The Route Name of the Screen used
+  /// to add a new Book
+  static const String addBookScreen = '/add_book';
 }

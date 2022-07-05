@@ -106,6 +106,7 @@ class ReadingDiary extends StatelessWidget {
     return {
       Routes.homescreen: (_) => WidgetRouter.homescreen(),
       Routes.addEntryScreen: (_) => WidgetRouter.addEntryScreen(),
+      Routes.addBookScreen: (_) => WidgetRouter.addBookScreen(),
       Routes.unknownscreen: (_) => WidgetRouter.unknownScreen(),
     };
   }

@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show MaxLengthEnforcement;
 
 /// A Container with an input Dialog and a
-class AddEntryContainer extends StatelessWidget {
-  const AddEntryContainer({
+class AddModelContainer extends StatelessWidget {
+  const AddModelContainer({
     required this.name,
     this.autofocus = false,
     this.keyboardType = TextInputType.text,

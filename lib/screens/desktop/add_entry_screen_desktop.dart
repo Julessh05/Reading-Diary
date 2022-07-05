@@ -12,6 +12,6 @@ class AddEntryScreenDesktop extends StatefulWidget {
 class _AddEntryScreenDesktopState extends State<AddEntryScreenDesktop> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

@@ -10,17 +10,17 @@ part 'book.g.dart';
 @HiveType(typeId: 0)
 class Book {
   const Book({
-    required this.name,
+    required this.title,
     this.author,
     this.image,
     required this.pages,
-    required this.currentPage,
+    this.currentPage,
     this.notes = '',
     this.price,
   });
 
   @HiveField(0)
-  final String name;
+  final String title;
 
   @HiveField(1)
   final String? author;
@@ -32,7 +32,7 @@ class Book {
   final int pages;
 
   @HiveField(4)
-  final int currentPage;
+  final int? currentPage;
 
   @HiveField(5)
   final String notes;

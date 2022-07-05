@@ -2,11 +2,14 @@ library logic;
 
 import 'package:bloc_implementation/bloc_implementation.dart';
 import 'package:flutter/material.dart';
+import 'package:reading_diary/blocs/add_book_bloc.dart';
 import 'package:reading_diary/blocs/add_entry_bloc.dart';
 import 'package:reading_diary/blocs/homescreen_bloc.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
+import 'package:reading_diary/screens/desktop/add_book_screen_desktop.dart';
 import 'package:reading_diary/screens/desktop/add_entry_screen_desktop.dart';
 import 'package:reading_diary/screens/desktop/homescreen_desktop.dart';
+import 'package:reading_diary/screens/mobile/add_book_screen_mobile.dart';
 import 'package:reading_diary/screens/mobile/add_entry_screen_mobile.dart';
 import 'package:reading_diary/screens/mobile/homescreen_mobile.dart';
 import 'package:reading_diary/screens/shared/unknown_screen.dart';
@@ -29,6 +32,12 @@ class WidgetRouter extends StatelessWidget {
   /// add a new Diary Entry
   WidgetRouter.addEntryScreen({Key? key}) : super(key: key) {
     _routeName = Routes.addEntryScreen;
+  }
+
+  /// Widget Router for the screen
+  /// with which you can add a new Book
+  WidgetRouter.addBookScreen({Key? key}) : super(key: key) {
+    _routeName = Routes.addBookScreen;
   }
 
   /// Shows the Unknown Screen
@@ -63,6 +72,14 @@ class WidgetRouter extends StatelessWidget {
           child: isDesktop
               ? const AddEntryScreenDesktop()
               : const AddEntryScreenMobile(),
+        );
+
+      case Routes.addBookScreen:
+        return BlocParent(
+          bloc: AddBookBloc(),
+          child: isDesktop
+              ? const AddBookScreenDesktop()
+              : const AddBookScreenMobile(),
         );
 
       // Case for the Unknown Screen.

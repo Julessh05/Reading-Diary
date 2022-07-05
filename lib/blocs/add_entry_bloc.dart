@@ -1,7 +1,9 @@
 library blocs;
 
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
-import 'package:flutter/material.dart' show Image, RangeValues;
+import 'package:flutter/material.dart'
+    show BuildContext, Image, Navigator, RangeValues;
+import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/diary.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
@@ -15,7 +17,7 @@ class AddEntryBloc extends Bloc {
   String _entryContent = '';
 
   /// Date and Time of the Entry created
-  DateTime? _entryDate;
+  DateTime? entryDate;
 
   /// Corresponding Image to the Entry created
   Image? _entryImage;
@@ -25,7 +27,7 @@ class AddEntryBloc extends Bloc {
   RangeValues? _entryPages;
 
   /// The book this Entry corresponds to.
-  Book? _entryBook;
+  Book? entryBook;
 
   // Whether the Done Button is enabled or not.
   bool _doneButtonEnabled = false;
@@ -36,21 +38,11 @@ class AddEntryBloc extends Bloc {
   /// Setter for the Entry Content
   set entryContent(String content) => _entryContent = content;
 
-  /// Setter for the Entry Date
-  set entryDate(DateTime? date) => _entryDate = date;
-
   /// Setter for the Entry Image
   set entryImage(Image image) => _entryImage = image;
 
   /// Setter for the Entry Pages Read
   set entryPages(RangeValues pages) => _entryPages = pages;
-
-  /// Setter for the Book this entry corresponds to
-  set entryBook(Book? book) => _entryBook = book;
-
-  /// Getter for the Book.
-  /// Returns null if no book is specified.
-  Book? get book => _entryBook;
 
   /// Getter for the Variable that determines whether the done
   /// Button is enabled or not.
@@ -63,7 +55,7 @@ class AddEntryBloc extends Bloc {
       DiaryEntry(
         title: _entryTitle,
         entry: _entryContent,
-        date: _entryDate,
+        date: entryDate,
         image: _entryImage,
         pagesRead: _entryPages,
       ),
@@ -78,6 +70,12 @@ class AddEntryBloc extends Bloc {
     } else {
       _doneButtonEnabled = false;
     }
+  }
+
+  /// Pushes a screen with which you can add
+  /// a new Book to the App.
+  Future<void> openAddBookScreen(BuildContext context) async {
+    Navigator.pushNamed(context, Routes.addBookScreen);
   }
 
   @override
