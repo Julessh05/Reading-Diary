@@ -21,6 +21,7 @@ class DiaryEntryAdapter extends TypeAdapter<DiaryEntry> {
       entry: fields[1] as String,
       image: fields[3] as Image?,
       date: fields[4] as DateTime?,
+      book: fields[6] as Book?,
       pagesRead: fields[5] as RangeValues?,
     );
   }
@@ -28,7 +29,7 @@ class DiaryEntryAdapter extends TypeAdapter<DiaryEntry> {
   @override
   void write(BinaryWriter writer, DiaryEntry obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class DiaryEntryAdapter extends TypeAdapter<DiaryEntry> {
       ..writeByte(4)
       ..write(obj.date)
       ..writeByte(5)
-      ..write(obj.pagesRead);
+      ..write(obj.pagesRead)
+      ..writeByte(6)
+      ..write(obj.book);
   }
 
   @override

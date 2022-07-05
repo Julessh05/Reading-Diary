@@ -95,7 +95,11 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
             ),
             AddModelContainer(
               name: 'Price'.tr(),
-              done: (str) => _bloc!.price = double.parse(str),
+              done: (str) {
+                _bloc!.price = double.parse(str);
+                _bloc!.createBook();
+                Navigator.pop(context);
+              },
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.done,
             ),
@@ -121,7 +125,10 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
     return ElevatedButton(
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      onPressed: () {},
+      onPressed: () {
+        _bloc!.createBook();
+        Navigator.pop(context);
+      },
       child: Text(
         'Done'.tr(),
       ),

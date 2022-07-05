@@ -1,7 +1,7 @@
 library blocs;
 
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show BuildContext, Navigator;
 import 'package:reading_diary/logic/navigating/routes.dart';
 
 /// Bloc for the Homescreen.
@@ -13,8 +13,15 @@ class HomescreenBloc extends Bloc {
   /// on the Homescreen.
   int _currentBottomNavigationBarIndex = 0;
 
-  /// Whether the Floating Action Button should be extended or no .
-  bool fabExtended = true;
+  /// Whether the Floating Action Button
+  /// on the Diary Screen
+  /// should be extended or not.
+  bool diaryFabExtended = true;
+
+  /// Whether the Floating Action Button
+  /// on the Wishlist Screen
+  /// should be extended or not.
+  bool wishlistFabExtended = true;
 
   /// getter for the current Index of the Navigation Bar.
   /// This is immutable.
@@ -26,7 +33,7 @@ class HomescreenBloc extends Bloc {
     _currentBottomNavigationBarIndex = newIndex;
   }
 
-  void onFabTap(BuildContext context) {
+  Future<void> onFabTap(BuildContext context) async {
     Navigator.pushNamed(context, Routes.addEntryScreen);
   }
 

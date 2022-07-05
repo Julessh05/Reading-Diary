@@ -29,22 +29,42 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// Scroll Controller for the
   /// Diary Screen.
   /// Controlls whether the Floating Action Button
-  /// on that screen is extended or not.
+  /// on the diary screen is extended or not.
   final ScrollController _diarySController = ScrollController();
+
+  /// Scroll Controller that determines
+  /// whether the Floating Action Button on the Wishlist Screen
+  /// is extended or not.
+  final ScrollController _wishlistSController = ScrollController();
 
   @override
   void initState() {
-    // Add Listener to Scroll Controller
+    // Add Listener to Diary Scroll Controller
     _diarySController.addListener(() {
       if (_diarySController.position.userScrollDirection ==
           ScrollDirection.reverse) {
         setState(() {
-          _bloc!.fabExtended = false;
+          _bloc!.diaryFabExtended = false;
         });
       } else if (_diarySController.position.userScrollDirection ==
           ScrollDirection.forward) {
         setState(() {
-          _bloc!.fabExtended = true;
+          _bloc!.diaryFabExtended = true;
+        });
+      }
+    });
+
+    // Add Listener to Wishlist Scroll Controller
+    _wishlistSController.addListener(() {
+      if (_wishlistSController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        setState(() {
+          _bloc!.wishlistFabExtended = false;
+        });
+      } else if (_wishlistSController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        setState(() {
+          _bloc!.wishlistFabExtended = true;
         });
       }
     });
@@ -70,7 +90,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// depending on the current Index [_bloc.currentBNBIndex] of the
   /// Bottom Navigation Bar.
   Widget? get _fab {
-    final Set<Widget?> afab = {null, _diaryFab};
+    final Set<Widget?> afab = {null, _diaryFab, _wishlistFab};
     return afab.elementAt(_bloc!.currentBNBIndex);
   }
 
@@ -80,7 +100,9 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// Only shown if you scroll upwards.
   FloatingActionButton get _diaryEFab {
     return FloatingActionButton.extended(
-      onPressed: () => _bloc!.onFabTap(context),
+      onPressed: () => _bloc!.onFabTap(context).then(
+            (value) => setState(() {}),
+          ),
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       label: Text('Add Entry'.tr()),
@@ -96,7 +118,9 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// bother the user.
   FloatingActionButton get _shrinkedDiaryFab {
     return FloatingActionButton(
-      onPressed: () => _bloc!.onFabTap(context),
+      onPressed: () => _bloc!.onFabTap(context).then(
+            (value) => setState(() {}),
+          ),
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       isExtended: false,
@@ -117,7 +141,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
       child: AnimatedCrossFade(
         duration: aDur,
         reverseDuration: aDur,
-        crossFadeState: _bloc!.fabExtended
+        crossFadeState: _bloc!.diaryFabExtended
             ? CrossFadeState.showFirst
             : CrossFadeState.showSecond,
         firstChild: _diaryEFab,
@@ -132,7 +156,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// on the index of the
   /// bottom navigation bar.
   AppBar get _appBar {
-    final Set<AppBar> aB = {_homeAppBar, _diaryAppBar};
+    final Set<AppBar> aB = {_homeAppBar, _diaryAppBar, _wishlistAppBar};
     return aB.elementAt(_bloc!.currentBNBIndex);
   }
 
@@ -157,7 +181,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// Returns the body
   /// at the current Index.
   Scrollbar get _body {
-    final Set<Scrollbar> pB = {_homeBody, _diaryBody};
+    final Set<Scrollbar> pB = {_homeBody, _diaryBody, _wishlistBody};
     return pB.elementAt(_bloc!.currentBNBIndex);
   }
 
@@ -239,6 +263,68 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
     );
   }
 
+  /// AppBar for the Wishlist screen
+  AppBar get _wishlistAppBar {
+    return AppBar();
+  }
+
+  /// Body of the Wishlist Screen.
+  /// This displayes the users wishes of Books.
+  Scrollbar get _wishlistBody {
+    return Scrollbar(
+      controller: _wishlistSController,
+      child: ListView.builder(
+        controller: _wishlistSController,
+        addAutomaticKeepAlives: true,
+        addRepaintBoundaries: true,
+        addSemanticIndexes: true,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        dragStartBehavior: DragStartBehavior.down,
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        physics: const BouncingScrollPhysics(),
+        reverse: false,
+        itemCount: 2,
+        itemBuilder: (_, counter) {
+          return Container();
+        },
+      ),
+    );
+  }
+
+  /// Animation that returnes the
+  /// Floating Action Button currently used on
+  /// the wishlist Screen.
+  ClipRRect get _wishlistFab {
+    const Duration aDur = Duration(milliseconds: 300);
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(40)),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      child: AnimatedCrossFade(
+        duration: aDur,
+        reverseDuration: aDur,
+        crossFadeState: _bloc!.wishlistFabExtended
+            ? CrossFadeState.showFirst
+            : CrossFadeState.showSecond,
+        firstChild: _wishlistEFab,
+        secondChild: _shrinkedWishlistFab,
+        alignment: Alignment.center,
+        excludeBottomFocus: false,
+      ),
+    );
+  }
+
+  /// The disabled Version of the Floating Action Button
+  /// used to add a new Wish on the Wishlist.
+  FloatingActionButton get _shrinkedWishlistFab {
+    return FloatingActionButton(onPressed: () {});
+  }
+
+  /// The enabled Version of the Floating Action Button
+  /// used to add a new Wish on the Wishlist.
+  FloatingActionButton get _wishlistEFab {
+    return FloatingActionButton(onPressed: () {});
+  }
+
   /// Bottom Navigation Bar for
   /// the Mobile Homescreen.
   ClipRRect get _bottomBar {
@@ -264,6 +350,13 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
             backgroundColor: Colors.blue.shade800,
             activeIcon: const Icon(Icons.menu_book_rounded),
             tooltip: 'The Actual Diary'.tr(),
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.format_list_bulleted_outlined),
+            label: 'Wishlist'.tr(),
+            backgroundColor: Colors.blue.shade800,
+            activeIcon: const Icon(Icons.format_list_bulleted_rounded),
+            tooltip: 'Your Wishlist of Books'.tr(),
           ),
         ],
       ),

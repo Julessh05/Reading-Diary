@@ -2,6 +2,8 @@ library blocs;
 
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
 import 'package:flutter/material.dart';
+import 'package:reading_diary/models/book.dart';
+import 'package:reading_diary/models/book_list.dart';
 
 /// Bloc for the Add Book Screens
 class AddBookBloc extends Bloc {
@@ -56,6 +58,23 @@ class AddBookBloc extends Bloc {
   /// Done Button is enabled or not.
   bool get doneButtonEnabled => _doneButtonEnabled;
 
+  /// Creates a Book and adds it to
+  /// [BookList.books]
+  void createBook() {
+    BookList.addBook(
+      Book(
+        title: _title,
+        author: _author,
+        pages: _pages,
+        currentPage: _currentPage,
+        image: _image,
+        notes: _notes,
+        price: _price,
+      ),
+    );
+  }
+
+  /// Checks if all needed vars are filled in.
   void checkForVars() {
     if (_title.isNotEmpty && _pages > 0) {
       _doneButtonEnabled = true;

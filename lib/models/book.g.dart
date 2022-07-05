@@ -21,7 +21,7 @@ class BookAdapter extends TypeAdapter<Book> {
       author: fields[1] as String?,
       image: fields[2] as Image?,
       pages: fields[3] as int,
-      currentPage: fields[4] as int,
+      currentPage: fields[4] as int?,
       notes: fields[5] as String,
       price: fields[6] as double?,
     );

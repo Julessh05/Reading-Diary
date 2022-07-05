@@ -155,6 +155,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
           _bloc!.entryPages = _pagesRead!;
         }
         _bloc!.createEntry();
+        Navigator.pop(context);
       },
       child: Text(
         'Done'.tr(),
