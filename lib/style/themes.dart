@@ -27,11 +27,17 @@ class Themes {
         opacity: 1.0,
       ),
 
+      /* App Bar Themes */
       appBarTheme: AppBarTheme(
         centerTitle: true,
         color: Colors.blue.shade800,
         foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
       ),
+
+      bottomAppBarTheme: BottomAppBarTheme(),
 
       // Bottom Navigation Bar Theme
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -53,6 +59,26 @@ class Themes {
         type: BottomNavigationBarType.shifting,
         mouseCursor: MaterialStateProperty.resolveWith(
           ((states) => _lightBottomNavigationBarMouseCursor(states)),
+        ),
+      ),
+
+      /* Buttons */
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: Colors.blue.shade800,
+        elevation: 15,
+        disabledElevation: 5,
+        enableFeedback: true,
+        focusColor: Colors.blue.shade700,
+        focusElevation: 17,
+        foregroundColor: Colors.white,
+        hoverElevation: 17,
+        shape: RoundedRectangleBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          side: BorderSide(
+            color: Colors.blue.shade900,
+            style: BorderStyle.solid,
+            width: 0.25,
+          ),
         ),
       ),
 

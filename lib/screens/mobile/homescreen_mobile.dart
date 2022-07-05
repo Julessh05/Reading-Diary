@@ -1,9 +1,13 @@
 library mobile_screens;
 
+import 'package:bloc_implementation/bloc_implementation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:reading_diary/blocs/homescreen_bloc.dart';
 import 'package:reading_diary/components/mobile/entry_container_mobile.dart';
 import 'package:reading_diary/components/mobile/statistic_container_mobile.dart';
+import 'package:reading_diary/models/diary.dart';
 import 'package:reading_diary/models/diary_entry.dart';
 import 'package:string_translate/string_translate.dart';
 
@@ -16,30 +20,150 @@ class HomescreenMobile extends StatefulWidget {
 }
 
 class _HomescreenMobileState extends State<HomescreenMobile> {
+  /// Wether the Floating Action Botton on
+  /// the Diary Screen is extended or not.
+  bool _fabExtended = true;
+
+  /// Bloc for the Homescreen.
+  /// Is initialized once,
+  /// shouldn't be changed
+  HomescreenBloc? bloc;
+
+  /// Scroll Controller for the
+  /// Diary Screen.
+  /// Controlls wether the Floating Action Button
+  /// on that screen is extended or not.
+  final ScrollController _diarySController = ScrollController();
+
+  @override
+  void initState() {
+    // Add Listener to Scroll Controller
+    _diarySController.addListener(() {
+      if (_diarySController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        setState(() {
+          _fabExtended = false;
+        });
+      } else if (_diarySController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        setState(() {
+          _fabExtended = true;
+        });
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Init Bloc
+    bloc ??= BlocParent.of(context);
+
     return Scaffold(
       appBar: _appBar,
       body: _body,
       bottomNavigationBar: _bottomBar,
+      floatingActionButton: _fab,
       extendBody: true,
       extendBodyBehindAppBar: true,
     );
   }
 
+  /// Returns the floating Action Button
+  /// depending on the current INdex [_cIndex] of the
+  /// Bottom Navigation Bar.
+  Widget? get _fab {
+    final Set<Widget?> afab = {null, _diaryFab};
+    return afab.elementAt(bloc!.currentBNBIndex);
+  }
+
+  /// Extended Floating Action Button
+  /// for the Diary Screen.
+  /// This has a Label and an Icon.
+  /// Only shown if you scroll upwards.
+  FloatingActionButton get _diaryEFab {
+    return FloatingActionButton.extended(
+      onPressed: () {},
+      autofocus: false,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      label: Text('Add Entry'.tr()),
+      icon: const Icon(Icons.note_add_rounded),
+      isExtended: true,
+    );
+  }
+
+  /// Shrinked Version of the Floating Action Button
+  /// on the Diary Screen.
+  /// Shown when you scroll down, so it doesn't
+  /// bother the user.
+  FloatingActionButton get _shrinkedDiaryFab {
+    return FloatingActionButton(
+      onPressed: () {},
+      autofocus: false,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      isExtended: false,
+      child: const Icon(Icons.note_add_rounded),
+    );
+  }
+
+  /// The Floating Action Button
+  /// for the Diary Screen.
+  /// Is A Clip to create a kind of circular Widget.
+  /// Has a Animation when changing the Size of it.
+  ClipRRect get _diaryFab {
+    const Duration aDur = Duration(milliseconds: 300);
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(40)),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      child: AnimatedCrossFade(
+        duration: aDur,
+        reverseDuration: aDur,
+        crossFadeState:
+            _fabExtended ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+        firstChild: _diaryEFab,
+        secondChild: _shrinkedDiaryFab,
+        alignment: Alignment.center,
+        excludeBottomFocus: false,
+      ),
+    );
+  }
+
+  /// Returns the AppBar depending
+  /// on the index of the
+  /// bottom navigation bar.
   AppBar get _appBar {
+    final Set<AppBar> aB = {_homeAppBar, _diaryAppBar};
+    return aB.elementAt(bloc!.currentBNBIndex);
+  }
+
+  /// The AppBar for the mobile
+  /// Homescreen.
+  AppBar get _homeAppBar {
     return AppBar(
       automaticallyImplyLeading: false,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30),
-      ),
-      title: Text('Home'),
+      title: Text('Home'.tr()),
     );
+  }
+
+  /// AppBar for the
+  /// Diary Screen.
+  AppBar get _diaryAppBar {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      title: Text('Diary'.tr()),
+    );
+  }
+
+  /// Returns the body
+  /// at the current Index.
+  Scrollbar get _body {
+    final Set<Scrollbar> pB = {_homeBody, _diaryBody};
+    return pB.elementAt(bloc!.currentBNBIndex);
   }
 
   /// The Body of the mobile
   /// Homescreen
-  Widget get _body {
+  Scrollbar get _homeBody {
     return Scrollbar(
       child: ListView(
         children: <Widget>[
@@ -80,12 +204,37 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
             itemBuilder: (_, counter) {
               return EntryContainerMobile(
                 entry: DiaryEntry(
-                  entry: '',
+                  entry: 'Entry',
                 ),
               );
             },
           ),
         ],
+      ),
+    );
+  }
+
+  /// Body for the Diary
+  Scrollbar get _diaryBody {
+    return Scrollbar(
+      controller: _diarySController,
+      child: ListView.builder(
+        controller: _diarySController,
+        addAutomaticKeepAlives: true,
+        addRepaintBoundaries: true,
+        addSemanticIndexes: true,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        dragStartBehavior: DragStartBehavior.down,
+        itemCount: Diary.entries.length,
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        physics: const BouncingScrollPhysics(),
+        reverse: false,
+        scrollDirection: Axis.vertical,
+        itemBuilder: (_, c) {
+          return EntryContainerMobile(
+            entry: Diary.entries[c],
+          );
+        },
       ),
     );
   }
@@ -99,6 +248,8 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: BottomNavigationBar(
+        currentIndex: bloc!.currentBNBIndex,
+        onTap: (newI) => setState(() => bloc!.onBNBTap(newI)),
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: const Icon(Icons.home_outlined),

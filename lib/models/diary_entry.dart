@@ -10,14 +10,15 @@ part 'diary_entry.g.dart';
 @HiveType(typeId: 1)
 class DiaryEntry {
   DiaryEntry({
-    this.title,
+    String? title,
     required this.entry,
     this.image,
-    this.date,
+    DateTime? date,
     this.values,
   }) {
-    date ??= DateTime.now();
-    title ??= 'Entry ${date!.day}.${date!.month}.${date!.year}';
+    this.date = date ?? DateTime.now();
+    this.title =
+        title ?? 'Entry ${this.date.day}.${this.date.month}.${this.date.year}';
   }
 
   @HiveField(0)
@@ -30,7 +31,7 @@ class DiaryEntry {
   final Image? image;
 
   @HiveField(4)
-  late final DateTime? date;
+  late final DateTime date;
 
   @HiveField(5)
   final RangeValues? values;

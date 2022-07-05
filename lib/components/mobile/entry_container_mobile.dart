@@ -41,7 +41,7 @@ class EntryContainerMobile extends StatelessWidget {
               bottom: 15,
             ),
             child: DecoratedBox(
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               position: DecorationPosition.background,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +52,7 @@ class EntryContainerMobile extends StatelessWidget {
                 verticalDirection: VerticalDirection.up,
                 children: <Widget>[
                   Text(
-                    '${entry.date!.day}.${entry.date!.month}.${entry.date!.year}',
+                    '${entry.date.day}.${entry.date.month}.${entry.date.year}',
                     style: _dStyle,
                   ),
                   Text(entry.title!, style: _tStyle),
