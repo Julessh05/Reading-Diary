@@ -12,6 +12,6 @@ class HomescreenDesktop extends StatefulWidget {
 class _HomescreenDesktopState extends State<HomescreenDesktop> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

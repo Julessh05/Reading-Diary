@@ -1,15 +1,16 @@
 library mobile_screens;
 
-import 'package:bloc_implementation/bloc_implementation.dart';
-import 'package:flutter/gestures.dart';
+import 'package:bloc_implementation/bloc_implementation.dart'
+    hide BlocNotFoundException, BlocState;
+import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter/rendering.dart' show ScrollDirection;
 import 'package:reading_diary/blocs/homescreen_bloc.dart';
 import 'package:reading_diary/components/mobile/entry_container_mobile.dart';
 import 'package:reading_diary/components/mobile/statistic_container_mobile.dart';
 import 'package:reading_diary/models/diary.dart';
-import 'package:reading_diary/models/diary_entry.dart';
-import 'package:string_translate/string_translate.dart';
+import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:string_translate/string_translate.dart' show Translate;
 
 /// Homescreen for mobile devices
 class HomescreenMobile extends StatefulWidget {
@@ -20,10 +21,6 @@ class HomescreenMobile extends StatefulWidget {
 }
 
 class _HomescreenMobileState extends State<HomescreenMobile> {
-  /// Wether the Floating Action Botton on
-  /// the Diary Screen is extended or not.
-  bool _fabExtended = true;
-
   /// Bloc for the Homescreen.
   /// Is initialized once,
   /// shouldn't be changed
@@ -42,12 +39,12 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
       if (_diarySController.position.userScrollDirection ==
           ScrollDirection.reverse) {
         setState(() {
-          _fabExtended = false;
+          bloc!.fabExtended = false;
         });
       } else if (_diarySController.position.userScrollDirection ==
           ScrollDirection.forward) {
         setState(() {
-          _fabExtended = true;
+          bloc!.fabExtended = true;
         });
       }
     });
@@ -70,7 +67,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   }
 
   /// Returns the floating Action Button
-  /// depending on the current INdex [_cIndex] of the
+  /// depending on the current Index [bloc.currentBNBIndex] of the
   /// Bottom Navigation Bar.
   Widget? get _fab {
     final Set<Widget?> afab = {null, _diaryFab};
@@ -83,12 +80,13 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// Only shown if you scroll upwards.
   FloatingActionButton get _diaryEFab {
     return FloatingActionButton.extended(
-      onPressed: () {},
+      onPressed: () => bloc!.onFabTap(context),
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       label: Text('Add Entry'.tr()),
       icon: const Icon(Icons.note_add_rounded),
       isExtended: true,
+      heroTag: 'Extended Floating Action Button',
     );
   }
 
@@ -98,10 +96,11 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// bother the user.
   FloatingActionButton get _shrinkedDiaryFab {
     return FloatingActionButton(
-      onPressed: () {},
+      onPressed: () => bloc!.onFabTap(context),
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       isExtended: false,
+      heroTag: 'Shrinked Floating Action Button',
       child: const Icon(Icons.note_add_rounded),
     );
   }
@@ -118,8 +117,9 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
       child: AnimatedCrossFade(
         duration: aDur,
         reverseDuration: aDur,
-        crossFadeState:
-            _fabExtended ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+        crossFadeState: bloc!.fabExtended
+            ? CrossFadeState.showFirst
+            : CrossFadeState.showSecond,
         firstChild: _diaryEFab,
         secondChild: _shrinkedDiaryFab,
         alignment: Alignment.center,
