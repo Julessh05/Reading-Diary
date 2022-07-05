@@ -1,7 +1,8 @@
 library models;
 
-import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:flutter/material.dart' show Image;
+import 'package:hive/hive.dart'
+    show BinaryReader, BinaryWriter, HiveField, HiveType, TypeAdapter;
 
 part 'book.g.dart';
 
@@ -9,17 +10,17 @@ part 'book.g.dart';
 @HiveType(typeId: 0)
 class Book {
   const Book({
-    required this.name,
+    required this.title,
     this.author,
     this.image,
     required this.pages,
-    required this.currentPage,
+    this.currentPage,
     this.notes = '',
     this.price,
   });
 
   @HiveField(0)
-  final String name;
+  final String title;
 
   @HiveField(1)
   final String? author;
@@ -31,7 +32,7 @@ class Book {
   final int pages;
 
   @HiveField(4)
-  final int currentPage;
+  final int? currentPage;
 
   @HiveField(5)
   final String notes;

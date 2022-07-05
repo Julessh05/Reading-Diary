@@ -6,45 +6,32 @@ part of models;
 // TypeAdapterGenerator
 // **************************************************************************
 
-class BookAdapter extends TypeAdapter<Book> {
+class WishAdapter extends TypeAdapter<Wish> {
   @override
-  final int typeId = 0;
+  final int typeId = 2;
 
   @override
-  Book read(BinaryReader reader) {
+  Wish read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Book(
-      title: fields[0] as String,
-      author: fields[1] as String?,
-      image: fields[2] as Image?,
-      pages: fields[3] as int,
-      currentPage: fields[4] as int?,
-      notes: fields[5] as String,
-      price: fields[6] as double?,
-    );
+    return Wish(
+      book: fields[0] as Book?,
+      description: fields[2] as String?,
+    )..title = fields[1] as String?;
   }
 
   @override
-  void write(BinaryWriter writer, Book obj) {
+  void write(BinaryWriter writer, Wish obj) {
     writer
-      ..writeByte(7)
-      ..writeByte(0)
-      ..write(obj.title)
-      ..writeByte(1)
-      ..write(obj.author)
-      ..writeByte(2)
-      ..write(obj.image)
       ..writeByte(3)
-      ..write(obj.pages)
-      ..writeByte(4)
-      ..write(obj.currentPage)
-      ..writeByte(5)
-      ..write(obj.notes)
-      ..writeByte(6)
-      ..write(obj.price);
+      ..writeByte(0)
+      ..write(obj.book)
+      ..writeByte(1)
+      ..write(obj.title)
+      ..writeByte(2)
+      ..write(obj.description);
   }
 
   @override
@@ -53,7 +40,7 @@ class BookAdapter extends TypeAdapter<Book> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is BookAdapter &&
+      other is WishAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

@@ -5,8 +5,10 @@ import 'dart:collection' show UnmodifiableListView;
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/storage/storage.dart';
 
+/// Represents the List of all Books.
 class BookList {
-  static const List<Book> _books = [];
+  /// The Actual List of Books
+  static final List<Book> _books = [];
 
   /// List of all Books the User stored.
   static List<Book> get books => UnmodifiableListView(_books);

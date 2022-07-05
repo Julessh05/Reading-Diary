@@ -11,4 +11,17 @@ class Routes {
   /// is never shown on purpose.
   /// Only used in Production.
   static const String unknownscreen = '/unknown';
+
+  /// Route Name of the
+  /// Screen with which you can add
+  /// a new Entry to your Diary.
+  static const String addEntryScreen = '/add_entry';
+
+  /// The Route Name of the Screen used
+  /// to add a new Book
+  static const String addBookScreen = '/add_book';
+
+  /// Route Name for the screen with which you can
+  /// add a Wish to your Wishlist.
+  static const String addWishScreen = '/add_wish';
 }

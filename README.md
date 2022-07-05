@@ -1,16 +1,9 @@
-# reading_diary
+# Reading Diary
 
 An App in which you can document your Reading Process, the Books you read etc...
 
-## Getting Started
+## Additional Information
 
-This project is a starting point for a Flutter application.
+### Copyright
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+© Julian Schumacher 2022
