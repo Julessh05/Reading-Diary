@@ -74,11 +74,12 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
                     _bloc!
                         .openAddBookScreen(context)
                         .then((value) => setState(() {}));
+                  } else if (book == const Book.none()) {
+                    _bloc!.wishBook = null;
                   } else {
                     _bloc!.wishBook = BookList.books
                         .where((element) => element == book)
                         .first;
-                    _bloc!.checkForVars();
                   }
                 },
               ),

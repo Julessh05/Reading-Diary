@@ -6,8 +6,11 @@ import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show ScrollDirection;
 import 'package:reading_diary/blocs/homescreen_bloc.dart';
+import 'package:reading_diary/components/mobile/add_model_container.dart';
 import 'package:reading_diary/components/mobile/entry_container_mobile.dart';
 import 'package:reading_diary/components/mobile/statistic_container_mobile.dart';
+import 'package:reading_diary/models/book.dart' show Book;
+import 'package:reading_diary/models/book_list.dart';
 import 'package:reading_diary/models/diary.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
 import 'package:string_translate/string_translate.dart' show Translate;
@@ -180,12 +183,131 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
           enableFeedback: true,
           tooltip: 'Search your Entries'.tr(),
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          onPressed: () {},
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (_) {
+                return AlertDialog(
+                  scrollable: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  backgroundColor: Colors.white,
+                  insetPadding: EdgeInsets.zero,
+                  contentPadding: EdgeInsets.zero,
+                  title: Text('Search your Entries'.tr()),
+                  content: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      textBaseline: TextBaseline.alphabetic,
+                      textDirection: TextDirection.ltr,
+                      verticalDirection: VerticalDirection.down,
+                      children: [
+                        AddModelContainer(
+                          name: 'Keyword'.tr(),
+                          done: (str) => _bloc!.searchKeyword = str,
+                        ),
+                        Center(
+                          child: Text(
+                            'Filter'.tr(),
+                            style: _filterLabelStyle,
+                          ),
+                        ),
+                        AddModelContainer(
+                          name: 'Book'.tr(),
+                          child: DropdownButton<Book>(
+                            items: _bookDropDownItems,
+                            alignment: Alignment.center,
+                            autofocus: false,
+                            enableFeedback: true,
+                            value: _bloc!.searchBook ?? const Book.none(),
+                            onChanged: (book) {
+                              if (book == null) {
+                                _bloc!.searchBook = null;
+                              } else if (book == const Book.addBook()) {
+                                _bloc!
+                                    .openAddBookScreen(context)
+                                    .then((value) => setState(() {}));
+                              } else if (book == const Book.none()) {
+                                _bloc!.searchBook = null;
+                              } else {
+                                _bloc!.searchBook = BookList.books
+                                    .where((element) => element == book)
+                                    .first;
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          },
           icon: const Icon(Icons.search_rounded),
         ),
       ],
       automaticallyImplyLeading: false,
       title: Text('Diary'.tr()),
+    );
+  }
+
+  /// All the Options for the Dropdown Menu
+  List<DropdownMenuItem<Book>> get _bookDropDownItems {
+    final List<DropdownMenuItem<Book>> list = [];
+
+    list.add(
+      DropdownMenuItem(
+        alignment: Alignment.center,
+        enabled: true,
+        value: const Book.none(),
+        onTap: () {
+          setState(() {
+            _bloc!.searchBook = null;
+          });
+        },
+        child: Text('None'.tr()),
+      ),
+    );
+
+    for (Book book in BookList.books) {
+      list.add(
+        DropdownMenuItem(
+          alignment: Alignment.center,
+          enabled: true,
+          value: book,
+          onTap: () {
+            setState(() {
+              _bloc!.searchBook = book;
+            });
+          },
+          child: Text(book.title),
+        ),
+      );
+    }
+    list.add(
+      DropdownMenuItem(
+        alignment: Alignment.center,
+        enabled: true,
+        value: const Book.addBook(),
+        child: Text(
+          'Add Book'.tr(),
+        ),
+      ),
+    );
+
+    return list;
+  }
+
+  /// The TextStyle used for
+  /// the 'Filter' Label inside the
+  /// search Dialog
+  TextStyle get _filterLabelStyle {
+    return const TextStyle(
+      fontStyle: FontStyle.normal,
+      fontSize: 22.5,
+      fontWeight: FontWeight.w400,
     );
   }
 

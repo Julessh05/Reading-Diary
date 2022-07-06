@@ -3,6 +3,7 @@ library blocs;
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
 import 'package:flutter/material.dart' show BuildContext, Navigator;
 import 'package:reading_diary/logic/navigating/routes.dart';
+import 'package:reading_diary/models/book.dart';
 
 /// Bloc for the Homescreen.
 /// Contains every piece of logic needed,
@@ -23,9 +24,18 @@ class HomescreenBloc extends Bloc {
   /// should be extended or not.
   bool wishlistFabExtended = true;
 
+  /// The Keyword which was entered to search with
+  String _searchKeyword = '';
+
+  /// The Book that the user filtered for.
+  Book? searchBook;
+
   /// getter for the current Index of the Navigation Bar.
   /// This is immutable.
   int get currentBNBIndex => _currentBottomNavigationBarIndex;
+
+  /// Setter for the Keyword which was entered to search with
+  set searchKeyword(String word) => _searchKeyword = word;
 
   /// Called when you tap the
   /// Bottom navigation Bar.
@@ -43,6 +53,12 @@ class HomescreenBloc extends Bloc {
   /// is tapped
   Future<void> onWishlistFabTap(BuildContext context) async {
     Navigator.pushNamed(context, Routes.addWishScreen);
+  }
+
+  /// Method called when the User
+  /// clicked the 'Add Book' Item on the Dropdown.
+  Future<void> openAddBookScreen(BuildContext context) async {
+    Navigator.pushNamed(context, Routes.addBookScreen);
   }
 
   @override

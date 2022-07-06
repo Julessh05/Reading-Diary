@@ -108,6 +108,8 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
                     _bloc!
                         .openAddBookScreen(context)
                         .then((value) => setState(() {}));
+                  } else if (book == const Book.none()) {
+                    _bloc!.entryBook = null;
                   } else {
                     _bloc!.entryBook = BookList.books
                         .where((element) => element == book)
