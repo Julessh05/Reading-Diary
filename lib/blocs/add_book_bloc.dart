@@ -64,20 +64,18 @@ class AddBookBloc extends Bloc {
   /// does not alredy exist, and was added.
   /// Returns false, if the book couln't been added.
   bool createBook() {
-    final duplicateBooks =
-        BookList.books.where((element) => element.title == _title);
+    final book = Book(
+      title: _title,
+      author: _author,
+      pages: _pages,
+      currentPage: _currentPage,
+      image: _image,
+      notes: _notes,
+      price: _price,
+    );
+    final duplicateBooks = BookList.books.where((element) => element == book);
     if (duplicateBooks.isEmpty) {
-      BookList.addBook(
-        Book(
-          title: _title,
-          author: _author,
-          pages: _pages,
-          currentPage: _currentPage,
-          image: _image,
-          notes: _notes,
-          price: _price,
-        ),
-      );
+      BookList.addBook(book);
       return true;
     } else {
       return false;

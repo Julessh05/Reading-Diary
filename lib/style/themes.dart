@@ -165,6 +165,20 @@ class Themes {
           ),
         ),
       ),
+
+      dialogTheme: DialogTheme(
+        alignment: Alignment.center,
+        backgroundColor: Colors.white,
+        elevation: 25,
+        shape: RoundedRectangleBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          side: BorderSide(
+            color: Colors.blue.shade800,
+            style: BorderStyle.solid,
+            width: 0.1,
+          ),
+        ),
+      ),
     );
   }
 

@@ -19,6 +19,29 @@ class Book {
     this.price,
   });
 
+  /// Called if you don't want to have a book
+  const Book.none({
+    this.title = '<none>',
+    this.pages = 1,
+    this.author,
+    this.currentPage,
+    this.image,
+    this.notes = '',
+    this.price,
+  });
+
+  /// Called if you want the
+  /// Add Book Button to work
+  const Book.addBook({
+    this.title = '<new_book>',
+    this.pages = 1,
+    this.author,
+    this.currentPage,
+    this.image,
+    this.notes = '',
+    this.price,
+  });
+
   @HiveField(0)
   final String title;
 

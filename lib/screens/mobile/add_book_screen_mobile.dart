@@ -97,10 +97,6 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
               name: 'Price'.tr(),
               done: (str) {
                 _bloc!.price = double.parse(str);
-                final success = _bloc!.createBook();
-                if (!success) {
-                  // TODO: implement Dialog
-                }
               },
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.done,
@@ -128,7 +124,10 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       onPressed: () {
-        _bloc!.createBook();
+        final success = _bloc!.createBook();
+        if (!success) {
+          _showErrorDialog();
+        }
         Navigator.pop(context);
       },
       child: Text(
@@ -150,6 +149,51 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
       child: Text(
         'Done'.tr(),
       ),
+    );
+  }
+
+  /// Displays an Error Dialog
+  /// if there was an Error creating
+  /// the Book
+  void _showErrorDialog() {
+    showDialog(
+      context: context,
+      builder: (c) {
+        return AlertDialog(
+          actionsAlignment: MainAxisAlignment.end,
+          actionsOverflowAlignment: OverflowBarAlignment.center,
+          actionsOverflowDirection: VerticalDirection.down,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          scrollable: true,
+          title: Text('Error creating Book'.tr()),
+          content: SingleChildScrollView(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            dragStartBehavior: DragStartBehavior.down,
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            physics: const BouncingScrollPhysics(),
+            reverse: false,
+            scrollDirection: Axis.vertical,
+            child: ListBody(
+              mainAxis: Axis.vertical,
+              reverse: false,
+              children: [
+                Text('Exactly this Book does already exists.'.tr()),
+                Text('Please use that Book or add another one'.tr()),
+              ],
+            ),
+          ),
+          actions: <TextButton>[
+            TextButton(
+              autofocus: true,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              onPressed: () => Navigator.pop(context),
+              child: Text(
+                'Ok'.tr(),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

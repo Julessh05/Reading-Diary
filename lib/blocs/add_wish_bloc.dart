@@ -4,7 +4,7 @@ import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
 import 'package:flutter/material.dart' show BuildContext, Navigator;
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/book.dart' show Book;
-import 'package:reading_diary/models/wish.dart';
+import 'package:reading_diary/models/wish.dart' show Wish;
 import 'package:reading_diary/models/wishlist.dart';
 
 /// Bloc for the Screens with which

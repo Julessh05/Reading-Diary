@@ -22,11 +22,6 @@ class AddEntryScreenMobile extends StatefulWidget {
 }
 
 class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
-  /// String which is used
-  /// in the Dropdown Menu, if the User wants to add
-  /// a new Book
-  static const String _addBookIdentifier = '<new_book>';
-
   /// Corresponding Bloc for this Widget.
   /// Should only be set once.
   AddEntryBloc? _bloc;
@@ -100,23 +95,22 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
             // TODO: add possibility to add an Image
             AddModelContainer(
               name: 'Book'.tr(),
-              child: DropdownButton<String>(
+              child: DropdownButton<Book>(
                 items: _bookDropDownItems,
                 alignment: Alignment.center,
                 autofocus: false,
                 enableFeedback: true,
-                value:
-                    _bloc!.entryBook == null ? 'None' : _bloc!.entryBook!.title,
-                onChanged: (bookName) {
-                  if (bookName == null || bookName == 'None') {
+                value: _bloc!.entryBook ?? const Book.none(),
+                onChanged: (book) {
+                  if (book == null) {
                     _bloc!.entryBook = null;
-                  } else if (bookName == _addBookIdentifier) {
+                  } else if (book == const Book.addBook()) {
                     _bloc!
                         .openAddBookScreen(context)
                         .then((value) => setState(() {}));
                   } else {
                     _bloc!.entryBook = BookList.books
-                        .where((element) => element.title == bookName)
+                        .where((element) => element == book)
                         .first;
                   }
                 },
@@ -180,14 +174,14 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
   }
 
   /// All the Options for the Dropdown Menu
-  List<DropdownMenuItem<String>> get _bookDropDownItems {
-    final List<DropdownMenuItem<String>> list = [];
+  List<DropdownMenuItem<Book>> get _bookDropDownItems {
+    final List<DropdownMenuItem<Book>> list = [];
 
     list.add(
       DropdownMenuItem(
         alignment: Alignment.center,
         enabled: true,
-        value: 'None'.tr(),
+        value: const Book.none(),
         onTap: () {
           setState(() {
             _bloc!.entryBook = null;
@@ -202,7 +196,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
         DropdownMenuItem(
           alignment: Alignment.center,
           enabled: true,
-          value: book.title,
+          value: book,
           onTap: () {
             setState(() {
               _bloc!.entryBook = book;
@@ -217,7 +211,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
       DropdownMenuItem(
         alignment: Alignment.center,
         enabled: true,
-        value: _addBookIdentifier,
+        value: const Book.addBook(),
         child: Text(
           'Add Book'.tr(),
         ),

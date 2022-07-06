@@ -19,11 +19,6 @@ class AddWishScreenMobile extends StatefulWidget {
 }
 
 class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
-  /// String which is used
-  /// in the Dropdown Menu, if the User wants to add
-  /// a new Book
-  static const String _addBookIdentifier = '<new_book>';
-
   /// Bloc that holds all Action for this Screen.
   AddWishBloc? _bloc;
 
@@ -66,23 +61,22 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
           children: <Widget>[
             AddModelContainer(
               name: 'Book'.tr(),
-              child: DropdownButton<String>(
+              child: DropdownButton<Book>(
                 items: _bookDropDownItems,
                 alignment: Alignment.center,
                 autofocus: false,
                 enableFeedback: true,
-                value:
-                    _bloc!.wishBook == null ? 'None' : _bloc!.wishBook!.title,
-                onChanged: (bookName) {
-                  if (bookName == null || bookName == 'None') {
+                value: _bloc!.wishBook ?? const Book.none(),
+                onChanged: (book) {
+                  if (book == null) {
                     _bloc!.wishBook = null;
-                  } else if (bookName == _addBookIdentifier) {
+                  } else if (book == const Book.addBook()) {
                     _bloc!
                         .openAddBookScreen(context)
                         .then((value) => setState(() {}));
                   } else {
                     _bloc!.wishBook = BookList.books
-                        .where((element) => element.title == bookName)
+                        .where((element) => element == book)
                         .first;
                     _bloc!.checkForVars();
                   }
@@ -153,14 +147,14 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
   }
 
   /// All the Options for the Dropdown Menu
-  List<DropdownMenuItem<String>> get _bookDropDownItems {
-    final List<DropdownMenuItem<String>> list = [];
+  List<DropdownMenuItem<Book>> get _bookDropDownItems {
+    final List<DropdownMenuItem<Book>> list = [];
 
     list.add(
       DropdownMenuItem(
         alignment: Alignment.center,
         enabled: true,
-        value: 'None'.tr(),
+        value: const Book.none(),
         onTap: () {
           setState(() {
             _bloc!.wishBook = null;
@@ -175,7 +169,7 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
         DropdownMenuItem(
           alignment: Alignment.center,
           enabled: true,
-          value: book.title,
+          value: book,
           onTap: () {
             setState(() {
               _bloc!.wishBook = book;
@@ -189,7 +183,7 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
       DropdownMenuItem(
         alignment: Alignment.center,
         enabled: true,
-        value: _addBookIdentifier,
+        value: const Book.addBook(),
         child: Text(
           'Add Book'.tr(),
         ),
