@@ -61,6 +61,16 @@ class HomescreenBloc extends Bloc {
     Navigator.pushNamed(context, Routes.addBookScreen);
   }
 
+  /// Called when the User pressed
+  /// the OK Button inside the Search
+  /// Dialog for the Diary Screen
+  void onDiarySearchTap() {}
+
+  /// Called when the User pressed
+  /// the OK Button inside the Search
+  /// Dialog for the Wishlist Screen
+  void onWishSearchTap() {}
+
   @override
   void dispose() {}
 }

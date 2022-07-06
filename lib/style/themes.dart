@@ -92,10 +92,11 @@ class Themes {
         ),
       ),
 
-      textButtonTheme: const TextButtonThemeData(
+      textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
           alignment: Alignment.center,
           enableFeedback: true,
+          foregroundColor: MaterialStateProperty.all(Colors.blue.shade800),
         ),
       ),
 

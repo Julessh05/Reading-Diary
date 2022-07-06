@@ -190,9 +190,11 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
                 return AlertDialog(
                   scrollable: true,
                   clipBehavior: Clip.antiAliasWithSaveLayer,
-                  backgroundColor: Colors.white,
+                  backgroundColor: Colors.white.withOpacity(0.35),
                   insetPadding: EdgeInsets.zero,
                   contentPadding: EdgeInsets.zero,
+                  buttonPadding: EdgeInsets.zero,
+                  actionsPadding: EdgeInsets.zero,
                   title: Text('Search your Entries'.tr()),
                   content: SingleChildScrollView(
                     child: Column(
@@ -241,6 +243,23 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
                       ],
                     ),
                   ),
+                  actions: <TextButton>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      autofocus: false,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: Text('Cancel'.tr()),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        _bloc!.onDiarySearchTap();
+                        Navigator.pop(context);
+                      },
+                      autofocus: true,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: Text('Ok'.tr()),
+                    ),
+                  ],
                 );
               },
             );
@@ -406,7 +425,56 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
           enableFeedback: true,
           tooltip: 'Search your Wishlist'.tr(),
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          onPressed: () {},
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (_) {
+                return AlertDialog(
+                  scrollable: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  backgroundColor: Colors.white.withOpacity(0.35),
+                  insetPadding: EdgeInsets.zero,
+                  contentPadding: EdgeInsets.zero,
+                  buttonPadding: EdgeInsets.zero,
+                  actionsPadding: EdgeInsets.zero,
+                  title: Text('Search your Wishes'.tr()),
+                  content: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      textBaseline: TextBaseline.alphabetic,
+                      textDirection: TextDirection.ltr,
+                      verticalDirection: VerticalDirection.down,
+                      children: [
+                        AddModelContainer(
+                          name: 'Keyword'.tr(),
+                          done: (str) => _bloc!.searchKeyword = str,
+                        ),
+                      ],
+                    ),
+                  ),
+                  actions: <TextButton>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      autofocus: false,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: Text('Cancel'.tr()),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        _bloc!.onWishSearchTap();
+                        Navigator.pop(context);
+                      },
+                      autofocus: true,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: Text('Ok'.tr()),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
           icon: const Icon(Icons.search_rounded),
         ),
       ],
