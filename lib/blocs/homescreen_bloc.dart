@@ -29,9 +29,7 @@ class HomescreenBloc extends Bloc {
 
   /// Called when you tap the
   /// Bottom navigation Bar.
-  void onBNBTap(int newIndex) {
-    _currentBottomNavigationBarIndex = newIndex;
-  }
+  void onBNBTap(int newIndex) => _currentBottomNavigationBarIndex = newIndex;
 
   /// Called when the Button the
   /// the Diary Screen

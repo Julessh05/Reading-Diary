@@ -7,6 +7,8 @@ import 'package:reading_diary/blocs/add_book_bloc.dart';
 import 'package:reading_diary/components/mobile/add_model_container.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
+/// Mobile Version of the Screen you can add
+/// books with
 class AddBookScreenMobile extends StatefulWidget {
   const AddBookScreenMobile({Key? key}) : super(key: key);
 

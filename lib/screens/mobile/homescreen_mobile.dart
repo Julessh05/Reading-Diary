@@ -173,6 +173,17 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// Diary Screen.
   AppBar get _diaryAppBar {
     return AppBar(
+      actions: <IconButton>[
+        IconButton(
+          alignment: Alignment.center,
+          autofocus: false,
+          enableFeedback: true,
+          tooltip: 'Search your Entries'.tr(),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          onPressed: () {},
+          icon: const Icon(Icons.search_rounded),
+        ),
+      ],
       automaticallyImplyLeading: false,
       title: Text('Diary'.tr()),
     );
@@ -266,6 +277,17 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// AppBar for the Wishlist screen
   AppBar get _wishlistAppBar {
     return AppBar(
+      actions: <IconButton>[
+        IconButton(
+          alignment: Alignment.center,
+          autofocus: false,
+          enableFeedback: true,
+          tooltip: 'Search your Wishlist'.tr(),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          onPressed: () {},
+          icon: const Icon(Icons.search_rounded),
+        ),
+      ],
       automaticallyImplyLeading: false,
       title: Text('Wishlist'.tr()),
     );
