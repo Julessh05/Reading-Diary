@@ -207,7 +207,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
                       children: [
                         AddModelContainer(
                           name: 'Keyword'.tr(),
-                          done: (str) => _bloc!.searchKeyword = str,
+                          done: (str) => _bloc!.diarySearchKeyword = str,
                         ),
                         Center(
                           child: Text(
@@ -222,18 +222,18 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
                             alignment: Alignment.center,
                             autofocus: false,
                             enableFeedback: true,
-                            value: _bloc!.searchBook ?? const Book.none(),
+                            value: _bloc!.diarySearchBook ?? const Book.none(),
                             onChanged: (book) {
                               if (book == null) {
-                                _bloc!.searchBook = null;
+                                _bloc!.diarySearchBook = null;
                               } else if (book == const Book.addBook()) {
                                 _bloc!
                                     .openAddBookScreen(context)
                                     .then((value) => setState(() {}));
                               } else if (book == const Book.none()) {
-                                _bloc!.searchBook = null;
+                                _bloc!.diarySearchBook = null;
                               } else {
-                                _bloc!.searchBook = BookList.books
+                                _bloc!.diarySearchBook = BookList.books
                                     .where((element) => element == book)
                                     .first;
                               }
@@ -283,7 +283,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
         value: const Book.none(),
         onTap: () {
           setState(() {
-            _bloc!.searchBook = null;
+            _bloc!.diarySearchBook = null;
           });
         },
         child: Text('None'.tr()),
@@ -298,7 +298,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
           value: book,
           onTap: () {
             setState(() {
-              _bloc!.searchBook = book;
+              _bloc!.diarySearchBook = book;
             });
           },
           child: Text(book.title),
@@ -449,7 +449,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
                       children: [
                         AddModelContainer(
                           name: 'Keyword'.tr(),
-                          done: (str) => _bloc!.searchKeyword = str,
+                          done: (str) => _bloc!.wishlistSearchKeyword = str,
                         ),
                       ],
                     ),
