@@ -1,8 +1,9 @@
 library mobile_screens;
 
-import 'package:flutter/gestures.dart';
+import 'package:bloc_implementation/bloc_implementation.dart';
+import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
-import 'package:reading_diary/components/mobile/entry_container_mobile.dart';
+import 'package:reading_diary/blocs/entry_details_bloc.dart';
 import 'package:reading_diary/components/mobile/entry_details_container_mobile.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
 
@@ -22,8 +23,15 @@ class EntryDetailsScreenMobile extends StatefulWidget {
 }
 
 class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
+  /// The corresponding Bloc to this
+  /// Screen with the Entry
+  EntryDetailsBloc? _bloc;
+
   @override
   Widget build(BuildContext context) {
+    // Init Bloc
+    _bloc ??= BlocParent.of(context);
+
     return Scaffold(
       appBar: _appBar,
       body: _body,
@@ -37,7 +45,20 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
     return AppBar(
       automaticallyImplyLeading: true,
       title: Text(widget.entry.title),
-      actions: <IconButton>[],
+      actions: <IconButton>[
+        IconButton(
+          onPressed: () {
+            // TODO: implement edit.
+          },
+          icon: const Icon(Icons.edit_rounded),
+          autofocus: false,
+        ),
+        IconButton(
+          onPressed: _deleteBTNPressed,
+          icon: const Icon(Icons.delete_rounded),
+          autofocus: false,
+        ),
+      ],
     );
   }
 
@@ -57,5 +78,11 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
         ],
       ),
     );
+  }
+
+  /// Called when the delete Button is pressed.
+  void _deleteBTNPressed() {
+    _bloc!.deleteEntry(widget.entry);
+    Navigator.pop(context);
   }
 }
