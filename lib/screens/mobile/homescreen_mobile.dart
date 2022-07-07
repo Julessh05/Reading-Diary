@@ -40,6 +40,11 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// is extended or not.
   final ScrollController _wishlistSController = ScrollController();
 
+  /// Scroll Controller that determines
+  /// whether the Floating Action Button on the Book Screen
+  /// is extended or not.
+  final ScrollController _bookSController = ScrollController();
+
   @override
   void initState() {
     // Add Listener to Diary Scroll Controller
@@ -71,6 +76,21 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
         });
       }
     });
+
+    // Add Listener to Book Scroll Controller
+    _bookSController.addListener(() {
+      if (_bookSController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        setState(() {
+          _bloc!.bookFabExtended = false;
+        });
+      } else if (_bookSController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        setState(() {
+          _bloc!.bookFabExtended = true;
+        });
+      }
+    });
     super.initState();
   }
 
@@ -93,8 +113,31 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// depending on the current Index [_bloc.currentBNBIndex] of the
   /// Bottom Navigation Bar.
   Widget? get _fab {
-    final Set<Widget?> afab = {null, _diaryFab, _wishlistFab};
+    final Set<Widget?> afab = {null, _diaryFab, _wishlistFab, _bookFab};
     return afab.elementAt(_bloc!.currentBNBIndex);
+  }
+
+  /// The Floating Action Button
+  /// for the Diary Screen.
+  /// Is A Clip to create a kind of circular Widget.
+  /// Has a Animation when changing the Size of it.
+  ClipRRect get _diaryFab {
+    const Duration aDur = Duration(milliseconds: 300);
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(40)),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      child: AnimatedCrossFade(
+        duration: aDur,
+        reverseDuration: aDur,
+        crossFadeState: _bloc!.diaryFabExtended
+            ? CrossFadeState.showFirst
+            : CrossFadeState.showSecond,
+        firstChild: _diaryEFab,
+        secondChild: _shrinkedDiaryFab,
+        alignment: Alignment.center,
+        excludeBottomFocus: false,
+      ),
+    );
   }
 
   /// Extended Floating Action Button
@@ -132,11 +175,10 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
     );
   }
 
-  /// The Floating Action Button
-  /// for the Diary Screen.
-  /// Is A Clip to create a kind of circular Widget.
-  /// Has a Animation when changing the Size of it.
-  ClipRRect get _diaryFab {
+  /// Animation that returnes the
+  /// Floating Action Button currently used on
+  /// the wishlist Screen.
+  ClipRRect get _wishlistFab {
     const Duration aDur = Duration(milliseconds: 300);
     return ClipRRect(
       borderRadius: const BorderRadius.all(Radius.circular(40)),
@@ -144,14 +186,97 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
       child: AnimatedCrossFade(
         duration: aDur,
         reverseDuration: aDur,
-        crossFadeState: _bloc!.diaryFabExtended
+        crossFadeState: _bloc!.wishlistFabExtended
             ? CrossFadeState.showFirst
             : CrossFadeState.showSecond,
-        firstChild: _diaryEFab,
-        secondChild: _shrinkedDiaryFab,
+        firstChild: _wishlistEFab,
+        secondChild: _shrinkedWishlistFab,
         alignment: Alignment.center,
         excludeBottomFocus: false,
       ),
+    );
+  }
+
+  /// The disabled Version of the Floating Action Button
+  /// used to add a new Wish on the Wishlist.
+  FloatingActionButton get _shrinkedWishlistFab {
+    return FloatingActionButton(
+      onPressed: () => _bloc!.onWishlistFabTap(context).then(
+            (value) => setState(() {}),
+          ),
+      autofocus: false,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      isExtended: false,
+      heroTag: 'Shrinked Wishlist Floating Action Button',
+      child: const Icon(Icons.bookmark_add_rounded),
+    );
+  }
+
+  /// The enabled Version of the Floating Action Button
+  /// used to add a new Wish on the Wishlist.
+  FloatingActionButton get _wishlistEFab {
+    return FloatingActionButton.extended(
+      onPressed: () => _bloc!.onWishlistFabTap(context).then(
+            (value) => setState(() {}),
+          ),
+      autofocus: false,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      label: Text('Add Wish'.tr()),
+      icon: const Icon(Icons.bookmark_add_rounded),
+      isExtended: true,
+      heroTag: 'Extended Wishlist Floating Action Button',
+    );
+  }
+
+  /// The Widget that returns the Floating Action Button
+  /// needed. Also contains an Animation
+  ClipRRect get _bookFab {
+    const Duration aDur = Duration(milliseconds: 300);
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(40)),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      child: AnimatedCrossFade(
+        duration: aDur,
+        reverseDuration: aDur,
+        crossFadeState: _bloc!.wishlistFabExtended
+            ? CrossFadeState.showFirst
+            : CrossFadeState.showSecond,
+        firstChild: _bookEFab,
+        secondChild: _shrinkedBookFab,
+        alignment: Alignment.center,
+        excludeBottomFocus: false,
+      ),
+    );
+  }
+
+  /// The shrinked Foating Action Button on the Book Screen.
+  FloatingActionButton get _shrinkedBookFab {
+    return FloatingActionButton(
+      onPressed: () => _bloc!.onBookFabTap(context).then(
+            (value) => setState(() {}),
+          ),
+      autofocus: false,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      isExtended: false,
+      heroTag: 'Shrinked Book Floating Action Button',
+      child: const Icon(Icons.post_add_rounded),
+    );
+  }
+
+  /// The Extended Version
+  /// of the Floating Action Button
+  /// on the Book Screen
+  FloatingActionButton get _bookEFab {
+    return FloatingActionButton.extended(
+      onPressed: () => _bloc!.onBookFabTap(context).then(
+            (value) => setState(() {}),
+          ),
+      autofocus: false,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      label: Text('Add Book'.tr()),
+      icon: const Icon(Icons.post_add_rounded),
+      isExtended: true,
+      heroTag: 'Extended Book Floating Action Button',
     );
   }
 
@@ -159,7 +284,12 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// on the index of the
   /// bottom navigation bar.
   AppBar get _appBar {
-    final Set<AppBar> aB = {_homeAppBar, _diaryAppBar, _wishlistAppBar};
+    final Set<AppBar> aB = {
+      _homeAppBar,
+      _diaryAppBar,
+      _wishlistAppBar,
+      _bookAppBar
+    };
     return aB.elementAt(_bloc!.currentBNBIndex);
   }
 
@@ -272,6 +402,137 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
     );
   }
 
+  /// AppBar for the Book Screen.
+  AppBar get _bookAppBar {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      title: Text('Books'.tr()),
+      actions: <IconButton>[
+        IconButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (_) {
+                return AlertDialog(
+                  scrollable: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  backgroundColor: Colors.white.withOpacity(0.35),
+                  insetPadding: EdgeInsets.zero,
+                  contentPadding: EdgeInsets.zero,
+                  buttonPadding: EdgeInsets.zero,
+                  actionsPadding: EdgeInsets.zero,
+                  title: Text('Search your Books'.tr()),
+                  content: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      textBaseline: TextBaseline.alphabetic,
+                      textDirection: TextDirection.ltr,
+                      verticalDirection: VerticalDirection.down,
+                      children: [
+                        AddModelContainer(
+                          name: 'Keyword'.tr(),
+                          done: (str) => _bloc!.bookSearchKeyword = str,
+                        ),
+                      ],
+                    ),
+                  ),
+                  actions: <TextButton>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      autofocus: false,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: Text('Cancel'.tr()),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        _bloc!.onBookSearchTap();
+                        Navigator.pop(context);
+                      },
+                      autofocus: true,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: Text('Ok'.tr()),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          icon: const Icon(Icons.search_rounded),
+        ),
+      ],
+    );
+  }
+
+  /// AppBar for the Wishlist screen
+  AppBar get _wishlistAppBar {
+    return AppBar(
+      actions: <IconButton>[
+        IconButton(
+          alignment: Alignment.center,
+          autofocus: false,
+          enableFeedback: true,
+          tooltip: 'Search your Wishlist'.tr(),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (_) {
+                return AlertDialog(
+                  scrollable: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  backgroundColor: Colors.white.withOpacity(0.35),
+                  insetPadding: EdgeInsets.zero,
+                  contentPadding: EdgeInsets.zero,
+                  buttonPadding: EdgeInsets.zero,
+                  actionsPadding: EdgeInsets.zero,
+                  title: Text('Search your Wishes'.tr()),
+                  content: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      textBaseline: TextBaseline.alphabetic,
+                      textDirection: TextDirection.ltr,
+                      verticalDirection: VerticalDirection.down,
+                      children: [
+                        AddModelContainer(
+                          name: 'Keyword'.tr(),
+                          done: (str) => _bloc!.wishlistSearchKeyword = str,
+                        ),
+                      ],
+                    ),
+                  ),
+                  actions: <TextButton>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      autofocus: false,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: Text('Cancel'.tr()),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        _bloc!.onWishSearchTap();
+                        Navigator.pop(context);
+                      },
+                      autofocus: true,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: Text('Ok'.tr()),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          icon: const Icon(Icons.search_rounded),
+        ),
+      ],
+      automaticallyImplyLeading: false,
+      title: Text('Wishlist'.tr()),
+    );
+  }
+
   /// All the Options for the Dropdown Menu
   List<DropdownMenuItem<Book>> get _bookDropDownItems {
     final List<DropdownMenuItem<Book>> list = [];
@@ -333,7 +594,12 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// Returns the body
   /// at the current Index.
   Scrollbar get _body {
-    final Set<Scrollbar> pB = {_homeBody, _diaryBody, _wishlistBody};
+    final Set<Scrollbar> pB = {
+      _homeBody,
+      _diaryBody,
+      _wishlistBody,
+      _bookBody,
+    };
     return pB.elementAt(_bloc!.currentBNBIndex);
   }
 
@@ -415,71 +681,28 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
     );
   }
 
-  /// AppBar for the Wishlist screen
-  AppBar get _wishlistAppBar {
-    return AppBar(
-      actions: <IconButton>[
-        IconButton(
-          alignment: Alignment.center,
-          autofocus: false,
-          enableFeedback: true,
-          tooltip: 'Search your Wishlist'.tr(),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (_) {
-                return AlertDialog(
-                  scrollable: true,
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  backgroundColor: Colors.white.withOpacity(0.35),
-                  insetPadding: EdgeInsets.zero,
-                  contentPadding: EdgeInsets.zero,
-                  buttonPadding: EdgeInsets.zero,
-                  actionsPadding: EdgeInsets.zero,
-                  title: Text('Search your Wishes'.tr()),
-                  content: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.max,
-                      textBaseline: TextBaseline.alphabetic,
-                      textDirection: TextDirection.ltr,
-                      verticalDirection: VerticalDirection.down,
-                      children: [
-                        AddModelContainer(
-                          name: 'Keyword'.tr(),
-                          done: (str) => _bloc!.wishlistSearchKeyword = str,
-                        ),
-                      ],
-                    ),
-                  ),
-                  actions: <TextButton>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      autofocus: false,
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      child: Text('Cancel'.tr()),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        _bloc!.onWishSearchTap();
-                        Navigator.pop(context);
-                      },
-                      autofocus: true,
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      child: Text('Ok'.tr()),
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-          icon: const Icon(Icons.search_rounded),
-        ),
-      ],
-      automaticallyImplyLeading: false,
-      title: Text('Wishlist'.tr()),
+  /// Body for the Book Screen.
+  Scrollbar get _bookBody {
+    return Scrollbar(
+      controller: _bookSController,
+      child: ListView.builder(
+        controller: _bookSController,
+        addAutomaticKeepAlives: true,
+        addRepaintBoundaries: true,
+        addSemanticIndexes: true,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        dragStartBehavior: DragStartBehavior.down,
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        physics: const BouncingScrollPhysics(),
+        reverse: false,
+        scrollDirection: Axis.vertical,
+        itemCount: BookList.books.length,
+        itemBuilder: (_, counter) {
+          return EntryContainerMobile(
+            book: BookList.books[counter],
+          );
+        },
+      ),
     );
   }
 
@@ -506,59 +729,6 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
     );
   }
 
-  /// Animation that returnes the
-  /// Floating Action Button currently used on
-  /// the wishlist Screen.
-  ClipRRect get _wishlistFab {
-    const Duration aDur = Duration(milliseconds: 300);
-    return ClipRRect(
-      borderRadius: const BorderRadius.all(Radius.circular(40)),
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      child: AnimatedCrossFade(
-        duration: aDur,
-        reverseDuration: aDur,
-        crossFadeState: _bloc!.wishlistFabExtended
-            ? CrossFadeState.showFirst
-            : CrossFadeState.showSecond,
-        firstChild: _wishlistEFab,
-        secondChild: _shrinkedWishlistFab,
-        alignment: Alignment.center,
-        excludeBottomFocus: false,
-      ),
-    );
-  }
-
-  /// The disabled Version of the Floating Action Button
-  /// used to add a new Wish on the Wishlist.
-  FloatingActionButton get _shrinkedWishlistFab {
-    return FloatingActionButton(
-      onPressed: () => _bloc!.onWishlistFabTap(context).then(
-            (value) => setState(() {}),
-          ),
-      autofocus: false,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      isExtended: false,
-      heroTag: 'Shrinked Wishlist Floating Action Button',
-      child: const Icon(Icons.bookmark_add_rounded),
-    );
-  }
-
-  /// The enabled Version of the Floating Action Button
-  /// used to add a new Wish on the Wishlist.
-  FloatingActionButton get _wishlistEFab {
-    return FloatingActionButton.extended(
-      onPressed: () => _bloc!.onWishlistFabTap(context).then(
-            (value) => setState(() {}),
-          ),
-      autofocus: false,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      label: Text('Add Wish'.tr()),
-      icon: const Icon(Icons.note_add_rounded),
-      isExtended: true,
-      heroTag: 'Extended Wishlist Floating Action Button',
-    );
-  }
-
   /// Bottom Navigation Bar for
   /// the Mobile Homescreen.
   ClipRRect get _bottomBar {
@@ -576,7 +746,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
             label: 'Home'.tr(),
             backgroundColor: Colors.blue.shade800,
             activeIcon: const Icon(Icons.home_rounded),
-            tooltip: 'Homescreen of the App'.tr(),
+            tooltip: 'Home and Explore'.tr(),
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.menu_book_outlined),
@@ -586,11 +756,18 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
             tooltip: 'The Actual Diary'.tr(),
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.format_list_bulleted_outlined),
+            icon: const Icon(Icons.bookmark_outline),
             label: 'Wishlist'.tr(),
             backgroundColor: Colors.blue.shade800,
-            activeIcon: const Icon(Icons.format_list_bulleted_rounded),
+            activeIcon: const Icon(Icons.bookmark_rounded),
             tooltip: 'Your Wishlist of Books'.tr(),
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.book_outlined),
+            label: 'Books'.tr(),
+            backgroundColor: Colors.blue.shade800,
+            activeIcon: const Icon(Icons.book_rounded),
+            tooltip: 'All your Books'.tr(),
           ),
         ],
       ),

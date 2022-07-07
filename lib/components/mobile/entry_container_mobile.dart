@@ -1,18 +1,28 @@
 library mobile_components;
 
 import 'package:flutter/material.dart';
+import 'package:reading_diary/models/book.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:string_translate/string_translate.dart' show Translate;
 
 /// A Container to display a single Diary Entry
 /// on mobile Devices.
 class EntryContainerMobile extends StatelessWidget {
   const EntryContainerMobile({
-    required this.entry,
+    this.entry,
+    this.book,
     Key? key,
-  }) : super(key: key);
+  })  : assert(
+          (entry != null && book == null) || (entry == null && book != null),
+          'You can only pass either an entry or a book',
+        ),
+        super(key: key);
 
   /// The Entry this Container correpsonds to
-  final DiaryEntry entry;
+  final DiaryEntry? entry;
+
+  /// The Book this Container represents
+  final Book? book;
 
   @override
   Widget build(BuildContext context) {
@@ -53,13 +63,7 @@ class EntryContainerMobile extends StatelessWidget {
                 textBaseline: TextBaseline.alphabetic,
                 textDirection: TextDirection.ltr,
                 verticalDirection: VerticalDirection.up,
-                children: <Widget>[
-                  Text(
-                    '${entry.date.day}.${entry.date.month}.${entry.date.year}',
-                    style: _dStyle,
-                  ),
-                  Text(entry.title!, style: _tStyle),
-                ],
+                children: _children,
               ),
             ),
           ),
@@ -68,6 +72,27 @@ class EntryContainerMobile extends StatelessWidget {
     );
   }
 
+  List<Widget> get _children {
+    if (entry != null) {
+      return <Widget>[
+        Text(
+          '${entry!.date.day}.${entry!.date.month}.${entry!.date.year}',
+          style: _dStyle,
+        ),
+        Text(entry!.title!, style: _tStyle),
+      ];
+    } else {
+      return <Widget>[
+        Text(
+          '${'Current Page'.tr()} ${book!.currentPage}',
+          style: _dStyle,
+        ),
+        Text(book!.title, style: _tStyle),
+      ];
+    }
+  }
+
+  /// Text Style for the Text
   TextStyle get _tStyle {
     return const TextStyle(
       fontSize: 25,
@@ -76,6 +101,7 @@ class EntryContainerMobile extends StatelessWidget {
     );
   }
 
+  /// Text Style for the Date
   TextStyle get _dStyle {
     return const TextStyle(
       fontSize: 15,
