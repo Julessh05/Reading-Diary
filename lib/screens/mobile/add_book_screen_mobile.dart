@@ -28,6 +28,8 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
     return Scaffold(
       appBar: _appBar,
       body: _body,
+      extendBody: true,
+      extendBodyBehindAppBar: true,
     );
   }
 

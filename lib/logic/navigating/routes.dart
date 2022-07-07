@@ -24,4 +24,8 @@ class Routes {
   /// Route Name for the screen with which you can
   /// add a Wish to your Wishlist.
   static const String addWishScreen = '/add_wish';
+
+  /// Route Name for the
+  /// Settings Screen.
+  static const String settingsScreen = '/settings';
 }

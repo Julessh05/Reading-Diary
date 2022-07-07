@@ -38,20 +38,18 @@ class ReadingDiary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Chack for Desktop and set
+    // corresponding Values
     _isDesktop();
 
+    // Init Translation Package
     Translation.init(
-      supportedLocales: {
-        TranslationLocales.english,
-        TranslationLocales.french,
-        TranslationLocales.german,
-        TranslationLocales.portuguese,
-        TranslationLocales.spanish,
-      },
+      supportedLocales: TranslationLocales.all,
       defaultLocale: TranslationLocales.english,
       translations: translations,
     );
 
+    /// The Title of the App
     const String title = 'Reading Diary';
 
     return MaterialApp(
@@ -108,6 +106,7 @@ class ReadingDiary extends StatelessWidget {
       Routes.addEntryScreen: (_) => WidgetRouter.addEntryScreen(),
       Routes.addBookScreen: (_) => WidgetRouter.addBookScreen(),
       Routes.addWishScreen: (_) => WidgetRouter.addWishScreen(),
+      Routes.settingsScreen: (_) => WidgetRouter.settingsScreen(),
       Routes.unknownscreen: (_) => WidgetRouter.unknownScreen(),
     };
   }

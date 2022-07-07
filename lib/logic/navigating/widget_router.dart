@@ -1,20 +1,24 @@
 library logic;
 
-import 'package:bloc_implementation/bloc_implementation.dart';
-import 'package:flutter/material.dart';
+import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
+import 'package:flutter/material.dart'
+    show BuildContext, Key, StatelessWidget, Widget;
 import 'package:reading_diary/blocs/add_book_bloc.dart';
 import 'package:reading_diary/blocs/add_entry_bloc.dart';
 import 'package:reading_diary/blocs/add_wish_bloc.dart';
 import 'package:reading_diary/blocs/homescreen_bloc.dart';
+import 'package:reading_diary/blocs/settings_bloc.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/screens/desktop/add_book_screen_desktop.dart';
 import 'package:reading_diary/screens/desktop/add_entry_screen_desktop.dart';
 import 'package:reading_diary/screens/desktop/add_wish_screen_desktop.dart';
 import 'package:reading_diary/screens/desktop/homescreen_desktop.dart';
+import 'package:reading_diary/screens/desktop/settings_screen_desktop.dart';
 import 'package:reading_diary/screens/mobile/add_book_screen_mobile.dart';
 import 'package:reading_diary/screens/mobile/add_entry_screen_mobile.dart';
 import 'package:reading_diary/screens/mobile/add_wish_screen_mobile.dart';
 import 'package:reading_diary/screens/mobile/homescreen_mobile.dart';
+import 'package:reading_diary/screens/mobile/settings_screen_mobile.dart';
 import 'package:reading_diary/screens/shared/unknown_screen.dart';
 
 /// Widget that returns the corresponding Screen
@@ -54,11 +58,14 @@ class WidgetRouter extends StatelessWidget {
     _routeName = Routes.unknownscreen;
   }
 
-  // TODO: make final
+  /// Widget Router for the Settings Screen
+  WidgetRouter.settingsScreen({Key? key}) : super(key: key) {
+    _routeName = Routes.settingsScreen;
+  }
 
   /// Whether the App is running on a
   /// Desktop OS (true) or not (false) (mostly mobile)
-  static late bool isDesktop;
+  static late final bool isDesktop;
 
   /// Route Name the Widget Router works with
   late final String _routeName;
@@ -100,6 +107,15 @@ class WidgetRouter extends StatelessWidget {
           child: isDesktop
               ? const AddWishScreenDesktop()
               : const AddWishScreenMobile(),
+        );
+
+      // Case for the Settings Screen
+      case Routes.settingsScreen:
+        return BlocParent(
+          bloc: SettingsBloc(),
+          child: isDesktop
+              ? const SettingsScreenDesktop()
+              : const SettingsScreenMobile(),
         );
 
       // Case for the Unknown Screen.

@@ -2,7 +2,7 @@ library blocs;
 
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
 import 'package:flutter/material.dart';
-import 'package:reading_diary/models/book.dart';
+import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
 
 /// Bloc for the Add Book Screens

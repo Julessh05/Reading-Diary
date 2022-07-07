@@ -180,6 +180,12 @@ class Themes {
           ),
         ),
       ),
+
+      listTileTheme: ListTileThemeData(
+        enableFeedback: true,
+        style: ListTileStyle.list,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
     );
   }
 

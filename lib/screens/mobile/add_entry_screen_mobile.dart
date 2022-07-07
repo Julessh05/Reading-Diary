@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show MaxLengthEnforcement;
 import 'package:reading_diary/blocs/add_entry_bloc.dart';
 import 'package:reading_diary/components/mobile/add_model_container.dart';
-import 'package:reading_diary/models/book.dart';
+import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
@@ -43,6 +43,8 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
     return Scaffold(
       appBar: _appBar,
       body: _body,
+      extendBody: true,
+      extendBodyBehindAppBar: true,
     );
   }
 

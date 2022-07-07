@@ -1,7 +1,7 @@
 library shared_screens;
 
 import 'package:flutter/material.dart';
-import 'package:string_translate/string_translate.dart';
+import 'package:string_translate/string_translate.dart' show Translate;
 
 /// The Screen shown when something went wrong
 /// and the original screen wasn't found

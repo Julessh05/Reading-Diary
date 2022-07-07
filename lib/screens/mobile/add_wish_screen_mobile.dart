@@ -30,6 +30,8 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
     return Scaffold(
       appBar: _appBar,
       body: _body,
+      extendBody: true,
+      extendBodyBehindAppBar: true,
     );
   }
 
