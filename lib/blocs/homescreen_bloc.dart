@@ -82,33 +82,6 @@ class HomescreenBloc extends Bloc {
   /// Bottom navigation Bar.
   void onBNBTap(int newIndex) => _currentBottomNavigationBarIndex = newIndex;
 
-  /// Called when the Button the
-  /// the Diary Screen
-  /// is tapped
-  Future<void> onDiaryFabTap(BuildContext context) async {
-    Navigator.pushNamed(context, Routes.addEntryScreen);
-  }
-
-  /// Called when the Button the
-  /// the Wishlist Screen
-  /// is tapped
-  Future<void> onWishlistFabTap(BuildContext context) async {
-    Navigator.pushNamed(context, Routes.addWishScreen);
-  }
-
-  /// Called when the User taps on the
-  /// Floating Action Button on the
-  /// Book Screen
-  Future<void> onBookFabTap(BuildContext context) async {
-    Navigator.pushNamed(context, Routes.addBookScreen);
-  }
-
-  /// Method called when the User
-  /// clicked the 'Add Book' Item on the Dropdown.
-  Future<void> openAddBookScreen(BuildContext context) async {
-    Navigator.pushNamed(context, Routes.addBookScreen);
-  }
-
   /// Opens the Settings Screen.
   void openSettingsScreen(BuildContext context) {
     Navigator.pushNamed(context, Routes.settingsScreen);
