@@ -28,4 +28,7 @@ class Routes {
   /// Route Name for the
   /// Settings Screen.
   static const String settingsScreen = '/settings';
+
+  /// The Screen that sowns a single Entry.
+  static const String entryDetailsScreen = '/entry';
 }

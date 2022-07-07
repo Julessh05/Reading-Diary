@@ -86,6 +86,7 @@ class ReadingDiary extends StatelessWidget {
       // Routes
       routes: _routes,
       initialRoute: Routes.homescreen,
+      onGenerateRoute: (settings) => _onGenerateRoute(settings),
       onUnknownRoute: (settings) => _onUnkownRoute(settings),
 
       // Themes,
@@ -109,6 +110,21 @@ class ReadingDiary extends StatelessWidget {
       Routes.settingsScreen: (_) => WidgetRouter.settingsScreen(),
       Routes.unknownscreen: (_) => WidgetRouter.unknownScreen(),
     };
+  }
+
+  /// Function called when the App calls
+  /// a Screen that needs any parameters.
+  MaterialPageRoute? _onGenerateRoute(RouteSettings settings) {
+    // Entry Details Screen
+    if (settings.name == Routes.entryDetailsScreen) {
+      return MaterialPageRoute(
+        builder: (_) {
+          return WidgetRouter.entryDetailsScreen(settings: settings);
+        },
+      );
+    } else {
+      return null;
+    }
   }
 
   /// Returnst the Unknown Screen.

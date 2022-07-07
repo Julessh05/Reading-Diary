@@ -29,7 +29,7 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
       appBar: _appBar,
       body: _body,
       extendBody: true,
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: false,
     );
   }
 

@@ -44,7 +44,8 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
       appBar: _appBar,
       body: _body,
       extendBody: true,
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: false,
+      resizeToAvoidBottomInset: true,
     );
   }
 
@@ -82,6 +83,8 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
             ),
             AddModelContainer(
               name: 'Content'.tr(),
+              keyboardType: TextInputType.multiline,
+              mulitline: true,
               done: (ct) {
                 setState(() {
                   _bloc!.entryContent = ct;

@@ -297,6 +297,12 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// Homescreen.
   AppBar get _homeAppBar {
     return AppBar(
+      actions: <IconButton>[
+        IconButton(
+          onPressed: () => _bloc!.openSettingsScreen(context),
+          icon: const Icon(Icons.settings_rounded),
+        ),
+      ],
       automaticallyImplyLeading: false,
       title: Text('Home'.tr()),
     );
@@ -308,15 +314,19 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
     return AppBar(
       actions: <IconButton>[
         IconButton(
-          alignment: Alignment.center,
-          autofocus: false,
-          enableFeedback: true,
-          tooltip: 'Search your Entries'.tr(),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          onPressed: _showDiarySearchDialog,
-          icon: const Icon(Icons.search_rounded),
+          onPressed: () => _bloc!.openSettingsScreen(context),
+          icon: const Icon(Icons.settings_rounded),
         ),
       ],
+      leading: IconButton(
+        alignment: Alignment.center,
+        autofocus: false,
+        enableFeedback: true,
+        tooltip: 'Search your Entries'.tr(),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        onPressed: _showDiarySearchDialog,
+        icon: const Icon(Icons.search_rounded),
+      ),
       automaticallyImplyLeading: false,
       title: Text('Diary'.tr()),
     );
@@ -329,10 +339,16 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
       title: Text('Books'.tr()),
       actions: <IconButton>[
         IconButton(
-          onPressed: _showBookSearchDialog,
-          icon: const Icon(Icons.search_rounded),
+          onPressed: () => _bloc!.openSettingsScreen(context),
+          icon: const Icon(Icons.settings_rounded),
         ),
       ],
+      leading: IconButton(
+        onPressed: _showBookSearchDialog,
+        autofocus: false,
+        tooltip: 'Search your Books'.tr(),
+        icon: const Icon(Icons.search_rounded),
+      ),
     );
   }
 
@@ -341,15 +357,19 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
     return AppBar(
       actions: <IconButton>[
         IconButton(
-          alignment: Alignment.center,
-          autofocus: false,
-          enableFeedback: true,
-          tooltip: 'Search your Wishlist'.tr(),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          onPressed: _showWishlistSearchDialog,
-          icon: const Icon(Icons.search_rounded),
+          onPressed: () => _bloc!.openSettingsScreen(context),
+          icon: const Icon(Icons.settings_rounded),
         ),
       ],
+      leading: IconButton(
+        alignment: Alignment.center,
+        autofocus: false,
+        enableFeedback: true,
+        tooltip: 'Search your Wishlist'.tr(),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        onPressed: _showWishlistSearchDialog,
+        icon: const Icon(Icons.search_rounded),
+      ),
       automaticallyImplyLeading: false,
       title: Text('Wishlist'.tr()),
     );
@@ -468,7 +488,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
             itemBuilder: (_, counter) {
               return EntryContainerMobile(
                 entry: DiaryEntry(
-                  entry: 'Entry',
+                  content: 'Entry',
                 ),
               );
             },

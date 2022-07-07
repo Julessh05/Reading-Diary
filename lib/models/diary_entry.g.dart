@@ -18,7 +18,7 @@ class DiaryEntryAdapter extends TypeAdapter<DiaryEntry> {
     };
     return DiaryEntry(
       title: fields[0] as String?,
-      entry: fields[1] as String,
+      content: fields[1] as String,
       image: fields[3] as Image?,
       date: fields[4] as DateTime?,
       book: fields[6] as Book?,
@@ -33,7 +33,7 @@ class DiaryEntryAdapter extends TypeAdapter<DiaryEntry> {
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
-      ..write(obj.entry)
+      ..write(obj.content)
       ..writeByte(3)
       ..write(obj.image)
       ..writeByte(4)

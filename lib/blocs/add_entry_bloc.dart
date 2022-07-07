@@ -54,7 +54,7 @@ class AddEntryBloc extends Bloc {
     Diary.addEntry(
       DiaryEntry(
         title: _entryTitle,
-        entry: _entryContent,
+        content: _entryContent,
         date: entryDate,
         image: _entryImage,
         pagesRead: _entryPages,

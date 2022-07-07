@@ -19,6 +19,7 @@ class AddModelContainer extends StatefulWidget {
     this.done,
     this.child,
     this.big = false,
+    this.mulitline = false,
     Key? key,
   })  : assert(
           child == null && done != null || child != null,
@@ -64,6 +65,9 @@ class AddModelContainer extends StatefulWidget {
   /// set this to true.
   final bool big;
 
+  /// Whether this is a full Screen Textfield or not.
+  final bool mulitline;
+
   @override
   State<AddModelContainer> createState() => _AddModelContainerState();
 }
@@ -72,9 +76,15 @@ class _AddModelContainerState extends State<AddModelContainer> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: widget.big
-          ? MediaQuery.of(context).size.height / 3.3
-          : MediaQuery.of(context).size.height / 4.5,
+      height: () {
+        if (widget.big) {
+          return MediaQuery.of(context).size.height / 3.3;
+        } else if (widget.mulitline) {
+          return MediaQuery.of(context).size.height;
+        } else {
+          return MediaQuery.of(context).size.height / 4.5;
+        }
+      }(),
       child: Card(
         elevation: 8,
         borderOnForeground: false,
@@ -107,7 +117,9 @@ class _AddModelContainerState extends State<AddModelContainer> {
               const SizedBox(height: 18),
               widget.child ??
                   SizedBox(
-                    height: 80,
+                    height: widget.mulitline
+                        ? MediaQuery.of(context).size.height / 1.2
+                        : 80,
                     child: TextField(
                       autocorrect: true,
                       autofocus: widget.autofocus,
@@ -127,7 +139,7 @@ class _AddModelContainerState extends State<AddModelContainer> {
                       smartQuotesType: SmartQuotesType.enabled,
                       textAlign: TextAlign.start,
                       textAlignVertical: TextAlignVertical.center,
-                      textCapitalization: TextCapitalization.words,
+                      textCapitalization: TextCapitalization.sentences,
                       toolbarOptions: const ToolbarOptions(
                         copy: true,
                         cut: true,
@@ -138,8 +150,10 @@ class _AddModelContainerState extends State<AddModelContainer> {
                       selectionControls: MaterialTextSelectionControls(),
                       textDirection: TextDirection.ltr,
                       textInputAction: widget.textInputAction,
-                      maxLines: widget.maxLines,
-                      minLines: 1,
+                      maxLines: widget.mulitline ? 99999 : widget.maxLines,
+                      minLines: widget.mulitline
+                          ? MediaQuery.of(context).size.height ~/ 20
+                          : 1,
                       selectionHeightStyle: BoxHeightStyle.tight,
                       selectionWidthStyle: BoxWidthStyle.tight,
                       showCursor: true,

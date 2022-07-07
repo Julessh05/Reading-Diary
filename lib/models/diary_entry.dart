@@ -14,7 +14,7 @@ part 'diary_entry.g.dart';
 class DiaryEntry {
   DiaryEntry({
     String? title,
-    required this.entry,
+    required this.content,
     this.image,
     DateTime? date,
     this.book,
@@ -25,10 +25,10 @@ class DiaryEntry {
   }
 
   @HiveField(0)
-  late final String? title;
+  late final String title;
 
   @HiveField(1)
-  final String entry;
+  final String content;
 
   @HiveField(3)
   final Image? image;

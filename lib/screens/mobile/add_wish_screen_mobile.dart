@@ -31,7 +31,7 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
       appBar: _appBar,
       body: _body,
       extendBody: true,
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: false,
     );
   }
 

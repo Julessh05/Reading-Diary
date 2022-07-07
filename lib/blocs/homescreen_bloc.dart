@@ -109,18 +109,19 @@ class HomescreenBloc extends Bloc {
     Navigator.pushNamed(context, Routes.addBookScreen);
   }
 
+  /// Opens the Settings Screen.
+  void openSettingsScreen(BuildContext context) {
+    Navigator.pushNamed(context, Routes.settingsScreen);
+  }
+
   /// Called when the User pressed
   /// the OK Button inside the Search
   /// Dialog for the Diary Screen
   void onDiarySearchTap() {
     for (DiaryEntry entry in Diary.entries) {
-      if (entry.title != null) {
-        if (entry.title!.contains(_diarySearchKeyword)) {
-          _diarySearchResults.add(entry);
-        } else {
-          continue;
-        }
-      } else if (entry.entry.contains(_diarySearchKeyword)) {
+      if (entry.title.contains(_diarySearchKeyword)) {
+        _diarySearchResults.add(entry);
+      } else if (entry.content.contains(_diarySearchKeyword)) {
         _diarySearchResults.add(entry);
       } else if (entry.book != null) {
         if (entry.book == diarySearchBook) {
