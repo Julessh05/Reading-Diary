@@ -131,6 +131,18 @@ final Map<String, Map<Locale, String>> _translations = {
   'Settings': {
     TranslationLocales.german: 'Einstellungen',
   },
+  'Language': {
+    TranslationLocales.german: 'Sprache',
+  },
+  'Set the Language of your App.': {
+    TranslationLocales.german: 'Lege die Sprache deiner App fest.'
+  },
+  'Theme': {
+    TranslationLocales.german: 'Thema',
+  },
+  'Set your Personal Style.': {
+    TranslationLocales.german: 'Lege deinen persönlichen Stil fest.'
+  }
 };
 
 /// Getter for the Translations.

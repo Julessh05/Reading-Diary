@@ -5,6 +5,7 @@ import 'package:reading_diary/models/book.dart';
 import 'package:reading_diary/models/book_list.dart';
 import 'package:reading_diary/models/diary.dart';
 import 'package:reading_diary/models/diary_entry.dart';
+import 'package:reading_diary/models/setting.dart';
 import 'package:reading_diary/models/wish.dart';
 import 'package:reading_diary/models/wishlist.dart';
 
@@ -31,6 +32,13 @@ class Storage {
   /// Key for the [_wishBox]
   static const String _wishBoxKEY = 'Wish Box';
 
+  /// Box that stores all Settings
+  /// used in the App.
+  static Box<Setting>? _settingsBox;
+
+  /// The Key for the [_settingsBox]
+  static const String _settingsBoxKEY = 'Settings Box';
+
   /// Initialized the Storage.
   /// Loads all Data.
   /// Make sure to call this Method before doing anything
@@ -39,12 +47,15 @@ class Storage {
     Hive.registerAdapter(BookAdapter());
     Hive.registerAdapter(DiaryEntryAdapter());
     Hive.registerAdapter(WishAdapter());
+    Hive.registerAdapter(SettingAdapter());
     _entryBox = await Hive.openBox<DiaryEntry>(_entryBoxKEY);
     _bookBox = await Hive.openBox<Book>(_bookBoxKEY);
     _wishBox = await Hive.openBox<Wish>(_wishBoxKEY);
+    _settingsBox = await Hive.openBox<Setting>(_settingsBoxKEY);
     _loadEntries();
     _loadBooks();
     _loadWishes();
+    _loadSettings();
   }
 
   /// Loads all the Books
@@ -62,6 +73,19 @@ class Storage {
   static void _loadEntries() {
     for (DiaryEntry entry in _entryBox!.values) {
       Diary.addEntry(entry);
+    }
+  }
+
+  /// Loads all the Settings from
+  /// the Storage into the [allSettings]
+  /// Set of Settings.
+  static void _loadSettings() {
+    if (_settingsBox!.isEmpty) {
+      Setting.createSettings();
+    } else {
+      for (Setting setting in _settingsBox!.values) {
+        allSettings.add(setting);
+      }
     }
   }
 
@@ -100,6 +124,16 @@ class Storage {
     for (int i = 0; i < Wishlist.wishes.length; i++) {
       final String key = 'Wish $i';
       _wishBox!.put(key, Wishlist.wishes[i]);
+    }
+  }
+
+  /// Stores all the Settings with the current
+  /// Value to the File System.
+  static void storeSettings() {
+    _settingsBox!.deleteAll(_settingsBox!.keys);
+    for (Setting setting in allSettings) {
+      final String key = setting.name;
+      _settingsBox!.put(key, setting);
     }
   }
 }

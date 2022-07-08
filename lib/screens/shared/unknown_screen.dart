@@ -37,6 +37,10 @@ class UnknwonScreen extends StatelessWidget {
                     .tr(),
                 softWrap: true,
                 textAlign: TextAlign.center,
+                textDirection: TextDirection.ltr,
+                textHeightBehavior: const TextHeightBehavior(),
+                textWidthBasis: TextWidthBasis.longestLine,
+                overflow: TextOverflow.fade,
               ),
             ),
             const Spacer(flex: 5)

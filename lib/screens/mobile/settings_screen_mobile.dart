@@ -2,6 +2,8 @@ library mobile_screens;
 
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
+import 'package:reading_diary/components/mobile/settings_tile_mobile.dart';
+import 'package:reading_diary/models/setting.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
 /// Mobile Version of the Settings Screen.
@@ -34,7 +36,7 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
 
   Scrollbar get _body {
     return Scrollbar(
-      child: ListView(
+      child: ListView.builder(
         addAutomaticKeepAlives: true,
         addRepaintBoundaries: true,
         addSemanticIndexes: true,
@@ -44,7 +46,12 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
         physics: const BouncingScrollPhysics(),
         reverse: false,
         scrollDirection: Axis.vertical,
-        children: <Widget>[],
+        itemCount: allSettings.length,
+        itemBuilder: (_, c) {
+          return SettingsTileMobile(
+            setting: allSettings.elementAt(c),
+          );
+        },
       ),
     );
   }
