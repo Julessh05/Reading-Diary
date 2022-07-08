@@ -75,6 +75,9 @@ class WidgetRouter extends StatelessWidget {
     _settings = settings;
   }
 
+  /// The Route Settings
+  /// with which arguments are passed
+  /// to different Screens.
   late final RouteSettings? _settings;
 
   // TODO: make final

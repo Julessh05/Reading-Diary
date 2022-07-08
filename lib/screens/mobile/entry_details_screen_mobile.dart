@@ -15,6 +15,8 @@ class EntryDetailsScreenMobile extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
+  /// The Entry this
+  /// Screen represents / shows
   final DiaryEntry entry;
 
   @override
@@ -47,9 +49,7 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
       title: Text(widget.entry.title),
       actions: <IconButton>[
         IconButton(
-          onPressed: () {
-            // TODO: implement edit.
-          },
+          onPressed: _editBTNPressed,
           icon: const Icon(Icons.edit_rounded),
           autofocus: false,
         ),
@@ -85,4 +85,8 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
     _bloc!.deleteEntry(widget.entry);
     Navigator.pop(context);
   }
+
+  /// Called whe the Edit Button
+  /// is Pressed
+  void _editBTNPressed() {}
 }

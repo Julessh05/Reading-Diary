@@ -1,9 +1,9 @@
 library mobile_components;
 
-import 'package:flutter/gestures.dart';
+import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
-import 'package:reading_diary/models/book.dart';
+import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
 import 'package:string_translate/string_translate.dart' show Translate;
 
