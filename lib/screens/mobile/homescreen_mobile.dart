@@ -614,7 +614,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
         return AlertDialog(
           scrollable: true,
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          backgroundColor: Colors.white.withOpacity(0.35),
+          backgroundColor: Colors.white.withOpacity(0.7),
           insetPadding: EdgeInsets.zero,
           contentPadding: EdgeInsets.zero,
           buttonPadding: EdgeInsets.zero,
@@ -638,6 +638,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
                 AddModelContainer(
                   name: 'Keyword'.tr(),
                   done: (str) => _bloc!.diarySearchKeyword = str,
+                  opacity: 0.7,
                 ),
                 Center(
                   child: Text(
@@ -647,6 +648,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
                 ),
                 AddModelContainer(
                   name: 'Book'.tr(),
+                  opacity: 0.7,
                   child: DropdownButton<Book>(
                     items: _bookDropDownItems,
                     alignment: Alignment.center,
@@ -702,7 +704,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
         return AlertDialog(
           scrollable: true,
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          backgroundColor: Colors.white.withOpacity(0.35),
+          backgroundColor: Colors.white.withOpacity(0.7),
           insetPadding: EdgeInsets.zero,
           contentPadding: EdgeInsets.zero,
           buttonPadding: EdgeInsets.zero,
@@ -726,6 +728,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
                 AddModelContainer(
                   name: 'Keyword'.tr(),
                   done: (str) => _bloc!.wishlistSearchKeyword = str,
+                  opacity: 0.7,
                 ),
               ],
             ),
@@ -761,7 +764,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
         return AlertDialog(
           scrollable: true,
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          backgroundColor: Colors.white.withOpacity(0.35),
+          backgroundColor: Colors.white.withOpacity(0.7),
           insetPadding: EdgeInsets.zero,
           contentPadding: EdgeInsets.zero,
           buttonPadding: EdgeInsets.zero,
@@ -785,6 +788,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
                 AddModelContainer(
                   name: 'Keyword'.tr(),
                   done: (str) => _bloc!.bookSearchKeyword = str,
+                  opacity: 0.7,
                 ),
               ],
             ),
