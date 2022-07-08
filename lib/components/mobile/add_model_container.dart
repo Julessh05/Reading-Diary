@@ -20,6 +20,7 @@ class AddModelContainer extends StatefulWidget {
     this.child,
     this.big = false,
     this.mulitline = false,
+    this.opacity = 1,
     Key? key,
   })  : assert(
           child == null && done != null || child != null,
@@ -68,6 +69,9 @@ class AddModelContainer extends StatefulWidget {
   /// Whether this is a full Screen Textfield or not.
   final bool mulitline;
 
+  /// The Opacity of this Containers Card.
+  final double opacity;
+
   @override
   State<AddModelContainer> createState() => _AddModelContainerState();
 }
@@ -89,7 +93,9 @@ class _AddModelContainerState extends State<AddModelContainer> {
         elevation: 8,
         borderOnForeground: false,
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        color: Theme.of(context).scaffoldBackgroundColor,
+        color: Theme.of(context)
+            .scaffoldBackgroundColor
+            .withOpacity(widget.opacity),
         margin: const EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 10,
