@@ -176,7 +176,7 @@ class _AddModelContainerState extends State<AddModelContainer> {
     );
   }
 
-  /// Text Style for the [name]
+  /// Text Style for the [_name]
   TextStyle get _tStyle {
     return const TextStyle(
       fontStyle: FontStyle.normal,

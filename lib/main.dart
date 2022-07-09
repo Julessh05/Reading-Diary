@@ -2,10 +2,14 @@ library main;
 
 import 'dart:io' show Platform;
 
+import 'package:bloc_implementation/bloc_implementation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart' show Hive, HiveX;
+import 'package:reading_diary/blocs/event_bloc.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/logic/navigating/widget_router.dart';
+import 'package:reading_diary/models/events/event.dart';
+import 'package:reading_diary/models/events/reload_event.dart';
 import 'package:reading_diary/screens/shared/unknown_screen.dart';
 import 'package:reading_diary/storage/storage.dart';
 import 'package:reading_diary/style/themes.dart';
@@ -33,8 +37,27 @@ void _isDesktop() {
 
 /// The Main widget for this App.
 /// Returns the Material App.
-class ReadingDiary extends StatelessWidget {
+class ReadingDiary extends StatefulWidget {
   const ReadingDiary({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _ReadingDiaryState();
+}
+
+class _ReadingDiaryState extends State<ReadingDiary> {
+  @override
+  void initState() {
+    EventBloc.stream.stream.listen((event) {
+      _handleEvents(event);
+    });
+    super.initState();
+  }
+
+  void _handleEvents(Event event) {
+    if (event is ReloadEvent) {
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,13 @@
 library mobile_screens;
 
+import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
-import 'package:string_translate/string_translate.dart' show Translate;
+import 'package:reading_diary/blocs/settings_bloc.dart';
+import 'package:reading_diary/components/mobile/settings_tile_mobile.dart';
+import 'package:reading_diary/models/setting.dart' show allSettings;
+import 'package:string_translate/string_translate.dart'
+    hide StandardTranslations, TranslationDelegates;
 
 /// Mobile Version of the Settings Screen.
 class SettingsScreenMobile extends StatefulWidget {
@@ -13,8 +18,14 @@ class SettingsScreenMobile extends StatefulWidget {
 }
 
 class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
+  /// The Bloc used for this Screen.
+  SettingsBloc? _bloc;
+
   @override
   Widget build(BuildContext context) {
+    // Init Bloc
+    _bloc = BlocParent.of(context);
+
     return Scaffold(
       appBar: _appBar,
       body: _body,
@@ -32,6 +43,8 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
     );
   }
 
+  /// Body for the Settings
+  /// Screen.
   Scrollbar get _body {
     return Scrollbar(
       child: ListView(
@@ -44,8 +57,134 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
         physics: const BouncingScrollPhysics(),
         reverse: false,
         scrollDirection: Axis.vertical,
-        children: <Widget>[],
+        children: [
+          // Language Setting.
+          SettingsTileMobile(
+            setting: allSettings
+                .where((element) => element.name == 'Language')
+                .first,
+            onTap: _showLanguageDialog,
+          ),
+
+          // Theme Setting
+          SettingsTileMobile(
+            setting:
+                allSettings.where((element) => element.name == 'Theme').first,
+            onTap: _showThemeDialog,
+          ),
+        ],
       ),
     );
+  }
+
+  /// Function called to show
+  /// the Language Chooser Dialog.
+  void _showLanguageDialog() {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return SimpleDialog(
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          title: Text('Choose a Language'.tr()),
+          children: <SimpleDialogOption>[
+            SimpleDialogOption(
+              onPressed: () => setState(() {
+                _bloc!.changeLanguage(TranslationLocales.english);
+                Navigator.pop(context);
+              }),
+              child: _getDialogTile('English'.tr()),
+            ),
+            SimpleDialogOption(
+              onPressed: () => setState(() {
+                _bloc!.changeLanguage(TranslationLocales.german);
+                Navigator.pop(context);
+              }),
+              child: _getDialogTile('German'.tr()),
+            ),
+            SimpleDialogOption(
+              onPressed: () => setState(() {
+                _bloc!.changeLanguage(TranslationLocales.french);
+                Navigator.pop(context);
+              }),
+              child: _getDialogTile('French'.tr()),
+            ),
+            SimpleDialogOption(
+              onPressed: () => setState(() {
+                _bloc!.changeLanguage(TranslationLocales.spanish);
+                Navigator.pop(context);
+              }),
+              child: _getDialogTile('Spanish'.tr()),
+            ),
+            SimpleDialogOption(
+              onPressed: () => setState(() {
+                _bloc!.changeLanguage(TranslationLocales.portuguese);
+                Navigator.pop(context);
+              }),
+              child: _getDialogTile('Portuguese'.tr()),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  /// The Tile that represents a single
+  /// Option in the Dialogs shown on the
+  /// Settings Screen.
+  Widget _getDialogTile(String text) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(30)),
+        color: Colors.blue.shade800,
+        backgroundBlendMode: BlendMode.src,
+        shape: BoxShape.rectangle,
+      ),
+      position: DecorationPosition.background,
+      child: Align(
+        heightFactor: 2,
+        alignment: Alignment.center,
+        child: Text(
+          text,
+          style: const TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  /// Shows the Dialog with whih
+  /// the User can choose the
+  /// Theme Mode of this App.
+  void _showThemeDialog() {
+    showDialog(
+        context: context,
+        builder: (_) {
+          return SimpleDialog(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            title: Text('Choose a Theme Mode'.tr()),
+            children: <SimpleDialogOption>[
+              SimpleDialogOption(
+                onPressed: () => setState(() {
+                  _bloc!.changeThememode(ThemeMode.system);
+                  Navigator.pop(context);
+                }),
+                child: _getDialogTile('System'.tr()),
+              ),
+              SimpleDialogOption(
+                onPressed: () => setState(() {
+                  _bloc!.changeThememode(ThemeMode.light);
+                  Navigator.pop(context);
+                }),
+                child: _getDialogTile('Light'.tr()),
+              ),
+              SimpleDialogOption(
+                onPressed: () => setState(() {
+                  _bloc!.changeThememode(ThemeMode.dark);
+                  Navigator.pop(context);
+                }),
+                child: _getDialogTile('Dark'.tr()),
+              ),
+            ],
+          );
+        });
   }
 }
