@@ -3,27 +3,12 @@ library logic;
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/material.dart'
     show BuildContext, Key, RouteSettings, StatelessWidget, Widget;
-import 'package:reading_diary/blocs/add_book_bloc.dart';
-import 'package:reading_diary/blocs/add_entry_bloc.dart';
-import 'package:reading_diary/blocs/add_wish_bloc.dart';
-import 'package:reading_diary/blocs/entry_details_bloc.dart';
-import 'package:reading_diary/blocs/homescreen_bloc.dart';
-import 'package:reading_diary/blocs/settings_bloc.dart';
+import 'package:reading_diary/blocs/blocs.dart' hide EventBloc;
 import 'package:reading_diary/logic/navigating/routes.dart';
-import 'package:reading_diary/models/diary_entry.dart';
-import 'package:reading_diary/screens/desktop/add_book_screen_desktop.dart';
-import 'package:reading_diary/screens/desktop/add_entry_screen_desktop.dart';
-import 'package:reading_diary/screens/desktop/add_wish_screen_desktop.dart';
-import 'package:reading_diary/screens/desktop/entry_details_screen_desktop.dart';
-import 'package:reading_diary/screens/desktop/homescreen_desktop.dart';
-import 'package:reading_diary/screens/desktop/settings_screen_desktop.dart';
-import 'package:reading_diary/screens/mobile/add_book_screen_mobile.dart';
-import 'package:reading_diary/screens/mobile/add_entry_screen_mobile.dart';
-import 'package:reading_diary/screens/mobile/add_wish_screen_mobile.dart';
-import 'package:reading_diary/screens/mobile/entry_details_screen_mobile.dart';
-import 'package:reading_diary/screens/mobile/homescreen_mobile.dart';
-import 'package:reading_diary/screens/mobile/settings_screen_mobile.dart';
-import 'package:reading_diary/screens/shared/unknown_screen.dart';
+import 'package:reading_diary/models/book.dart' show Book;
+import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:reading_diary/models/wish.dart' show Wish;
+import 'package:reading_diary/screens/screens.dart';
 
 /// Widget that returns the corresponding Screen
 /// to the Platform you're running the App on.
@@ -67,11 +52,39 @@ class WidgetRouter extends StatelessWidget {
     _routeName = Routes.settingsScreen;
   }
 
+  /// The Widget Router for the Screen
+  /// that shows a single Entry.
+  /// Through the [settings] the
+  /// Entry is passed
   WidgetRouter.entryDetailsScreen({
     required RouteSettings settings,
     Key? key,
   }) : super(key: key) {
     _routeName = Routes.entryDetailsScreen;
+    _settings = settings;
+  }
+
+  /// The Widget Router for the Screen
+  /// that shows a single Book.
+  /// Through the [settings] the
+  /// Book is passed
+  WidgetRouter.bookDetailsScreen({
+    required RouteSettings settings,
+    Key? key,
+  }) : super(key: key) {
+    _routeName = Routes.bookDetailsScreen;
+    _settings = settings;
+  }
+
+  /// The Widget Router for the Screen
+  /// that shows a single Wish.
+  /// Through the [settings] the
+  /// Wish is passed
+  WidgetRouter.wishDetailsScreen({
+    required RouteSettings settings,
+    Key? key,
+  }) : super(key: key) {
+    _routeName = Routes.wishDetailsScreen;
     _settings = settings;
   }
 
@@ -139,16 +152,36 @@ class WidgetRouter extends StatelessWidget {
 
       // Entry Details Screen
       case Routes.entryDetailsScreen:
-        {
-          return BlocParent(
-            bloc: EntryDetailsBloc(),
-            child: isDesktop
-                ? const EntryDetailsScreenDesktop()
-                : EntryDetailsScreenMobile(
-                    entry: _settings!.arguments as DiaryEntry,
-                  ),
-          );
-        }
+        return BlocParent(
+          bloc: EntryDetailsBloc(),
+          child: isDesktop
+              ? const EntryDetailsScreenDesktop()
+              : EntryDetailsScreenMobile(
+                  entry: _settings!.arguments as DiaryEntry,
+                ),
+        );
+
+      // Book Details Screen
+      case Routes.bookDetailsScreen:
+        return BlocParent(
+          bloc: BookDetailsBloc(),
+          child: isDesktop
+              ? const BookDetailsScreenDesktop()
+              : BookDetailsScreenMobile(
+                  book: _settings!.arguments as Book,
+                ),
+        );
+
+      // Wish Details Screen
+      case Routes.wishDetailsScreen:
+        return BlocParent(
+          bloc: WishDetailsBloc(),
+          child: isDesktop
+              ? const WishDetailsScreenDesktop()
+              : WishDetailsScreenMobile(
+                  wish: _settings!.arguments as Wish,
+                ),
+        );
 
       // Case for the Unknown Screen.
       // Never used directly

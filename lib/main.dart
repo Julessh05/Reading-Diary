@@ -144,6 +144,18 @@ class _ReadingDiaryState extends State<ReadingDiary> {
           return WidgetRouter.entryDetailsScreen(settings: settings);
         },
       );
+    } else if (settings.name == Routes.bookDetailsScreen) {
+      return MaterialPageRoute(
+        builder: (_) {
+          return WidgetRouter.bookDetailsScreen(settings: settings);
+        },
+      );
+    } else if (settings.name == Routes.wishDetailsScreen) {
+      return MaterialPageRoute(
+        builder: (_) {
+          return WidgetRouter.wishDetailsScreen(settings: settings);
+        },
+      );
     } else {
       return null;
     }
