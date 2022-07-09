@@ -14,6 +14,7 @@ import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
 import 'package:reading_diary/models/diary.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:reading_diary/states/homescreen_state.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
 /// Homescreen for mobile devices
@@ -100,6 +101,12 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
     // Init Bloc
     _bloc ??= BlocParent.of(context);
 
+    if (!_bloc!.stateStream.hasListener) {
+      _bloc!.stateStream.stream.listen(
+        (state) => _handleState(state),
+      );
+    }
+
     return Scaffold(
       appBar: _appBar,
       body: _body,
@@ -108,6 +115,13 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
       extendBody: true,
       extendBodyBehindAppBar: true,
     );
+  }
+
+  /// Handles the
+  /// States that are passed through the
+  /// [_bloc.stateStream].
+  void _handleState(HomescreenState state) {
+    setState(() {});
   }
 
   /// Returns the floating Action Button
