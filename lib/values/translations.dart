@@ -158,6 +158,18 @@ final Map<String, Map<Locale, String>> _translations = {
   'Dark': {
     TranslationLocales.german: 'Dunkel',
   },
+  'You\'ve got no Entries yet.': {
+    TranslationLocales.german: 'Du hast bisher noch keine Einträge.',
+  },
+  'You\'ve got no Books yet.': {
+    TranslationLocales.german: 'Du hast bisher noch keine Bücher.',
+  },
+  'You\'ve got no Wishes yet.': {
+    TranslationLocales.german: 'Du hast bisher noch keine Wünsche',
+  },
+  'Add one': {
+    TranslationLocales.german: 'Hinzufügen',
+  },
 };
 
 /// Getter for the Translations.
