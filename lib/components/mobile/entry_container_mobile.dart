@@ -1,15 +1,18 @@
 library mobile_components;
 
+import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
+import 'package:reading_diary/blocs/homescreen_bloc.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:reading_diary/states/homescreen_state.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
 /// A Container to display a single Diary Entry
 /// on mobile Devices.
-class EntryContainerMobile extends StatelessWidget {
+class EntryContainerMobile extends StatefulWidget {
   const EntryContainerMobile({
     this.entry,
     this.book,
@@ -27,7 +30,16 @@ class EntryContainerMobile extends StatelessWidget {
   final Book? book;
 
   @override
+  State<StatefulWidget> createState() => _EntryContainerMobile();
+}
+
+class _EntryContainerMobile extends State<EntryContainerMobile> {
+  HomescreenBloc? _homeBloc;
+
+  @override
   Widget build(BuildContext context) {
+    _homeBloc ??= BlocParent.of(context);
+
     return GestureDetector(
       behavior: HitTestBehavior.deferToChild,
       dragStartBehavior: DragStartBehavior.down,
@@ -80,21 +92,21 @@ class EntryContainerMobile extends StatelessWidget {
   }
 
   List<Widget> get _children {
-    if (entry != null) {
+    if (widget.entry != null) {
       return <Widget>[
         Text(
-          '${entry!.date.day}.${entry!.date.month}.${entry!.date.year}',
+          '${widget.entry!.date.day}.${widget.entry!.date.month}.${widget.entry!.date.year}',
           style: _dStyle,
         ),
-        Text(entry!.title, style: _tStyle),
+        Text(widget.entry!.title, style: _tStyle),
       ];
     } else {
       return <Widget>[
         Text(
-          '${'Current Page'.tr()} ${book!.currentPage}',
+          '${'Current Page'.tr()} ${widget.book!.currentPage}',
           style: _dStyle,
         ),
-        Text(book!.title, style: _tStyle),
+        Text(widget.book!.title, style: _tStyle),
       ];
     }
   }
@@ -121,11 +133,13 @@ class EntryContainerMobile extends StatelessWidget {
   /// Screen depending on whether
   /// a Book or an Entry is specified.
   void _openScreen(BuildContext context) {
-    if (entry != null) {
+    if (widget.entry != null) {
       Navigator.pushNamed(
         context,
         Routes.entryDetailsScreen,
-        arguments: entry,
+        arguments: widget.entry,
+      ).then(
+        (value) => _homeBloc!.stateStream.add(HomescreenState()),
       );
     }
   }

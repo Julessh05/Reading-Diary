@@ -1,19 +1,23 @@
 library blocs;
 
+import 'dart:async' show StreamController;
+
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
-import 'package:flutter/material.dart' show BuildContext, Navigator;
-import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
 import 'package:reading_diary/models/diary.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
 import 'package:reading_diary/models/wish.dart' show Wish;
 import 'package:reading_diary/models/wishlist.dart';
+import 'package:reading_diary/states/homescreen_state.dart';
 
 /// Bloc for the Homescreen.
 /// Contains every piece of logic needed,
 /// while the user is on the Homescreen.
 class HomescreenBloc extends Bloc {
+  /// The Stream which controlls the States
+  StreamController<HomescreenState> stateStream = StreamController();
+
   /// The private index of
   /// the Bottom Navigation Bar
   /// on the Homescreen.

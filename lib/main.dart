@@ -2,7 +2,6 @@ library main;
 
 import 'dart:io' show Platform;
 
-import 'package:bloc_implementation/bloc_implementation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart' show Hive, HiveX;
 import 'package:reading_diary/blocs/event_bloc.dart';

@@ -88,5 +88,7 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
 
   /// Called whe the Edit Button
   /// is Pressed
-  void _editBTNPressed() {}
+  void _editBTNPressed() {
+    // TODO: implement Edit
+  }
 }
