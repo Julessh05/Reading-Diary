@@ -14,6 +14,7 @@ import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
 import 'package:reading_diary/models/diary.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:reading_diary/models/wishlist.dart';
 import 'package:reading_diary/states/homescreen_state.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
@@ -503,75 +504,128 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
 
   /// Body for the Diary
   Scrollbar get _diaryBody {
+    return Diary.entries.isNotEmpty
+        ? Scrollbar(
+            controller: _diarySController,
+            child: ListView.builder(
+              controller: _diarySController,
+              addAutomaticKeepAlives: true,
+              addRepaintBoundaries: true,
+              addSemanticIndexes: true,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              dragStartBehavior: DragStartBehavior.down,
+              itemCount: Diary.entries.length,
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              physics: const BouncingScrollPhysics(),
+              reverse: false,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (_, c) {
+                return EntryContainerMobile(
+                  entry: Diary.entries[c],
+                );
+              },
+            ),
+          )
+        : _getEmptyBody('Entries');
+  }
+
+  /// Shown when the [what]
+  /// is empty.
+  Scrollbar _getEmptyBody(String what) {
     return Scrollbar(
-      controller: _diarySController,
-      child: ListView.builder(
-        controller: _diarySController,
-        addAutomaticKeepAlives: true,
-        addRepaintBoundaries: true,
-        addSemanticIndexes: true,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        dragStartBehavior: DragStartBehavior.down,
-        itemCount: Diary.entries.length,
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        physics: const BouncingScrollPhysics(),
-        reverse: false,
-        scrollDirection: Axis.vertical,
-        itemBuilder: (_, c) {
-          return EntryContainerMobile(
-            entry: Diary.entries[c],
-          );
-        },
+      child: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          textBaseline: TextBaseline.alphabetic,
+          textDirection: TextDirection.ltr,
+          verticalDirection: VerticalDirection.down,
+          children: <Widget>[
+            Text(
+              'You\'ve got no $what yet.'.tr(),
+              textAlign: TextAlign.center,
+            ),
+            GestureDetector(
+              behavior: HitTestBehavior.deferToChild,
+              dragStartBehavior: DragStartBehavior.down,
+              onTap: () {
+                switch (what) {
+                  case 'Entries':
+                    _onDiaryFabTap();
+                    break;
+                  case 'Books':
+                    _onBookFabTap();
+                    break;
+                  case 'Wishes':
+                    _onWishlistFabTap();
+                    break;
+                }
+              },
+              child: Text(
+                'Add one'.tr(),
+                style: TextStyle(
+                  color: Colors.blue.shade600,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   /// Body for the Book Screen.
   Scrollbar get _bookBody {
-    return Scrollbar(
-      controller: _bookSController,
-      child: ListView.builder(
-        controller: _bookSController,
-        addAutomaticKeepAlives: true,
-        addRepaintBoundaries: true,
-        addSemanticIndexes: true,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        dragStartBehavior: DragStartBehavior.down,
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        physics: const BouncingScrollPhysics(),
-        reverse: false,
-        scrollDirection: Axis.vertical,
-        itemCount: BookList.books.length,
-        itemBuilder: (_, counter) {
-          return EntryContainerMobile(
-            book: BookList.books[counter],
-          );
-        },
-      ),
-    );
+    return BookList.books.isNotEmpty
+        ? Scrollbar(
+            controller: _bookSController,
+            child: ListView.builder(
+              controller: _bookSController,
+              addAutomaticKeepAlives: true,
+              addRepaintBoundaries: true,
+              addSemanticIndexes: true,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              dragStartBehavior: DragStartBehavior.down,
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              physics: const BouncingScrollPhysics(),
+              reverse: false,
+              scrollDirection: Axis.vertical,
+              itemCount: BookList.books.length,
+              itemBuilder: (_, counter) {
+                return EntryContainerMobile(
+                  book: BookList.books[counter],
+                );
+              },
+            ),
+          )
+        : _getEmptyBody('Books');
   }
 
   /// Body of the Wishlist Screen.
   /// This displayes the users wishes of Books.
   Scrollbar get _wishlistBody {
-    return Scrollbar(
-      controller: _wishlistSController,
-      child: ListView.builder(
-        controller: _wishlistSController,
-        addAutomaticKeepAlives: true,
-        addRepaintBoundaries: true,
-        addSemanticIndexes: true,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        dragStartBehavior: DragStartBehavior.down,
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        physics: const BouncingScrollPhysics(),
-        reverse: false,
-        itemCount: 2,
-        itemBuilder: (_, counter) {
-          return Container();
-        },
-      ),
-    );
+    return Wishlist.wishes.isNotEmpty
+        ? Scrollbar(
+            controller: _wishlistSController,
+            child: ListView.builder(
+              controller: _wishlistSController,
+              addAutomaticKeepAlives: true,
+              addRepaintBoundaries: true,
+              addSemanticIndexes: true,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              dragStartBehavior: DragStartBehavior.down,
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              physics: const BouncingScrollPhysics(),
+              reverse: false,
+              itemCount: 2,
+              itemBuilder: (_, counter) {
+                return Container();
+              },
+            ),
+          )
+        : _getEmptyBody('Wishes');
   }
 
   /// Bottom Navigation Bar for
