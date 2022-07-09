@@ -288,7 +288,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
     return AppBar(
       actions: <IconButton>[
         IconButton(
-          onPressed: () => _bloc!.openSettingsScreen(context),
+          onPressed: _openSettingsScreen,
           icon: const Icon(Icons.settings_rounded),
         ),
       ],
@@ -303,7 +303,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
     return AppBar(
       actions: <IconButton>[
         IconButton(
-          onPressed: () => _bloc!.openSettingsScreen(context),
+          onPressed: _openSettingsScreen,
           icon: const Icon(Icons.settings_rounded),
         ),
       ],
@@ -328,7 +328,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
       title: Text('Books'.tr()),
       actions: <IconButton>[
         IconButton(
-          onPressed: () => _bloc!.openSettingsScreen(context),
+          onPressed: _openSettingsScreen,
           icon: const Icon(Icons.settings_rounded),
         ),
       ],
@@ -346,7 +346,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
     return AppBar(
       actions: <IconButton>[
         IconButton(
-          onPressed: () => _bloc!.openSettingsScreen(context),
+          onPressed: _openSettingsScreen,
           icon: const Icon(Icons.settings_rounded),
         ),
       ],
@@ -842,6 +842,13 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// clicked the 'Add Book' Item on the Dropdown.
   void _openAddBookScreen() {
     Navigator.pushNamed(context, Routes.addBookScreen).then(
+      (value) => setState(() {}),
+    );
+  }
+
+  /// Opens the Settings Screen.
+  void _openSettingsScreen() {
+    Navigator.pushNamed(context, Routes.settingsScreen).then(
       (value) => setState(() {}),
     );
   }

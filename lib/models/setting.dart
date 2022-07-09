@@ -1,8 +1,9 @@
 library models;
 
-import 'package:flutter/material.dart' show Icon, Icons, ThemeMode;
+import 'package:flutter/material.dart' show Icon, Icons, Locale, ThemeMode;
 import 'package:hive/hive.dart'
     show BinaryReader, BinaryWriter, HiveField, HiveType, TypeAdapter;
+import 'package:reading_diary/style/themes.dart';
 import 'package:string_translate/string_translate.dart';
 
 part 'setting.g.dart';
@@ -48,16 +49,7 @@ class Setting {
         ) {
     _isInternal = false;
     _description = description ?? '';
-    _icon = icon ?? const Icon(Icons.settings_applications_rounded);
-    if (boolValue != null) {
-      _valueType = bool;
-    } else if (numberValue != null) {
-      _valueType = num;
-    } else if (stringValue != null) {
-      _valueType = String;
-    } else {
-      _valueType = Object;
-    }
+    this.icon = icon ?? const Icon(Icons.settings_applications_rounded);
   }
 
   /// called when an Internal Setting
@@ -72,107 +64,58 @@ class Setting {
         assert(boolValue == null && numberValue != null) {
     _isInternal = true;
     _description = 'Internal Setting';
-    _icon = const Icon(Icons.block_rounded);
-    if (boolValue != null) {
-      _valueType = bool;
-    } else if (numberValue != null) {
-      _valueType = num;
-    } else if (stringValue != null) {
-      _valueType = String;
-    } else {
-      _valueType = Object;
-    }
+    icon = const Icon(Icons.block_rounded);
   }
-
-  /// The Type of the
-  /// Value this Setting has.
-  @HiveField(0)
-  late final Type _valueType;
 
   /// Whether this is an internal Setting,
   /// that isn't shown to the User,
   /// or it's an non internal Setting,
   /// the User can influence.
-  @HiveField(1)
-  late final bool _isInternal;
+  @HiveField(0)
+  late bool _isInternal;
 
   /// The Name of the Setting.
-  @HiveField(2)
+  @HiveField(1)
   final String name;
 
   /// A Preciser Decription of this Setting,
   /// which is shown to the User.
-  @HiveField(3)
-  late final String _description;
+  @HiveField(2)
+  late String _description;
 
   /// If this Setting
   /// has a Value of Type
   /// bool, use this.
-  @HiveField(4)
+  @HiveField(3)
   bool? boolValue;
 
   /// If this Setting
   /// has a Value of Type
   /// number, use this.
-  @HiveField(5)
+  @HiveField(4)
   num? numberValue;
 
   /// If this Setting
   /// has a Value of Type
   /// String / Text, use this.
-  @HiveField(6)
+  @HiveField(5)
   String? stringValue;
 
   /// If this Setting
   /// has a Value of Type
   /// Object, use this.
-  @HiveField(7)
+  @HiveField(6)
   Object? objectValue;
 
   /// The Icon that is displayed
   /// to the User if this Setting
   /// is shown. Can only be set
   /// in an non internal Setting.
-  @HiveField(8)
-  late final Icon _icon;
+  late Icon icon;
 
   /// Getter for the preciser Decription
   /// of this Setting.
   String get description => _description;
-
-  /// The Icon that is displayed
-  /// to the User if this Setting
-  /// is shown. Can only be set
-  /// in an non internal Setting.
-  Icon get icon => _icon;
-
-  /// Updates the Value of the Setting.
-  /// The parameter [newValue] is of
-  /// the Type dynamic,
-  /// what makes it possible to
-  /// call this Method without having to worry
-  /// about what Value Type your Setting has.
-  /// Also it allows to only have a single Method.
-  /// But if you pass a bool and your Value type
-  /// is String, you will raise an runtime Error.
-  /// So be causious about what you pass.
-  void updateValue(dynamic newValue) {
-    switch (_valueType) {
-      case bool:
-        boolValue = newValue;
-        break;
-      case num:
-        numberValue = newValue;
-        break;
-      case String:
-        stringValue = newValue;
-        break;
-      case Object:
-      default:
-        objectValue = newValue;
-        break;
-    }
-  }
 
   /// If the Settings aren't
   /// stored yet, this Method should be called.
@@ -191,10 +134,43 @@ class Setting {
         description: 'Set your Personal Style.',
         objectValue: ThemeMode.system,
         icon: const Icon(Icons.color_lens_rounded),
-        fn: () {},
       ),
     };
     allSettings.addAll(settings);
+  }
+
+  /// Sets the Icons for the Settings.
+  /// Has to be called once when opening the App.
+  static void setIcons() {
+    allSettings.where((element) => element.name == 'Language').first.icon =
+        const Icon(Icons.language_rounded);
+
+    allSettings.where((element) => element.name == 'Theme').first.icon =
+        const Icon(Icons.color_lens_rounded);
+  }
+
+  /// Sets the Values to the Settings.
+  static void setValues() {
+    for (Setting setting in allSettings) {
+      switch (setting.name) {
+        case 'Language':
+          Translation.changeLanguage(setting.objectValue as Locale);
+          break;
+        case 'Theme':
+          Themes.themeMode = setting.objectValue as ThemeMode;
+      }
+    }
+  }
+
+  /// Reads the Values and sets the Settings.
+  static void readValues() {
+    allSettings
+        .where((element) => element.name == 'Language')
+        .first
+        .objectValue = Translation.activeLocale;
+
+    allSettings.where((element) => element.name == 'Theme').first.objectValue =
+        Themes.themeMode;
   }
 }
 

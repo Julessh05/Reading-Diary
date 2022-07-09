@@ -82,11 +82,6 @@ class HomescreenBloc extends Bloc {
   /// Bottom navigation Bar.
   void onBNBTap(int newIndex) => _currentBottomNavigationBarIndex = newIndex;
 
-  /// Opens the Settings Screen.
-  void openSettingsScreen(BuildContext context) {
-    Navigator.pushNamed(context, Routes.settingsScreen);
-  }
-
   /// Called when the User pressed
   /// the OK Button inside the Search
   /// Dialog for the Diary Screen

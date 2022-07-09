@@ -1,7 +1,9 @@
 library mobile_components;
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show BuildContext, Key, ListTile, StatelessWidget, Text, Widget;
 import 'package:reading_diary/models/setting.dart' show Setting;
+import 'package:string_translate/string_translate.dart' show Translate;
 
 /// Settings Tile for the Mobile Version of
 /// this App.
@@ -31,8 +33,8 @@ class SettingsTileMobile extends StatelessWidget {
       autofocus: false,
       enabled: true,
       isThreeLine: false,
-      title: Text(setting.name),
-      subtitle: Text(setting.description),
+      title: Text(setting.name.tr()),
+      subtitle: Text(setting.description.tr()),
       leading: setting.icon,
       onTap: onTap,
     );

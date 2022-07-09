@@ -1,5 +1,6 @@
 library storage;
 
+import 'package:flutter/material.dart' show Locale, ThemeMode;
 import 'package:hive/hive.dart' show Box, Hive;
 import 'package:reading_diary/models/book.dart';
 import 'package:reading_diary/models/book_list.dart';
@@ -8,6 +9,7 @@ import 'package:reading_diary/models/diary_entry.dart';
 import 'package:reading_diary/models/setting.dart';
 import 'package:reading_diary/models/wish.dart';
 import 'package:reading_diary/models/wishlist.dart';
+import 'package:string_translate/string_translate.dart';
 
 /// Contains all Operations done
 /// in I/O.
@@ -84,8 +86,49 @@ class Storage {
       Setting.createSettings();
     } else {
       for (Setting setting in _settingsBox!.values) {
+        dynamic objectValue;
+        switch (setting.name) {
+          case 'Language':
+            final value = setting.stringValue;
+            switch (value) {
+              case 'en':
+                objectValue = TranslationLocales.english;
+                break;
+              case 'de':
+                objectValue = TranslationLocales.german;
+                break;
+              case 'fr':
+                objectValue = TranslationLocales.french;
+                break;
+              case 'es':
+                objectValue = TranslationLocales.spanish;
+                break;
+              case 'pt':
+                objectValue = TranslationLocales.portuguese;
+                break;
+            }
+            break;
+          case 'Theme':
+            final value = setting.stringValue;
+            switch (value) {
+              case 'system':
+                objectValue = ThemeMode.system;
+                break;
+              case 'light':
+                objectValue = ThemeMode.light;
+                break;
+              case 'dark':
+                objectValue = ThemeMode.dark;
+                break;
+            }
+            break;
+        }
+        setting.stringValue = null;
+        setting.objectValue = objectValue;
         allSettings.add(setting);
       }
+      Setting.setIcons();
+      Setting.setValues();
     }
   }
 
@@ -131,7 +174,22 @@ class Storage {
   /// Value to the File System.
   static void storeSettings() {
     _settingsBox!.deleteAll(_settingsBox!.keys);
+
+    Setting.readValues();
+
     for (Setting setting in allSettings) {
+      if (setting.objectValue != null) {
+        if (setting.objectValue is Locale) {
+          final value = setting.objectValue as Locale;
+          setting.objectValue = null;
+          setting.stringValue = value.languageCode;
+        } else if (setting.objectValue is ThemeMode) {
+          final value = setting.objectValue as ThemeMode;
+          setting.objectValue = null;
+          setting.stringValue = value.name;
+        }
+      }
+
       final String key = setting.name;
       _settingsBox!.put(key, setting);
     }
