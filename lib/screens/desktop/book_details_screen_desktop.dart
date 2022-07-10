@@ -13,6 +13,6 @@ class BookDetailsScreenDesktop extends StatefulWidget {
 class _BookDetailsScreenDesktopState extends State<BookDetailsScreenDesktop> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

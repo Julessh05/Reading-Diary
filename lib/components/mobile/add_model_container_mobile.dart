@@ -9,8 +9,8 @@ import 'package:flutter/services.dart' show MaxLengthEnforcement;
 /// A Container with an input field and
 /// the Option to replace that input field
 /// with your own Widget [child]
-class AddModelContainer extends StatefulWidget {
-  const AddModelContainer({
+class AddModelContainerMobile extends StatefulWidget {
+  const AddModelContainerMobile({
     required this.name,
     this.autofocus = false,
     this.keyboardType = TextInputType.text,
@@ -19,7 +19,7 @@ class AddModelContainer extends StatefulWidget {
     this.done,
     this.child,
     this.big = false,
-    this.mulitline = false,
+    this.multiline = false,
     this.opacity = 1,
     Key? key,
   })  : assert(
@@ -67,23 +67,24 @@ class AddModelContainer extends StatefulWidget {
   final bool big;
 
   /// Whether this is a full Screen Textfield or not.
-  final bool mulitline;
+  final bool multiline;
 
   /// The Opacity of this Containers Card.
   final double opacity;
 
   @override
-  State<AddModelContainer> createState() => _AddModelContainerState();
+  State<AddModelContainerMobile> createState() =>
+      _AddModelContainerMobileState();
 }
 
-class _AddModelContainerState extends State<AddModelContainer> {
+class _AddModelContainerMobileState extends State<AddModelContainerMobile> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: () {
         if (widget.big) {
           return MediaQuery.of(context).size.height / 3.3;
-        } else if (widget.mulitline) {
+        } else if (widget.multiline) {
           return MediaQuery.of(context).size.height;
         } else {
           return MediaQuery.of(context).size.height / 4.5;
@@ -123,7 +124,7 @@ class _AddModelContainerState extends State<AddModelContainer> {
               const SizedBox(height: 18),
               widget.child ??
                   SizedBox(
-                    height: widget.mulitline
+                    height: widget.multiline
                         ? MediaQuery.of(context).size.height / 1.2
                         : 80,
                     child: TextField(
@@ -156,8 +157,8 @@ class _AddModelContainerState extends State<AddModelContainer> {
                       selectionControls: MaterialTextSelectionControls(),
                       textDirection: TextDirection.ltr,
                       textInputAction: widget.textInputAction,
-                      maxLines: widget.mulitline ? 99999 : widget.maxLines,
-                      minLines: widget.mulitline
+                      maxLines: widget.multiline ? 99999 : widget.maxLines,
+                      minLines: widget.multiline
                           ? MediaQuery.of(context).size.height ~/ 20
                           : 1,
                       selectionHeightStyle: BoxHeightStyle.tight,
@@ -176,7 +177,7 @@ class _AddModelContainerState extends State<AddModelContainer> {
     );
   }
 
-  /// Text Style for the [_name]
+  /// Text Style for the [widget.name]
   TextStyle get _tStyle {
     return const TextStyle(
       fontStyle: FontStyle.normal,

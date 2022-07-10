@@ -13,6 +13,6 @@ class WishDetailsScreenDesktop extends StatefulWidget {
 class _WishDetailsScreenDesktopState extends State<WishDetailsScreenDesktop> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

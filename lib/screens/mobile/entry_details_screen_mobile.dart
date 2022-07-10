@@ -1,11 +1,12 @@
 library mobile_screens;
 
-import 'package:bloc_implementation/bloc_implementation.dart';
+import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/entry_details_bloc.dart';
 import 'package:reading_diary/components/mobile/entry_details_container_mobile.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:string_translate/string_translate.dart' show Translate;
 
 /// The Mobile Version of the screen that showns
 /// all the Information about a single [entry]
@@ -62,6 +63,7 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
     );
   }
 
+  /// The Body of this Screen.
   Scrollbar get _body {
     return Scrollbar(
       child: ListView(
@@ -74,7 +76,44 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
         reverse: false,
         physics: const BouncingScrollPhysics(),
         children: [
-          EntryDetailsContainerMobile(widget.entry.content),
+          EntryDetailsContainerMobile(
+            name: 'Content'.tr(),
+            data: widget.entry.content,
+            multiline: true,
+          ),
+          EntryDetailsContainerMobile(
+            name: 'Date'.tr(),
+            data:
+                '${widget.entry.date.day}.${widget.entry.date.month}.${widget.entry.date.year}',
+            small: true,
+          ),
+          EntryDetailsContainerMobile(
+            name: 'Book'.tr(),
+            data: widget.entry.book != null
+                ? widget.entry.book!.title
+                : 'None'.tr(),
+            small: true,
+          ),
+          EntryDetailsContainerMobile(
+            name: 'Pages read'.tr(),
+            data: widget.entry.pagesRead != null
+                ? '${widget.entry.pagesRead!.start} - ${widget.entry.pagesRead!.end}'
+                : 'Not specified'.tr(),
+            small: true,
+          ),
+          FittedBox(
+            alignment: Alignment.center,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            fit: BoxFit.scaleDown,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('Back'.tr()),
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
         ],
       ),
     );

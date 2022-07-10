@@ -170,6 +170,9 @@ final Map<String, Map<Locale, String>> _translations = {
   'Add one': {
     TranslationLocales.german: 'Hinzufügen',
   },
+  'Not specified': {
+    TranslationLocales.german: 'Nicht angegeben',
+  }
 };
 
 /// Getter for the Translations.

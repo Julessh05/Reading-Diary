@@ -6,7 +6,7 @@ import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show ScrollDirection;
 import 'package:reading_diary/blocs/homescreen_bloc.dart';
-import 'package:reading_diary/components/mobile/add_model_container.dart';
+import 'package:reading_diary/components/mobile/add_model_container_mobile.dart';
 import 'package:reading_diary/components/mobile/entry_container_mobile.dart';
 import 'package:reading_diary/components/mobile/statistic_container_mobile.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
@@ -703,7 +703,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
               textDirection: TextDirection.ltr,
               verticalDirection: VerticalDirection.down,
               children: [
-                AddModelContainer(
+                AddModelContainerMobile(
                   name: 'Keyword'.tr(),
                   done: (str) => _bloc!.diarySearchKeyword = str,
                   opacity: 0.7,
@@ -714,7 +714,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
                     style: _filterLabelStyle,
                   ),
                 ),
-                AddModelContainer(
+                AddModelContainerMobile(
                   name: 'Book'.tr(),
                   opacity: 0.7,
                   child: DropdownButton<Book>(
@@ -793,7 +793,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
               textDirection: TextDirection.ltr,
               verticalDirection: VerticalDirection.down,
               children: [
-                AddModelContainer(
+                AddModelContainerMobile(
                   name: 'Keyword'.tr(),
                   done: (str) => _bloc!.wishlistSearchKeyword = str,
                   opacity: 0.7,
@@ -853,7 +853,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
               textDirection: TextDirection.ltr,
               verticalDirection: VerticalDirection.down,
               children: [
-                AddModelContainer(
+                AddModelContainerMobile(
                   name: 'Keyword'.tr(),
                   done: (str) => _bloc!.bookSearchKeyword = str,
                   opacity: 0.7,
