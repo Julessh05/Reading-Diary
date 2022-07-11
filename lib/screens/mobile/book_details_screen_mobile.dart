@@ -32,6 +32,7 @@ class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
 
     return Scaffold(
       appBar: _appBar,
+      body: _body,
     );
   }
 
@@ -52,6 +53,12 @@ class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
           autofocus: false,
         ),
       ],
+    );
+  }
+
+  Scrollbar get _body {
+    return Scrollbar(
+      child: ListView(),
     );
   }
 

@@ -98,6 +98,8 @@ class _EntryContainerMobile extends State<ModelContainerMobile> {
     );
   }
 
+  /// Children of the Body of
+  /// this Screen.
   List<Widget> get _children {
     if (widget.entry != null) {
       return <Widget>[
@@ -109,10 +111,12 @@ class _EntryContainerMobile extends State<ModelContainerMobile> {
       ];
     } else if (widget.book != null) {
       return <Widget>[
-        Text(
-          '${'Current Page:'.tr()} ${widget.book!.currentPage}',
-          style: _dStyle,
-        ),
+        widget.book!.currentPage != null
+            ? Text(
+                '${'Current Page:'.tr()} ${widget.book!.currentPage}',
+                style: _dStyle,
+              )
+            : Container(),
         Text(widget.book!.title, style: _tStyle),
       ];
     } else {
@@ -145,16 +149,22 @@ class _EntryContainerMobile extends State<ModelContainerMobile> {
 
   /// Opens the corresponding
   /// Screen depending on whether
-  /// a Book or an Entry is specified.
+  /// a Book, a Wish or an Entry is specified.
   void _openScreen(BuildContext context) {
+    final String routeName;
+    final dynamic args;
     if (widget.entry != null) {
-      Navigator.pushNamed(
-        context,
-        Routes.entryDetailsScreen,
-        arguments: widget.entry,
-      ).then(
-        (value) => _homeBloc!.stateStream.add(HomescreenState()),
-      );
+      routeName = Routes.entryDetailsScreen;
+      args = widget.entry!;
+    } else if (widget.book != null) {
+      routeName = Routes.bookDetailsScreen;
+      args = widget.book!;
+    } else {
+      routeName = Routes.wishDetailsScreen;
+      args = widget.wish!;
     }
+    Navigator.pushNamed(context, routeName, arguments: args).then(
+      (value) => _homeBloc!.stateStream.add(HomescreenState()),
+    );
   }
 }

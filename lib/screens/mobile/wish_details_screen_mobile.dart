@@ -2,7 +2,9 @@ library mobile_screens;
 
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
+import 'package:reading_diary/blocs/wish_details_bloc.dart';
 import 'package:reading_diary/components/mobile/entry_details_container_mobile.dart';
+import 'package:reading_diary/models/book.dart';
 import 'package:reading_diary/models/wish.dart' show Wish;
 import 'package:string_translate/string_translate.dart' show Translate;
 
@@ -24,6 +26,9 @@ class WishDetailsScreenMobile extends StatefulWidget {
 }
 
 class _WishDetailsScreenMobileState extends State<WishDetailsScreenMobile> {
+  /// The Bloc used for this Screen.
+  WishDetailsBloc? _bloc;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +43,18 @@ class _WishDetailsScreenMobileState extends State<WishDetailsScreenMobile> {
     return AppBar(
       automaticallyImplyLeading: true,
       title: Text(widget.wish.title),
+      actions: <IconButton>[
+        IconButton(
+          onPressed: _editBTNPressed,
+          icon: const Icon(Icons.edit_rounded),
+          autofocus: false,
+        ),
+        IconButton(
+          onPressed: _deleteBTNPressed,
+          icon: const Icon(Icons.delete_rounded),
+          autofocus: false,
+        ),
+      ],
     );
   }
 
@@ -55,13 +72,14 @@ class _WishDetailsScreenMobileState extends State<WishDetailsScreenMobile> {
         reverse: false,
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          widget.wish.book != null
+          widget.wish.book != const Book.none()
               ? EntryDetailsContainerMobile(
                   name: 'Book'.tr(),
-                  data: widget.wish.book!.title,
+                  data: widget.wish.book.title,
+                  small: true,
                 )
               : Container(),
-          widget.wish.book != null
+          widget.wish.book == const Book.none()
               ? Container()
               : EntryDetailsContainerMobile(
                   name: 'Description'.tr(),
@@ -83,5 +101,17 @@ class _WishDetailsScreenMobileState extends State<WishDetailsScreenMobile> {
         ],
       ),
     );
+  }
+
+  /// Called when the delete Button is pressed.
+  void _deleteBTNPressed() {
+    _bloc!.deleteWish(widget.wish);
+    Navigator.pop(context);
+  }
+
+  /// Called whe the Edit Button
+  /// is Pressed
+  void _editBTNPressed() {
+    // TODO: implement Edit
   }
 }

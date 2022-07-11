@@ -1,9 +1,7 @@
 library blocs;
 
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
-import 'package:flutter/material.dart'
-    show BuildContext, Image, Navigator, RangeValues;
-import 'package:reading_diary/logic/navigating/routes.dart';
+import 'package:flutter/material.dart' show Image, RangeValues;
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/diary.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;

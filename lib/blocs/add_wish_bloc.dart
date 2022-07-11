@@ -54,7 +54,7 @@ class AddWishBloc extends Bloc {
   /// and adds it to the
   /// Wishlist
   void createWish() {
-    if (wishBook == null) {
+    if (wishBook == null || wishBook == const Book.none()) {
       Wishlist.addWish(
         Wish.withoutBook(
           title: _title!,
@@ -64,7 +64,7 @@ class AddWishBloc extends Bloc {
     } else {
       Wishlist.addWish(
         Wish(
-          book: wishBook,
+          book: wishBook!,
           description: _description,
         ),
       );

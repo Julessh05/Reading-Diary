@@ -13,20 +13,20 @@ class Wish {
     required this.book,
     this.description,
   }) {
-    title = book!.title;
+    title = book.title;
   }
 
   /// Call this if the User enters
   /// a Wish and does not include a book in it.
   Wish.withoutBook({
-    this.book,
+    this.book = const Book.none(),
     required this.title,
-    this.description,
+    required this.description,
   });
 
   /// The Book the User wants
   @HiveField(0)
-  final Book? book;
+  final Book book;
 
   /// The Title of the Wish
   @HiveField(1)
