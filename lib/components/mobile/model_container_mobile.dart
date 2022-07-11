@@ -7,18 +7,22 @@ import 'package:reading_diary/blocs/homescreen_bloc.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:reading_diary/models/wish.dart' show Wish;
 import 'package:reading_diary/states/homescreen_state.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
 /// A Container to display a single Diary Entry
 /// on mobile Devices.
-class EntryContainerMobile extends StatefulWidget {
-  const EntryContainerMobile({
+class ModelContainerMobile extends StatefulWidget {
+  const ModelContainerMobile({
     this.entry,
     this.book,
+    this.wish,
     Key? key,
   })  : assert(
-          (entry != null && book == null) || (entry == null && book != null),
+          (entry != null && book == null && wish == null) ||
+              (entry == null && book != null && wish == null) ||
+              (entry == null && book == null && wish != null),
           'You can only pass either an entry or a book',
         ),
         super(key: key);
@@ -29,11 +33,14 @@ class EntryContainerMobile extends StatefulWidget {
   /// The Book this Container represents
   final Book? book;
 
+  /// The Wish this Container represents
+  final Wish? wish;
+
   @override
   State<StatefulWidget> createState() => _EntryContainerMobile();
 }
 
-class _EntryContainerMobile extends State<EntryContainerMobile> {
+class _EntryContainerMobile extends State<ModelContainerMobile> {
   HomescreenBloc? _homeBloc;
 
   @override
@@ -100,13 +107,20 @@ class _EntryContainerMobile extends State<EntryContainerMobile> {
         ),
         Text(widget.entry!.title, style: _tStyle),
       ];
-    } else {
+    } else if (widget.book != null) {
       return <Widget>[
         Text(
-          '${'Current Page'.tr()} ${widget.book!.currentPage}',
+          '${'Current Page:'.tr()} ${widget.book!.currentPage}',
           style: _dStyle,
         ),
         Text(widget.book!.title, style: _tStyle),
+      ];
+    } else {
+      return <Widget>[
+        Text(
+          widget.wish!.title,
+          style: _tStyle,
+        ),
       ];
     }
   }

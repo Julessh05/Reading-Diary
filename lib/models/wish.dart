@@ -20,7 +20,7 @@ class Wish {
   /// a Wish and does not include a book in it.
   Wish.withoutBook({
     this.book,
-    this.title,
+    required this.title,
     this.description,
   });
 
@@ -30,7 +30,7 @@ class Wish {
 
   /// The Title of the Wish
   @HiveField(1)
-  late final String? title;
+  late final String title;
 
   /// The Description of the Wish.
   @HiveField(2)

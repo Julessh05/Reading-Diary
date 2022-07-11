@@ -19,7 +19,7 @@ class WishAdapter extends TypeAdapter<Wish> {
     return Wish(
       book: fields[0] as Book?,
       description: fields[2] as String?,
-    )..title = fields[1] as String?;
+    )..title = fields[1] as String;
   }
 
   @override

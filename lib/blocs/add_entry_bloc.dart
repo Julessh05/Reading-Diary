@@ -72,12 +72,6 @@ class AddEntryBloc extends Bloc {
     }
   }
 
-  /// Pushes a screen with which you can add
-  /// a new Book to the App.
-  Future<void> openAddBookScreen(BuildContext context) async {
-    Navigator.pushNamed(context, Routes.addBookScreen);
-  }
-
   @override
   void dispose() {}
 }

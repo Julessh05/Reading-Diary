@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show MaxLengthEnforcement;
 import 'package:reading_diary/blocs/add_entry_bloc.dart';
 import 'package:reading_diary/components/mobile/add_model_container_mobile.dart';
+import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
@@ -110,9 +111,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
                   if (book == null) {
                     _bloc!.entryBook = null;
                   } else if (book == const Book.addBook()) {
-                    _bloc!
-                        .openAddBookScreen(context)
-                        .then((value) => setState(() {}));
+                    _openAddBookScreen(context);
                   } else if (book == const Book.none()) {
                     _bloc!.entryBook = null;
                   } else {
@@ -456,5 +455,13 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
       },
     );
     setState(() {});
+  }
+
+  /// Pushes a screen with which you can add
+  /// a new Book to the App.
+  void _openAddBookScreen(BuildContext context) {
+    Navigator.pushNamed(context, Routes.addBookScreen).then(
+      (value) => setState(() {}),
+    );
   }
 }
