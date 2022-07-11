@@ -4,7 +4,8 @@ import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/wish_details_bloc.dart';
 import 'package:reading_diary/components/mobile/entry_details_container_mobile.dart';
-import 'package:reading_diary/models/book.dart';
+import 'package:reading_diary/logic/navigating/routes.dart';
+import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/wish.dart' show Wish;
 import 'package:string_translate/string_translate.dart' show Translate;
 
@@ -73,18 +74,23 @@ class _WishDetailsScreenMobileState extends State<WishDetailsScreenMobile> {
         scrollDirection: Axis.vertical,
         children: <Widget>[
           widget.wish.book != const Book.none()
-              ? EntryDetailsContainerMobile(
-                  name: 'Book'.tr(),
-                  data: widget.wish.book.title,
-                  small: true,
+              ? GestureDetector(
+                  behavior: HitTestBehavior.deferToChild,
+                  dragStartBehavior: DragStartBehavior.down,
+                  onTap: () => _openBookScreen(),
+                  child: EntryDetailsContainerMobile(
+                    name: 'Book'.tr(),
+                    data: widget.wish.book.title,
+                    small: true,
+                  ),
                 )
               : Container(),
           widget.wish.book == const Book.none()
-              ? Container()
-              : EntryDetailsContainerMobile(
+              ? EntryDetailsContainerMobile(
                   name: 'Description'.tr(),
                   data: widget.wish.description!,
-                ),
+                )
+              : Container(),
           FittedBox(
             alignment: Alignment.center,
             clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -113,5 +119,17 @@ class _WishDetailsScreenMobileState extends State<WishDetailsScreenMobile> {
   /// is Pressed
   void _editBTNPressed() {
     // TODO: implement Edit
+  }
+
+  /// If a Book is specified and
+  /// the User pressed the Tile that represents
+  /// the Book, this will open the
+  /// Book Details Screen.
+  void _openBookScreen() {
+    Navigator.pushNamed(
+      context,
+      Routes.bookDetailsScreen,
+      arguments: widget.wish.book,
+    );
   }
 }
