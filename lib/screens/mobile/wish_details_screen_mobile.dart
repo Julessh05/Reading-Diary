@@ -3,7 +3,7 @@ library mobile_screens;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/wish_details_bloc.dart';
-import 'package:reading_diary/components/mobile/entry_details_container_mobile.dart';
+import 'package:reading_diary/components/mobile/model_details_container_mobile.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/wish.dart' show Wish;
@@ -78,7 +78,7 @@ class _WishDetailsScreenMobileState extends State<WishDetailsScreenMobile> {
                   behavior: HitTestBehavior.deferToChild,
                   dragStartBehavior: DragStartBehavior.down,
                   onTap: () => _openBookScreen(),
-                  child: EntryDetailsContainerMobile(
+                  child: ModelDetailsContainerMobile(
                     name: 'Book'.tr(),
                     data: widget.wish.book.title,
                     small: true,
@@ -86,7 +86,7 @@ class _WishDetailsScreenMobileState extends State<WishDetailsScreenMobile> {
                 )
               : Container(),
           widget.wish.book == const Book.none()
-              ? EntryDetailsContainerMobile(
+              ? ModelDetailsContainerMobile(
                   name: 'Description'.tr(),
                   data: widget.wish.description!,
                 )

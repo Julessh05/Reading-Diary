@@ -4,7 +4,7 @@ import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/entry_details_bloc.dart';
-import 'package:reading_diary/components/mobile/entry_details_container_mobile.dart';
+import 'package:reading_diary/components/mobile/model_details_container_mobile.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
 import 'package:string_translate/string_translate.dart' show Translate;
 
@@ -76,25 +76,25 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
         reverse: false,
         physics: const BouncingScrollPhysics(),
         children: [
-          EntryDetailsContainerMobile(
+          ModelDetailsContainerMobile(
             name: 'Content'.tr(),
             data: widget.entry.content,
             multiline: true,
           ),
-          EntryDetailsContainerMobile(
+          ModelDetailsContainerMobile(
             name: 'Date'.tr(),
             data:
                 '${widget.entry.date.day}.${widget.entry.date.month}.${widget.entry.date.year}',
             small: true,
           ),
-          EntryDetailsContainerMobile(
+          ModelDetailsContainerMobile(
             name: 'Book'.tr(),
             data: widget.entry.book != null
                 ? widget.entry.book!.title
                 : 'None'.tr(),
             small: true,
           ),
-          EntryDetailsContainerMobile(
+          ModelDetailsContainerMobile(
             name: 'Pages read'.tr(),
             data: widget.entry.pagesRead != null
                 ? '${widget.entry.pagesRead!.start} - ${widget.entry.pagesRead!.end}'

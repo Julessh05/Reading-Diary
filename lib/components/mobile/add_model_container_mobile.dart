@@ -21,6 +21,7 @@ class AddModelContainerMobile extends StatefulWidget {
     this.big = false,
     this.multiline = false,
     this.opacity = 1,
+    this.suffixIcon,
     Key? key,
   })  : assert(
           child == null && done != null || child != null,
@@ -71,6 +72,10 @@ class AddModelContainerMobile extends StatefulWidget {
 
   /// The Opacity of this Containers Card.
   final double opacity;
+
+  /// The Icon displayed at the end of
+  /// the TextField
+  final Icon? suffixIcon;
 
   @override
   State<AddModelContainerMobile> createState() =>
@@ -168,6 +173,9 @@ class _AddModelContainerMobileState extends State<AddModelContainerMobile> {
                       onChanged: widget.done,
                       maxLengthEnforcement:
                           MaxLengthEnforcement.truncateAfterCompositionEnds,
+                      decoration: InputDecoration(
+                        suffixIcon: widget.suffixIcon,
+                      ),
                     ),
                   ),
             ],

@@ -1,9 +1,12 @@
 library mobile_screens;
 
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
+import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/blocs.dart' show BookDetailsBloc;
+import 'package:reading_diary/components/mobile/model_details_container_mobile.dart';
 import 'package:reading_diary/models/book.dart' show Book;
+import 'package:string_translate/string_translate.dart' show Translate;
 
 /// Screen that represents a single Book in the App
 /// and shows you all Information about this Book.
@@ -58,7 +61,64 @@ class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
 
   Scrollbar get _body {
     return Scrollbar(
-      child: ListView(),
+      child: ListView(
+        addAutomaticKeepAlives: true,
+        addRepaintBoundaries: true,
+        addSemanticIndexes: true,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        dragStartBehavior: DragStartBehavior.down,
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        physics: const BouncingScrollPhysics(),
+        reverse: false,
+        scrollDirection: Axis.vertical,
+        children: <Widget>[
+          widget.book.author != null
+              ? ModelDetailsContainerMobile(
+                  name: 'Author'.tr(),
+                  data: widget.book.author!,
+                  small: true,
+                )
+              : Container(),
+          ModelDetailsContainerMobile(
+            name: 'Pages'.tr(),
+            data: widget.book.pages.toString(),
+            small: true,
+          ),
+          widget.book.currentPage != null
+              ? ModelDetailsContainerMobile(
+                  name: 'Current Page'.tr(),
+                  data: widget.book.currentPage.toString(),
+                  small: true,
+                )
+              : Container(),
+          ModelDetailsContainerMobile(
+            name: 'Notes'.tr(),
+            data: widget.book.notes.isNotEmpty
+                ? widget.book.notes
+                : 'No Notes'.tr(),
+          ),
+          widget.book.price != null
+              ? ModelDetailsContainerMobile(
+                  name: 'Price'.tr(),
+                  data: '${widget.book.price.toString()}€',
+                  small: true,
+                )
+              : Container(),
+          FittedBox(
+            alignment: Alignment.center,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            fit: BoxFit.scaleDown,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('Back'.tr()),
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+        ],
+      ),
     );
   }
 

@@ -104,6 +104,7 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
               },
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.done,
+              suffixIcon: const Icon(Icons.euro_rounded),
             ),
             FittedBox(
               alignment: Alignment.center,

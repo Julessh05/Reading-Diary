@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 /// A Container that shows a specific Part of information,
 /// depending on a single Entry.
-class EntryDetailsContainerMobile extends StatelessWidget {
-  const EntryDetailsContainerMobile({
+class ModelDetailsContainerMobile extends StatelessWidget {
+  const ModelDetailsContainerMobile({
     required this.name,
     required this.data,
     this.small = false,
