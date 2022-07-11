@@ -6,8 +6,8 @@ import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show ScrollDirection;
 import 'package:reading_diary/blocs/homescreen_bloc.dart';
-import 'package:reading_diary/components/mobile/add_model_container.dart';
-import 'package:reading_diary/components/mobile/entry_container_mobile.dart';
+import 'package:reading_diary/components/mobile/add_model_container_mobile.dart';
+import 'package:reading_diary/components/mobile/model_container_mobile.dart';
 import 'package:reading_diary/components/mobile/statistic_container_mobile.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/book.dart' show Book;
@@ -490,7 +490,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
             shrinkWrap: true,
             itemCount: 2,
             itemBuilder: (_, counter) {
-              return EntryContainerMobile(
+              return ModelContainerMobile(
                 entry: DiaryEntry(
                   content: 'Entry',
                 ),
@@ -520,7 +520,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
               reverse: false,
               scrollDirection: Axis.vertical,
               itemBuilder: (_, c) {
-                return EntryContainerMobile(
+                return ModelContainerMobile(
                   entry: Diary.entries[c],
                 );
               },
@@ -594,7 +594,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
               scrollDirection: Axis.vertical,
               itemCount: BookList.books.length,
               itemBuilder: (_, counter) {
-                return EntryContainerMobile(
+                return ModelContainerMobile(
                   book: BookList.books[counter],
                 );
               },
@@ -619,9 +619,11 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               physics: const BouncingScrollPhysics(),
               reverse: false,
-              itemCount: 2,
+              itemCount: Wishlist.wishes.length,
               itemBuilder: (_, counter) {
-                return Container();
+                return ModelContainerMobile(
+                  wish: Wishlist.wishes[counter],
+                );
               },
             ),
           )
@@ -703,7 +705,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
               textDirection: TextDirection.ltr,
               verticalDirection: VerticalDirection.down,
               children: [
-                AddModelContainer(
+                AddModelContainerMobile(
                   name: 'Keyword'.tr(),
                   done: (str) => _bloc!.diarySearchKeyword = str,
                   opacity: 0.7,
@@ -714,7 +716,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
                     style: _filterLabelStyle,
                   ),
                 ),
-                AddModelContainer(
+                AddModelContainerMobile(
                   name: 'Book'.tr(),
                   opacity: 0.7,
                   child: DropdownButton<Book>(
@@ -793,7 +795,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
               textDirection: TextDirection.ltr,
               verticalDirection: VerticalDirection.down,
               children: [
-                AddModelContainer(
+                AddModelContainerMobile(
                   name: 'Keyword'.tr(),
                   done: (str) => _bloc!.wishlistSearchKeyword = str,
                   opacity: 0.7,
@@ -853,7 +855,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
               textDirection: TextDirection.ltr,
               verticalDirection: VerticalDirection.down,
               children: [
-                AddModelContainer(
+                AddModelContainerMobile(
                   name: 'Keyword'.tr(),
                   done: (str) => _bloc!.bookSearchKeyword = str,
                   opacity: 0.7,

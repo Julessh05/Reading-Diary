@@ -1,53 +1,49 @@
 library mobile_screens;
 
-import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
-import 'package:reading_diary/blocs/entry_details_bloc.dart';
+import 'package:reading_diary/blocs/wish_details_bloc.dart';
 import 'package:reading_diary/components/mobile/model_details_container_mobile.dart';
-import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:reading_diary/logic/navigating/routes.dart';
+import 'package:reading_diary/models/book.dart' show Book;
+import 'package:reading_diary/models/wish.dart' show Wish;
 import 'package:string_translate/string_translate.dart' show Translate;
 
-/// The Mobile Version of the screen that showns
-/// all the Information about a single [entry]
-class EntryDetailsScreenMobile extends StatefulWidget {
-  const EntryDetailsScreenMobile({
-    required this.entry,
+/// Represents a single Wish of the User
+/// and shows you all information.
+class WishDetailsScreenMobile extends StatefulWidget {
+  const WishDetailsScreenMobile({
+    required this.wish,
     Key? key,
   }) : super(key: key);
 
-  /// The Entry this
-  /// Screen represents / shows
-  final DiaryEntry entry;
+  /// The Wish this Screen
+  /// represents.
+  final Wish wish;
 
   @override
-  State<EntryDetailsScreenMobile> createState() =>
-      _EntryDetailsScreenMobileState();
+  State<WishDetailsScreenMobile> createState() =>
+      _WishDetailsScreenMobileState();
 }
 
-class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
-  /// The corresponding Bloc to this
-  /// Screen with the Entry
-  EntryDetailsBloc? _bloc;
+class _WishDetailsScreenMobileState extends State<WishDetailsScreenMobile> {
+  /// The Bloc used for this Screen.
+  WishDetailsBloc? _bloc;
 
   @override
   Widget build(BuildContext context) {
-    // Init Bloc
-    _bloc ??= BlocParent.of(context);
-
     return Scaffold(
       appBar: _appBar,
       body: _body,
       extendBody: true,
-      extendBodyBehindAppBar: true,
     );
   }
 
-  /// The AppBar for that screen.
+  /// The AppBar for this Screen.
   AppBar get _appBar {
     return AppBar(
       automaticallyImplyLeading: true,
-      title: Text(widget.entry.title),
+      title: Text(widget.wish.title),
       actions: <IconButton>[
         IconButton(
           onPressed: _editBTNPressed,
@@ -63,7 +59,7 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
     );
   }
 
-  /// The Body of this Screen.
+  /// Body of this Screen.
   Scrollbar get _body {
     return Scrollbar(
       child: ListView(
@@ -73,34 +69,28 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
         clipBehavior: Clip.antiAliasWithSaveLayer,
         dragStartBehavior: DragStartBehavior.down,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        reverse: false,
         physics: const BouncingScrollPhysics(),
-        children: [
-          ModelDetailsContainerMobile(
-            name: 'Content'.tr(),
-            data: widget.entry.content,
-            multiline: true,
-          ),
-          ModelDetailsContainerMobile(
-            name: 'Date'.tr(),
-            data:
-                '${widget.entry.date.day}.${widget.entry.date.month}.${widget.entry.date.year}',
-            small: true,
-          ),
-          ModelDetailsContainerMobile(
-            name: 'Book'.tr(),
-            data: widget.entry.book != null
-                ? widget.entry.book!.title
-                : 'None'.tr(),
-            small: true,
-          ),
-          ModelDetailsContainerMobile(
-            name: 'Pages read'.tr(),
-            data: widget.entry.pagesRead != null
-                ? '${widget.entry.pagesRead!.start} - ${widget.entry.pagesRead!.end}'
-                : 'Not specified'.tr(),
-            small: true,
-          ),
+        reverse: false,
+        scrollDirection: Axis.vertical,
+        children: <Widget>[
+          widget.wish.book != const Book.none()
+              ? GestureDetector(
+                  behavior: HitTestBehavior.deferToChild,
+                  dragStartBehavior: DragStartBehavior.down,
+                  onTap: () => _openBookScreen(),
+                  child: ModelDetailsContainerMobile(
+                    name: 'Book'.tr(),
+                    data: widget.wish.book.title,
+                    small: true,
+                  ),
+                )
+              : Container(),
+          widget.wish.book == const Book.none()
+              ? ModelDetailsContainerMobile(
+                  name: 'Description'.tr(),
+                  data: widget.wish.description!,
+                )
+              : Container(),
           FittedBox(
             alignment: Alignment.center,
             clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -121,7 +111,7 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
 
   /// Called when the delete Button is pressed.
   void _deleteBTNPressed() {
-    _bloc!.deleteEntry(widget.entry);
+    _bloc!.deleteWish(widget.wish);
     Navigator.pop(context);
   }
 
@@ -129,5 +119,17 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
   /// is Pressed
   void _editBTNPressed() {
     // TODO: implement Edit
+  }
+
+  /// If a Book is specified and
+  /// the User pressed the Tile that represents
+  /// the Book, this will open the
+  /// Book Details Screen.
+  void _openBookScreen() {
+    Navigator.pushNamed(
+      context,
+      Routes.bookDetailsScreen,
+      arguments: widget.wish.book,
+    );
   }
 }

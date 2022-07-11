@@ -9,6 +9,9 @@ import 'package:string_translate/string_translate.dart'
 /// Is private.
 /// Use the corresponding getter [translations]
 final Map<String, Map<Locale, String>> _translations = {
+  'Current Page:': {
+    TranslationLocales.german: 'Aktuelle Seite:',
+  },
   'Current Page': {
     TranslationLocales.german: 'Aktuelle Seite',
   },
@@ -169,6 +172,12 @@ final Map<String, Map<Locale, String>> _translations = {
   },
   'Add one': {
     TranslationLocales.german: 'Hinzufügen',
+  },
+  'Not specified': {
+    TranslationLocales.german: 'Nicht angegeben',
+  },
+  'No Notes': {
+    TranslationLocales.german: 'Keine Notizen',
   },
 };
 

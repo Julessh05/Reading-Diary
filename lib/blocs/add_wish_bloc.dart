@@ -1,8 +1,6 @@
 library blocs;
 
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
-import 'package:flutter/material.dart' show BuildContext, Navigator;
-import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/wish.dart' show Wish;
 import 'package:reading_diary/models/wishlist.dart';
@@ -35,8 +33,18 @@ class AddWishBloc extends Bloc {
   /// Checks if all
   /// required vars are set.
   void checkForVars() {
-    if (wishBook != null || _description != null) {
-      _doneButtonEnabled = true;
+    if (wishBook != null || (_title != null && _description != null)) {
+      if (wishBook != null) {
+        if (wishBook == const Book.none()) {
+          _doneButtonEnabled = false;
+        } else {
+          _doneButtonEnabled = true;
+        }
+      } else if (_title!.isNotEmpty && _description!.isNotEmpty) {
+        _doneButtonEnabled = true;
+      } else {
+        _doneButtonEnabled = false;
+      }
     } else {
       _doneButtonEnabled = false;
     }
@@ -46,27 +54,21 @@ class AddWishBloc extends Bloc {
   /// and adds it to the
   /// Wishlist
   void createWish() {
-    if (wishBook == null) {
+    if (wishBook == null || wishBook == const Book.none()) {
       Wishlist.addWish(
         Wish.withoutBook(
-          title: _title,
+          title: _title!,
           description: _description,
         ),
       );
     } else {
       Wishlist.addWish(
         Wish(
-          book: wishBook,
+          book: wishBook!,
           description: _description,
         ),
       );
     }
-  }
-
-  /// Opens the Screen
-  /// on which you can add a new Book.
-  Future<void> openAddBookScreen(BuildContext context) async {
-    Navigator.pushNamed(context, Routes.addBookScreen);
   }
 
   @override

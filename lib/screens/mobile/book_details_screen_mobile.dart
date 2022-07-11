@@ -3,43 +3,39 @@ library mobile_screens;
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
-import 'package:reading_diary/blocs/entry_details_bloc.dart';
+import 'package:reading_diary/blocs/blocs.dart' show BookDetailsBloc;
 import 'package:reading_diary/components/mobile/model_details_container_mobile.dart';
-import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:reading_diary/models/book.dart' show Book;
 import 'package:string_translate/string_translate.dart' show Translate;
 
-/// The Mobile Version of the screen that showns
-/// all the Information about a single [entry]
-class EntryDetailsScreenMobile extends StatefulWidget {
-  const EntryDetailsScreenMobile({
-    required this.entry,
+/// Screen that represents a single Book in the App
+/// and shows you all Information about this Book.
+class BookDetailsScreenMobile extends StatefulWidget {
+  const BookDetailsScreenMobile({
+    required this.book,
     Key? key,
   }) : super(key: key);
 
-  /// The Entry this
-  /// Screen represents / shows
-  final DiaryEntry entry;
+  /// The Book this Screen
+  /// represents
+  final Book book;
 
   @override
-  State<EntryDetailsScreenMobile> createState() =>
-      _EntryDetailsScreenMobileState();
+  State<BookDetailsScreenMobile> createState() =>
+      _BookDetailsScreenMobileState();
 }
 
-class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
-  /// The corresponding Bloc to this
-  /// Screen with the Entry
-  EntryDetailsBloc? _bloc;
+class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
+  /// The corresponding Bloc for this Screen.
+  BookDetailsBloc? _bloc;
 
   @override
   Widget build(BuildContext context) {
-    // Init Bloc
     _bloc ??= BlocParent.of(context);
 
     return Scaffold(
       appBar: _appBar,
       body: _body,
-      extendBody: true,
-      extendBodyBehindAppBar: true,
     );
   }
 
@@ -47,7 +43,7 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
   AppBar get _appBar {
     return AppBar(
       automaticallyImplyLeading: true,
-      title: Text(widget.entry.title),
+      title: Text(widget.book.title),
       actions: <IconButton>[
         IconButton(
           onPressed: _editBTNPressed,
@@ -63,7 +59,6 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
     );
   }
 
-  /// The Body of this Screen.
   Scrollbar get _body {
     return Scrollbar(
       child: ListView(
@@ -73,34 +68,42 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
         clipBehavior: Clip.antiAliasWithSaveLayer,
         dragStartBehavior: DragStartBehavior.down,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        reverse: false,
         physics: const BouncingScrollPhysics(),
-        children: [
+        reverse: false,
+        scrollDirection: Axis.vertical,
+        children: <Widget>[
+          widget.book.author != null
+              ? ModelDetailsContainerMobile(
+                  name: 'Author'.tr(),
+                  data: widget.book.author!,
+                  small: true,
+                )
+              : Container(),
           ModelDetailsContainerMobile(
-            name: 'Content'.tr(),
-            data: widget.entry.content,
-            multiline: true,
-          ),
-          ModelDetailsContainerMobile(
-            name: 'Date'.tr(),
-            data:
-                '${widget.entry.date.day}.${widget.entry.date.month}.${widget.entry.date.year}',
+            name: 'Pages'.tr(),
+            data: widget.book.pages.toString(),
             small: true,
           ),
+          widget.book.currentPage != null
+              ? ModelDetailsContainerMobile(
+                  name: 'Current Page'.tr(),
+                  data: widget.book.currentPage.toString(),
+                  small: true,
+                )
+              : Container(),
           ModelDetailsContainerMobile(
-            name: 'Book'.tr(),
-            data: widget.entry.book != null
-                ? widget.entry.book!.title
-                : 'None'.tr(),
-            small: true,
+            name: 'Notes'.tr(),
+            data: widget.book.notes.isNotEmpty
+                ? widget.book.notes
+                : 'No Notes'.tr(),
           ),
-          ModelDetailsContainerMobile(
-            name: 'Pages read'.tr(),
-            data: widget.entry.pagesRead != null
-                ? '${widget.entry.pagesRead!.start} - ${widget.entry.pagesRead!.end}'
-                : 'Not specified'.tr(),
-            small: true,
-          ),
+          widget.book.price != null
+              ? ModelDetailsContainerMobile(
+                  name: 'Price'.tr(),
+                  data: '${widget.book.price.toString()}€',
+                  small: true,
+                )
+              : Container(),
           FittedBox(
             alignment: Alignment.center,
             clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -121,7 +124,7 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
 
   /// Called when the delete Button is pressed.
   void _deleteBTNPressed() {
-    _bloc!.deleteEntry(widget.entry);
+    _bloc!.deleteBook(widget.book);
     Navigator.pop(context);
   }
 

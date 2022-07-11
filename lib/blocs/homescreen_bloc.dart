@@ -112,12 +112,8 @@ class HomescreenBloc extends Bloc {
   /// Dialog for the Wishlist Screen
   void onWishSearchTap() {
     for (Wish wish in Wishlist.wishes) {
-      if (wish.title != null) {
-        if (wish.title!.contains(_wishlistSearchKeyword)) {
-          _wishSearchResults.add(wish);
-        } else {
-          continue;
-        }
+      if (wish.title.contains(_wishlistSearchKeyword)) {
+        _wishSearchResults.add(wish);
       } else if (wish.description != null) {
         if (wish.description!.contains(_wishlistSearchKeyword)) {
           _wishSearchResults.add(wish);

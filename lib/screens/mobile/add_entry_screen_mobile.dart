@@ -7,7 +7,8 @@ import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show MaxLengthEnforcement;
 import 'package:reading_diary/blocs/add_entry_bloc.dart';
-import 'package:reading_diary/components/mobile/add_model_container.dart';
+import 'package:reading_diary/components/mobile/add_model_container_mobile.dart';
+import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
@@ -75,16 +76,16 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
           textDirection: TextDirection.ltr,
           verticalDirection: VerticalDirection.down,
           children: <Widget>[
-            AddModelContainer(
+            AddModelContainerMobile(
               name: 'Title'.tr(),
               autofocus: true,
               maxLines: 1,
               done: (title) => _bloc!.entryTitle = title,
             ),
-            AddModelContainer(
+            AddModelContainerMobile(
               name: 'Content'.tr(),
               keyboardType: TextInputType.multiline,
-              mulitline: true,
+              multiline: true,
               done: (ct) {
                 setState(() {
                   _bloc!.entryContent = ct;
@@ -92,13 +93,13 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
                 });
               },
             ),
-            AddModelContainer(
+            AddModelContainerMobile(
               name: 'Date'.tr(),
               child: _dateContainer,
             ),
 
             // TODO: add possibility to add an Image
-            AddModelContainer(
+            AddModelContainerMobile(
               name: 'Book'.tr(),
               child: DropdownButton<Book>(
                 items: _bookDropDownItems,
@@ -110,9 +111,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
                   if (book == null) {
                     _bloc!.entryBook = null;
                   } else if (book == const Book.addBook()) {
-                    _bloc!
-                        .openAddBookScreen(context)
-                        .then((value) => setState(() {}));
+                    _openAddBookScreen(context);
                   } else if (book == const Book.none()) {
                     _bloc!.entryBook = null;
                   } else {
@@ -123,7 +122,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
                 },
               ),
             ),
-            AddModelContainer(
+            AddModelContainerMobile(
               name: 'Pages read'.tr(),
               big: true,
               child: _pagesReadChild,
@@ -456,5 +455,13 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
       },
     );
     setState(() {});
+  }
+
+  /// Pushes a screen with which you can add
+  /// a new Book to the App.
+  void _openAddBookScreen(BuildContext context) {
+    Navigator.pushNamed(context, Routes.addBookScreen).then(
+      (value) => setState(() {}),
+    );
   }
 }

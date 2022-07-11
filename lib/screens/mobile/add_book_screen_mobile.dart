@@ -4,7 +4,7 @@ import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/add_book_bloc.dart';
-import 'package:reading_diary/components/mobile/add_model_container.dart';
+import 'package:reading_diary/components/mobile/add_model_container_mobile.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
 /// Mobile Version of the Screen you can add
@@ -58,7 +58,7 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
           textBaseline: TextBaseline.alphabetic,
           textDirection: TextDirection.ltr,
           children: <Widget>[
-            AddModelContainer(
+            AddModelContainerMobile(
               name: 'Title'.tr(),
               done: (str) {
                 setState(() {
@@ -69,7 +69,7 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
               autofocus: true,
               maxLines: 1,
             ),
-            AddModelContainer(
+            AddModelContainerMobile(
               name: 'Author'.tr(),
               done: (str) => _bloc!.author = str,
               maxLines: 1,
@@ -77,7 +77,7 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
 
             // TODO: add option to add am Image
 
-            AddModelContainer(
+            AddModelContainerMobile(
               name: 'Pages'.tr(),
               done: (str) {
                 setState(() {
@@ -87,23 +87,24 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
               },
               keyboardType: TextInputType.number,
             ),
-            AddModelContainer(
+            AddModelContainerMobile(
               name: 'Current Page'.tr(),
               done: (str) => _bloc!.currentPage = int.parse(str),
               keyboardType: TextInputType.number,
             ),
-            AddModelContainer(
+            AddModelContainerMobile(
               name: 'Notes'.tr(),
               done: (str) => _bloc!.notes = str,
               maxLines: 1000,
             ),
-            AddModelContainer(
+            AddModelContainerMobile(
               name: 'Price'.tr(),
               done: (str) {
                 _bloc!.price = double.parse(str);
               },
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.done,
+              suffixIcon: const Icon(Icons.euro_rounded),
             ),
             FittedBox(
               alignment: Alignment.center,

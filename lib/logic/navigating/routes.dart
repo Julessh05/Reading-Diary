@@ -31,4 +31,10 @@ class Routes {
 
   /// The Screen that sowns a single Entry.
   static const String entryDetailsScreen = '/entry';
+
+  /// The Screen that sowns a single Book.
+  static const String bookDetailsScreen = '/book';
+
+  /// The Screen that sowns a single Wish.
+  static const String wishDetailsScreen = '/wish';
 }

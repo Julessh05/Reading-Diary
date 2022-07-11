@@ -4,8 +4,9 @@ import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/add_wish_bloc.dart';
-import 'package:reading_diary/components/mobile/add_model_container.dart';
-import 'package:reading_diary/models/book.dart';
+import 'package:reading_diary/components/mobile/add_model_container_mobile.dart';
+import 'package:reading_diary/logic/navigating/routes.dart';
+import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
@@ -61,7 +62,7 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
           textDirection: TextDirection.ltr,
           verticalDirection: VerticalDirection.down,
           children: <Widget>[
-            AddModelContainer(
+            AddModelContainerMobile(
               name: 'Book'.tr(),
               child: DropdownButton<Book>(
                 items: _bookDropDownItems,
@@ -73,9 +74,7 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
                   if (book == null) {
                     _bloc!.wishBook = null;
                   } else if (book == const Book.addBook()) {
-                    _bloc!
-                        .openAddBookScreen(context)
-                        .then((value) => setState(() {}));
+                    _openAddBookScreen(context);
                   } else if (book == const Book.none()) {
                     _bloc!.wishBook = null;
                   } else {
@@ -83,22 +82,30 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
                         .where((element) => element == book)
                         .first;
                   }
+                  _bloc!.checkForVars();
                 },
               ),
             ),
             _bloc!.wishBook == null
-                ? AddModelContainer(
+                ? AddModelContainerMobile(
                     name: 'Title'.tr(),
                     maxLines: 1,
-                    done: (str) => _bloc!.title = str,
+                    done: (str) {
+                      _bloc!.title = str;
+                      setState(() {
+                        _bloc!.checkForVars();
+                      });
+                    },
                   )
                 : const SizedBox(height: 0, width: 0),
-            AddModelContainer(
+            AddModelContainerMobile(
               name: 'Description',
               maxLines: 1000,
               done: (str) {
                 _bloc!.desription = str;
-                _bloc!.checkForVars();
+                setState(() {
+                  _bloc!.checkForVars();
+                });
               },
             ),
             FittedBox(
@@ -194,5 +201,13 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
     );
 
     return list;
+  }
+
+  /// Opens the Screen
+  /// on which you can add a new Book.
+  void _openAddBookScreen(BuildContext context) {
+    Navigator.pushNamed(context, Routes.addBookScreen).then(
+      (value) => setState(() {}),
+    );
   }
 }
