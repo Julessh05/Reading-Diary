@@ -25,4 +25,11 @@ class BookList {
     _books.remove(book);
     Storage.storeBooks();
   }
+
+  /// Replaces the specified Book [toReplace] with
+  /// the corresponding specified [replace]
+  static void replaceBook(Book toReplace, Book replace) {
+    final int i = _books.indexOf(toReplace);
+    _books[i] = replace;
+  }
 }
