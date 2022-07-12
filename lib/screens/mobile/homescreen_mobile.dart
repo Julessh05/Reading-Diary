@@ -128,8 +128,8 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// Returns the floating Action Button
   /// depending on the current Index [_bloc.currentBNBIndex] of the
   /// Bottom Navigation Bar.
-  Widget? get _fab {
-    final Set<Widget?> afab = {null, _diaryFab, _wishlistFab, _bookFab};
+  ClipRRect? get _fab {
+    final Set<ClipRRect?> afab = {null, _diaryFab, _wishlistFab, _bookFab};
     return afab.elementAt(_bloc!.currentBNBIndex);
   }
 

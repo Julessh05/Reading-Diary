@@ -30,7 +30,7 @@ class Wish {
 
   /// The Title of the Wish
   @HiveField(1)
-  late final String title;
+  late String title;
 
   /// The Description of the Wish.
   @HiveField(2)
