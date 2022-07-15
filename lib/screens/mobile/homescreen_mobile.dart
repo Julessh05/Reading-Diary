@@ -323,15 +323,15 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
           icon: const Icon(Icons.settings_rounded),
         ),
       ],
-      leading: IconButton(
-        alignment: Alignment.center,
-        autofocus: false,
-        enableFeedback: true,
-        tooltip: 'Search your Entries'.tr(),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        onPressed: _showDiarySearchDialog,
-        icon: const Icon(Icons.search_rounded),
-      ),
+      // leading: IconButton(
+      //   alignment: Alignment.center,
+      //   autofocus: false,
+      //   enableFeedback: true,
+      //   tooltip: 'Search your Entries'.tr(),
+      //   visualDensity: VisualDensity.adaptivePlatformDensity,
+      //   onPressed: _showDiarySearchDialog,
+      //   icon: const Icon(Icons.search_rounded),
+      // ),
       automaticallyImplyLeading: false,
       title: Text('Diary'.tr()),
     );
@@ -348,12 +348,12 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
           icon: const Icon(Icons.settings_rounded),
         ),
       ],
-      leading: IconButton(
-        onPressed: _showBookSearchDialog,
-        autofocus: false,
-        tooltip: 'Search your Books'.tr(),
-        icon: const Icon(Icons.search_rounded),
-      ),
+      // leading: IconButton(
+      //   onPressed: _showBookSearchDialog,
+      //   autofocus: false,
+      //   tooltip: 'Search your Books'.tr(),
+      //   icon: const Icon(Icons.search_rounded),
+      // ),
     );
   }
 
@@ -366,15 +366,15 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
           icon: const Icon(Icons.settings_rounded),
         ),
       ],
-      leading: IconButton(
-        alignment: Alignment.center,
-        autofocus: false,
-        enableFeedback: true,
-        tooltip: 'Search your Wishlist'.tr(),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        onPressed: _showWishlistSearchDialog,
-        icon: const Icon(Icons.search_rounded),
-      ),
+      // leading: IconButton(
+      //   alignment: Alignment.center,
+      //   autofocus: false,
+      //   enableFeedback: true,
+      //   tooltip: 'Search your Wishlist'.tr(),
+      //   visualDensity: VisualDensity.adaptivePlatformDensity,
+      //   onPressed: _showWishlistSearchDialog,
+      //   icon: const Icon(Icons.search_rounded),
+      // ),
       automaticallyImplyLeading: false,
       title: Text('Wishlist'.tr()),
     );
