@@ -458,7 +458,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
         children: <Widget>[
           SizedBox(
             height: MediaQuery.of(context).size.height / 4.6,
-            child: ListView.builder(
+            child: ListView(
               addAutomaticKeepAlives: true,
               addRepaintBoundaries: true,
               addSemanticIndexes: true,
@@ -469,38 +469,58 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
               reverse: false,
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
-              itemCount: 2,
-              itemBuilder: ((_, conter) {
-                return const StatisticContainerMobile(
-                  title: 'Title',
-                  content: 'Content',
-                );
-              }),
+              children: const <StatisticContainerMobile>[
+                StatisticContainerMobile(
+                  title: 'Still under Development',
+                  content: 'Stay tuned for Updates',
+                ),
+                StatisticContainerMobile(
+                  title: 'Still under Development',
+                  content: 'Stay tuned for Updates',
+                ),
+              ],
             ),
           ),
-          ListView.builder(
-            addAutomaticKeepAlives: true,
-            addRepaintBoundaries: true,
-            addSemanticIndexes: true,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            dragStartBehavior: DragStartBehavior.down,
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            physics: const BouncingScrollPhysics(),
-            reverse: false,
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: 2,
-            itemBuilder: (_, counter) {
-              return ModelContainerMobile(
-                entry: DiaryEntry(
-                  content: 'Entry',
-                  book: const Book.none(),
-                  endPage: 1,
-                  startPage: 1,
-                ),
-              );
-            },
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 4,
           ),
+          Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              textBaseline: TextBaseline.alphabetic,
+              textDirection: TextDirection.ltr,
+              verticalDirection: VerticalDirection.down,
+              children: const <Text>[
+                Text('Still under Development'),
+                Text('Thanks for your understanding.')
+              ],
+            ),
+          ),
+          // ListView.builder(
+          //   addAutomaticKeepAlives: true,
+          //   addRepaintBoundaries: true,
+          //   addSemanticIndexes: true,
+          //   clipBehavior: Clip.antiAliasWithSaveLayer,
+          //   dragStartBehavior: DragStartBehavior.down,
+          //   keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          //   physics: const BouncingScrollPhysics(),
+          //   reverse: false,
+          //   scrollDirection: Axis.vertical,
+          //   shrinkWrap: true,
+          //   itemCount: 2,
+          //   itemBuilder: (_, counter) {
+          //     return ModelContainerMobile(
+          //       entry: DiaryEntry(
+          //         content: 'Entry',
+          //         book: const Book.none(),
+          //         endPage: 1,
+          //         startPage: 1,
+          //       ),
+          //     );
+          //   },
+          // ),
         ],
       ),
     );
