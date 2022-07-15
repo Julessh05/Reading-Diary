@@ -53,19 +53,21 @@ class StatisticContainerMobile extends StatelessWidget {
               alignment: Alignment.bottomLeft,
               child: Padding(
                 padding: const EdgeInsets.only(
-                  left: 25,
+                  // TODO: change
+                  // left: 25
+                  left: 0,
                   bottom: 15,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   textBaseline: TextBaseline.alphabetic,
                   textDirection: TextDirection.ltr,
                   verticalDirection: VerticalDirection.up,
                   children: <Widget>[
-                    Text(content, style: _ctStyle),
-                    Text(title, style: _tStyle),
+                    Text(content, style: _ctStyle, textAlign: TextAlign.center),
+                    Text(title, style: _tStyle, textAlign: TextAlign.center),
                   ],
                 ),
               ),
