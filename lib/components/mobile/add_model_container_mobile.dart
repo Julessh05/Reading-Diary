@@ -1,15 +1,12 @@
 library mobile_components;
 
-import 'dart:ui' show BoxHeightStyle, BoxWidthStyle;
-
-import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show MaxLengthEnforcement;
 
 /// A Container with an input field and
 /// the Option to replace that input field
 /// with your own Widget [child]
-class AddModelContainerMobile extends StatefulWidget {
+class AddModelContainerMobile extends StatelessWidget {
   const AddModelContainerMobile({
     required this.name,
     this.autofocus = false,
@@ -22,6 +19,7 @@ class AddModelContainerMobile extends StatefulWidget {
     this.multiline = false,
     this.opacity = 1,
     this.suffixIcon,
+    this.initialValue,
     Key? key,
   })  : assert(
           child == null && done != null || child != null,
@@ -42,15 +40,15 @@ class AddModelContainerMobile extends StatefulWidget {
   final bool autofocus;
 
   /// The Keyboard Type for the
-  /// TextField
+  /// TextFormField
   final TextInputType keyboardType;
 
   /// The Text Input Action, determining what
   /// should be done after filling in the
-  /// TextField
+  /// TextFormField
   final TextInputAction textInputAction;
 
-  /// The max Lines for the TextField
+  /// The max Lines for the TextFormField
   final int? maxLines;
 
   /// The Function beeing called, when the
@@ -59,7 +57,7 @@ class AddModelContainerMobile extends StatefulWidget {
   final void Function(String)? done;
 
   /// An Optional child Widget,
-  /// if you don't need a TextField
+  /// if you don't need a TextFormField
   final Widget? child;
 
   /// If you want the Card
@@ -67,29 +65,25 @@ class AddModelContainerMobile extends StatefulWidget {
   /// set this to true.
   final bool big;
 
-  /// Whether this is a full Screen Textfield or not.
+  /// Whether this is a full Screen TextFormField or not.
   final bool multiline;
 
   /// The Opacity of this Containers Card.
   final double opacity;
 
   /// The Icon displayed at the end of
-  /// the TextField
+  /// the TextFormField
   final Icon? suffixIcon;
 
-  @override
-  State<AddModelContainerMobile> createState() =>
-      _AddModelContainerMobileState();
-}
+  final String? initialValue;
 
-class _AddModelContainerMobileState extends State<AddModelContainerMobile> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: () {
-        if (widget.big) {
+        if (big) {
           return MediaQuery.of(context).size.height / 3.3;
-        } else if (widget.multiline) {
+        } else if (multiline) {
           return MediaQuery.of(context).size.height;
         } else {
           return MediaQuery.of(context).size.height / 4.5;
@@ -99,9 +93,7 @@ class _AddModelContainerMobileState extends State<AddModelContainerMobile> {
         elevation: 8,
         borderOnForeground: false,
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        color: Theme.of(context)
-            .scaffoldBackgroundColor
-            .withOpacity(widget.opacity),
+        color: Theme.of(context).scaffoldBackgroundColor.withOpacity(opacity),
         margin: const EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 10,
@@ -125,18 +117,18 @@ class _AddModelContainerMobileState extends State<AddModelContainerMobile> {
             textDirection: TextDirection.ltr,
             verticalDirection: VerticalDirection.down,
             children: [
-              Text(widget.name, style: _tStyle),
+              Text(name, style: _tStyle),
               const SizedBox(height: 18),
-              widget.child ??
+              child ??
                   SizedBox(
-                    height: widget.multiline
+                    height: multiline
                         ? MediaQuery.of(context).size.height / 1.2
                         : 80,
-                    child: TextField(
+                    child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      initialValue: initialValue,
                       autocorrect: true,
-                      autofocus: widget.autofocus,
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      dragStartBehavior: DragStartBehavior.down,
+                      autofocus: autofocus,
                       enableIMEPersonalizedLearning: true,
                       enableInteractiveSelection: true,
                       enableSuggestions: true,
@@ -145,7 +137,7 @@ class _AddModelContainerMobileState extends State<AddModelContainerMobile> {
                       obscureText: false,
                       keyboardAppearance: Theme.of(context).brightness,
                       scrollPhysics: const BouncingScrollPhysics(),
-                      keyboardType: widget.keyboardType,
+                      keyboardType: keyboardType,
                       readOnly: false,
                       smartDashesType: SmartDashesType.enabled,
                       smartQuotesType: SmartQuotesType.enabled,
@@ -158,23 +150,19 @@ class _AddModelContainerMobileState extends State<AddModelContainerMobile> {
                         paste: true,
                         selectAll: true,
                       ),
-                      scribbleEnabled: true,
                       selectionControls: MaterialTextSelectionControls(),
                       textDirection: TextDirection.ltr,
-                      textInputAction: widget.textInputAction,
-                      maxLines: widget.multiline ? 99999 : widget.maxLines,
-                      minLines: widget.multiline
+                      textInputAction: textInputAction,
+                      maxLines: multiline ? 99999 : maxLines,
+                      minLines: multiline
                           ? MediaQuery.of(context).size.height ~/ 20
                           : 1,
-                      selectionHeightStyle: BoxHeightStyle.tight,
-                      selectionWidthStyle: BoxWidthStyle.tight,
                       showCursor: true,
-                      onSubmitted: widget.done,
-                      onChanged: widget.done,
+                      onChanged: done,
                       maxLengthEnforcement:
                           MaxLengthEnforcement.truncateAfterCompositionEnds,
                       decoration: InputDecoration(
-                        suffixIcon: widget.suffixIcon,
+                        suffixIcon: suffixIcon,
                       ),
                     ),
                   ),
@@ -185,7 +173,7 @@ class _AddModelContainerMobileState extends State<AddModelContainerMobile> {
     );
   }
 
-  /// Text Style for the [widget.name]
+  /// Text Style for the [name]
   TextStyle get _tStyle {
     return const TextStyle(
       fontStyle: FontStyle.normal,

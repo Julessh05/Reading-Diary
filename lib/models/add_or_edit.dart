@@ -35,5 +35,7 @@ class AddOrEdit {
 
   bool get edit => _edit;
 
+  bool initialValueSet = true;
+
   late final dynamic object;
 }

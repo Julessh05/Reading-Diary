@@ -9,10 +9,10 @@ import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
 /// Bloc for the Add Entry Screens.
 class AddEntryBloc extends Bloc {
   /// Title of the Entry
-  String? _entryTitle;
+  String? entryTitle;
 
   /// Content of the Entry Created
-  String _entryContent = '';
+  String entryContent = '';
 
   /// Date and Time of the Entry created
   DateTime? entryDate;
@@ -30,12 +30,6 @@ class AddEntryBloc extends Bloc {
   // Whether the Done Button is enabled or not.
   bool _doneButtonEnabled = false;
 
-  /// Setter for the Entry Title
-  set entryTitle(String title) => _entryTitle = title;
-
-  /// Setter for the Entry Content
-  set entryContent(String content) => _entryContent = content;
-
   /// Setter for the Entry Image
   set entryImage(Image image) => _entryImage = image;
 
@@ -50,8 +44,8 @@ class AddEntryBloc extends Bloc {
   void createEntry() {
     Diary.addEntry(
       DiaryEntry(
-        title: _entryTitle,
-        content: _entryContent,
+        title: entryTitle,
+        content: entryContent,
         date: entryDate,
         image: _entryImage,
         book: entryBook,
@@ -64,7 +58,7 @@ class AddEntryBloc extends Bloc {
   /// Checks if all the nessecary Variables
   /// are set before coninuting.
   void checkForVars() {
-    if (_entryContent.isNotEmpty &&
+    if (entryContent.isNotEmpty &&
         entryBook != const Book.none() &&
         entryStartPage != null &&
         entryEndPage != null) {
