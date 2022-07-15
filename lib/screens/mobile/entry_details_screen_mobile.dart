@@ -9,7 +9,6 @@ import 'package:reading_diary/components/mobile/model_details_container_mobile.d
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
-import 'package:reading_diary/states/homescreen_state.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
 /// The Mobile Version of the screen that showns
@@ -53,11 +52,11 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
       automaticallyImplyLeading: true,
       title: Text(widget.entry.title),
       actions: <IconButton>[
-        IconButton(
-          onPressed: _editBTNPressed,
-          icon: const Icon(Icons.edit_rounded),
-          autofocus: false,
-        ),
+        // IconButton(
+        //   onPressed: _editBTNPressed,
+        //   icon: const Icon(Icons.edit_rounded),
+        //   autofocus: false,
+        // ),
         IconButton(
           onPressed: _deleteBTNPressed,
           icon: const Icon(Icons.delete_rounded),

@@ -46,11 +46,11 @@ class _WishDetailsScreenMobileState extends State<WishDetailsScreenMobile> {
       automaticallyImplyLeading: true,
       title: Text(widget.wish.title),
       actions: <IconButton>[
-        IconButton(
-          onPressed: _editBTNPressed,
-          icon: const Icon(Icons.edit_rounded),
-          autofocus: false,
-        ),
+        // IconButton(
+        //   onPressed: _editBTNPressed,
+        //   icon: const Icon(Icons.edit_rounded),
+        //   autofocus: false,
+        // ),
         IconButton(
           onPressed: _deleteBTNPressed,
           icon: const Icon(Icons.delete_rounded),
