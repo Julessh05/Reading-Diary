@@ -27,15 +27,6 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
   /// Should only be set once.
   AddEntryBloc? _bloc;
 
-  /// The Range of Pages read on that day.
-  RangeValues? _pagesRead;
-
-  /// The page you started reading
-  double? _startPage = 0;
-
-  /// The Page you stopped reading
-  double? _endPage;
-
   @override
   Widget build(BuildContext context) {
     // Init Bloc
@@ -106,18 +97,17 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
                 alignment: Alignment.center,
                 autofocus: false,
                 enableFeedback: true,
-                value: _bloc!.entryBook ?? const Book.none(),
+                value: _bloc!.entryBook,
                 onChanged: (book) {
-                  if (book == null) {
-                    _bloc!.entryBook = null;
-                  } else if (book == const Book.addBook()) {
+                  if (book == const Book.addBook()) {
                     _openAddBookScreen(context);
                   } else if (book == const Book.none()) {
-                    _bloc!.entryBook = null;
+                    _bloc!.entryBook = const Book.none();
                   } else {
                     _bloc!.entryBook = BookList.books
                         .where((element) => element == book)
                         .first;
+                    _bloc!.checkForVars();
                   }
                 },
               ),
@@ -150,10 +140,6 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       onPressed: () {
-        if (_pagesRead == null && _startPage != null && _endPage != null) {
-          _pagesRead = RangeValues(_startPage!, _endPage!);
-          _bloc!.entryPages = _pagesRead!;
-        }
         _bloc!.createEntry();
         Navigator.pop(context);
       },
@@ -190,7 +176,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
         value: const Book.none(),
         onTap: () {
           setState(() {
-            _bloc!.entryBook = null;
+            _bloc!.entryBook = const Book.none();
           });
         },
         child: Text('None'.tr()),
@@ -206,7 +192,8 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
           onTap: () {
             setState(() {
               _bloc!.entryBook = book;
-              _pagesRead = RangeValues(0, book.pages.toDouble());
+              _bloc!.entryStartPage = book.currentPage;
+              _bloc!.entryEndPage = book.pages;
             });
           },
           child: Text(book.title),
@@ -230,7 +217,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
   /// Returns the Widget with which you
   /// can make an input, of how many pages you read.
   Widget get _pagesReadChild {
-    if (_bloc!.entryBook == null) {
+    if (_bloc!.entryBook == const Book.none()) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -275,10 +262,10 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
             selectionWidthStyle: BoxWidthStyle.tight,
             showCursor: true,
             onSubmitted: (str) {
-              _startPage = double.parse(str);
+              _bloc!.entryStartPage = int.parse(str);
             },
             onChanged: (str) {
-              _startPage = double.parse(str);
+              _bloc!.entryStartPage = int.parse(str);
             },
             maxLengthEnforcement:
                 MaxLengthEnforcement.truncateAfterCompositionEnds,
@@ -323,10 +310,10 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
             selectionWidthStyle: BoxWidthStyle.tight,
             showCursor: true,
             onSubmitted: (str) {
-              _endPage = double.parse(str);
+              _bloc!.entryEndPage = int.parse(str);
             },
             onChanged: (str) {
-              _endPage = double.parse(str);
+              _bloc!.entryEndPage = int.parse(str);
             },
             maxLengthEnforcement:
                 MaxLengthEnforcement.truncateAfterCompositionEnds,
@@ -347,12 +334,12 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
           const SizedBox(height: 25),
           RangeSlider(
             min: 0.0,
-            max: _bloc!.entryBook!.pages.toDouble(),
-            divisions: _bloc!.entryBook!.pages,
+            max: _bloc!.entryBook.pages.toDouble(),
+            divisions: _bloc!.entryBook.pages,
             onChanged: (RangeValues value) {
               setState(() {
-                _pagesRead = value;
-                _bloc!.entryPages = _pagesRead!;
+                _bloc!.entryStartPage = value.start.toInt();
+                _bloc!.entryEndPage = value.end.toInt();
               });
             },
             inactiveColor: Colors.blue.shade100,
@@ -360,9 +347,14 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
             semanticFormatterCallback: (double newValue) {
               return '$newValue books read';
             },
-            labels: RangeLabels(_pagesRead!.start.toInt().toString(),
-                _pagesRead!.end.toInt().toString()),
-            values: RangeValues(_pagesRead!.start, _pagesRead!.end),
+            labels: RangeLabels(
+              _bloc!.entryStartPage.toString(),
+              _bloc!.entryEndPage.toString(),
+            ),
+            values: RangeValues(
+              _bloc!.entryStartPage!.toDouble(),
+              _bloc!.entryEndPage!.toDouble(),
+            ),
           ),
         ],
       );

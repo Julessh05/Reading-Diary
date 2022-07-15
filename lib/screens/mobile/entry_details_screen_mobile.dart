@@ -3,9 +3,11 @@ library mobile_screens;
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
+import 'package:reading_diary/blocs/blocs.dart';
 import 'package:reading_diary/blocs/entry_details_bloc.dart';
 import 'package:reading_diary/components/mobile/model_details_container_mobile.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:reading_diary/states/homescreen_state.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
 /// The Mobile Version of the screen that showns
@@ -89,16 +91,12 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
           ),
           ModelDetailsContainerMobile(
             name: 'Book'.tr(),
-            data: widget.entry.book != null
-                ? widget.entry.book!.title
-                : 'None'.tr(),
+            data: widget.entry.book.title,
             small: true,
           ),
           ModelDetailsContainerMobile(
             name: 'Pages read'.tr(),
-            data: widget.entry.pagesRead != null
-                ? '${widget.entry.pagesRead!.start} - ${widget.entry.pagesRead!.end}'
-                : 'Not specified'.tr(),
+            data: '${widget.entry.startPage} - ${widget.entry.endPage}',
             small: true,
           ),
           FittedBox(

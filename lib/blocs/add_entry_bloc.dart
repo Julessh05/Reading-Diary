@@ -20,12 +20,12 @@ class AddEntryBloc extends Bloc {
   /// Corresponding Image to the Entry created
   Image? _entryImage;
 
-  /// The Pages you read.
-  /// Corresponding to the created Entry
-  RangeValues? _entryPages;
+  int? entryStartPage;
+
+  int? entryEndPage;
 
   /// The book this Entry corresponds to.
-  Book? entryBook;
+  Book entryBook = const Book.none();
 
   // Whether the Done Button is enabled or not.
   bool _doneButtonEnabled = false;
@@ -40,7 +40,6 @@ class AddEntryBloc extends Bloc {
   set entryImage(Image image) => _entryImage = image;
 
   /// Setter for the Entry Pages Read
-  set entryPages(RangeValues pages) => _entryPages = pages;
 
   /// Getter for the Variable that determines whether the done
   /// Button is enabled or not.
@@ -55,7 +54,9 @@ class AddEntryBloc extends Bloc {
         content: _entryContent,
         date: entryDate,
         image: _entryImage,
-        pagesRead: _entryPages,
+        book: entryBook,
+        startPage: entryStartPage!,
+        endPage: entryEndPage!,
       ),
     );
   }
@@ -63,7 +64,10 @@ class AddEntryBloc extends Bloc {
   /// Checks if all the nessecary Variables
   /// are set before coninuting.
   void checkForVars() {
-    if (_entryContent.isNotEmpty) {
+    if (_entryContent.isNotEmpty &&
+        entryBook != const Book.none() &&
+        entryStartPage != null &&
+        entryEndPage != null) {
       _doneButtonEnabled = true;
     } else {
       _doneButtonEnabled = false;

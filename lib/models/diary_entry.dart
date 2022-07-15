@@ -1,6 +1,6 @@
 library models;
 
-import 'package:flutter/material.dart' show Image, RangeValues;
+import 'package:flutter/material.dart' show Image;
 import 'package:helpful_extensions/helpful_extensions.dart' show Weekday;
 import 'package:hive/hive.dart'
     show BinaryReader, BinaryWriter, HiveField, HiveType, TypeAdapter;
@@ -17,8 +17,9 @@ class DiaryEntry {
     required this.content,
     this.image,
     DateTime? date,
-    this.book,
-    this.pagesRead,
+    required this.book,
+    required this.startPage,
+    required this.endPage,
   }) {
     this.date = date ?? DateTime.now();
     this.title = title ?? 'Entry ${this.date.weekdayAsString}';
@@ -37,8 +38,11 @@ class DiaryEntry {
   late final DateTime date;
 
   @HiveField(5)
-  final RangeValues? pagesRead;
+  final int startPage;
 
   @HiveField(6)
-  final Book? book;
+  final int endPage;
+
+  @HiveField(7)
+  final Book book;
 }

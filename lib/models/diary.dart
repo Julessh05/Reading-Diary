@@ -2,7 +2,6 @@ library models;
 
 import 'dart:collection' show UnmodifiableListView;
 
-import 'package:flutter/material.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
@@ -31,7 +30,7 @@ class Diary {
         image: book.image,
         notes: book.notes,
         price: book.price,
-        currentPage: entry.pagesRead!.end.toInt(),
+        currentPage: entry.endPage,
       );
       BookList.replaceBook(book, newBook);
     } else {

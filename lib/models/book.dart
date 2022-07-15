@@ -14,7 +14,7 @@ class Book {
     this.author,
     this.image,
     required this.pages,
-    this.currentPage,
+    required this.currentPage,
     this.notes = '',
     this.price,
   });
@@ -24,7 +24,7 @@ class Book {
     this.title = '<none>',
     this.pages = 1,
     this.author,
-    this.currentPage,
+    this.currentPage = 1,
     this.image,
     this.notes = '',
     this.price,
@@ -36,7 +36,7 @@ class Book {
     this.title = '<new_book>',
     this.pages = 1,
     this.author,
-    this.currentPage,
+    this.currentPage = 1,
     this.image,
     this.notes = '',
     this.price,
@@ -55,7 +55,7 @@ class Book {
   final int pages;
 
   @HiveField(4)
-  final int? currentPage;
+  final int currentPage;
 
   @HiveField(5)
   final String notes;

@@ -89,7 +89,12 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
             ),
             AddModelContainerMobile(
               name: 'Current Page'.tr(),
-              done: (str) => _bloc!.currentPage = int.parse(str),
+              done: (str) {
+                setState(() {
+                  _bloc!.currentPage = int.parse(str);
+                  _bloc!.checkForVars();
+                });
+              },
               keyboardType: TextInputType.number,
             ),
             AddModelContainerMobile(

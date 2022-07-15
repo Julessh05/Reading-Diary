@@ -493,6 +493,9 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
               return ModelContainerMobile(
                 entry: DiaryEntry(
                   content: 'Entry',
+                  book: const Book.none(),
+                  endPage: 1,
+                  startPage: 1,
                 ),
               );
             },
