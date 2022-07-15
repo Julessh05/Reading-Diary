@@ -237,11 +237,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
       SimpleDialogOption(
         onPressed: () {
           Navigator.pop(context);
-          Navigator.pushNamed(
-            context,
-            Routes.addBookScreen,
-            arguments: AddOrEdit.add(),
-          );
+          _openAddBookScreen(context);
         },
         child: DecoratedBox(
           decoration: BoxDecoration(
@@ -281,8 +277,18 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       onPressed: () {
-        _bloc!.createEntry();
-        Navigator.pop(context);
+        if (widget.addOrEdit.edit) {
+          final newEntry = _bloc!.replaceEntry(_entry!);
+          Navigator.pop(context);
+          Navigator.pushReplacementNamed(
+            context,
+            Routes.entryDetailsScreen,
+            arguments: newEntry,
+          );
+        } else {
+          _bloc!.createEntry();
+          Navigator.pop(context);
+        }
       },
       child: Text(
         'Done'.tr(),
@@ -544,7 +550,11 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
   /// Pushes a screen with which you can add
   /// a new Book to the App.
   void _openAddBookScreen(BuildContext context) {
-    Navigator.pushNamed(context, Routes.addBookScreen).then(
+    Navigator.pushNamed(
+      context,
+      Routes.addBookScreen,
+      arguments: AddOrEdit.add(),
+    ).then(
       (value) => setState(() {}),
     );
   }

@@ -21,8 +21,11 @@ class Diary {
   /// list of all Entries
   static void addEntry(DiaryEntry entry) {
     _entries.add(entry);
-    final Book book =
-        BookList.books.where((element) => element == entry.book).first;
+    final Book book = BookList.books.firstWhere(
+      (element) =>
+          (element.title == entry.book.title) &&
+          (element.author == entry.book.author),
+    );
     final newBook = Book(
       title: book.title,
       pages: book.pages,
@@ -36,10 +39,19 @@ class Diary {
     Storage.storeEntries();
   }
 
+  static void addEntryStorage(DiaryEntry entry) {
+    _entries.add(entry);
+  }
+
   /// Removes the specified [entry] from the
   /// list of all Entries
   static void deleteEntry(DiaryEntry entry) {
     _entries.remove(entry);
     Storage.storeEntries();
+  }
+
+  static void replaceEntry(DiaryEntry toReplace, DiaryEntry replace) {
+    final int i = _entries.indexOf(toReplace);
+    _entries[i] = replace;
   }
 }

@@ -55,6 +55,23 @@ class AddEntryBloc extends Bloc {
     );
   }
 
+  DiaryEntry replaceEntry(DiaryEntry toReplace) {
+    final DiaryEntry newEntry = DiaryEntry(
+      title: entryTitle,
+      content: entryContent,
+      date: entryDate,
+      image: _entryImage,
+      book: entryBook,
+      startPage: entryStartPage!,
+      endPage: entryEndPage!,
+    );
+    Diary.replaceEntry(
+      toReplace,
+      newEntry,
+    );
+    return newEntry;
+  }
+
   /// Checks if all the nessecary Variables
   /// are set before coninuting.
   void checkForVars() {

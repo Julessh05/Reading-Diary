@@ -74,7 +74,7 @@ class Storage {
   /// into the Diary
   static void _loadEntries() {
     for (DiaryEntry entry in _entryBox!.values) {
-      Diary.addEntry(entry);
+      Diary.addEntryStorage(entry);
     }
   }
 
