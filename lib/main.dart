@@ -126,9 +126,6 @@ class _ReadingDiaryState extends State<ReadingDiary> {
   Map<String, Widget Function(BuildContext)> get _routes {
     return {
       Routes.homescreen: (_) => WidgetRouter.homescreen(),
-      Routes.addEntryScreen: (_) => WidgetRouter.addEntryScreen(),
-      Routes.addBookScreen: (_) => WidgetRouter.addBookScreen(),
-      Routes.addWishScreen: (_) => WidgetRouter.addWishScreen(),
       Routes.settingsScreen: (_) => WidgetRouter.settingsScreen(),
       Routes.unknownscreen: (_) => WidgetRouter.unknownScreen(),
     };
@@ -154,6 +151,24 @@ class _ReadingDiaryState extends State<ReadingDiary> {
       return MaterialPageRoute(
         builder: (_) {
           return WidgetRouter.wishDetailsScreen(settings: settings);
+        },
+      );
+    } else if (settings.name == Routes.addEntryScreen) {
+      return MaterialPageRoute(
+        builder: (_) {
+          return WidgetRouter.addEntryScreen(settings: settings);
+        },
+      );
+    } else if (settings.name == Routes.addBookScreen) {
+      return MaterialPageRoute(
+        builder: (_) {
+          return WidgetRouter.addBookScreen(settings: settings);
+        },
+      );
+    } else if (settings.name == Routes.addWishScreen) {
+      return MaterialPageRoute(
+        builder: (_) {
+          return WidgetRouter.addWishScreen(settings: settings);
         },
       );
     } else {

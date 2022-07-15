@@ -5,12 +5,18 @@ import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/add_book_bloc.dart';
 import 'package:reading_diary/components/mobile/add_model_container_mobile.dart';
+import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
 /// Mobile Version of the Screen you can add
 /// books with
 class AddBookScreenMobile extends StatefulWidget {
-  const AddBookScreenMobile({Key? key}) : super(key: key);
+  const AddBookScreenMobile({
+    required this.addOrEdit,
+    Key? key,
+  }) : super(key: key);
+
+  final AddOrEdit addOrEdit;
 
   @override
   State<AddBookScreenMobile> createState() => _AddBookScreenMobileState();
@@ -89,7 +95,12 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
             ),
             AddModelContainerMobile(
               name: 'Current Page'.tr(),
-              done: (str) => _bloc!.currentPage = int.parse(str),
+              done: (str) {
+                setState(() {
+                  _bloc!.currentPage = int.parse(str);
+                  _bloc!.checkForVars();
+                });
+              },
               keyboardType: TextInputType.number,
             ),
             AddModelContainerMobile(

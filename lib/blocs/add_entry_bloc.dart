@@ -1,7 +1,7 @@
 library blocs;
 
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
-import 'package:flutter/material.dart' show Image, RangeValues;
+import 'package:flutter/material.dart' show Image;
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/diary.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
@@ -9,10 +9,10 @@ import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
 /// Bloc for the Add Entry Screens.
 class AddEntryBloc extends Bloc {
   /// Title of the Entry
-  String? _entryTitle;
+  String? entryTitle;
 
   /// Content of the Entry Created
-  String _entryContent = '';
+  String entryContent = '';
 
   /// Date and Time of the Entry created
   DateTime? entryDate;
@@ -20,27 +20,20 @@ class AddEntryBloc extends Bloc {
   /// Corresponding Image to the Entry created
   Image? _entryImage;
 
-  /// The Pages you read.
-  /// Corresponding to the created Entry
-  RangeValues? _entryPages;
+  int? entryStartPage;
+
+  int? entryEndPage;
 
   /// The book this Entry corresponds to.
-  Book? entryBook;
+  Book entryBook = const Book.none();
 
   // Whether the Done Button is enabled or not.
   bool _doneButtonEnabled = false;
-
-  /// Setter for the Entry Title
-  set entryTitle(String title) => _entryTitle = title;
-
-  /// Setter for the Entry Content
-  set entryContent(String content) => _entryContent = content;
 
   /// Setter for the Entry Image
   set entryImage(Image image) => _entryImage = image;
 
   /// Setter for the Entry Pages Read
-  set entryPages(RangeValues pages) => _entryPages = pages;
 
   /// Getter for the Variable that determines whether the done
   /// Button is enabled or not.
@@ -51,19 +44,41 @@ class AddEntryBloc extends Bloc {
   void createEntry() {
     Diary.addEntry(
       DiaryEntry(
-        title: _entryTitle,
-        content: _entryContent,
+        title: entryTitle,
+        content: entryContent,
         date: entryDate,
         image: _entryImage,
-        pagesRead: _entryPages,
+        book: entryBook,
+        startPage: entryStartPage!,
+        endPage: entryEndPage!,
       ),
     );
+  }
+
+  DiaryEntry replaceEntry(DiaryEntry toReplace) {
+    final DiaryEntry newEntry = DiaryEntry(
+      title: entryTitle,
+      content: entryContent,
+      date: entryDate,
+      image: _entryImage,
+      book: entryBook,
+      startPage: entryStartPage!,
+      endPage: entryEndPage!,
+    );
+    Diary.replaceEntry(
+      toReplace,
+      newEntry,
+    );
+    return newEntry;
   }
 
   /// Checks if all the nessecary Variables
   /// are set before coninuting.
   void checkForVars() {
-    if (_entryContent.isNotEmpty) {
+    if (entryContent.isNotEmpty &&
+        entryBook != const Book.none() &&
+        entryStartPage != null &&
+        entryEndPage != null) {
       _doneButtonEnabled = true;
     } else {
       _doneButtonEnabled = false;

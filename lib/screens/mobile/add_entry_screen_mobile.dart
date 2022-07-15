@@ -9,14 +9,23 @@ import 'package:flutter/services.dart' show MaxLengthEnforcement;
 import 'package:reading_diary/blocs/add_entry_bloc.dart';
 import 'package:reading_diary/components/mobile/add_model_container_mobile.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
+import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
+import 'package:reading_diary/models/diary_entry.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
 /// The Mobile Version of the Screen with which you can
 /// add a new Entry to your Diary.
 class AddEntryScreenMobile extends StatefulWidget {
-  const AddEntryScreenMobile({Key? key}) : super(key: key);
+  const AddEntryScreenMobile({
+    required this.addOrEdit,
+    Key? key,
+  }) : super(key: key);
+
+  /// The Objec to determine whether this
+  /// Screen is used to add or edit an Entry
+  final AddOrEdit addOrEdit;
 
   @override
   State<AddEntryScreenMobile> createState() => _AddEntryScreenMobileState();
@@ -27,19 +36,26 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
   /// Should only be set once.
   AddEntryBloc? _bloc;
 
-  /// The Range of Pages read on that day.
-  RangeValues? _pagesRead;
-
-  /// The page you started reading
-  double? _startPage = 0;
-
-  /// The Page you stopped reading
-  double? _endPage;
+  DiaryEntry? _entry;
 
   @override
   Widget build(BuildContext context) {
     // Init Bloc
     _bloc ??= BlocParent.of(context);
+
+    if (widget.addOrEdit.edit && widget.addOrEdit.initialValueSet) {
+      _entry = widget.addOrEdit.object as DiaryEntry;
+      _bloc!.entryBook = _entry!.book;
+      _bloc!.entryDate = _entry!.date;
+      _bloc!.entryContent = _entry!.content;
+      if (_entry!.image != null) {
+        _bloc!.entryImage = _entry!.image!;
+      }
+      _bloc!.entryTitle = _entry!.title;
+      _bloc!.entryStartPage = _entry!.startPage;
+      _bloc!.entryEndPage = _entry!.endPage;
+      widget.addOrEdit.initialValueSet = false;
+    }
 
     return Scaffold(
       appBar: _appBar,
@@ -52,9 +68,15 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
 
   /// Appbar for the Mobile Add Entry Screen
   AppBar get _appBar {
+    final String title;
+    if (widget.addOrEdit.edit) {
+      title = 'Edit Entry'.tr();
+    } else {
+      title = 'Add new Entry'.tr();
+    }
     return AppBar(
       automaticallyImplyLeading: true,
-      title: Text('Add new Entry'.tr()),
+      title: Text(title),
     );
   }
 
@@ -81,6 +103,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
               autofocus: true,
               maxLines: 1,
               done: (title) => _bloc!.entryTitle = title,
+              initialValue: _bloc!.entryTitle,
             ),
             AddModelContainerMobile(
               name: 'Content'.tr(),
@@ -92,6 +115,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
                   _bloc!.checkForVars();
                 });
               },
+              initialValue: _bloc!.entryContent,
             ),
             AddModelContainerMobile(
               name: 'Date'.tr(),
@@ -99,27 +123,30 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
             ),
 
             // TODO: add possibility to add an Image
+
             AddModelContainerMobile(
               name: 'Book'.tr(),
-              child: DropdownButton<Book>(
-                items: _bookDropDownItems,
-                alignment: Alignment.center,
-                autofocus: false,
-                enableFeedback: true,
-                value: _bloc!.entryBook ?? const Book.none(),
-                onChanged: (book) {
-                  if (book == null) {
-                    _bloc!.entryBook = null;
-                  } else if (book == const Book.addBook()) {
-                    _openAddBookScreen(context);
-                  } else if (book == const Book.none()) {
-                    _bloc!.entryBook = null;
-                  } else {
-                    _bloc!.entryBook = BookList.books
-                        .where((element) => element == book)
-                        .first;
-                  }
-                },
+              child: GestureDetector(
+                behavior: HitTestBehavior.deferToChild,
+                dragStartBehavior: DragStartBehavior.down,
+                onTap: _bookDialog,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10),
+                    Text(
+                      _bloc!.entryBook == const Book.none()
+                          ? 'None'.tr()
+                          : _bloc!.entryBook.title,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Text('Tap to change'.tr())
+                  ],
+                ),
               ),
             ),
             AddModelContainerMobile(
@@ -144,18 +171,124 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
     );
   }
 
+  void _bookDialog() {
+    final List<Widget> children = [];
+    children.add(
+      SimpleDialogOption(
+        onPressed: () {
+          setState(() {
+            _bloc!.entryBook = const Book.none();
+            Navigator.pop(context);
+            _bloc!.checkForVars();
+          });
+        },
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(30)),
+            color: Colors.blue.shade800,
+            backgroundBlendMode: BlendMode.src,
+            shape: BoxShape.rectangle,
+          ),
+          position: DecorationPosition.background,
+          child: Align(
+            heightFactor: 2,
+            alignment: Alignment.center,
+            child: Text(
+              'None'.tr(),
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+      ),
+    );
+    for (Book book in BookList.books) {
+      children.add(
+        SimpleDialogOption(
+          onPressed: () {
+            Navigator.pop(context);
+            setState(() {
+              _bloc!.entryBook = book;
+              _bloc!.entryStartPage = book.currentPage;
+              _bloc!.entryEndPage = book.pages;
+              _bloc!.checkForVars();
+            });
+          },
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(30)),
+              color: Colors.blue.shade800,
+              backgroundBlendMode: BlendMode.src,
+              shape: BoxShape.rectangle,
+            ),
+            position: DecorationPosition.background,
+            child: Align(
+              heightFactor: 2,
+              alignment: Alignment.center,
+              child: Text(
+                book.title,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+    children.add(
+      SimpleDialogOption(
+        onPressed: () {
+          Navigator.pop(context);
+          _openAddBookScreen(context);
+        },
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(30)),
+            color: Colors.blue.shade800,
+            backgroundBlendMode: BlendMode.src,
+            shape: BoxShape.rectangle,
+          ),
+          position: DecorationPosition.background,
+          child: Align(
+            heightFactor: 2,
+            alignment: Alignment.center,
+            child: Text(
+              'Add Book'.tr(),
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+      ),
+    );
+    showDialog(
+      context: context,
+      builder: (_) {
+        return SimpleDialog(
+          alignment: Alignment.center,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          title: Text('Choose a Book'.tr()),
+          children: children,
+        );
+      },
+    );
+  }
+
   /// The enabled done Button
   ElevatedButton get _enabledButton {
     return ElevatedButton(
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       onPressed: () {
-        if (_pagesRead == null && _startPage != null && _endPage != null) {
-          _pagesRead = RangeValues(_startPage!, _endPage!);
-          _bloc!.entryPages = _pagesRead!;
+        if (widget.addOrEdit.edit) {
+          final newEntry = _bloc!.replaceEntry(_entry!);
+          Navigator.pop(context);
+          Navigator.pushReplacementNamed(
+            context,
+            Routes.entryDetailsScreen,
+            arguments: newEntry,
+          );
+        } else {
+          _bloc!.createEntry();
+          Navigator.pop(context);
         }
-        _bloc!.createEntry();
-        Navigator.pop(context);
       },
       child: Text(
         'Done'.tr(),
@@ -179,58 +312,10 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
     );
   }
 
-  /// All the Options for the Dropdown Menu
-  List<DropdownMenuItem<Book>> get _bookDropDownItems {
-    final List<DropdownMenuItem<Book>> list = [];
-
-    list.add(
-      DropdownMenuItem(
-        alignment: Alignment.center,
-        enabled: true,
-        value: const Book.none(),
-        onTap: () {
-          setState(() {
-            _bloc!.entryBook = null;
-          });
-        },
-        child: Text('None'.tr()),
-      ),
-    );
-
-    for (Book book in BookList.books) {
-      list.add(
-        DropdownMenuItem(
-          alignment: Alignment.center,
-          enabled: true,
-          value: book,
-          onTap: () {
-            setState(() {
-              _bloc!.entryBook = book;
-              _pagesRead = RangeValues(0, book.pages.toDouble());
-            });
-          },
-          child: Text(book.title),
-        ),
-      );
-    }
-    list.add(
-      DropdownMenuItem(
-        alignment: Alignment.center,
-        enabled: true,
-        value: const Book.addBook(),
-        child: Text(
-          'Add Book'.tr(),
-        ),
-      ),
-    );
-
-    return list;
-  }
-
   /// Returns the Widget with which you
   /// can make an input, of how many pages you read.
   Widget get _pagesReadChild {
-    if (_bloc!.entryBook == null) {
+    if (_bloc!.entryBook == const Book.none()) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -275,10 +360,10 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
             selectionWidthStyle: BoxWidthStyle.tight,
             showCursor: true,
             onSubmitted: (str) {
-              _startPage = double.parse(str);
+              _bloc!.entryStartPage = int.parse(str);
             },
             onChanged: (str) {
-              _startPage = double.parse(str);
+              _bloc!.entryStartPage = int.parse(str);
             },
             maxLengthEnforcement:
                 MaxLengthEnforcement.truncateAfterCompositionEnds,
@@ -323,10 +408,10 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
             selectionWidthStyle: BoxWidthStyle.tight,
             showCursor: true,
             onSubmitted: (str) {
-              _endPage = double.parse(str);
+              _bloc!.entryEndPage = int.parse(str);
             },
             onChanged: (str) {
-              _endPage = double.parse(str);
+              _bloc!.entryEndPage = int.parse(str);
             },
             maxLengthEnforcement:
                 MaxLengthEnforcement.truncateAfterCompositionEnds,
@@ -347,12 +432,12 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
           const SizedBox(height: 25),
           RangeSlider(
             min: 0.0,
-            max: _bloc!.entryBook!.pages.toDouble(),
-            divisions: _bloc!.entryBook!.pages,
+            max: _bloc!.entryBook.pages.toDouble(),
+            divisions: _bloc!.entryBook.pages,
             onChanged: (RangeValues value) {
               setState(() {
-                _pagesRead = value;
-                _bloc!.entryPages = _pagesRead!;
+                _bloc!.entryStartPage = value.start.toInt();
+                _bloc!.entryEndPage = value.end.toInt();
               });
             },
             inactiveColor: Colors.blue.shade100,
@@ -360,9 +445,14 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
             semanticFormatterCallback: (double newValue) {
               return '$newValue books read';
             },
-            labels: RangeLabels(_pagesRead!.start.toInt().toString(),
-                _pagesRead!.end.toInt().toString()),
-            values: RangeValues(_pagesRead!.start, _pagesRead!.end),
+            labels: RangeLabels(
+              _bloc!.entryStartPage.toString(),
+              _bloc!.entryEndPage.toString(),
+            ),
+            values: RangeValues(
+              _bloc!.entryStartPage!.toDouble(),
+              _bloc!.entryEndPage!.toDouble(),
+            ),
           ),
         ],
       );
@@ -460,7 +550,11 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
   /// Pushes a screen with which you can add
   /// a new Book to the App.
   void _openAddBookScreen(BuildContext context) {
-    Navigator.pushNamed(context, Routes.addBookScreen).then(
+    Navigator.pushNamed(
+      context,
+      Routes.addBookScreen,
+      arguments: AddOrEdit.add(),
+    ).then(
       (value) => setState(() {}),
     );
   }

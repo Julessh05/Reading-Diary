@@ -3,8 +3,11 @@ library mobile_screens;
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
+import 'package:reading_diary/blocs/blocs.dart';
 import 'package:reading_diary/blocs/entry_details_bloc.dart';
 import 'package:reading_diary/components/mobile/model_details_container_mobile.dart';
+import 'package:reading_diary/logic/navigating/routes.dart';
+import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
 import 'package:string_translate/string_translate.dart' show Translate;
 
@@ -49,11 +52,11 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
       automaticallyImplyLeading: true,
       title: Text(widget.entry.title),
       actions: <IconButton>[
-        IconButton(
-          onPressed: _editBTNPressed,
-          icon: const Icon(Icons.edit_rounded),
-          autofocus: false,
-        ),
+        // IconButton(
+        //   onPressed: _editBTNPressed,
+        //   icon: const Icon(Icons.edit_rounded),
+        //   autofocus: false,
+        // ),
         IconButton(
           onPressed: _deleteBTNPressed,
           icon: const Icon(Icons.delete_rounded),
@@ -89,16 +92,12 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
           ),
           ModelDetailsContainerMobile(
             name: 'Book'.tr(),
-            data: widget.entry.book != null
-                ? widget.entry.book!.title
-                : 'None'.tr(),
+            data: widget.entry.book.title,
             small: true,
           ),
           ModelDetailsContainerMobile(
             name: 'Pages read'.tr(),
-            data: widget.entry.pagesRead != null
-                ? '${widget.entry.pagesRead!.start} - ${widget.entry.pagesRead!.end}'
-                : 'Not specified'.tr(),
+            data: '${widget.entry.startPage} - ${widget.entry.endPage}',
             small: true,
           ),
           FittedBox(
@@ -128,6 +127,10 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
   /// Called whe the Edit Button
   /// is Pressed
   void _editBTNPressed() {
-    // TODO: implement Edit
+    Navigator.pushNamed(
+      context,
+      Routes.addEntryScreen,
+      arguments: AddOrEdit.entry(entry: widget.entry),
+    );
   }
 }

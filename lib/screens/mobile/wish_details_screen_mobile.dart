@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/wish_details_bloc.dart';
 import 'package:reading_diary/components/mobile/model_details_container_mobile.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
+import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/wish.dart' show Wish;
 import 'package:string_translate/string_translate.dart' show Translate;
@@ -45,11 +46,11 @@ class _WishDetailsScreenMobileState extends State<WishDetailsScreenMobile> {
       automaticallyImplyLeading: true,
       title: Text(widget.wish.title),
       actions: <IconButton>[
-        IconButton(
-          onPressed: _editBTNPressed,
-          icon: const Icon(Icons.edit_rounded),
-          autofocus: false,
-        ),
+        // IconButton(
+        //   onPressed: _editBTNPressed,
+        //   icon: const Icon(Icons.edit_rounded),
+        //   autofocus: false,
+        // ),
         IconButton(
           onPressed: _deleteBTNPressed,
           icon: const Icon(Icons.delete_rounded),
@@ -118,7 +119,11 @@ class _WishDetailsScreenMobileState extends State<WishDetailsScreenMobile> {
   /// Called whe the Edit Button
   /// is Pressed
   void _editBTNPressed() {
-    // TODO: implement Edit
+    Navigator.pushNamed(
+      context,
+      Routes.addWishScreen,
+      arguments: AddOrEdit.wish(wish: widget.wish),
+    );
   }
 
   /// If a Book is specified and

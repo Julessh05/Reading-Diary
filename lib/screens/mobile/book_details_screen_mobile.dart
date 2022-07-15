@@ -5,6 +5,8 @@ import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/blocs.dart' show BookDetailsBloc;
 import 'package:reading_diary/components/mobile/model_details_container_mobile.dart';
+import 'package:reading_diary/logic/navigating/routes.dart';
+import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:string_translate/string_translate.dart' show Translate;
 
@@ -45,11 +47,11 @@ class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
       automaticallyImplyLeading: true,
       title: Text(widget.book.title),
       actions: <IconButton>[
-        IconButton(
-          onPressed: _editBTNPressed,
-          icon: const Icon(Icons.edit_rounded),
-          autofocus: false,
-        ),
+        // IconButton(
+        //   onPressed: _editBTNPressed,
+        //   icon: const Icon(Icons.edit_rounded),
+        //   autofocus: false,
+        // ),
         IconButton(
           onPressed: _deleteBTNPressed,
           icon: const Icon(Icons.delete_rounded),
@@ -84,13 +86,11 @@ class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
             data: widget.book.pages.toString(),
             small: true,
           ),
-          widget.book.currentPage != null
-              ? ModelDetailsContainerMobile(
-                  name: 'Current Page'.tr(),
-                  data: widget.book.currentPage.toString(),
-                  small: true,
-                )
-              : Container(),
+          ModelDetailsContainerMobile(
+            name: 'Current Page'.tr(),
+            data: widget.book.currentPage.toString(),
+            small: true,
+          ),
           ModelDetailsContainerMobile(
             name: 'Notes'.tr(),
             data: widget.book.notes.isNotEmpty
@@ -131,6 +131,10 @@ class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
   /// Called whe the Edit Button
   /// is Pressed
   void _editBTNPressed() {
-    // TODO: implement Edit
+    Navigator.pushNamed(
+      context,
+      Routes.addBookScreen,
+      arguments: AddOrEdit.book(book: widget.book),
+    );
   }
 }

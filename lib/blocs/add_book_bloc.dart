@@ -68,10 +68,10 @@ class AddBookBloc extends Bloc {
       title: _title,
       author: _author,
       pages: _pages,
-      currentPage: _currentPage,
       image: _image,
       notes: _notes,
       price: _price,
+      currentPage: _currentPage!,
     );
     final duplicateBooks = BookList.books.where((element) => element == book);
     if (duplicateBooks.isEmpty) {
@@ -84,7 +84,7 @@ class AddBookBloc extends Bloc {
 
   /// Checks if all needed vars are filled in.
   void checkForVars() {
-    if (_title.isNotEmpty && _pages > 0) {
+    if (_title.isNotEmpty && _pages > 0 && _currentPage != null) {
       _doneButtonEnabled = true;
     } else {
       _doneButtonEnabled = false;
