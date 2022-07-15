@@ -5,6 +5,7 @@ import 'package:flutter/material.dart'
     show BuildContext, Key, RouteSettings, StatelessWidget, Widget;
 import 'package:reading_diary/blocs/blocs.dart' hide EventBloc;
 import 'package:reading_diary/logic/navigating/routes.dart';
+import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
 import 'package:reading_diary/models/wish.dart' show Wish;
@@ -26,20 +27,32 @@ class WidgetRouter extends StatelessWidget {
 
   /// Widget Router to push the Screen with which you can
   /// add a new Diary Entry
-  WidgetRouter.addEntryScreen({Key? key}) : super(key: key) {
+  WidgetRouter.addEntryScreen({
+    required RouteSettings settings,
+    Key? key,
+  }) : super(key: key) {
     _routeName = Routes.addEntryScreen;
+    _settings = settings;
   }
 
   /// Widget Router for the screen
   /// with which you can add a new Book
-  WidgetRouter.addBookScreen({Key? key}) : super(key: key) {
+  WidgetRouter.addBookScreen({
+    required RouteSettings settings,
+    Key? key,
+  }) : super(key: key) {
     _routeName = Routes.addBookScreen;
+    _settings = settings;
   }
 
   /// Widget Router for the Screen with which you can
   /// add a Wish to your Book Wishlist
-  WidgetRouter.addWishScreen({Key? key}) : super(key: key) {
+  WidgetRouter.addWishScreen({
+    required RouteSettings settings,
+    Key? key,
+  }) : super(key: key) {
     _routeName = Routes.addWishScreen;
+    _settings = settings;
   }
 
   /// Shows the Unknown Screen
@@ -120,7 +133,9 @@ class WidgetRouter extends StatelessWidget {
           bloc: AddEntryBloc(),
           child: isDesktop
               ? const AddEntryScreenDesktop()
-              : const AddEntryScreenMobile(),
+              : AddEntryScreenMobile(
+                  addOrEdit: _settings!.arguments as AddOrEdit,
+                ),
         );
 
       // Case for the Add Book Screen
@@ -129,7 +144,9 @@ class WidgetRouter extends StatelessWidget {
           bloc: AddBookBloc(),
           child: isDesktop
               ? const AddBookScreenDesktop()
-              : const AddBookScreenMobile(),
+              : AddBookScreenMobile(
+                  addOrEdit: _settings!.arguments as AddOrEdit,
+                ),
         );
 
       // Case for the Add Wish Screen
@@ -138,7 +155,9 @@ class WidgetRouter extends StatelessWidget {
           bloc: AddWishBloc(),
           child: isDesktop
               ? const AddWishScreenDesktop()
-              : const AddWishScreenMobile(),
+              : AddWishScreenMobile(
+                  addOrEdit: _settings!.arguments as AddOrEdit,
+                ),
         );
 
       // Case for the Settings Screen

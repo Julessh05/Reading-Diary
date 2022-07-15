@@ -7,7 +7,6 @@ import 'package:reading_diary/blocs/blocs.dart';
 import 'package:reading_diary/blocs/entry_details_bloc.dart';
 import 'package:reading_diary/components/mobile/model_details_container_mobile.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
-import 'package:reading_diary/states/homescreen_state.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
 /// The Mobile Version of the screen that showns

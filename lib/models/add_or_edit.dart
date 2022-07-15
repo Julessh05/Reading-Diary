@@ -33,5 +33,7 @@ class AddOrEdit {
 
   late final bool _edit;
 
+  bool get edit => _edit;
+
   late final dynamic object;
 }

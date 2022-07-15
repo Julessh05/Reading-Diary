@@ -10,6 +10,7 @@ import 'package:reading_diary/components/mobile/add_model_container_mobile.dart'
 import 'package:reading_diary/components/mobile/model_container_mobile.dart';
 import 'package:reading_diary/components/mobile/statistic_container_mobile.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
+import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
 import 'package:reading_diary/models/diary.dart';
@@ -260,7 +261,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// The shrinked Foating Action Button on the Book Screen.
   FloatingActionButton get _shrinkedBookFab {
     return FloatingActionButton(
-      onPressed: _onBookFabTap,
+      onPressed: _openAddBookScreen,
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       isExtended: false,
@@ -274,7 +275,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// on the Book Screen
   FloatingActionButton get _bookEFab {
     return FloatingActionButton.extended(
-      onPressed: _onBookFabTap,
+      onPressed: _openAddBookScreen,
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       label: Text('Add Book'.tr()),
@@ -558,7 +559,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
                     _onDiaryFabTap();
                     break;
                   case 'Books':
-                    _onBookFabTap();
+                    _openAddBookScreen();
                     break;
                   case 'Wishes':
                     _onWishlistFabTap();
@@ -892,7 +893,11 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// the Diary Screen
   /// is tapped
   void _onDiaryFabTap() {
-    Navigator.pushNamed(context, Routes.addEntryScreen).then(
+    Navigator.pushNamed(
+      context,
+      Routes.addEntryScreen,
+      arguments: AddOrEdit.add(),
+    ).then(
       (value) => setState(() {}),
     );
   }
@@ -901,16 +906,11 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// the Wishlist Screen
   /// is tapped
   void _onWishlistFabTap() {
-    Navigator.pushNamed(context, Routes.addWishScreen).then(
-      (value) => setState(() {}),
-    );
-  }
-
-  /// Called when the User taps on the
-  /// Floating Action Button on the
-  /// Book Screen
-  void _onBookFabTap() {
-    Navigator.pushNamed(context, Routes.addBookScreen).then(
+    Navigator.pushNamed(
+      context,
+      Routes.addWishScreen,
+      arguments: AddOrEdit.add(),
+    ).then(
       (value) => setState(() {}),
     );
   }
@@ -918,7 +918,11 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// Method called when the User
   /// clicked the 'Add Book' Item on the Dropdown.
   void _openAddBookScreen() {
-    Navigator.pushNamed(context, Routes.addBookScreen).then(
+    Navigator.pushNamed(
+      context,
+      Routes.addBookScreen,
+      arguments: AddOrEdit.add(),
+    ).then(
       (value) => setState(() {}),
     );
   }

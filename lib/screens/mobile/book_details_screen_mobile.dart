@@ -84,13 +84,11 @@ class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
             data: widget.book.pages.toString(),
             small: true,
           ),
-          widget.book.currentPage != null
-              ? ModelDetailsContainerMobile(
-                  name: 'Current Page'.tr(),
-                  data: widget.book.currentPage.toString(),
-                  small: true,
-                )
-              : Container(),
+          ModelDetailsContainerMobile(
+            name: 'Current Page'.tr(),
+            data: widget.book.currentPage.toString(),
+            small: true,
+          ),
           ModelDetailsContainerMobile(
             name: 'Notes'.tr(),
             data: widget.book.notes.isNotEmpty

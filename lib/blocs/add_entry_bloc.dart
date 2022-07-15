@@ -1,7 +1,7 @@
 library blocs;
 
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
-import 'package:flutter/material.dart' show Image, RangeValues;
+import 'package:flutter/material.dart' show Image;
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/diary.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;

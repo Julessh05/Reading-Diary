@@ -9,6 +9,7 @@ import 'package:flutter/services.dart' show MaxLengthEnforcement;
 import 'package:reading_diary/blocs/add_entry_bloc.dart';
 import 'package:reading_diary/components/mobile/add_model_container_mobile.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
+import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
@@ -16,7 +17,12 @@ import 'package:string_translate/string_translate.dart' show Translate;
 /// The Mobile Version of the Screen with which you can
 /// add a new Entry to your Diary.
 class AddEntryScreenMobile extends StatefulWidget {
-  const AddEntryScreenMobile({Key? key}) : super(key: key);
+  const AddEntryScreenMobile({
+    required this.addOrEdit,
+    Key? key,
+  }) : super(key: key);
+
+  final AddOrEdit addOrEdit;
 
   @override
   State<AddEntryScreenMobile> createState() => _AddEntryScreenMobileState();
