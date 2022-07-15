@@ -1,5 +1,6 @@
 library mobile_screens;
 
+import 'package:bloc_implementation/bloc_implementation.dart';
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/wish_details_bloc.dart';
@@ -33,6 +34,8 @@ class _WishDetailsScreenMobileState extends State<WishDetailsScreenMobile> {
 
   @override
   Widget build(BuildContext context) {
+    _bloc ??= BlocParent.of(context);
+
     return Scaffold(
       appBar: _appBar,
       body: _body,
@@ -74,7 +77,7 @@ class _WishDetailsScreenMobileState extends State<WishDetailsScreenMobile> {
         reverse: false,
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          widget.wish.book != const Book.none()
+          widget.wish.book.title != '<none>'
               ? GestureDetector(
                   behavior: HitTestBehavior.deferToChild,
                   dragStartBehavior: DragStartBehavior.down,
