@@ -1,6 +1,6 @@
 library models;
 
-import 'package:flutter/material.dart' show Image;
+import 'package:flutter/material.dart' show hashValues, Image;
 import 'package:hive/hive.dart'
     show BinaryReader, BinaryWriter, HiveField, HiveType, TypeAdapter;
 
@@ -62,4 +62,30 @@ class Book {
 
   @HiveField(6)
   final double? price;
+
+  @override
+  bool operator ==(Object other) {
+    if (other is Book) {
+      return other.title == title &&
+          other.author == author &&
+          other.image == image &&
+          other.pages == pages &&
+          other.currentPage == currentPage &&
+          other.notes == notes &&
+          other.price == price;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  int get hashCode => hashValues(
+        title,
+        author,
+        image,
+        pages,
+        currentPage,
+        notes,
+        price,
+      );
 }
