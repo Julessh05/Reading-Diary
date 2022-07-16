@@ -352,7 +352,12 @@ final Map<String, Map<Locale, String>> _translations = {
     TranslationLocales.spanish: 'Sin notas',
     TranslationLocales.portuguese: 'Sem notas',
   },
-  'Edit Entry': {},
+  'Edit Entry': {
+    TranslationLocales.german: 'Buch bearbeiten',
+    TranslationLocales.french: 'Modifier le livre',
+    TranslationLocales.spanish: 'Editar libro',
+    TranslationLocales.portuguese: 'Editar livro',
+  },
   'Choose a Book': {
     TranslationLocales.german: 'Wähle ein Buch',
     TranslationLocales.french: 'Choisissez un livre',
