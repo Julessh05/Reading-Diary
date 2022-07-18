@@ -171,6 +171,12 @@ class _ReadingDiaryState extends State<ReadingDiary> {
           return WidgetRouter.addWishScreen(settings: settings);
         },
       );
+    } else if (settings.name == Routes.searchResultsScreen) {
+      return MaterialPageRoute(
+        builder: (_) {
+          return WidgetRouter.searchResultsScreen(settings: settings);
+        },
+      );
     } else {
       return null;
     }

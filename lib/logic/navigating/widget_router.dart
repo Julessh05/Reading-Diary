@@ -8,7 +8,10 @@ import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:reading_diary/models/search_results.dart';
 import 'package:reading_diary/models/wish.dart' show Wish;
+import 'package:reading_diary/screens/desktop/search_results_screen_desktop.dart';
+import 'package:reading_diary/screens/mobile/search_results_screen_mobile.dart';
 import 'package:reading_diary/screens/screens.dart';
 
 /// Widget that returns the corresponding Screen
@@ -98,6 +101,14 @@ class WidgetRouter extends StatelessWidget {
     Key? key,
   }) : super(key: key) {
     _routeName = Routes.wishDetailsScreen;
+    _settings = settings;
+  }
+
+  /// The Widget Router for the Screen that
+  /// represents the Search Results
+  WidgetRouter.searchResultsScreen({required RouteSettings settings, Key? key})
+      : super(key: key) {
+    _routeName = Routes.searchResultsScreen;
     _settings = settings;
   }
 
@@ -201,6 +212,13 @@ class WidgetRouter extends StatelessWidget {
                   wish: _settings!.arguments as Wish,
                 ),
         );
+
+      case Routes.searchResultsScreen:
+        return isDesktop
+            ? const SearchResultsScreenDesktop()
+            : SerachResultsScreenMobile(
+                results: _settings!.arguments as SearchResults,
+              );
 
       // Case for the Unknown Screen.
       // Never used directly

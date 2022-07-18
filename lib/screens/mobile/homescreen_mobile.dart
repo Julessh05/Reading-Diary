@@ -15,6 +15,7 @@ import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
 import 'package:reading_diary/models/diary.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:reading_diary/models/search_results.dart';
 import 'package:reading_diary/models/wishlist.dart';
 import 'package:reading_diary/states/homescreen_state.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
@@ -323,15 +324,15 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
           icon: const Icon(Icons.settings_rounded),
         ),
       ],
-      // leading: IconButton(
-      //   alignment: Alignment.center,
-      //   autofocus: false,
-      //   enableFeedback: true,
-      //   tooltip: 'Search your Entries'.tr(),
-      //   visualDensity: VisualDensity.adaptivePlatformDensity,
-      //   onPressed: _showDiarySearchDialog,
-      //   icon: const Icon(Icons.search_rounded),
-      // ),
+      leading: IconButton(
+        alignment: Alignment.center,
+        autofocus: false,
+        enableFeedback: true,
+        tooltip: 'Search your Entries'.tr(),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        onPressed: _showDiarySearchDialog,
+        icon: const Icon(Icons.search_rounded),
+      ),
       automaticallyImplyLeading: false,
       title: Text('Diary'.tr()),
     );
@@ -348,12 +349,14 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
           icon: const Icon(Icons.settings_rounded),
         ),
       ],
-      // leading: IconButton(
-      //   onPressed: _showBookSearchDialog,
-      //   autofocus: false,
-      //   tooltip: 'Search your Books'.tr(),
-      //   icon: const Icon(Icons.search_rounded),
-      // ),
+      leading: IconButton(
+        onPressed: _showBookSearchDialog,
+        autofocus: false,
+        tooltip: 'Search your Books'.tr(),
+        icon: const Icon(Icons.search_rounded),
+        alignment: Alignment.center,
+        enableFeedback: true,
+      ),
     );
   }
 
@@ -366,15 +369,15 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
           icon: const Icon(Icons.settings_rounded),
         ),
       ],
-      // leading: IconButton(
-      //   alignment: Alignment.center,
-      //   autofocus: false,
-      //   enableFeedback: true,
-      //   tooltip: 'Search your Wishlist'.tr(),
-      //   visualDensity: VisualDensity.adaptivePlatformDensity,
-      //   onPressed: _showWishlistSearchDialog,
-      //   icon: const Icon(Icons.search_rounded),
-      // ),
+      leading: IconButton(
+        alignment: Alignment.center,
+        autofocus: false,
+        enableFeedback: true,
+        tooltip: 'Search your Wishlist'.tr(),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        onPressed: _showWishlistSearchDialog,
+        icon: const Icon(Icons.search_rounded),
+      ),
       automaticallyImplyLeading: false,
       title: Text('Wishlist'.tr()),
     );
@@ -776,8 +779,13 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
             ),
             TextButton(
               onPressed: () {
-                _bloc!.onDiarySearchTap();
+                List<Object> list = _bloc!.onSearchTap();
                 Navigator.pop(context);
+                Navigator.pushNamed(
+                  context,
+                  Routes.searchResultsScreen,
+                  arguments: list,
+                );
               },
               autofocus: true,
               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -836,8 +844,13 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
             ),
             TextButton(
               onPressed: () {
-                _bloc!.onWishSearchTap();
+                List<Object> list = _bloc!.onSearchTap();
                 Navigator.pop(context);
+                Navigator.pushNamed(
+                  context,
+                  Routes.searchResultsScreen,
+                  arguments: list,
+                );
               },
               autofocus: true,
               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -896,8 +909,13 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
             ),
             TextButton(
               onPressed: () {
-                _bloc!.onBookSearchTap();
+                List<Object> list = _bloc!.onSearchTap();
                 Navigator.pop(context);
+                Navigator.pushNamed(
+                  context,
+                  Routes.searchResultsScreen,
+                  arguments: SearchResults(results: list, search: _bloc.keywo),
+                );
               },
               autofocus: true,
               clipBehavior: Clip.antiAliasWithSaveLayer,

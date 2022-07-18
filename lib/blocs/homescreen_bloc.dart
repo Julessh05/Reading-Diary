@@ -47,17 +47,8 @@ class HomescreenBloc extends Bloc {
   /// Screen.
   String _wishlistSearchKeyword = '';
 
-  /// The List of Results
-  /// from the Search on the Diary Screen.
-  final List<DiaryEntry> _diarySearchResults = [];
-
-  /// The List of Results
-  /// from the Search on the Wish Screen.
-  final List<Wish> _wishSearchResults = [];
-
-  /// The List of Results
-  /// from the Search on the Book Screen
-  final List<Book> _bookSearchResult = [];
+  /// The List of Results from the Search.
+  final List<Object> _searchResults = [];
 
   /// The Book that the user filtered for.
   Book? diarySearchBook;
@@ -86,57 +77,39 @@ class HomescreenBloc extends Bloc {
   /// Bottom navigation Bar.
   void onBNBTap(int newIndex) => _currentBottomNavigationBarIndex = newIndex;
 
-  /// Called when the User pressed
-  /// the OK Button inside the Search
-  /// Dialog for the Diary Screen
-  void onDiarySearchTap() {
+  List<Object> onSearchTap() {
     for (DiaryEntry entry in Diary.entries) {
       if (entry.title.contains(_diarySearchKeyword)) {
-        _diarySearchResults.add(entry);
+        _searchResults.add(entry);
       } else if (entry.content.contains(_diarySearchKeyword)) {
-        _diarySearchResults.add(entry);
-      } else if (entry.book != null) {
-        if (entry.book == diarySearchBook) {
-          _diarySearchResults.add(entry);
-        } else {
-          continue;
-        }
+        _searchResults.add(entry);
+      } else if (entry.book == diarySearchBook) {
+        _searchResults.add(entry);
       } else {
         continue;
       }
     }
-  }
 
-  /// Called when the User pressed
-  /// the OK Button inside the Search
-  /// Dialog for the Wishlist Screen
-  void onWishSearchTap() {
     for (Wish wish in Wishlist.wishes) {
       if (wish.title.contains(_wishlistSearchKeyword)) {
-        _wishSearchResults.add(wish);
+        _searchResults.add(wish);
       } else if (wish.description != null) {
         if (wish.description!.contains(_wishlistSearchKeyword)) {
-          _wishSearchResults.add(wish);
+          _searchResults.add(wish);
         }
       } else {
         continue;
       }
     }
-  }
 
-  /// Called when the User
-  /// pressed the OK Butto inside
-  /// the Search Dialog for the
-  /// Book Screen
-  void onBookSearchTap() {
     for (Book book in BookList.books) {
       if (book.title.contains(_bookSearchKeyword)) {
-        _bookSearchResult.add(book);
+        _searchResults.add(book);
       } else if (book.notes.contains(_bookSearchKeyword)) {
-        _bookSearchResult.add(book);
+        _searchResults.add(book);
       } else if (book.author != null) {
         if (book.author!.contains(_bookSearchKeyword)) {
-          _bookSearchResult.add(book);
+          _searchResults.add(book);
         } else {
           continue;
         }
@@ -144,6 +117,8 @@ class HomescreenBloc extends Bloc {
         continue;
       }
     }
+
+    return _searchResults;
   }
 
   @override

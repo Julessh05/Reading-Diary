@@ -111,12 +111,10 @@ class _EntryContainerMobile extends State<ModelContainerMobile> {
       ];
     } else if (widget.book != null) {
       return <Widget>[
-        widget.book!.currentPage != null
-            ? Text(
-                '${'Current Page:'.tr()} ${widget.book!.currentPage}',
-                style: _dStyle,
-              )
-            : Container(),
+        Text(
+          '${'Current Page:'.tr()} ${widget.book!.currentPage}',
+          style: _dStyle,
+        ),
         Text(widget.book!.title, style: _tStyle),
       ];
     } else {
