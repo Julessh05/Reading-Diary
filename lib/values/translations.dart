@@ -376,9 +376,6 @@ final Map<String, Map<Locale, String>> _translations = {
 /// Adds the Standard Translations to the
 /// Custom Translations.
 Map<String, Map<Locale, String>> get translations {
-  _translations.addAll(StandardTranslations.actions);
-  _translations.addAll(StandardTranslations.error);
-  _translations.addAll(StandardTranslations.languages);
-
+  _translations.addAll(StandardTranslations.all);
   return _translations;
 }
