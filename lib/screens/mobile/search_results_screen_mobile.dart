@@ -1,15 +1,15 @@
 library mobile_screens;
 
-import 'package:bloc_implementation/bloc_implementation.dart';
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
-import 'package:reading_diary/blocs/blocs.dart' show HomescreenBloc;
+import 'package:reading_diary/blocs/blocs.dart' show EventBloc;
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:reading_diary/models/events/reload_event.dart';
 import 'package:reading_diary/models/search_results.dart';
 import 'package:reading_diary/models/wish.dart' show Wish;
-import 'package:reading_diary/states/homescreen_state.dart';
+import 'package:string_translate/string_translate.dart';
 
 /// Represents the Result of a Search.
 class SerachResultsScreenMobile extends StatefulWidget {
@@ -27,14 +27,8 @@ class SerachResultsScreenMobile extends StatefulWidget {
 }
 
 class _SerachResultsScreenMobileState extends State<SerachResultsScreenMobile> {
-  /// The Homescreen Bloc used
-  /// to reload the Homescreen.
-  HomescreenBloc? _homeBloc;
-
   @override
   Widget build(BuildContext context) {
-    _homeBloc ??= BlocParent.of(context);
-
     return Scaffold(
       appBar: _appBar,
       body: _body,
@@ -53,17 +47,19 @@ class _SerachResultsScreenMobileState extends State<SerachResultsScreenMobile> {
   /// Search Screen.
   Scrollbar get _body {
     return Scrollbar(
-      child: ListView(
-        addAutomaticKeepAlives: true,
-        addRepaintBoundaries: true,
-        addSemanticIndexes: true,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        dragStartBehavior: DragStartBehavior.down,
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        children: _children,
-      ),
+      child: widget.results.results.isNotEmpty
+          ? ListView(
+              addAutomaticKeepAlives: true,
+              addRepaintBoundaries: true,
+              addSemanticIndexes: true,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              dragStartBehavior: DragStartBehavior.down,
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              children: _children,
+            )
+          : Center(child: Text('Nothing with this Keyword found'.tr())),
     );
   }
 
@@ -72,6 +68,7 @@ class _SerachResultsScreenMobileState extends State<SerachResultsScreenMobile> {
     final List<ListTile> list = [];
 
     for (Object o in widget.results.results) {
+      // ignore: prefer_function_declarations_over_variables
       final void Function() onTap = () => _openScreen(o.runtimeType, o);
 
       switch (o.runtimeType) {
@@ -143,7 +140,7 @@ class _SerachResultsScreenMobileState extends State<SerachResultsScreenMobile> {
       routeName = Routes.wishDetailsScreen;
     }
     Navigator.pushNamed(context, routeName, arguments: args).then(
-      (value) => _homeBloc!.stateStream.add(HomescreenState()),
+      (value) => EventBloc.stream.add(ReloadEvent()),
     );
   }
 }
