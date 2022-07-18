@@ -364,15 +364,18 @@ final Map<String, Map<Locale, String>> _translations = {
     TranslationLocales.spanish: 'Escoge un libro',
     TranslationLocales.portuguese: 'Escolha um livro',
   },
+  'Nothing with this Keyword found': {
+    TranslationLocales.german: 'Nichts mit diesem Stichwort gefunden',
+    TranslationLocales.french: 'Rien trouvé avec ce mot-clé',
+    TranslationLocales.spanish: 'No se encontró nada con esta palabra clave',
+    TranslationLocales.portuguese: 'Nada encontrado com esta palavra-chave',
+  },
 };
 
 /// Getter for the Translations.
 /// Adds the Standard Translations to the
 /// Custom Translations.
 Map<String, Map<Locale, String>> get translations {
-  _translations.addAll(StandardTranslations.actions);
-  _translations.addAll(StandardTranslations.error);
-  _translations.addAll(StandardTranslations.languages);
-
+  _translations.addAll(StandardTranslations.all);
   return _translations;
 }

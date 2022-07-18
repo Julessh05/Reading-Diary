@@ -14,7 +14,7 @@ import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
 import 'package:reading_diary/models/diary.dart';
-import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:reading_diary/models/search_results.dart';
 import 'package:reading_diary/models/wishlist.dart';
 import 'package:reading_diary/states/homescreen_state.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
@@ -323,15 +323,15 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
           icon: const Icon(Icons.settings_rounded),
         ),
       ],
-      // leading: IconButton(
-      //   alignment: Alignment.center,
-      //   autofocus: false,
-      //   enableFeedback: true,
-      //   tooltip: 'Search your Entries'.tr(),
-      //   visualDensity: VisualDensity.adaptivePlatformDensity,
-      //   onPressed: _showDiarySearchDialog,
-      //   icon: const Icon(Icons.search_rounded),
-      // ),
+      leading: IconButton(
+        alignment: Alignment.center,
+        autofocus: false,
+        enableFeedback: true,
+        tooltip: 'Search your Entries'.tr(),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        onPressed: _showSearchDialog,
+        icon: const Icon(Icons.search_rounded),
+      ),
       automaticallyImplyLeading: false,
       title: Text('Diary'.tr()),
     );
@@ -348,12 +348,14 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
           icon: const Icon(Icons.settings_rounded),
         ),
       ],
-      // leading: IconButton(
-      //   onPressed: _showBookSearchDialog,
-      //   autofocus: false,
-      //   tooltip: 'Search your Books'.tr(),
-      //   icon: const Icon(Icons.search_rounded),
-      // ),
+      leading: IconButton(
+        onPressed: _showSearchDialog,
+        autofocus: false,
+        tooltip: 'Search your Books'.tr(),
+        icon: const Icon(Icons.search_rounded),
+        alignment: Alignment.center,
+        enableFeedback: true,
+      ),
     );
   }
 
@@ -366,15 +368,15 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
           icon: const Icon(Icons.settings_rounded),
         ),
       ],
-      // leading: IconButton(
-      //   alignment: Alignment.center,
-      //   autofocus: false,
-      //   enableFeedback: true,
-      //   tooltip: 'Search your Wishlist'.tr(),
-      //   visualDensity: VisualDensity.adaptivePlatformDensity,
-      //   onPressed: _showWishlistSearchDialog,
-      //   icon: const Icon(Icons.search_rounded),
-      // ),
+      leading: IconButton(
+        alignment: Alignment.center,
+        autofocus: false,
+        enableFeedback: true,
+        tooltip: 'Search your Wishlist'.tr(),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        onPressed: _showSearchDialog,
+        icon: const Icon(Icons.search_rounded),
+      ),
       automaticallyImplyLeading: false,
       title: Text('Wishlist'.tr()),
     );
@@ -701,7 +703,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
 
   /// The Search Dialog for the
   /// Diary Screen.
-  void _showDiarySearchDialog() {
+  void _showSearchDialog() {
     showDialog(
       context: context,
       builder: (_) {
@@ -731,7 +733,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
               children: [
                 AddModelContainerMobile(
                   name: 'Keyword'.tr(),
-                  done: (str) => _bloc!.diarySearchKeyword = str,
+                  done: (str) => _bloc!.searchKeyword = str,
                   opacity: 0.7,
                 ),
                 Center(
@@ -776,128 +778,13 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
             ),
             TextButton(
               onPressed: () {
-                _bloc!.onDiarySearchTap();
+                SearchResults results = _bloc!.onSearchTap();
                 Navigator.pop(context);
-              },
-              autofocus: true,
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              child: Text('Ok'.tr()),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  /// Shows the Search Dialog on
-  /// the Wishlist Screen.
-  void _showWishlistSearchDialog() {
-    showDialog(
-      context: context,
-      builder: (_) {
-        return AlertDialog(
-          scrollable: true,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          backgroundColor: Colors.white.withOpacity(0.7),
-          insetPadding: EdgeInsets.zero,
-          contentPadding: EdgeInsets.zero,
-          buttonPadding: EdgeInsets.zero,
-          actionsPadding: EdgeInsets.zero,
-          title: Text('Search your Wishes'.tr()),
-          content: SingleChildScrollView(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            dragStartBehavior: DragStartBehavior.down,
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            reverse: false,
-            scrollDirection: Axis.vertical,
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              textBaseline: TextBaseline.alphabetic,
-              textDirection: TextDirection.ltr,
-              verticalDirection: VerticalDirection.down,
-              children: [
-                AddModelContainerMobile(
-                  name: 'Keyword'.tr(),
-                  done: (str) => _bloc!.wishlistSearchKeyword = str,
-                  opacity: 0.7,
-                ),
-              ],
-            ),
-          ),
-          actions: <TextButton>[
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              autofocus: false,
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              child: Text('Cancel'.tr()),
-            ),
-            TextButton(
-              onPressed: () {
-                _bloc!.onWishSearchTap();
-                Navigator.pop(context);
-              },
-              autofocus: true,
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              child: Text('Ok'.tr()),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  /// Shows the
-  /// Search Dialog on the Book Screen.
-  void _showBookSearchDialog() {
-    showDialog(
-      context: context,
-      builder: (_) {
-        return AlertDialog(
-          scrollable: true,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          backgroundColor: Colors.white.withOpacity(0.7),
-          insetPadding: EdgeInsets.zero,
-          contentPadding: EdgeInsets.zero,
-          buttonPadding: EdgeInsets.zero,
-          actionsPadding: EdgeInsets.zero,
-          title: Text('Search your Books'.tr()),
-          content: SingleChildScrollView(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            dragStartBehavior: DragStartBehavior.down,
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            reverse: false,
-            scrollDirection: Axis.vertical,
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              textBaseline: TextBaseline.alphabetic,
-              textDirection: TextDirection.ltr,
-              verticalDirection: VerticalDirection.down,
-              children: [
-                AddModelContainerMobile(
-                  name: 'Keyword'.tr(),
-                  done: (str) => _bloc!.bookSearchKeyword = str,
-                  opacity: 0.7,
-                ),
-              ],
-            ),
-          ),
-          actions: <TextButton>[
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              autofocus: false,
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              child: Text('Cancel'.tr()),
-            ),
-            TextButton(
-              onPressed: () {
-                _bloc!.onBookSearchTap();
-                Navigator.pop(context);
+                Navigator.pushNamed(
+                  context,
+                  Routes.searchResultsScreen,
+                  arguments: results,
+                );
               },
               autofocus: true,
               clipBehavior: Clip.antiAliasWithSaveLayer,

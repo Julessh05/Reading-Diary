@@ -37,4 +37,8 @@ class Routes {
 
   /// The Screen that sowns a single Wish.
   static const String wishDetailsScreen = '/wish';
+
+  /// The Route Name of the Screen
+  /// that represents the Search Results
+  static const String searchResultsScreen = '/search_results';
 }
