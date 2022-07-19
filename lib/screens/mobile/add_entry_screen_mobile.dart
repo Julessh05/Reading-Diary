@@ -126,27 +126,21 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
 
             AddModelContainerMobile(
               name: 'Book'.tr(),
-              child: GestureDetector(
-                behavior: HitTestBehavior.deferToChild,
-                dragStartBehavior: DragStartBehavior.down,
-                onTap: _bookDialog,
-                child: Column(
-                  children: [
-                    const SizedBox(height: 10),
-                    Text(
-                      _bloc!.entryBook == const Book.none()
-                          ? 'None'.tr()
-                          : _bloc!.entryBook.title,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Text('Tap to change'.tr())
-                  ],
-                ),
+              child: DropdownButton<Book>(
+                items: _bookItems,
+                alignment: Alignment.center,
+                autofocus: false,
+                enableFeedback: true,
+                value: _bloc!.entryBook,
+                onChanged: (book) {
+                  if (book == const Book.addBook()) {
+                    _openAddBookScreen();
+                  } else {
+                    setState(() {
+                      _bloc!.checkForVars();
+                    });
+                  }
+                },
               ),
             ),
             AddModelContainerMobile(
@@ -171,104 +165,53 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
     );
   }
 
-  void _bookDialog() {
-    final List<Widget> children = [];
+  /// The Items for the Book Dropdown Menu.
+  List<DropdownMenuItem<Book>> get _bookItems {
+    final List<DropdownMenuItem<Book>> children = [];
+
     children.add(
-      SimpleDialogOption(
-        onPressed: () {
-          setState(() {
-            _bloc!.entryBook = const Book.none();
-            Navigator.pop(context);
-            _bloc!.checkForVars();
-          });
+      DropdownMenuItem(
+        alignment: Alignment.center,
+        enabled: true,
+        value: const Book.none(),
+        onTap: () {
+          _bloc!.entryBook = const Book.none();
         },
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(30)),
-            color: Colors.blue.shade800,
-            backgroundBlendMode: BlendMode.src,
-            shape: BoxShape.rectangle,
-          ),
-          position: DecorationPosition.background,
-          child: Align(
-            heightFactor: 2,
-            alignment: Alignment.center,
-            child: Text(
-              'None'.tr(),
-              style: const TextStyle(color: Colors.white),
-            ),
-          ),
-        ),
+        child: Text('None'.tr()),
       ),
     );
+
     for (Book book in BookList.books) {
       children.add(
-        SimpleDialogOption(
-          onPressed: () {
-            Navigator.pop(context);
-            setState(() {
-              _bloc!.entryBook = book;
-              _bloc!.entryStartPage = book.currentPage;
-              _bloc!.entryEndPage = book.pages;
-              _bloc!.checkForVars();
-            });
+        DropdownMenuItem(
+          alignment: Alignment.center,
+          enabled: true,
+          value: book,
+          onTap: () {
+            _bloc!.entryBook = book;
+            _bloc!.entryStartPage = book.currentPage;
+            _bloc!.entryEndPage = book.pages;
           },
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(30)),
-              color: Colors.blue.shade800,
-              backgroundBlendMode: BlendMode.src,
-              shape: BoxShape.rectangle,
-            ),
-            position: DecorationPosition.background,
-            child: Align(
-              heightFactor: 2,
-              alignment: Alignment.center,
-              child: Text(
-                book.title,
-                style: const TextStyle(color: Colors.white),
-              ),
-            ),
-          ),
+          child: Text(book.title),
         ),
       );
     }
+
     children.add(
-      SimpleDialogOption(
-        onPressed: () {
-          Navigator.pop(context);
-          _openAddBookScreen(context);
+      DropdownMenuItem(
+        alignment: Alignment.center,
+        enabled: true,
+        value: const Book.addBook(),
+        onTap: () {
+          setState(() {
+            _bloc!.entryBook = const Book.none();
+          });
         },
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(30)),
-            color: Colors.blue.shade800,
-            backgroundBlendMode: BlendMode.src,
-            shape: BoxShape.rectangle,
-          ),
-          position: DecorationPosition.background,
-          child: Align(
-            heightFactor: 2,
-            alignment: Alignment.center,
-            child: Text(
-              'Add Book'.tr(),
-              style: const TextStyle(color: Colors.white),
-            ),
-          ),
-        ),
+        child: Text('Add one'.tr()),
       ),
     );
-    showDialog(
-      context: context,
-      builder: (_) {
-        return SimpleDialog(
-          alignment: Alignment.center,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          title: Text('Choose a Book'.tr()),
-          children: children,
-        );
-      },
-    );
+
+    return children;
   }
 
   /// The enabled done Button
@@ -549,7 +492,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
 
   /// Pushes a screen with which you can add
   /// a new Book to the App.
-  void _openAddBookScreen(BuildContext context) {
+  void _openAddBookScreen() {
     Navigator.pushNamed(
       context,
       Routes.addBookScreen,

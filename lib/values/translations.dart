@@ -2,6 +2,7 @@ library values;
 
 import 'dart:ui' show Locale;
 
+import 'package:flutter/material.dart';
 import 'package:string_translate/string_translate.dart'
     show StandardTranslations, TranslationLocales;
 
@@ -358,6 +359,9 @@ final Map<String, Map<Locale, String>> _translations = {
     TranslationLocales.spanish: 'Editar libro',
     TranslationLocales.portuguese: 'Editar livro',
   },
+  // TODO: add Translations
+  'Edit Book': {},
+  'Edit Wish': {},
   'Choose a Book': {
     TranslationLocales.german: 'Wähle ein Buch',
     TranslationLocales.french: 'Choisissez un livre',
