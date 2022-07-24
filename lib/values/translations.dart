@@ -2,7 +2,6 @@ library values;
 
 import 'dart:ui' show Locale;
 
-import 'package:flutter/material.dart';
 import 'package:string_translate/string_translate.dart'
     show StandardTranslations, TranslationLocales;
 
