@@ -27,4 +27,10 @@ class Wishlist {
     _wishes.remove(wish);
     Storage.storeWishes();
   }
+
+  /// Replaces the [toReplace] with the corresponding [replace].
+  static void replaceWish(Wish toReplace, Wish replace) {
+    final int i = _wishes.indexOf(toReplace);
+    _wishes[i] = replace;
+  }
 }

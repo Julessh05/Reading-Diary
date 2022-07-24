@@ -39,6 +39,8 @@ class Diary {
     Storage.storeEntries();
   }
 
+  /// Method called in the [Storage] class to
+  /// "load" the entries.
   static void addEntryStorage(DiaryEntry entry) {
     _entries.add(entry);
   }
@@ -50,6 +52,7 @@ class Diary {
     Storage.storeEntries();
   }
 
+  /// Replaces the [toReplace] with the corresponding [replace]
   static void replaceEntry(DiaryEntry toReplace, DiaryEntry replace) {
     final int i = _entries.indexOf(toReplace);
     _entries[i] = replace;
