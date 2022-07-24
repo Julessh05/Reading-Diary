@@ -14,6 +14,7 @@ The Answer is simple. If you like to read books in your free time or you force y
 - Tracking of your Reading Progress
 - Wishlist for all the Books you want to have
 - Search and find Feature
+- Keep your App clean with the options to delete or edit Entries, Wishes and Books
 - Homescreen with the most recent statistics.
 
 

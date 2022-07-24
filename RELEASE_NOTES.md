@@ -1,5 +1,27 @@
 # Release Notes 
 
+---
+---
+
+## Version 1.2.0
+
+### New Features:
+- Edit Books
+- Edit Wishes
+- Edit Entries
+
+
+### Internal Fixes
+- New logic to manage Objects
+
+
+### About
+
+- Release Data: 24.07.2022 \
+- Copyright: © Julian Schumacher 2022 
+
+---
+---
 
 ## Version 1.1.0
 
@@ -8,8 +30,8 @@
 
 
 ### About
-Release Date: 18.07.2022 \
-Copyright: © Julian Schumacher 2022
+- Release Date: 18.07.2022 \
+- Copyright: © Julian Schumacher 2022
 
 ---
 ---
@@ -26,8 +48,8 @@ The first Version ever to be published of this App.
 
 
 ### About
-Release Date: 15.07.2022 \
-Copyright: © Julian Schumacher 2022
+- Release Date: 15.07.2022 \
+- Copyright: © Julian Schumacher 2022
 
 ---
 ---
