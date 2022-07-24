@@ -9,6 +9,7 @@ import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
+import 'package:reading_diary/models/wish.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
 /// Screen on which the User can add a new Wish to his
@@ -19,6 +20,8 @@ class AddWishScreenMobile extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
+  /// The Object that determines
+  /// how this screen should be used.
   final AddOrEdit addOrEdit;
 
   @override
@@ -29,10 +32,23 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
   /// Bloc that holds all Action for this Screen.
   AddWishBloc? _bloc;
 
+  /// The Wish that should be edited.
+  Wish? _wish;
+
   @override
   Widget build(BuildContext context) {
     // Init Bloc
     _bloc ??= BlocParent.of(context);
+
+    if (widget.addOrEdit.edit && !widget.addOrEdit.initialValueSet) {
+      _wish = widget.addOrEdit.object as Wish;
+      _bloc!.title = _wish!.title;
+      if (_wish!.description != null) {
+        _bloc!.description = _wish!.description!;
+      }
+      _bloc!.wishBook = _wish!.book;
+      widget.addOrEdit.initialValueSet = true;
+    }
 
     return Scaffold(
       appBar: _appBar,
@@ -44,9 +60,15 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
 
   /// AppBar for this Screen.
   AppBar get _appBar {
+    final String title;
+    if (widget.addOrEdit.edit) {
+      title = 'Edit Wish'.tr();
+    } else {
+      title = 'Add a Wish'.tr();
+    }
     return AppBar(
       automaticallyImplyLeading: true,
-      title: Text('Add a Wish'.tr()),
+      title: Text(title),
     );
   }
 
@@ -97,22 +119,24 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
                     name: 'Title'.tr(),
                     maxLines: 1,
                     done: (str) {
-                      _bloc!.title = str;
                       setState(() {
+                        _bloc!.title = str;
                         _bloc!.checkForVars();
                       });
                     },
+                    initialValue: _bloc!.title,
                   )
                 : const SizedBox(height: 0, width: 0),
             AddModelContainerMobile(
               name: 'Description',
               maxLines: 1000,
               done: (str) {
-                _bloc!.desription = str;
+                _bloc!.description = str;
                 setState(() {
                   _bloc!.checkForVars();
                 });
               },
+              initialValue: _bloc!.description,
             ),
             FittedBox(
               alignment: Alignment.center,
@@ -137,8 +161,18 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       onPressed: () {
-        _bloc!.createWish();
-        Navigator.pop(context);
+        if (widget.addOrEdit.edit) {
+          final newWish = _bloc!.replaceWish(_wish!);
+          Navigator.pop(context);
+          Navigator.pushReplacementNamed(
+            context,
+            Routes.wishDetailsScreen,
+            arguments: newWish,
+          );
+        } else {
+          _bloc!.createWish();
+          Navigator.pop(context);
+        }
       },
       child: Text(
         'Done'.tr(),

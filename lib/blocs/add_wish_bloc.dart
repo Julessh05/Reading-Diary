@@ -15,32 +15,26 @@ class AddWishBloc extends Bloc {
   Book? wishBook;
 
   /// The Title of the Wish
-  String? _title;
+  String? title;
 
   /// The description for this Wish
-  String? _description;
+  String? description;
 
   /// Getter for the Variable that determines whether or not
   /// the Done Button is enabled.
   bool get doneButtonEnabled => _doneButtonEnabled;
 
-  /// Setter for the Title of the Wish
-  set title(String title) => _title = title;
-
-  /// Setter for the Desription of this Wish
-  set desription(String desc) => _description = desc;
-
   /// Checks if all
   /// required vars are set.
   void checkForVars() {
-    if (wishBook != null || (_title != null && _description != null)) {
+    if (wishBook != null || (title != null && description != null)) {
       if (wishBook != null) {
         if (wishBook == const Book.none()) {
           _doneButtonEnabled = false;
         } else {
           _doneButtonEnabled = true;
         }
-      } else if (_title!.isNotEmpty && _description!.isNotEmpty) {
+      } else if (title!.isNotEmpty && description!.isNotEmpty) {
         _doneButtonEnabled = true;
       } else {
         _doneButtonEnabled = false;
@@ -57,18 +51,35 @@ class AddWishBloc extends Bloc {
     if (wishBook == null || wishBook == const Book.none()) {
       Wishlist.addWish(
         Wish.withoutBook(
-          title: _title!,
-          description: _description,
+          title: title!,
+          description: description,
         ),
       );
     } else {
       Wishlist.addWish(
         Wish(
           book: wishBook!,
-          description: _description,
+          description: description,
         ),
       );
     }
+  }
+
+  Wish replaceWish(Wish toReplace) {
+    final Wish wish;
+    if (wishBook == null || wishBook == const Book.none()) {
+      wish = Wish.withoutBook(
+        title: title!,
+        description: description,
+      );
+    } else {
+      wish = Wish(
+        book: wishBook!,
+        description: description,
+      );
+    }
+    Wishlist.replaceWish(toReplace, wish);
+    return wish;
   }
 
   @override

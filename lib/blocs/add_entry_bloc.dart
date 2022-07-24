@@ -65,10 +65,7 @@ class AddEntryBloc extends Bloc {
       startPage: entryStartPage!,
       endPage: entryEndPage!,
     );
-    Diary.replaceEntry(
-      toReplace,
-      newEntry,
-    );
+    Diary.replaceEntry(toReplace, newEntry);
     return newEntry;
   }
 

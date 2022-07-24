@@ -36,6 +36,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
   /// Should only be set once.
   AddEntryBloc? _bloc;
 
+  /// The Entry that should be edited.
   DiaryEntry? _entry;
 
   @override
@@ -102,7 +103,12 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
               name: 'Title'.tr(),
               autofocus: true,
               maxLines: 1,
-              done: (title) => _bloc!.entryTitle = title,
+              done: (title) {
+                setState(() {
+                  _bloc!.entryTitle = title;
+                  _bloc!.checkForVars();
+                });
+              },
               initialValue: _bloc!.entryTitle,
             ),
             AddModelContainerMobile(
