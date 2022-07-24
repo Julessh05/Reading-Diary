@@ -203,9 +203,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
         enabled: true,
         value: const Book.addBook(),
         onTap: () {
-          setState(() {
-            _bloc!.entryBook = const Book.none();
-          });
+          _bloc!.entryBook = const Book.none();
         },
         child: Text('Add one'.tr()),
       ),
