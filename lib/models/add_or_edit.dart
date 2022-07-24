@@ -58,7 +58,11 @@ class AddOrEdit {
   /// false => add
   bool get edit => _edit;
 
-  bool initialValueSet = true;
+  /// Whether the initial Values where
+  /// set yet
+  /// false => not set
+  /// true => set
+  bool initialValueSet = false;
 
   /// The Object passed if
   /// an Object should be edited.

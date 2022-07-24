@@ -35,6 +35,7 @@ class BookList {
   static void replaceBook(Book toReplace, Book replace) {
     final int i = _books.indexOf(toReplace);
     _books[i] = replace;
+
     for (DiaryEntry entry in Diary.entries) {
       // Replace Entry
       if (entry.book == toReplace) {

@@ -43,7 +43,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
     // Init Bloc
     _bloc ??= BlocParent.of(context);
 
-    if (widget.addOrEdit.edit && widget.addOrEdit.initialValueSet) {
+    if (widget.addOrEdit.edit && !widget.addOrEdit.initialValueSet) {
       _entry = widget.addOrEdit.object as DiaryEntry;
       _bloc!.entryBook = _entry!.book;
       _bloc!.entryDate = _entry!.date;
@@ -54,7 +54,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
       _bloc!.entryTitle = _entry!.title;
       _bloc!.entryStartPage = _entry!.startPage;
       _bloc!.entryEndPage = _entry!.endPage;
-      widget.addOrEdit.initialValueSet = false;
+      widget.addOrEdit.initialValueSet = true;
     }
 
     return Scaffold(
