@@ -117,11 +117,9 @@ class WidgetRouter extends StatelessWidget {
   /// to different Screens.
   late final RouteSettings? _settings;
 
-  // TODO: make final
-
   /// Whether the App is running on a
   /// Desktop OS (true) or not (false) (mostly mobile)
-  static late bool isDesktop;
+  static late final bool isDesktop;
 
   /// Route Name the Widget Router works with
   late final String _routeName;

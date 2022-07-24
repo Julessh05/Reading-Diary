@@ -12,47 +12,29 @@ class AddBookBloc extends Bloc {
   bool _doneButtonEnabled = false;
 
   /// Title of the Book
-  String _title = '';
+  String title = '';
 
   /// Author of the corresponding Book
-  String? _author;
+  String? author;
 
   /// An image of the book
   Image? _image;
 
   /// The number of pages this
   /// book has
-  int _pages = 0;
+  int pages = 0;
 
   /// The Page the user is currently on
-  int? _currentPage;
+  int? currentPage;
 
   /// Notes you have to that book.
-  String _notes = '';
+  String notes = '';
 
   /// The price of the book
-  double? _price;
+  double? price;
 
-  /// Setter for the Title of the Book
-  set title(String title) => _title = title;
-
-  /// Setter for the Author of the Book
-  set author(String author) => _author = author;
-
-  /// Setter for the Image of the Book
-  set image(Image image) => _image = image;
-
-  /// Setter for the Pages this Book has
-  set pages(int pages) => _pages = pages;
-
-  /// Setter for The Page the user is currently on
-  set currentPage(int page) => _currentPage = page;
-
-  /// Setter for the Notes you have to that Book
-  set notes(String notes) => _notes = notes;
-
-  /// Setter for the Price of the Book
-  set price(double price) => _price = price;
+  /// Setter for the Image to this Book.
+  set image(Image img) => _image = img;
 
   /// The Variable that determines whether the
   /// Done Button is enabled or not.
@@ -65,13 +47,13 @@ class AddBookBloc extends Bloc {
   /// Returns false, if the book couln't been added.
   bool createBook() {
     final book = Book(
-      title: _title,
-      author: _author,
-      pages: _pages,
+      title: title,
+      author: author,
+      pages: pages,
       image: _image,
-      notes: _notes,
-      price: _price,
-      currentPage: _currentPage!,
+      notes: notes,
+      price: price,
+      currentPage: currentPage!,
     );
     final duplicateBooks = BookList.books.where((element) => element == book);
     if (duplicateBooks.isEmpty) {
@@ -82,9 +64,27 @@ class AddBookBloc extends Bloc {
     }
   }
 
+  /// Replaces a Book and returns
+  /// the Replacement of the Book
+  /// that was replaced.
+  /// Book to repalce is the [toReplace]
+  Book replaceBook(Book toReplace) {
+    final Book book = Book(
+      title: title,
+      pages: pages,
+      currentPage: currentPage!,
+      author: author,
+      image: _image,
+      notes: notes,
+      price: price,
+    );
+    BookList.replaceBook(toReplace, book);
+    return book;
+  }
+
   /// Checks if all needed vars are filled in.
   void checkForVars() {
-    if (_title.isNotEmpty && _pages > 0 && _currentPage != null) {
+    if (title.isNotEmpty && pages > 0 && currentPage != null) {
       _doneButtonEnabled = true;
     } else {
       _doneButtonEnabled = false;
