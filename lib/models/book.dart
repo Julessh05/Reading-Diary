@@ -9,7 +9,7 @@ part 'book.g.dart';
 /// Represents a single Book
 @HiveType(typeId: 0)
 class Book {
-  const Book({
+  Book({
     required this.title,
     this.author,
     this.image,
@@ -17,7 +17,7 @@ class Book {
     required this.currentPage,
     this.notes = '',
     this.price,
-  });
+  }) : assert(!pages.isNegative && pages != 0);
 
   /// Called if you don't want to have a book
   const Book.none({
@@ -42,24 +42,50 @@ class Book {
     this.price,
   });
 
+  /// The Title of the Book.
+  /// This is not a unique field,
+  /// because there are multiple books
+  /// with the same Title.
+  /// So you can have all these Books
+  /// in your App.
   @HiveField(0)
   final String title;
 
+  /// The Author of the Book.
+  /// Can be null and does not have to be set.
   @HiveField(1)
   final String? author;
 
+  /// Some kind of Image.
+  /// This sould be the Book Cover,
+  /// at least it makes the most sense.
+  /// But it can be anything else.
   @HiveField(2)
   final Image? image;
 
+  /// The Number of Pages
+  /// the Book has.
+  /// Must be set.
+  /// Can't be negative and has to be more than 0.
   @HiveField(3)
   final int pages;
 
+  /// A Field to store the page the user
+  /// is currently on.
+  /// Is always "updated".
+  /// THis is done trough creating
+  /// a new Book and making a "deep clone"
+  /// with only this value changed.
   @HiveField(4)
   final int currentPage;
 
+  /// The Notes and additional Information
+  /// the User wants to store next
+  /// to the Book.
   @HiveField(5)
   final String notes;
 
+  /// The Price of the Book.
   @HiveField(6)
   final double? price;
 
@@ -88,4 +114,9 @@ class Book {
         notes,
         price,
       );
+
+  @override
+  String toString() {
+    return "title: $title, pages: $pages, current Ppge; $currentPage";
+  }
 }

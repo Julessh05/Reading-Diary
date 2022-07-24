@@ -52,11 +52,14 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
       automaticallyImplyLeading: true,
       title: Text(widget.entry.title),
       actions: <IconButton>[
-        // IconButton(
-        //   onPressed: _editBTNPressed,
-        //   icon: const Icon(Icons.edit_rounded),
-        //   autofocus: false,
-        // ),
+        IconButton(
+          onPressed: _editBTNPressed,
+          icon: const Icon(Icons.edit_rounded),
+          autofocus: false,
+          alignment: Alignment.center,
+          enableFeedback: true,
+          tooltip: 'Edit Entry'.tr(),
+        ),
         IconButton(
           onPressed: _deleteBTNPressed,
           icon: const Icon(Icons.delete_rounded),

@@ -5,7 +5,9 @@ import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/add_book_bloc.dart';
 import 'package:reading_diary/components/mobile/add_model_container_mobile.dart';
+import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/add_or_edit.dart';
+import 'package:reading_diary/models/book.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
 /// Mobile Version of the Screen you can add
@@ -16,6 +18,8 @@ class AddBookScreenMobile extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
+  /// The Object that determines,
+  /// how this Screen is used,
   final AddOrEdit addOrEdit;
 
   @override
@@ -26,10 +30,33 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
   /// Corresponding Bloc for this Screen
   AddBookBloc? _bloc;
 
+  /// The Book that is passed,
+  /// if this Screen is used to edit
+  /// a Book
+  Book? _book;
+
   @override
   Widget build(BuildContext context) {
     // Init Bloc
     _bloc ??= BlocParent.of(context);
+
+    if (widget.addOrEdit.edit && !widget.addOrEdit.initialValueSet) {
+      _book = widget.addOrEdit.object as Book;
+      _bloc!.title = _book!.title;
+      if (_book!.author != null) {
+        _bloc!.author = _book!.author!;
+      }
+      _bloc!.currentPage = _book!.currentPage;
+      if (_book!.image != null) {
+        _bloc!.image = _book!.image!;
+      }
+      _bloc!.notes = _book!.notes;
+      _bloc!.pages = _book!.pages;
+      if (_book!.price != null) {
+        _bloc!.price = _book!.price!;
+      }
+      widget.addOrEdit.initialValueSet = true;
+    }
 
     return Scaffold(
       appBar: _appBar,
@@ -72,13 +99,20 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
                   _bloc!.checkForVars();
                 });
               },
+              initialValue: _bloc!.title,
               autofocus: true,
               maxLines: 1,
             ),
             AddModelContainerMobile(
               name: 'Author'.tr(),
-              done: (str) => _bloc!.author = str,
+              done: (str) {
+                setState(() {
+                  _bloc!.author = str;
+                  _bloc!.checkForVars();
+                });
+              },
               maxLines: 1,
+              initialValue: _bloc!.author,
             ),
 
             // TODO: add option to add am Image
@@ -91,6 +125,7 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
                   _bloc!.checkForVars();
                 });
               },
+              initialValue: _bloc!.pages.toString(),
               keyboardType: TextInputType.number,
             ),
             AddModelContainerMobile(
@@ -101,21 +136,33 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
                   _bloc!.checkForVars();
                 });
               },
+              initialValue: _bloc!.currentPage.toString(),
               keyboardType: TextInputType.number,
             ),
             AddModelContainerMobile(
               name: 'Notes'.tr(),
-              done: (str) => _bloc!.notes = str,
+              done: (str) {
+                setState(() {
+                  _bloc!.notes = str;
+                  _bloc!.checkForVars();
+                });
+              },
               maxLines: 1000,
+              initialValue: _bloc!.notes,
             ),
             AddModelContainerMobile(
               name: 'Price'.tr(),
               done: (str) {
-                _bloc!.price = double.parse(str);
+                setState(() {
+                  _bloc!.price = double.parse(str);
+                  _bloc!.checkForVars();
+                });
               },
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.done,
               suffixIcon: const Icon(Icons.euro_rounded),
+              initialValue:
+                  _bloc!.price != null ? _bloc!.price!.toString() : null,
             ),
             FittedBox(
               alignment: Alignment.center,
@@ -140,11 +187,21 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       onPressed: () {
-        final success = _bloc!.createBook();
-        if (!success) {
-          _showErrorDialog();
+        if (widget.addOrEdit.edit) {
+          final Book newBook = _bloc!.replaceBook(_book!);
+          Navigator.pop(context);
+          Navigator.pushReplacementNamed(
+            context,
+            Routes.bookDetailsScreen,
+            arguments: newBook,
+          );
+        } else {
+          final success = _bloc!.createBook();
+          if (!success) {
+            _showErrorDialog();
+          }
+          Navigator.pop(context);
         }
-        Navigator.pop(context);
       },
       child: Text(
         'Done'.tr(),
