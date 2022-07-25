@@ -17,6 +17,7 @@ class Book {
     required this.currentPage,
     this.notes = '',
     this.price,
+    this.url,
   }) : assert(!pages.isNegative && pages != 0);
 
   /// Called if you don't want to have a book
@@ -28,6 +29,7 @@ class Book {
     this.image,
     this.notes = '',
     this.price,
+    this.url,
   });
 
   /// Called if you want the
@@ -40,6 +42,7 @@ class Book {
     this.image,
     this.notes = '',
     this.price,
+    this.url,
   });
 
   /// The Title of the Book.
@@ -89,6 +92,12 @@ class Book {
   @HiveField(6)
   final double? price;
 
+  /// The URL that links
+  /// to the post related to
+  /// this Book.
+  @HiveField(7)
+  final String? url;
+
   @override
   bool operator ==(Object other) {
     if (other is Book) {
@@ -98,7 +107,8 @@ class Book {
           other.pages == pages &&
           other.currentPage == currentPage &&
           other.notes == notes &&
-          other.price == price;
+          other.price == price &&
+          other.url == url;
     } else {
       return false;
     }
@@ -113,10 +123,11 @@ class Book {
         currentPage,
         notes,
         price,
+        url,
       );
 
-  @override
-  String toString() {
-    return "title: $title, pages: $pages, current Ppge; $currentPage";
-  }
+  // @override
+  // String toString() {
+  //   return "title: $title, pages: $pages, current Ppge; $currentPage";
+  // }
 }

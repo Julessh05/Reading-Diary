@@ -32,8 +32,12 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  # Hive
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+
+  # Flutter
+  url_launcher: ^6.1.5
 
   # Own Dependencies
   string_translate: ^1.4.2

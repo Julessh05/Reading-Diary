@@ -9,6 +9,7 @@ import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:string_translate/string_translate.dart' show Translate;
+import 'package:url_launcher/url_launcher.dart';
 
 /// Screen that represents a single Book in the App
 /// and shows you all Information about this Book.
@@ -107,6 +108,28 @@ class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
                   small: true,
                 )
               : Container(),
+          () {
+            if (widget.book.url != null) {
+              if (widget.book.url!.isNotEmpty) {
+                return GestureDetector(
+                  behavior: HitTestBehavior.deferToChild,
+                  dragStartBehavior: DragStartBehavior.down,
+                  onTap: () async {
+                    final Uri u = Uri.parse(widget.book.url!);
+                    await launchUrl(u, mode: LaunchMode.platformDefault);
+                  },
+                  child: ModelDetailsContainerMobile(
+                    name: 'Post'.tr(),
+                    data: widget.book.url!,
+                  ),
+                );
+              } else {
+                return Container();
+              }
+            } else {
+              return Container();
+            }
+          }(),
           FittedBox(
             alignment: Alignment.center,
             clipBehavior: Clip.antiAliasWithSaveLayer,

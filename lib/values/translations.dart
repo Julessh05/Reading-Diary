@@ -382,6 +382,8 @@ final Map<String, Map<Locale, String>> _translations = {
     TranslationLocales.spanish: 'No se encontró nada con esta palabra clave',
     TranslationLocales.portuguese: 'Nada encontrado com esta palavra-chave',
   },
+  'Post': {},
+  'URL Error': {},
 };
 
 /// Getter for the Translations.

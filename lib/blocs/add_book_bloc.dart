@@ -2,6 +2,7 @@ library blocs;
 
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
 import 'package:flutter/material.dart';
+import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
 
@@ -33,6 +34,10 @@ class AddBookBloc extends Bloc {
   /// The price of the book
   double? price;
 
+  /// The URL to the
+  /// Post connected to this Book.
+  String? url;
+
   /// Setter for the Image to this Book.
   set image(Image img) => _image = img;
 
@@ -54,6 +59,7 @@ class AddBookBloc extends Bloc {
       notes: notes,
       price: price,
       currentPage: currentPage!,
+      url: url,
     );
     final duplicateBooks = BookList.books.where((element) => element == book);
     if (duplicateBooks.isEmpty) {
@@ -70,14 +76,14 @@ class AddBookBloc extends Bloc {
   /// Book to repalce is the [toReplace]
   Book replaceBook(Book toReplace) {
     final Book book = Book(
-      title: title,
-      pages: pages,
-      currentPage: currentPage!,
-      author: author,
-      image: _image,
-      notes: notes,
-      price: price,
-    );
+        title: title,
+        pages: pages,
+        currentPage: currentPage!,
+        author: author,
+        image: _image,
+        notes: notes,
+        price: price,
+        url: url);
     BookList.replaceBook(toReplace, book);
     return book;
   }
@@ -88,6 +94,26 @@ class AddBookBloc extends Bloc {
       _doneButtonEnabled = true;
     } else {
       _doneButtonEnabled = false;
+    }
+  }
+
+  /// Checks if the URL
+  /// is allowed.
+  /// For Safety Reasons
+  /// only the urls in [Routes.supportedURLs]
+  /// are allowed.
+  bool checkURL() {
+    if (url == null) {
+      return true;
+    } else if (url!.isEmpty) {
+      return true;
+    } else {
+      if (Routes.supportedURLs.values
+          .any((element) => url!.toLowerCase().contains(element))) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
