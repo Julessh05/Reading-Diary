@@ -23,6 +23,8 @@ void main() async {
   runApp(const ReadingDiary());
 }
 
+const String appVersion = '1.3.0';
+
 /// Determines the Platform this Apps is running on.
 /// Also sets the [WidgetRouter.isDesktop] Variable.
 void _isDesktop() {
