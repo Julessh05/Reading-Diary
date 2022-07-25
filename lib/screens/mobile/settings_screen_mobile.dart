@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/settings_bloc.dart';
 import 'package:reading_diary/components/mobile/settings_tile_mobile.dart';
+import 'package:reading_diary/main.dart';
 import 'package:reading_diary/models/setting.dart' show allSettings;
 import 'package:string_translate/string_translate.dart'
     hide StandardTranslations, TranslationDelegates;
@@ -71,6 +72,18 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
             setting:
                 allSettings.where((element) => element.name == 'Theme').first,
             onTap: _showThemeDialog,
+          ),
+
+          /// Information Tile
+          ListTile(
+            autofocus: false,
+            enableFeedback: true,
+            enabled: true,
+            isThreeLine: false,
+            title: Text('Information'.tr()),
+            subtitle: Text('Show detailed Information about the App'.tr()),
+            leading: const Icon(Icons.info_rounded),
+            onTap: _showInformationDialog,
           ),
         ],
       ),
@@ -156,35 +169,52 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
   /// Theme Mode of this App.
   void _showThemeDialog() {
     showDialog(
-        context: context,
-        builder: (_) {
-          return SimpleDialog(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            title: Text('Choose a Theme Mode'.tr()),
-            children: <SimpleDialogOption>[
-              SimpleDialogOption(
-                onPressed: () => setState(() {
-                  _bloc!.changeThememode(ThemeMode.system);
-                  Navigator.pop(context);
-                }),
-                child: _getDialogTile('System'.tr()),
-              ),
-              SimpleDialogOption(
-                onPressed: () => setState(() {
-                  _bloc!.changeThememode(ThemeMode.light);
-                  Navigator.pop(context);
-                }),
-                child: _getDialogTile('Light'.tr()),
-              ),
-              SimpleDialogOption(
-                onPressed: () => setState(() {
-                  _bloc!.changeThememode(ThemeMode.dark);
-                  Navigator.pop(context);
-                }),
-                child: _getDialogTile('Dark'.tr()),
-              ),
-            ],
-          );
-        });
+      context: context,
+      builder: (_) {
+        return SimpleDialog(
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          title: Text('Choose a Theme Mode'.tr()),
+          children: <SimpleDialogOption>[
+            SimpleDialogOption(
+              onPressed: () => setState(() {
+                _bloc!.changeThememode(ThemeMode.system);
+                Navigator.pop(context);
+              }),
+              child: _getDialogTile('System'.tr()),
+            ),
+            SimpleDialogOption(
+              onPressed: () => setState(() {
+                _bloc!.changeThememode(ThemeMode.light);
+                Navigator.pop(context);
+              }),
+              child: _getDialogTile('Light'.tr()),
+            ),
+            SimpleDialogOption(
+              onPressed: () => setState(() {
+                _bloc!.changeThememode(ThemeMode.dark);
+                Navigator.pop(context);
+              }),
+              child: _getDialogTile('Dark'.tr()),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  /// shows a Dialog with
+  /// detailed Inforamtion about this App.
+  void _showInformationDialog() {
+    showDialog(
+      context: context,
+      builder: (c) {
+        return const AboutDialog(
+          applicationLegalese: '© Julian Schumacher 2022',
+          applicationName: 'Reading Diary',
+          applicationVersion: appVersion,
+          applicationIcon: Icon(Icons.menu_book_rounded),
+        );
+      },
+    );
   }
 }

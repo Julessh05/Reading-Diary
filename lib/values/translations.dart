@@ -382,8 +382,17 @@ final Map<String, Map<Locale, String>> _translations = {
     TranslationLocales.spanish: 'No se encontró nada con esta palabra clave',
     TranslationLocales.portuguese: 'Nada encontrado com esta palavra-chave',
   },
+  // TODO: add translations
   'Post': {},
   'URL Error': {},
+  'Contact us': {},
+  'Show supported URLs': {},
+  'For Safety Reasons, only a few specific URL\'s are allowed.': {},
+  'Please check your URL.': {},
+  'If we made a mistake, contact us.': {},
+  'Supported URLs': {},
+  'Information': {},
+  'Show detailed Information about the App': {},
 };
 
 /// Getter for the Translations.
