@@ -382,17 +382,69 @@ final Map<String, Map<Locale, String>> _translations = {
     TranslationLocales.spanish: 'No se encontró nada con esta palabra clave',
     TranslationLocales.portuguese: 'Nada encontrado com esta palavra-chave',
   },
-  // TODO: add translations
-  'Post': {},
-  'URL Error': {},
-  'Contact us': {},
-  'Show supported URLs': {},
-  'For Safety Reasons, only a few specific URL\'s are allowed.': {},
-  'Please check your URL.': {},
-  'If we made a mistake, contact us.': {},
-  'Supported URLs': {},
-  'Information': {},
-  'Show detailed Information about the App': {},
+  'URL Error': {
+    TranslationLocales.german: 'URL Fehler',
+    TranslationLocales.french: 'Erreur d\'URL',
+    TranslationLocales.spanish: 'Error de URL',
+    TranslationLocales.portuguese: 'Erro de URL',
+  },
+  'Contact us': {
+    TranslationLocales.german: 'Kontaktiere uns',
+    TranslationLocales.french: 'Contactez-nous',
+    TranslationLocales.spanish: 'Contacta con nosotras',
+    TranslationLocales.portuguese: 'Contate-Nos',
+  },
+  'Show supported URLs': {
+    TranslationLocales.german: 'Unterstützte URLs',
+    TranslationLocales.french: 'Afficher les URL prises en charge',
+    TranslationLocales.spanish: 'Mostrar URL admitidas',
+    TranslationLocales.portuguese: 'Mostrar URLs compatíveis',
+  },
+  'For Safety Reasons, only a few specific URL\'s are allowed.': {
+    TranslationLocales.german:
+        'Aus Sicherheitsgründen sind nur ein paar wenige URLs erlaubt.',
+    TranslationLocales.french:
+        'Pour des raisons de sécurité, seules quelques URL spécifiques sont autorisées.',
+    TranslationLocales.spanish:
+        'Por motivos de seguridad, solo se permiten unas pocas URL específicas.',
+    TranslationLocales.portuguese:
+        'Por motivos de segurança, apenas alguns URLs específicos são permitidos.',
+  },
+  'Please check your URL.': {
+    TranslationLocales.german: 'Bitte überprüfe deine URL.',
+    TranslationLocales.french: 'Veuillez vérifier votre URL.',
+    TranslationLocales.spanish: 'Por favor, compruebe su URL.',
+    TranslationLocales.portuguese: 'Por favor, verifique o seu URL.',
+  },
+  'If we made a mistake, contact us.': {
+    TranslationLocales.german:
+        'Wenn wir einen Fehler gemacht habe, kontaktiere uns.',
+    TranslationLocales.french: 'Si nous avons fait une erreur, contactez-nous.',
+    TranslationLocales.spanish: 'Si cometimos un error, contáctenos.',
+    TranslationLocales.portuguese:
+        'Se cometemos um erro, entre em contato conosco.',
+  },
+  'Supported URLs': {
+    TranslationLocales.german: 'Unterstützte URLs',
+    TranslationLocales.french: 'URL prises en charge',
+    TranslationLocales.spanish: 'URL admitidas',
+    TranslationLocales.portuguese: 'URLs compatíveis',
+  },
+  'Information': {
+    TranslationLocales.german: 'Informationen',
+    TranslationLocales.french: 'Informations',
+    TranslationLocales.spanish: 'Información',
+    TranslationLocales.portuguese: 'Em formação',
+  },
+  'Show detailed Information about the App': {
+    TranslationLocales.german: 'Zeige detailierte Informationen über die App',
+    TranslationLocales.french:
+        'Afficher des informations détaillées sur l\'application',
+    TranslationLocales.spanish:
+        'Mostrar información detallada sobre la aplicación',
+    TranslationLocales.portuguese:
+        'Mostrar informações detalhadas sobre o aplicativo',
+  },
 };
 
 /// Getter for the Translations.

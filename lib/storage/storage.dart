@@ -45,7 +45,7 @@ class Storage {
   /// Loads all Data.
   /// Make sure to call this Method before doing anything
   /// else
-  static Future<void> init() async {
+  static void init() async {
     Hive.registerAdapter(BookAdapter());
     Hive.registerAdapter(DiaryEntryAdapter());
     Hive.registerAdapter(WishAdapter());

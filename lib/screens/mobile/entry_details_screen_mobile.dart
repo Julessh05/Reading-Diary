@@ -93,10 +93,15 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
                 '${widget.entry.date.day}.${widget.entry.date.month}.${widget.entry.date.year}',
             small: true,
           ),
-          ModelDetailsContainerMobile(
-            name: 'Book'.tr(),
-            data: widget.entry.book.title,
-            small: true,
+          GestureDetector(
+            behavior: HitTestBehavior.deferToChild,
+            dragStartBehavior: DragStartBehavior.down,
+            onTap: _openBookDetailsScreen,
+            child: ModelDetailsContainerMobile(
+              name: 'Book'.tr(),
+              data: widget.entry.book.title,
+              small: true,
+            ),
           ),
           ModelDetailsContainerMobile(
             name: 'Pages read'.tr(),
@@ -134,6 +139,16 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
       context,
       Routes.addEntryScreen,
       arguments: AddOrEdit.entry(entry: widget.entry),
+    );
+  }
+
+  /// Opens the Book Details Screen for
+  /// the current Book.
+  void _openBookDetailsScreen() {
+    Navigator.pushNamed(
+      context,
+      Routes.bookDetailsScreen,
+      arguments: widget.entry.book,
     );
   }
 }

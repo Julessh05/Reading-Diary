@@ -18,12 +18,13 @@ import 'package:string_translate/string_translate.dart'
 
 void main() async {
   await Hive.initFlutter();
-  // TODO: check if await is needed here.
-  await Storage.init();
+  Storage.init();
   runApp(const ReadingDiary());
 }
 
-const String appVersion = '1.3.0';
+/// The current Version of the App
+/// as a String.
+const String appVersion = '1.6.2';
 
 /// Determines the Platform this Apps is running on.
 /// Also sets the [WidgetRouter.isDesktop] Variable.

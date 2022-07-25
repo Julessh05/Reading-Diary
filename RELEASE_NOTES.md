@@ -1,5 +1,32 @@
 # Release Notes 
 
+
+
+---
+---
+
+## Version 1.6.2
+
+### New Features
+
+- About Dialog on the Settings Screen with detailed information about the App
+- Possibility to add a Post (Social Media) via Link to a Book.
+- Look at a Books Details through clicking it on the Entry Details Screen.
+
+### Bug Fixes
+
+- Updated App Performance through updating async behavior
+- Update Android Display Name
+
+### Other Updates
+
+- Changed App Icons
+
+### About
+
+- Release Date: 25.07.2022 \
+- Copyright: © Julian Schumacher 2022
+
 ---
 ---
 
