@@ -119,7 +119,7 @@ class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
                     await launchUrl(u, mode: LaunchMode.platformDefault);
                   },
                   child: ModelDetailsContainerMobile(
-                    name: 'Post'.tr(),
+                    name: 'Post',
                     data: widget.book.url!,
                   ),
                 );

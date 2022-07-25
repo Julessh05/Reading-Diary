@@ -168,7 +168,7 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
                   _bloc!.price != null ? _bloc!.price!.toString() : null,
             ),
             AddModelContainerMobile(
-              name: 'Post'.tr(),
+              name: 'Post',
               initialValue: _bloc!.url,
               textInputAction: TextInputAction.done,
               keyboardType: TextInputType.url,
