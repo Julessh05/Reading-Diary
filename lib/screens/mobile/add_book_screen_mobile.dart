@@ -5,10 +5,12 @@ import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/add_book_bloc.dart';
 import 'package:reading_diary/components/mobile/add_model_container_mobile.dart';
+import 'package:reading_diary/components/mobile/model_details_container_mobile.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/add_or_edit.dart';
-import 'package:reading_diary/models/book.dart';
+import 'package:reading_diary/models/book.dart' show Book;
 import 'package:string_translate/string_translate.dart' show Translate;
+import 'package:url_launcher/url_launcher.dart' show launchUrl;
 
 /// Mobile Version of the Screen you can add
 /// books with
@@ -125,7 +127,7 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
                   _bloc!.checkForVars();
                 });
               },
-              initialValue: _bloc!.pages.toString(),
+              initialValue: _bloc!.pages != 0 ? _bloc!.pages.toString() : null,
               keyboardType: TextInputType.number,
             ),
             AddModelContainerMobile(
@@ -136,7 +138,9 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
                   _bloc!.checkForVars();
                 });
               },
-              initialValue: _bloc!.currentPage.toString(),
+              initialValue: _bloc!.currentPage != null
+                  ? _bloc!.currentPage!.toString()
+                  : null,
               keyboardType: TextInputType.number,
             ),
             AddModelContainerMobile(
@@ -159,10 +163,21 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
                 });
               },
               keyboardType: TextInputType.number,
-              textInputAction: TextInputAction.done,
               suffixIcon: const Icon(Icons.euro_rounded),
               initialValue:
                   _bloc!.price != null ? _bloc!.price!.toString() : null,
+            ),
+            AddModelContainerMobile(
+              name: 'Post'.tr(),
+              initialValue: _bloc!.url,
+              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.url,
+              done: (str) {
+                setState(() {
+                  _bloc!.checkForVars();
+                });
+                _bloc!.url = str;
+              },
             ),
             FittedBox(
               alignment: Alignment.center,
@@ -196,11 +211,15 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
             arguments: newBook,
           );
         } else {
-          final success = _bloc!.createBook();
-          if (!success) {
-            _showErrorDialog();
+          if (!_bloc!.checkURL()) {
+            _showUnsupportedURLDialog();
+          } else {
+            final success = _bloc!.createBook();
+            if (!success) {
+              _showErrorDialog();
+            }
+            Navigator.pop(context);
           }
-          Navigator.pop(context);
         }
       },
       child: Text(
@@ -267,6 +286,116 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
           ],
         );
       },
+    );
+  }
+
+  /// Shows a Dialog, if the url
+  void _showUnsupportedURLDialog() {
+    showDialog(
+      context: context,
+      builder: (c) {
+        return AlertDialog(
+          title: Text('URL Error'.tr()),
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          scrollable: true,
+          actions: <TextButton>[
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Text('Ok'.tr()),
+            ),
+            TextButton(
+              onPressed: () async {
+                Uri u = Uri.parse(
+                  'mailto:Jules.media@outlook.de?subject=URL%20Mistake',
+                );
+                await launchUrl(u);
+              },
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Text('Contact us'.tr()),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) {
+                    return const _SupportedURLs();
+                  }),
+                );
+              },
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Text('Show supported URLs'.tr()),
+            )
+          ],
+          content: SingleChildScrollView(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            dragStartBehavior: DragStartBehavior.down,
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            physics: const BouncingScrollPhysics(),
+            reverse: false,
+            scrollDirection: Axis.vertical,
+            child: ListBody(
+              mainAxis: Axis.vertical,
+              reverse: false,
+              children: <Text>[
+                Text(
+                    'For Safety Reasons, only a few specific URL\'s are allowed.'
+                        .tr()),
+                Text('Please check your URL.'.tr()),
+                Text('If we made a mistake, contact us.'.tr()),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+/// A Screen that shows all supported
+/// urls for the Book Post Param
+class _SupportedURLs extends StatelessWidget {
+  const _SupportedURLs({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _appBar,
+      body: _body,
+    );
+  }
+
+  /// AppBar for the Screen
+  AppBar get _appBar {
+    return AppBar(
+      automaticallyImplyLeading: true,
+      title: Text('Supported URLs'.tr()),
+    );
+  }
+
+  /// The Body for this Screen .
+  Scrollbar get _body {
+    return Scrollbar(
+      scrollbarOrientation: ScrollbarOrientation.right,
+      child: ListView.builder(
+        addAutomaticKeepAlives: true,
+        addRepaintBoundaries: true,
+        addSemanticIndexes: true,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        dragStartBehavior: DragStartBehavior.down,
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        physics: const BouncingScrollPhysics(),
+        reverse: false,
+        scrollDirection: Axis.vertical,
+        itemCount: Routes.supportedURLs.length,
+        itemBuilder: (_, counter) {
+          return ModelDetailsContainerMobile(
+            name: Routes.supportedURLs.keys.elementAt(counter),
+            data: Routes.supportedURLs.values.elementAt(counter),
+            small: true,
+          );
+        },
+      ),
     );
   }
 }

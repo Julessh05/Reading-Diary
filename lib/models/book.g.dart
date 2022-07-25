@@ -24,13 +24,14 @@ class BookAdapter extends TypeAdapter<Book> {
       currentPage: fields[4] as int,
       notes: fields[5] as String,
       price: fields[6] as double?,
+      url: fields[7] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Book obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class BookAdapter extends TypeAdapter<Book> {
       ..writeByte(5)
       ..write(obj.notes)
       ..writeByte(6)
-      ..write(obj.price);
+      ..write(obj.price)
+      ..writeByte(7)
+      ..write(obj.url);
   }
 
   @override

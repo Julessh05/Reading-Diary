@@ -34,6 +34,7 @@ class Diary {
       notes: book.notes,
       price: book.price,
       currentPage: entry.endPage,
+      url: book.url,
     );
     BookList.replaceBook(book, newBook);
     Storage.storeEntries();

@@ -41,4 +41,16 @@ class Routes {
   /// The Route Name of the Screen
   /// that represents the Search Results
   static const String searchResultsScreen = '/search_results';
+
+  /// All the Urls that are supported in
+  /// the Post Section for Books.
+  /// The Scheme of the App is:
+  /// Service Name : URL
+  static const Map<String, String> supportedURLs = {
+    'Instagram': 'https://www.instagram.com',
+    'Twitter': 'https://twitter.com',
+    'Facebook': 'https://www.facebook.com',
+    'Pinterest': 'https://www.pinterest.com',
+    'Reddit': 'https://www.reddit.com'
+  };
 }
