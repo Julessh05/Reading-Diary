@@ -1,16 +1,15 @@
 library mobile_components;
 
 import 'package:flutter/material.dart';
+import 'package:reading_diary/models/statistic.dart';
 
 class StatisticContainerMobile extends StatelessWidget {
   const StatisticContainerMobile({
-    required this.title,
-    required this.content,
+    required this.statistic,
     Key? key,
   }) : super(key: key);
 
-  final String title;
-  final String content;
+  final Statistic statistic;
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +52,7 @@ class StatisticContainerMobile extends StatelessWidget {
               alignment: Alignment.bottomLeft,
               child: Padding(
                 padding: const EdgeInsets.only(
-                  // TODO: change
-                  // left: 25
-                  left: 0,
+                  left: 25,
                   bottom: 15,
                 ),
                 child: Column(
@@ -66,8 +63,10 @@ class StatisticContainerMobile extends StatelessWidget {
                   textDirection: TextDirection.ltr,
                   verticalDirection: VerticalDirection.up,
                   children: <Widget>[
-                    Text(content, style: _ctStyle, textAlign: TextAlign.center),
-                    Text(title, style: _tStyle, textAlign: TextAlign.center),
+                    Text(statistic.data,
+                        style: _ctStyle, textAlign: TextAlign.center),
+                    Text(statistic.title,
+                        style: _tStyle, textAlign: TextAlign.center),
                   ],
                 ),
               ),

@@ -15,6 +15,7 @@ import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
 import 'package:reading_diary/models/diary.dart';
 import 'package:reading_diary/models/search_results.dart';
+import 'package:reading_diary/models/statistic.dart';
 import 'package:reading_diary/models/wishlist.dart';
 import 'package:reading_diary/states/homescreen_state.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
@@ -455,6 +456,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// The Body of the mobile
   /// Homescreen
   Scrollbar get _homeBody {
+    final List<Statistic> stats = _bloc!.statistics;
     return Scrollbar(
       child: ListView(
         children: <Widget>[
@@ -471,15 +473,9 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
               reverse: false,
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
-              children: const <StatisticContainerMobile>[
-                StatisticContainerMobile(
-                  title: 'Still under Development',
-                  content: 'Stay tuned for Updates',
-                ),
-                StatisticContainerMobile(
-                  title: 'Still under Development',
-                  content: 'Stay tuned for Updates',
-                ),
+              children: <StatisticContainerMobile>[
+                StatisticContainerMobile(statistic: stats[0]),
+                StatisticContainerMobile(statistic: stats[1]),
               ],
             ),
           ),

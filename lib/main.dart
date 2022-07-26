@@ -91,6 +91,7 @@ class _ReadingDiaryState extends State<ReadingDiary> {
       // General
       scrollBehavior: const MaterialScrollBehavior(),
       title: title,
+      onGenerateTitle: (_) => title,
       restorationScopeId: '$title restauration scope ID',
       useInheritedMediaQuery: false,
 

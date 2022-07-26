@@ -445,6 +445,12 @@ final Map<String, Map<Locale, String>> _translations = {
     TranslationLocales.portuguese:
         'Mostrar informações detalhadas sobre o aplicativo',
   },
+  'Most recent Book': {
+    TranslationLocales.german: 'Letztes Buch',
+  },
+  'No recent Book': {
+    TranslationLocales.german: 'Kein letztes Buch',
+  },
 };
 
 /// Getter for the Translations.

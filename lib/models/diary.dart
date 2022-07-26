@@ -15,7 +15,8 @@ class Diary {
 
   /// Returns an umodifiable View
   /// of the List containing all Entries.
-  static List<DiaryEntry> get entries => UnmodifiableListView(_entries);
+  static UnmodifiableListView<DiaryEntry> get entries =>
+      UnmodifiableListView(_entries);
 
   /// Adds the specified [entry] to the
   /// list of all Entries

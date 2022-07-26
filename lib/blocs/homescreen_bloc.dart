@@ -8,9 +8,11 @@ import 'package:reading_diary/models/book_list.dart';
 import 'package:reading_diary/models/diary.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
 import 'package:reading_diary/models/search_results.dart';
+import 'package:reading_diary/models/statistic.dart';
 import 'package:reading_diary/models/wish.dart' show Wish;
 import 'package:reading_diary/models/wishlist.dart';
 import 'package:reading_diary/states/homescreen_state.dart';
+import 'package:string_translate/string_translate.dart';
 
 /// Bloc for the Homescreen.
 /// Contains every piece of logic needed,
@@ -104,6 +106,41 @@ class HomescreenBloc extends Bloc {
       results: _searchResults,
       search: searchKeyword,
     );
+  }
+
+  /// Returns the Statistics for the
+  /// Homescreen in a List.
+  List<Statistic> get statistics {
+    final List<Statistic> list = [];
+    List<DiaryEntry> entries = List.from(Diary.entries);
+    entries.sort((a, b) => a.date.compareTo(b.date));
+    final String mrB;
+    if (entries.isNotEmpty) {
+      mrB = entries[0].title;
+    } else {
+      mrB = 'No recent Books'.tr();
+    }
+    list.add(
+      Statistic(
+        title: 'Most recent Book'.tr(),
+        data: mrB,
+      ),
+    );
+
+    int prI = 0;
+    for (DiaryEntry entry in Diary.entries) {
+      final int pagesRead = entry.endPage - entry.startPage;
+      prI += pagesRead;
+    }
+
+    final String pr = prI.toString();
+    list.add(
+      Statistic(
+        title: 'Pages read'.tr(),
+        data: pr,
+      ),
+    );
+    return list;
   }
 
   @override
