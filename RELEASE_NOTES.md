@@ -1,6 +1,23 @@
 # Release Notes 
 
 
+---
+---
+
+## Version 2.0.0
+
+### New Features
+
+- Homescreen now finally implemented.
+- Statistics and last Entries shown on App opening.
+
+### Bug Fixes
+- Async Optimizations to ensure loading is done before App is opened.
+
+
+### About
+- Release Date: 28.07.2022 \
+- Copyright: © Julian Schumacher 2022
 
 ---
 ---

@@ -18,13 +18,13 @@ import 'package:string_translate/string_translate.dart'
 
 void main() async {
   await Hive.initFlutter();
-  Storage.init();
+  await Storage.init();
   runApp(const ReadingDiary());
 }
 
 /// The current Version of the App
 /// as a String.
-const String appVersion = '1.6.2';
+const String appVersion = '2.0.0';
 
 /// Determines the Platform this Apps is running on.
 /// Also sets the [WidgetRouter.isDesktop] Variable.
@@ -91,6 +91,7 @@ class _ReadingDiaryState extends State<ReadingDiary> {
       // General
       scrollBehavior: const MaterialScrollBehavior(),
       title: title,
+      onGenerateTitle: (_) => title,
       restorationScopeId: '$title restauration scope ID',
       useInheritedMediaQuery: false,
 

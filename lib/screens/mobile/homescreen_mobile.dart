@@ -14,7 +14,9 @@ import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
 import 'package:reading_diary/models/diary.dart';
+import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
 import 'package:reading_diary/models/search_results.dart';
+import 'package:reading_diary/models/statistic.dart';
 import 'package:reading_diary/models/wishlist.dart';
 import 'package:reading_diary/states/homescreen_state.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
@@ -455,6 +457,8 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
   /// The Body of the mobile
   /// Homescreen
   Scrollbar get _homeBody {
+    final List<Statistic> stats = _bloc!.statistics;
+    final List<DiaryEntry> entries = _bloc!.homeEntries;
     return Scrollbar(
       child: ListView(
         children: <Widget>[
@@ -471,58 +475,72 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
               reverse: false,
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
-              children: const <StatisticContainerMobile>[
+              children: <StatisticContainerMobile>[
+                // Is always the current Book.
                 StatisticContainerMobile(
-                  title: 'Still under Development',
-                  content: 'Stay tuned for Updates',
+                  statistic: stats[0],
+                  onTap: () => _openBookDetailsScreen(stats[0].book),
                 ),
-                StatisticContainerMobile(
-                  title: 'Still under Development',
-                  content: 'Stay tuned for Updates',
-                ),
+                StatisticContainerMobile(statistic: stats[1]),
               ],
             ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 4,
-          ),
-          Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              textBaseline: TextBaseline.alphabetic,
-              textDirection: TextDirection.ltr,
-              verticalDirection: VerticalDirection.down,
-              children: const <Text>[
-                Text('Still under Development'),
-                Text('Thanks for your understanding.')
-              ],
-            ),
-          ),
-          // ListView.builder(
-          //   addAutomaticKeepAlives: true,
-          //   addRepaintBoundaries: true,
-          //   addSemanticIndexes: true,
-          //   clipBehavior: Clip.antiAliasWithSaveLayer,
-          //   dragStartBehavior: DragStartBehavior.down,
-          //   keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          //   physics: const BouncingScrollPhysics(),
-          //   reverse: false,
-          //   scrollDirection: Axis.vertical,
-          //   shrinkWrap: true,
-          //   itemCount: 2,
-          //   itemBuilder: (_, counter) {
-          //     return ModelContainerMobile(
-          //       entry: DiaryEntry(
-          //         content: 'Entry',
-          //         book: const Book.none(),
-          //         endPage: 1,
-          //         startPage: 1,
-          //       ),
-          //     );
-          //   },
-          // ),
+          entries.isNotEmpty
+              ? ListView.builder(
+                  addAutomaticKeepAlives: true,
+                  addRepaintBoundaries: true,
+                  addSemanticIndexes: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  dragStartBehavior: DragStartBehavior.down,
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
+                  physics: const BouncingScrollPhysics(),
+                  reverse: false,
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: _bloc!.homeEntries.length,
+                  itemBuilder: (_, counter) {
+                    return ModelContainerMobile(entry: entries[counter]);
+                  },
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  textBaseline: TextBaseline.alphabetic,
+                  textDirection: TextDirection.ltr,
+                  verticalDirection: VerticalDirection.down,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 4,
+                    ),
+                    Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        textBaseline: TextBaseline.alphabetic,
+                        textDirection: TextDirection.ltr,
+                        verticalDirection: VerticalDirection.down,
+                        children: [
+                          Text('No last Entries found'.tr()),
+                          GestureDetector(
+                            behavior: HitTestBehavior.deferToChild,
+                            dragStartBehavior: DragStartBehavior.down,
+                            onTap: () => _onDiaryFabTap(),
+                            child: Text(
+                              'Add one'.tr(),
+                              style: TextStyle(
+                                color: Colors.blue.shade600,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
         ],
       ),
     );
@@ -794,6 +812,22 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
         );
       },
     );
+  }
+
+  /// Opens the Book Details Screen.
+  /// This is used to show
+  /// details about the most recent
+  /// Book on the Homescreen.
+  void _openBookDetailsScreen(Book? book) {
+    if (book == null) {
+      return;
+    } else {
+      Navigator.pushNamed(
+        context,
+        Routes.bookDetailsScreen,
+        arguments: book,
+      ).then((value) => setState(() {}));
+    }
   }
 
   /// Called when the Button the

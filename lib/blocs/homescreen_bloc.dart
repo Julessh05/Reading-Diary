@@ -8,9 +8,11 @@ import 'package:reading_diary/models/book_list.dart';
 import 'package:reading_diary/models/diary.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
 import 'package:reading_diary/models/search_results.dart';
+import 'package:reading_diary/models/statistic.dart';
 import 'package:reading_diary/models/wish.dart' show Wish;
 import 'package:reading_diary/models/wishlist.dart';
 import 'package:reading_diary/states/homescreen_state.dart';
+import 'package:string_translate/string_translate.dart';
 
 /// Bloc for the Homescreen.
 /// Contains every piece of logic needed,
@@ -104,6 +106,73 @@ class HomescreenBloc extends Bloc {
       results: _searchResults,
       search: searchKeyword,
     );
+  }
+
+  /// Returns the Statistics for the
+  /// Homescreen in a List.
+  List<Statistic> get statistics {
+    final List<Statistic> list = [];
+    List<DiaryEntry> entries = List.from(Diary.entries);
+    entries.sort((a, b) => b.date.compareTo(a.date));
+
+    final Book book;
+    if (entries.isNotEmpty) {
+      book = entries[0].book;
+    } else {
+      book = const Book.none();
+    }
+
+    final String title = 'Most recent Book'.tr();
+    if (book != const Book.none()) {
+      list.add(
+        Statistic.book(
+          title: title,
+          book: book,
+        ),
+      );
+    } else {
+      list.add(
+        Statistic(
+          title: title,
+          data: 'No recent Book'.tr(),
+        ),
+      );
+    }
+
+    int prI = 0;
+    for (DiaryEntry entry in Diary.entries) {
+      final int pagesRead = entry.endPage - entry.startPage;
+      prI += pagesRead;
+    }
+
+    final String pr = prI.toString();
+    list.add(
+      Statistic(
+        title: 'Pages read'.tr(),
+        data: pr,
+      ),
+    );
+    return list;
+  }
+
+  /// The Entries shown
+  /// directly underneath the
+  /// Statistics on the Home Tab of the
+  /// Homescreen.
+  /// This returns the last 7 Entries.
+  List<DiaryEntry> get homeEntries {
+    final List<DiaryEntry> list = [];
+    final List<DiaryEntry> entries = List.from(Diary.entries);
+    entries.sort((a, b) => b.date.compareTo(a.date));
+
+    for (int c = 0; c < 7; c++) {
+      if (c < Diary.entries.length) {
+        list.add(Diary.entries[c]);
+      } else {
+        break;
+      }
+    }
+    return list;
   }
 
   @override

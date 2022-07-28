@@ -12,7 +12,7 @@ class Wishlist {
   static final List<Wish> _wishes = [];
 
   /// Getter for the List of all Wishes.
-  static List<Wish> get wishes => UnmodifiableListView(_wishes);
+  static UnmodifiableListView<Wish> get wishes => UnmodifiableListView(_wishes);
 
   /// add the specified [wish] to
   /// the Wishlist

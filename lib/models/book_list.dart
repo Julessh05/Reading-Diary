@@ -15,7 +15,7 @@ class BookList {
   static final List<Book> _books = [];
 
   /// List of all Books the User stored.
-  static List<Book> get books => UnmodifiableListView(_books);
+  static UnmodifiableListView<Book> get books => UnmodifiableListView(_books);
 
   /// Adds a specified [book]
   static void addBook(Book book) {
