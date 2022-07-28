@@ -4,7 +4,8 @@ import 'package:flutter/material.dart' show Icon, Icons, Locale, ThemeMode;
 import 'package:hive/hive.dart'
     show BinaryReader, BinaryWriter, HiveField, HiveType, TypeAdapter;
 import 'package:reading_diary/style/themes.dart';
-import 'package:string_translate/string_translate.dart';
+import 'package:string_translate/string_translate.dart'
+    show Translation, TranslationLocales;
 
 part 'setting.g.dart';
 

@@ -1,15 +1,22 @@
 library mobile_components;
 
+import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/models/statistic.dart';
 
 class StatisticContainerMobile extends StatelessWidget {
   const StatisticContainerMobile({
     required this.statistic,
+    this.onTap,
     Key? key,
   }) : super(key: key);
 
+  /// The Statistic this Container Displays
   final Statistic statistic;
+
+  /// The Function called, when
+  /// the User taps on this Container.
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -20,54 +27,67 @@ class StatisticContainerMobile extends StatelessWidget {
         vertical: 5,
         horizontal: 8,
       ),
-      child: SizedBox(
-        width: size.width / 1.2,
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          elevation: 8,
-          borderOnForeground: false,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: Colors.transparent,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              backgroundBlendMode: BlendMode.src,
-              gradient: const LinearGradient(
-                colors: [
-                  Colors.blue,
-                  Colors.purple,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomLeft,
-                stops: [0.1, 1.2],
-                tileMode: TileMode.mirror,
-                transform: GradientRotation(20),
-              ),
+      child: GestureDetector(
+        behavior: HitTestBehavior.deferToChild,
+        dragStartBehavior: DragStartBehavior.down,
+        onTap: onTap,
+        child: SizedBox(
+          width: size.width / 1.2,
+          child: Card(
+            shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
-              shape: BoxShape.rectangle,
             ),
-            position: DecorationPosition.background,
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 25,
-                  bottom: 15,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  textBaseline: TextBaseline.alphabetic,
-                  textDirection: TextDirection.ltr,
-                  verticalDirection: VerticalDirection.up,
-                  children: <Widget>[
-                    Text(statistic.data,
-                        style: _ctStyle, textAlign: TextAlign.center),
-                    Text(statistic.title,
-                        style: _tStyle, textAlign: TextAlign.center),
+            elevation: 8,
+            borderOnForeground: false,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            color: Colors.transparent,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                backgroundBlendMode: BlendMode.src,
+                gradient: const LinearGradient(
+                  colors: [
+                    Colors.blue,
+                    Colors.purple,
                   ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomLeft,
+                  stops: [0.1, 1.2],
+                  tileMode: TileMode.mirror,
+                  transform: GradientRotation(20),
+                ),
+                borderRadius: BorderRadius.circular(20),
+                shape: BoxShape.rectangle,
+              ),
+              position: DecorationPosition.background,
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 25,
+                    bottom: 15,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    textBaseline: TextBaseline.alphabetic,
+                    textDirection: TextDirection.ltr,
+                    verticalDirection: VerticalDirection.up,
+                    children: <Widget>[
+                      Text(
+                        statistic.data.isNotEmpty
+                            ? statistic.data
+                            : statistic.book!.title,
+                        style: _ctStyle,
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        statistic.title,
+                        style: _tStyle,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -79,7 +99,7 @@ class StatisticContainerMobile extends StatelessWidget {
 
   TextStyle get _tStyle {
     return const TextStyle(
-      fontSize: 30,
+      fontSize: 25,
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.w600,
     );

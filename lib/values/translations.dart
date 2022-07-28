@@ -447,9 +447,21 @@ final Map<String, Map<Locale, String>> _translations = {
   },
   'Most recent Book': {
     TranslationLocales.german: 'Letztes Buch',
+    TranslationLocales.french: 'Livre le plus récent',
+    TranslationLocales.spanish: 'Libro más reciente',
+    TranslationLocales.portuguese: 'Livro mais recente',
   },
   'No recent Book': {
     TranslationLocales.german: 'Kein letztes Buch',
+    TranslationLocales.french: 'Aucun livre récent',
+    TranslationLocales.spanish: 'Sin libro reciente',
+    TranslationLocales.portuguese: 'Nenhum livro recente',
+  },
+  'No last Entries found': {
+    TranslationLocales.german: 'Keine letzten Einträge gefunden',
+    TranslationLocales.french: 'Aucune dernière entrée trouvée',
+    TranslationLocales.spanish: 'No se encontraron últimas entradas',
+    TranslationLocales.portuguese: 'Nenhuma última entrada encontrada',
   },
 };
 

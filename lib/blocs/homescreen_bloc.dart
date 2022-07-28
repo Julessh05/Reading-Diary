@@ -113,19 +113,31 @@ class HomescreenBloc extends Bloc {
   List<Statistic> get statistics {
     final List<Statistic> list = [];
     List<DiaryEntry> entries = List.from(Diary.entries);
-    entries.sort((a, b) => a.date.compareTo(b.date));
-    final String mrB;
+    entries.sort((a, b) => b.date.compareTo(a.date));
+
+    final Book book;
     if (entries.isNotEmpty) {
-      mrB = entries[0].title;
+      book = entries[0].book;
     } else {
-      mrB = 'No recent Books'.tr();
+      book = const Book.none();
     }
-    list.add(
-      Statistic(
-        title: 'Most recent Book'.tr(),
-        data: mrB,
-      ),
-    );
+
+    final String title = 'Most recent Book'.tr();
+    if (book != const Book.none()) {
+      list.add(
+        Statistic.book(
+          title: title,
+          book: book,
+        ),
+      );
+    } else {
+      list.add(
+        Statistic(
+          title: title,
+          data: 'No recent Book'.tr(),
+        ),
+      );
+    }
 
     int prI = 0;
     for (DiaryEntry entry in Diary.entries) {
@@ -140,6 +152,26 @@ class HomescreenBloc extends Bloc {
         data: pr,
       ),
     );
+    return list;
+  }
+
+  /// The Entries shown
+  /// directly underneath the
+  /// Statistics on the Home Tab of the
+  /// Homescreen.
+  /// This returns the last 7 Entries.
+  List<DiaryEntry> get homeEntries {
+    final List<DiaryEntry> list = [];
+    final List<DiaryEntry> entries = List.from(Diary.entries);
+    entries.sort((a, b) => b.date.compareTo(a.date));
+
+    for (int c = 0; c < 7; c++) {
+      if (c < Diary.entries.length) {
+        list.add(Diary.entries[c]);
+      } else {
+        break;
+      }
+    }
     return list;
   }
 
