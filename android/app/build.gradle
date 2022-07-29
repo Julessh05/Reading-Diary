@@ -40,7 +40,7 @@ android {
             keyPassword keystoreProperties['keyPassword']
         }
     }
-    compileSdk 32
+    compileSdk 33
     ndkVersion '25.0.8775105'
 
     compileOptions {
@@ -59,7 +59,7 @@ android {
     defaultConfig {
         applicationId "com.jules.reading_diary"
         minSdk 30
-        targetSdk 32
+        targetSdk 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
