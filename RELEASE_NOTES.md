@@ -16,7 +16,7 @@
 
 
 ### About
-- Release Date: 28.07.2022 \
+- Release Date: 28.07.2022
 - Copyright: © Julian Schumacher 2022
 
 ---
@@ -41,7 +41,7 @@
 
 ### About
 
-- Release Date: 25.07.2022 \
+- Release Date: 25.07.2022
 - Copyright: © Julian Schumacher 2022
 
 ---
@@ -61,7 +61,7 @@
 
 ### About
 
-- Release Data: 24.07.2022 \
+- Release Data: 24.07.2022
 - Copyright: © Julian Schumacher 2022 
 
 ---
@@ -74,7 +74,7 @@
 
 
 ### About
-- Release Date: 18.07.2022 \
+- Release Date: 18.07.2022
 - Copyright: © Julian Schumacher 2022
 
 ---
@@ -92,7 +92,7 @@ The first Version ever to be published of this App.
 
 
 ### About
-- Release Date: 15.07.2022 \
+- Release Date: 15.07.2022
 - Copyright: © Julian Schumacher 2022
 
 ---
