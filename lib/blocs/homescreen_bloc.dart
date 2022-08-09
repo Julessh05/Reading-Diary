@@ -3,6 +3,7 @@ library blocs;
 import 'dart:async' show StreamController;
 
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
+import 'package:helpful_extensions/helpful_extensions.dart' show ListCheck;
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
 import 'package:reading_diary/models/diary.dart';
@@ -12,7 +13,7 @@ import 'package:reading_diary/models/statistic.dart';
 import 'package:reading_diary/models/wish.dart' show Wish;
 import 'package:reading_diary/models/wishlist.dart';
 import 'package:reading_diary/states/homescreen_state.dart';
-import 'package:string_translate/string_translate.dart';
+import 'package:string_translate/string_translate.dart' show Translate;
 
 /// Bloc for the Homescreen.
 /// Contains every piece of logic needed,
@@ -164,8 +165,8 @@ class HomescreenBloc extends Bloc {
     final List<DiaryEntry> list = [];
     final List<DiaryEntry> entries = List.from(Diary.entries);
     entries.sort((a, b) => b.date.compareTo(a.date));
-
     for (int c = 0; c < 7; c++) {
+      if (Diary.entries.hasIndex(c)) {}
       if (c < Diary.entries.length) {
         list.add(Diary.entries[c]);
       } else {
