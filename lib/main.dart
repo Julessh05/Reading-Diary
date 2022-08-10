@@ -4,6 +4,7 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart' show Hive, HiveX;
+import 'package:modern_themes/modern_themes.dart';
 import 'package:reading_diary/blocs/event_bloc.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/logic/navigating/widget_router.dart';
@@ -11,7 +12,6 @@ import 'package:reading_diary/models/events/event.dart';
 import 'package:reading_diary/models/events/reload_event.dart';
 import 'package:reading_diary/screens/shared/unknown_screen.dart';
 import 'package:reading_diary/storage/storage.dart';
-import 'package:reading_diary/style/themes.dart';
 import 'package:reading_diary/values/translations.dart';
 import 'package:string_translate/string_translate.dart'
     hide StandardTranslations;
@@ -19,6 +19,7 @@ import 'package:string_translate/string_translate.dart'
 void main() async {
   await Hive.initFlutter();
   await Storage.init();
+  Coloring.changeColor(Colors.blue.shade800);
   runApp(const ReadingDiary());
 }
 

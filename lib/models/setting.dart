@@ -3,7 +3,7 @@ library models;
 import 'package:flutter/material.dart' show Icon, Icons, Locale, ThemeMode;
 import 'package:hive/hive.dart'
     show BinaryReader, BinaryWriter, HiveField, HiveType, TypeAdapter;
-import 'package:reading_diary/style/themes.dart';
+import 'package:modern_themes/modern_themes.dart';
 import 'package:string_translate/string_translate.dart'
     show Translation, TranslationLocales;
 
@@ -158,7 +158,7 @@ class Setting {
           Translation.changeLanguage(setting.objectValue as Locale);
           break;
         case 'Theme':
-          Themes.themeMode = setting.objectValue as ThemeMode;
+          Themes.changeTheme(setting.objectValue as ThemeMode);
       }
     }
   }
