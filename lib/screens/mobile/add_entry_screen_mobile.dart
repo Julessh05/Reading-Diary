@@ -471,22 +471,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
       keyboardType: TextInputType.datetime,
       builder: (context, child) {
         return Theme(
-          data: Theme.of(context).copyWith(
-            dialogBackgroundColor: Colors.white,
-            colorScheme: ColorScheme(
-              brightness: Brightness.light,
-              primary: Colors.blue.shade800,
-              onPrimary: Colors.white,
-              secondary: Colors.white,
-              onSecondary: Colors.black,
-              error: Colors.red,
-              onError: Colors.white,
-              background: Colors.white,
-              onBackground: Colors.black,
-              surface: Colors.blue.shade900,
-              onSurface: Colors.black,
-            ),
-          ),
+          data: Theme.of(context),
           child: child!,
         );
       },
