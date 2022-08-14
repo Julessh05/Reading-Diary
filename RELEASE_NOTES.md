@@ -1,5 +1,19 @@
 # Release Notes 
 
+---
+---
+
+## Version 2.0.1
+
+### Internal Changes
+
+- Prepare for the Color Chooser
+- Themes are now managed by a third party package.
+
+
+### About
+- Release Date: 14.08.2022
+- Copyright: © Julian Schumacher 2022
 
 ---
 ---
