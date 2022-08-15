@@ -1,7 +1,7 @@
 library blocs;
 
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
-import 'package:reading_diary/models/book.dart';
+import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/diary.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
 
@@ -18,11 +18,10 @@ class EntryDetailsBloc extends Bloc {
 
   /// Returns the Progress of the Book as a Percentual
   /// Value.
-  double calculateProcentualProgress(Book book) {
+  double calculateProcentualProgress(DiaryEntry entry, Book book) {
     final double onePercent = book.pages / 100;
-    final double percent = book.currentPage / onePercent;
-    final double output = percent * 0.01;
-    return output;
+    final double percent = entry.endPage / onePercent;
+    return percent;
   }
 
   @override

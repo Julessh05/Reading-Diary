@@ -465,7 +465,9 @@ final Map<String, Map<Locale, String>> _translations = {
   },
   'Progress': {
     TranslationLocales.german: 'Fortschritt',
-    // TODO-js: add Translations
+    TranslationLocales.french: 'Progrès',
+    TranslationLocales.spanish: 'Progreso',
+    TranslationLocales.portuguese: 'Progresso',
   },
 };
 
