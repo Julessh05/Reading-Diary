@@ -71,10 +71,6 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
 
   /// The Body of this Screen.
   Scrollbar get _body {
-    final percentualPrgress = _bloc!.calculateProcentualProgress(
-      widget.entry,
-      widget.entry.book,
-    );
     return Scrollbar(
       child: ListView(
         addAutomaticKeepAlives: true,
@@ -111,29 +107,6 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
             name: 'Pages read'.tr(),
             data: '${widget.entry.startPage} - ${widget.entry.endPage}',
             small: true,
-          ),
-          ModelDetailsContainerMobile(
-            name: 'Progress'.tr(),
-            small: true,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              textBaseline: TextBaseline.alphabetic,
-              textDirection: TextDirection.ltr,
-              verticalDirection: VerticalDirection.down,
-              children: [
-                LinearProgressIndicator(
-                  backgroundColor: Colors.red,
-                  semanticsLabel: 'Progress'.tr(),
-                  semanticsValue: 'Percentual Value: $percentualPrgress%',
-                  valueColor: const AlwaysStoppedAnimation(Colors.green),
-                  value: percentualPrgress * 0.01,
-                ),
-                const SizedBox(height: 10),
-                Text('$percentualPrgress%')
-              ],
-            ),
           ),
           FittedBox(
             alignment: Alignment.center,

@@ -13,6 +13,14 @@ class BookDetailsBloc extends Bloc {
     BookList.deleteBook(book);
   }
 
+  /// Returns the Progress of the Book as a Percentual
+  /// Value.
+  double calculateProcentualProgress(Book book) {
+    final double onePercent = book.pages / 100;
+    final double percent = book.currentPage / onePercent;
+    return percent;
+  }
+
   @override
   void dispose() {}
 }
