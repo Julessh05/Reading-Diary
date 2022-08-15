@@ -463,6 +463,10 @@ final Map<String, Map<Locale, String>> _translations = {
     TranslationLocales.spanish: 'No se encontraron últimas entradas',
     TranslationLocales.portuguese: 'Nenhuma última entrada encontrada',
   },
+  'Progress': {
+    TranslationLocales.german: 'Fortschritt',
+    // TODO-js: add Translations
+  },
 };
 
 /// Getter for the Translations.

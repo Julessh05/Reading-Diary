@@ -108,6 +108,14 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
             data: '${widget.entry.startPage} - ${widget.entry.endPage}',
             small: true,
           ),
+          ModelDetailsContainerMobile(
+            name: 'Progress'.tr(),
+            child: LinearProgressIndicator(
+              backgroundColor: Colors.red,
+              valueColor: const AlwaysStoppedAnimation(Colors.green),
+              value: _bloc!.calculateProcentualProgress(widget.entry.book),
+            ),
+          ),
           FittedBox(
             alignment: Alignment.center,
             clipBehavior: Clip.antiAliasWithSaveLayer,
