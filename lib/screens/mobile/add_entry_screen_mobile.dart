@@ -460,7 +460,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
     _bloc!.entryDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2005),
+      firstDate: DateTime(2005, 02, 22),
       lastDate: DateTime(2222, 02, 22),
       cancelText: 'Cancel'.tr(),
       confirmText: 'Confirm'.tr(),
@@ -471,7 +471,23 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
       keyboardType: TextInputType.datetime,
       builder: (context, child) {
         return Theme(
-          data: Theme.of(context),
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme(
+              brightness: Theme.of(context).colorScheme.brightness,
+              primary: Theme.of(context).colorScheme.primary,
+              onPrimary: Theme.of(context).colorScheme.secondary,
+              secondary: Theme.of(context).colorScheme.secondary,
+              onSecondary: Theme.of(context).colorScheme.onSecondary,
+              error: Theme.of(context).colorScheme.error,
+              onError: Theme.of(context).colorScheme.onError,
+              background: Theme.of(context).colorScheme.background,
+              onBackground: Theme.of(context).colorScheme.onBackground,
+              surface: Theme.of(context).colorScheme.surface,
+              onSurface: Theme.of(context).brightness == Brightness.light
+                  ? Colors.black
+                  : Colors.white,
+            ),
+          ),
           child: child!,
         );
       },
