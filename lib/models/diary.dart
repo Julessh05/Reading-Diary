@@ -58,5 +58,22 @@ class Diary {
   static void replaceEntry(DiaryEntry toReplace, DiaryEntry replace) {
     final int i = _entries.indexOf(toReplace);
     _entries[i] = replace;
+    // final Book book = BookList.books.firstWhere(
+    //   (element) =>
+    //       (element.title == replace.book.title) &&
+    //       (element.author == replace.book.author),
+    // );
+    // final newBook = Book(
+    //   title: book.title,
+    //   pages: book.pages,
+    //   author: book.author,
+    //   image: book.image,
+    //   notes: book.notes,
+    //   price: book.price,
+    //   currentPage: replace.endPage,
+    //   url: book.url,
+    // );
+    // BookList.replaceBook(book, newBook);
+    // Storage.storeEntries();
   }
 }

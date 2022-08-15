@@ -67,5 +67,6 @@ class BookList {
         continue;
       }
     }
+    Storage.storeBooks();
   }
 }

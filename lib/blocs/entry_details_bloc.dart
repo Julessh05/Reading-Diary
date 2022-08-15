@@ -21,7 +21,7 @@ class EntryDetailsBloc extends Bloc {
   double calculateProcentualProgress(Book book) {
     final double onePercent = book.pages / 100;
     final double percent = book.currentPage / onePercent;
-    final double output = percent * 0.1;
+    final double output = percent * 0.01;
     return output;
   }
 

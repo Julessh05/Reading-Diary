@@ -32,5 +32,6 @@ class Wishlist {
   static void replaceWish(Wish toReplace, Wish replace) {
     final int i = _wishes.indexOf(toReplace);
     _wishes[i] = replace;
+    Storage.storeWishes();
   }
 }
