@@ -385,6 +385,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
               setState(() {
                 _bloc!.entryStartPage = value.start.toInt();
                 _bloc!.entryEndPage = value.end.toInt();
+                _bloc!.checkForVars();
               });
             },
             inactiveColor: Colors.blue.shade100,

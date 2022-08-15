@@ -463,6 +463,12 @@ final Map<String, Map<Locale, String>> _translations = {
     TranslationLocales.spanish: 'No se encontraron últimas entradas',
     TranslationLocales.portuguese: 'Nenhuma última entrada encontrada',
   },
+  'Progress': {
+    TranslationLocales.german: 'Fortschritt',
+    TranslationLocales.french: 'Progrès',
+    TranslationLocales.spanish: 'Progreso',
+    TranslationLocales.portuguese: 'Progresso',
+  },
 };
 
 /// Getter for the Translations.

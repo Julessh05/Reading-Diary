@@ -7,11 +7,16 @@ import 'package:flutter/material.dart';
 class ModelDetailsContainerMobile extends StatelessWidget {
   const ModelDetailsContainerMobile({
     required this.name,
-    required this.data,
+    this.data,
+    this.child,
     this.small = false,
     this.multiline = false,
     Key? key,
-  }) : super(key: key);
+  })  : assert(
+          child == null && data != null || child != null && data == null,
+          'You can eighter pass a child or a String of data, not both.',
+        ),
+        super(key: key);
 
   /// The Name of the Field
   final String name;
@@ -29,7 +34,10 @@ class ModelDetailsContainerMobile extends StatelessWidget {
   final bool multiline;
 
   /// The actual Data being displayed.
-  final String data;
+  final String? data;
+
+  /// The child passed instead of the [data]
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +81,7 @@ class ModelDetailsContainerMobile extends StatelessWidget {
             children: [
               Text(name, style: _tStyle),
               const SizedBox(height: 18),
-              Text(data),
+              data != null ? Text(data!) : child!,
             ],
           ),
         ),

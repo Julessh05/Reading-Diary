@@ -58,5 +58,6 @@ class Diary {
   static void replaceEntry(DiaryEntry toReplace, DiaryEntry replace) {
     final int i = _entries.indexOf(toReplace);
     _entries[i] = replace;
+    Storage.storeEntries();
   }
 }
