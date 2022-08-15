@@ -3,6 +3,28 @@
 ---
 ---
 
+## Version 2.1.2
+
+### Bug Fixes
+
+- Endless loop in Storing has been removed.
+- Date Picker Theme has been updated to look good in any Theme
+
+
+### Features
+
+- Book Progress Bar on the Book Details Screen
+
+
+### About
+
+- Release Date: 15.08.2022
+- Copyright: © Julian Schumacher 2022
+
+
+---
+---
+
 ## Version 2.0.1
 
 ### Internal Changes
@@ -12,8 +34,10 @@
 
 
 ### About
+
 - Release Date: 14.08.2022
 - Copyright: © Julian Schumacher 2022
+
 
 ---
 ---
@@ -25,13 +49,17 @@
 - Homescreen now finally implemented.
 - Statistics and last Entries shown on App opening.
 
+
 ### Bug Fixes
+
 - Async Optimizations to ensure loading is done before App is opened.
 
 
 ### About
+
 - Release Date: 28.07.2022
 - Copyright: © Julian Schumacher 2022
+
 
 ---
 ---
@@ -44,19 +72,23 @@
 - Possibility to add a Post (Social Media) via Link to a Book.
 - Look at a Books Details through clicking it on the Entry Details Screen.
 
+
 ### Bug Fixes
 
 - Updated App Performance through updating async behavior
 - Update Android Display Name
 
+
 ### Other Updates
 
 - Changed App Icons
+
 
 ### About
 
 - Release Date: 25.07.2022
 - Copyright: © Julian Schumacher 2022
+
 
 ---
 ---
@@ -64,12 +96,14 @@
 ## Version 1.2.0
 
 ### New Features:
+
 - Edit Books
 - Edit Wishes
 - Edit Entries
 
 
 ### Internal Fixes
+
 - New logic to manage Objects
 
 
@@ -78,18 +112,22 @@
 - Release Data: 24.07.2022
 - Copyright: © Julian Schumacher 2022 
 
+
 ---
 ---
 
 ## Version 1.1.0
 
 ### New Features:
+
 - Search for Books / Wishes and Entries.
 
 
 ### About
+
 - Release Date: 18.07.2022
 - Copyright: © Julian Schumacher 2022
+
 
 ---
 ---
@@ -99,6 +137,7 @@
 The first Version ever to be published of this App.
 
 ### Features:
+
 - Track your Reading Progress
 - Add and Delete Books
 - Write Entries for your Diary
@@ -106,6 +145,7 @@ The first Version ever to be published of this App.
 
 
 ### About
+
 - Release Date: 15.07.2022
 - Copyright: © Julian Schumacher 2022
 
