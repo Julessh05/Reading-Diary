@@ -5,6 +5,7 @@ import 'package:bloc_implementation/bloc_implementation.dart'
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show ScrollDirection;
+import 'package:modern_themes/modern_themes_comps.dart';
 import 'package:reading_diary/blocs/homescreen_bloc.dart';
 import 'package:reading_diary/components/mobile/add_model_container_mobile.dart';
 import 'package:reading_diary/components/mobile/model_container_mobile.dart';
@@ -689,28 +690,28 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
           BottomNavigationBarItem(
             icon: const Icon(Icons.home_outlined),
             label: 'Home'.tr(),
-            backgroundColor: Colors.blue.shade800,
+            backgroundColor: Coloring.mainColor,
             activeIcon: const Icon(Icons.home_rounded),
             tooltip: 'Home and Explore'.tr(),
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.menu_book_outlined),
             label: 'Diary'.tr(),
-            backgroundColor: Colors.blue.shade800,
+            backgroundColor: Coloring.mainColor,
             activeIcon: const Icon(Icons.menu_book_rounded),
             tooltip: 'The Actual Diary'.tr(),
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.bookmark_outline),
             label: 'Wishlist'.tr(),
-            backgroundColor: Colors.blue.shade800,
+            backgroundColor: Coloring.mainColor,
             activeIcon: const Icon(Icons.bookmark_rounded),
             tooltip: 'Your Wishlist of Books'.tr(),
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.book_outlined),
             label: 'Books'.tr(),
-            backgroundColor: Colors.blue.shade800,
+            backgroundColor: Coloring.mainColor,
             activeIcon: const Icon(Icons.book_rounded),
             tooltip: 'All your Books'.tr(),
           ),

@@ -141,6 +141,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.16.0"
+  color_chooser:
+    dependency: "direct main"
+    description:
+      name: color_chooser
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.10"
   convert:
     dependency: transitive
     description:

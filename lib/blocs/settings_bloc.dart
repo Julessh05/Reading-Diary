@@ -1,7 +1,7 @@
 library blocs;
 
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
-import 'package:flutter/material.dart' show Locale, ThemeMode;
+import 'package:flutter/material.dart' show Color, Locale, ThemeMode;
 import 'package:modern_themes/modern_themes.dart';
 import 'package:reading_diary/blocs/event_bloc.dart';
 import 'package:reading_diary/models/events/reload_event.dart';
@@ -14,7 +14,7 @@ class SettingsBloc extends Bloc {
   /// and stores the Settings.
   void changeThememode(ThemeMode nT) {
     Themes.changeTheme(nT);
-    EventBloc.stream.sink.add(ReloadEvent());
+    EventBloc.stream.sink.add(const ReloadEvent());
     Storage.storeSettings();
   }
 
@@ -22,6 +22,16 @@ class SettingsBloc extends Bloc {
   /// and stores the Settings.
   void changeLanguage(Locale nL) {
     Translation.changeLanguage(nL);
+    Storage.storeSettings();
+  }
+
+  /// Method called when the Color should
+  /// be changed.
+  /// This is called as a Change Color Function
+  /// of the Color Chooser.
+  void changeColor(Color color) {
+    Coloring.changeColor(color);
+    EventBloc.stream.sink.add(const ReloadEvent());
     Storage.storeSettings();
   }
 
