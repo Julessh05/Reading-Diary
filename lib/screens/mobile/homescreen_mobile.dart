@@ -418,16 +418,6 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
         ),
       );
     }
-    list.add(
-      DropdownMenuItem(
-        alignment: Alignment.center,
-        enabled: true,
-        value: const Book.addBook(),
-        child: Text(
-          'Add Book'.tr(),
-        ),
-      ),
-    );
 
     return list;
   }
@@ -729,7 +719,8 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
         return AlertDialog(
           scrollable: true,
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          backgroundColor: Colors.white.withOpacity(0.7),
+          backgroundColor:
+              Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
           insetPadding: EdgeInsets.zero,
           contentPadding: EdgeInsets.zero,
           buttonPadding: EdgeInsets.zero,
@@ -773,8 +764,6 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
                     onChanged: (book) {
                       if (book == null) {
                         _bloc!.diarySearchBook = null;
-                      } else if (book == const Book.addBook()) {
-                        _openAddBookScreen();
                       } else if (book == const Book.none()) {
                         _bloc!.diarySearchBook = null;
                       } else {
