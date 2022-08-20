@@ -43,7 +43,7 @@ dependencies:
   string_translate: ^1.4.2
   bloc_implementation: ^1.1.3
   helpful_extensions: ^0.2.1
-  modern_themes: ^1.2.4
+  modern_themes: ^1.2.7
   color_chooser: ^0.2.0
 
   # The following adds the Cupertino Icons font to your application.
