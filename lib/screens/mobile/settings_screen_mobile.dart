@@ -4,6 +4,7 @@ import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:color_chooser/color_chooser.dart';
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
+import 'package:modern_themes/modern_themes_comps.dart';
 import 'package:reading_diary/blocs/settings_bloc.dart';
 import 'package:reading_diary/components/mobile/settings_tile_mobile.dart';
 import 'package:reading_diary/main.dart';
@@ -167,7 +168,7 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(30)),
-        color: Colors.blue.shade800,
+        color: Coloring.mainColor,
         backgroundBlendMode: BlendMode.src,
         shape: BoxShape.rectangle,
       ),
@@ -177,7 +178,7 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
         alignment: Alignment.center,
         child: Text(
           text,
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(color: Coloring.secondaryColor),
         ),
       ),
     );
@@ -226,7 +227,7 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
   void _showInformationDialog() {
     showDialog(
       context: context,
-      builder: (c) {
+      builder: (_) {
         return const AboutDialog(
           applicationLegalese: '© Julian Schumacher 2022',
           applicationName: 'Reading Diary',
