@@ -168,7 +168,7 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(30)),
-        color: Colors.blue.shade800,
+        color: Coloring.mainColor,
         backgroundBlendMode: BlendMode.src,
         shape: BoxShape.rectangle,
       ),
@@ -178,7 +178,7 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
         alignment: Alignment.center,
         child: Text(
           text,
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(color: Coloring.secondaryColor),
         ),
       ),
     );
@@ -227,7 +227,7 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
   void _showInformationDialog() {
     showDialog(
       context: context,
-      builder: (c) {
+      builder: (_) {
         return const AboutDialog(
           applicationLegalese: '© Julian Schumacher 2022',
           applicationName: 'Reading Diary',
