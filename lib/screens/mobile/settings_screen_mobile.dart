@@ -4,7 +4,6 @@ import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:color_chooser/color_chooser.dart';
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
-import 'package:modern_themes/modern_themes_comps.dart';
 import 'package:reading_diary/blocs/settings_bloc.dart';
 import 'package:reading_diary/components/mobile/settings_tile_mobile.dart';
 import 'package:reading_diary/main.dart';

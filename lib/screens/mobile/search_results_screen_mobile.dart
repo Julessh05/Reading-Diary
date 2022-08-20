@@ -140,7 +140,7 @@ class _SerachResultsScreenMobileState extends State<SerachResultsScreenMobile> {
       routeName = Routes.wishDetailsScreen;
     }
     Navigator.pushNamed(context, routeName, arguments: args).then(
-      (value) => EventBloc.stream.add(ReloadEvent()),
+      (value) => EventBloc.stream.add(const ReloadEvent()),
     );
   }
 }
