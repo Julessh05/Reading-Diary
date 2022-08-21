@@ -135,29 +135,50 @@ class Setting {
   /// the name for the Color Setting.
   static const String colorName = 'Color';
 
+  static final Setting _languageSetting = Setting(
+    name: languageName,
+    description: 'Set the Language of your App.',
+    objectValue: TranslationLocales.english,
+  );
+
+  static final Setting _themeSetting = Setting(
+    name: themeName,
+    description: 'Set your Personal Style.',
+    objectValue: ThemeMode.system,
+  );
+
+  static final Setting _colorSetting = Setting(
+    name: colorName,
+    description: 'Set the Color of your App.',
+    objectValue: Colors.blue.shade800,
+  );
+
   /// If the Settings aren't
   /// stored yet, this Method should be called.
   /// It creates all the Settings and
   /// declares it's default Values.
   static void createSettings() {
     Iterable<Setting> settings = {
-      Setting(
-        name: languageName,
-        description: 'Set the Language of your App.',
-        objectValue: TranslationLocales.english,
-      ),
-      Setting(
-        name: themeName,
-        description: 'Set your Personal Style.',
-        objectValue: ThemeMode.system,
-      ),
-      Setting(
-        name: colorName,
-        description: 'Set the Color of your App.',
-        objectValue: Colors.blue.shade800,
-      ),
+      _languageSetting,
+      _themeSetting,
+      _colorSetting,
     };
     allSettings.addAll(settings);
+  }
+
+  /// Created only one specific Setting.
+  static void createSetting(String name) {
+    switch (name) {
+      case languageName:
+        allSettings.add(_languageSetting);
+        break;
+      case themeName:
+        allSettings.add(_themeSetting);
+        break;
+      case colorName:
+        allSettings.add(_colorSetting);
+        break;
+    }
   }
 
   /// Sets the Icons for the Settings.

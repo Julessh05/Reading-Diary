@@ -3,6 +3,22 @@
 ---
 ---
 
+## Version 3.0.1
+
+### Bugfixes
+
+- Make App installable with new Settings without deleting old Version
+
+
+### About
+
+- Release Date: 21.08.2022
+- Copyright: © Julian Schumacher 2022
+
+
+---
+---
+
 ## Version 3.0.0
 
 ### Features
