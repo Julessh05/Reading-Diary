@@ -55,6 +55,8 @@ class _ReadingDiaryState extends State<ReadingDiary> {
     super.initState();
   }
 
+  /// The Method that hadles events
+  /// padded through the Events Stream
   void _handleEvents(Event event) {
     if (event is ReloadEvent) {
       setState(() {});
