@@ -3,6 +3,29 @@
 ---
 ---
 
+## Version 3.0.0
+
+### Features
+
+- Implement Color Chooser with [this package.](https://pub.dev/packages/color_chooser)
+- Implement new Setting to change the Color
+- Change the Statistics Container Gradient so it matches dynamically with the main Color of the App
+
+
+### Internal Changes
+
+- Code cleanup
+
+
+### About
+
+- Release Date: 21.08.2022
+- Copyright: © Julian Schumacher 2022
+
+
+---
+---
+
 ## Version 2.1.2
 
 ### Bug Fixes
