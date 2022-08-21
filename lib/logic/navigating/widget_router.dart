@@ -10,8 +10,6 @@ import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
 import 'package:reading_diary/models/search_results.dart';
 import 'package:reading_diary/models/wish.dart' show Wish;
-import 'package:reading_diary/screens/desktop/search_results_screen_desktop.dart';
-import 'package:reading_diary/screens/mobile/search_results_screen_mobile.dart';
 import 'package:reading_diary/screens/screens.dart';
 
 /// Widget that returns the corresponding Screen
