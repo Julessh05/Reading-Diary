@@ -469,6 +469,24 @@ final Map<String, Map<Locale, String>> _translations = {
     TranslationLocales.spanish: 'Progreso',
     TranslationLocales.portuguese: 'Progresso',
   },
+  'Color': {
+    TranslationLocales.german: 'Farbe',
+    TranslationLocales.french: 'Couleur',
+    TranslationLocales.spanish: 'Color',
+    TranslationLocales.portuguese: 'Cor',
+  },
+  'Set the Color of your App.': {
+    TranslationLocales.german: 'Lege die Farbe deiner App fest.',
+    TranslationLocales.french: 'Définissez la couleur de votre application.',
+    TranslationLocales.spanish: 'Establece el color de tu aplicación.',
+    TranslationLocales.portuguese: 'Defina a cor do seu aplicativo.',
+  },
+  'Choose a Color': {
+    TranslationLocales.german: 'Wähle eine Farbe',
+    TranslationLocales.french: 'Choisir une couleur',
+    TranslationLocales.spanish: 'Elige un color',
+    TranslationLocales.portuguese: 'Escolha uma cor',
+  },
 };
 
 /// Getter for the Translations.

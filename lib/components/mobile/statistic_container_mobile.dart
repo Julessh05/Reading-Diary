@@ -2,6 +2,8 @@ library mobile_components;
 
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
+import 'package:helpful_extensions/helpful_extensions.dart' show ColorMapping;
+import 'package:modern_themes/modern_themes.dart' show Coloring;
 import 'package:reading_diary/models/statistic.dart';
 
 class StatisticContainerMobile extends StatelessWidget {
@@ -44,16 +46,16 @@ class StatisticContainerMobile extends StatelessWidget {
             child: DecoratedBox(
               decoration: BoxDecoration(
                 backgroundBlendMode: BlendMode.src,
-                gradient: const LinearGradient(
+                gradient: LinearGradient(
                   colors: [
-                    Colors.blue,
-                    Colors.purple,
+                    Coloring.mainColor,
+                    Coloring.mainColor.gradientColor,
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomLeft,
-                  stops: [0.1, 1.2],
+                  stops: const [.1, .8],
                   tileMode: TileMode.mirror,
-                  transform: GradientRotation(20),
+                  transform: const GradientRotation(20),
                 ),
                 borderRadius: BorderRadius.circular(20),
                 shape: BoxShape.rectangle,
@@ -97,19 +99,23 @@ class StatisticContainerMobile extends StatelessWidget {
     );
   }
 
+  /// The Text Style for the Title
   TextStyle get _tStyle {
-    return const TextStyle(
+    return TextStyle(
       fontSize: 25,
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.w600,
+      color: Coloring.secondaryColor,
     );
   }
 
+  /// The Text Style for the Content.
   TextStyle get _ctStyle {
-    return const TextStyle(
+    return TextStyle(
       fontSize: 17,
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.w400,
+      color: Coloring.secondaryColor,
     );
   }
 }

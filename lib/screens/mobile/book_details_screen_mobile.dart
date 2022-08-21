@@ -9,7 +9,7 @@ import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:string_translate/string_translate.dart' show Translate;
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart' show LaunchMode, launchUrl;
 
 /// Screen that represents a single Book in the App
 /// and shows you all Information about this Book.

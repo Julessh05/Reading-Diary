@@ -5,7 +5,7 @@ import 'package:bloc_implementation/bloc_implementation.dart'
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show ScrollDirection;
-import 'package:modern_themes/modern_themes_comps.dart';
+import 'package:modern_themes/modern_themes.dart' show Coloring;
 import 'package:reading_diary/blocs/homescreen_bloc.dart';
 import 'package:reading_diary/components/mobile/add_model_container_mobile.dart';
 import 'package:reading_diary/components/mobile/model_container_mobile.dart';
@@ -720,7 +720,9 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
           scrollable: true,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           backgroundColor:
-              Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
+              Theme.of(context).scaffoldBackgroundColor.withOpacity(
+                    .7,
+                  ),
           insetPadding: EdgeInsets.zero,
           contentPadding: EdgeInsets.zero,
           buttonPadding: EdgeInsets.zero,
@@ -754,7 +756,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
                 ),
                 AddModelContainerMobile(
                   name: 'Book'.tr(),
-                  opacity: 0.7,
+                  opacity: .7,
                   child: DropdownButton<Book>(
                     items: _bookDropDownItems,
                     alignment: Alignment.center,
@@ -777,13 +779,14 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
               ],
             ),
           ),
-          actions: <TextButton>[
+          actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
               autofocus: false,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child: Text('Cancel'.tr()),
             ),
+            const SizedBox(width: 5),
             TextButton(
               onPressed: () {
                 SearchResults results = _bloc!.onSearchTap();
