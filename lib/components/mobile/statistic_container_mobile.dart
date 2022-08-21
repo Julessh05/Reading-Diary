@@ -2,8 +2,8 @@ library mobile_components;
 
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
-import 'package:helpful_extensions/helpful_extensions.dart';
-import 'package:modern_themes/modern_themes_comps.dart';
+import 'package:helpful_extensions/helpful_extensions.dart' show ColorMapping;
+import 'package:modern_themes/modern_themes.dart' show Coloring;
 import 'package:reading_diary/models/statistic.dart';
 
 class StatisticContainerMobile extends StatelessWidget {

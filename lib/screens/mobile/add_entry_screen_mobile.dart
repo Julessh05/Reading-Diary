@@ -6,7 +6,7 @@ import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show MaxLengthEnforcement;
-import 'package:modern_themes/modern_themes_comps.dart';
+import 'package:modern_themes/modern_themes.dart' show Coloring;
 import 'package:reading_diary/blocs/add_entry_bloc.dart';
 import 'package:reading_diary/components/mobile/add_model_container_mobile.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';

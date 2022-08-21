@@ -4,7 +4,7 @@ import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:color_chooser/color_chooser.dart';
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
-import 'package:modern_themes/modern_themes_comps.dart';
+import 'package:modern_themes/modern_themes.dart' show Coloring;
 import 'package:reading_diary/blocs/settings_bloc.dart';
 import 'package:reading_diary/components/mobile/settings_tile_mobile.dart';
 import 'package:reading_diary/logic/navigating/widget_router.dart';
@@ -208,6 +208,8 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
     );
   }
 
+  /// Opens the Color Chooser
+  /// Screen depending on the OS.
   void _showColorChooser() {
     Navigator.push(context, MaterialPageRoute(builder: (_) {
       if (WidgetRouter.isDesktop) {

@@ -9,7 +9,7 @@ import 'package:reading_diary/models/diary_entry.dart';
 import 'package:reading_diary/models/setting.dart';
 import 'package:reading_diary/models/wish.dart';
 import 'package:reading_diary/models/wishlist.dart';
-import 'package:string_translate/string_translate.dart';
+import 'package:string_translate/string_translate.dart' show TranslationLocales;
 
 /// Contains all Operations done
 /// in I/O.

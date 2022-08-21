@@ -13,7 +13,6 @@ import 'package:flutter/material.dart'
         ThemeMode;
 import 'package:hive/hive.dart'
     show BinaryReader, BinaryWriter, HiveField, HiveType, TypeAdapter;
-import 'package:hive_flutter/adapters.dart';
 import 'package:modern_themes/modern_themes.dart';
 import 'package:string_translate/string_translate.dart'
     show Translation, TranslationLocales;
