@@ -133,8 +133,8 @@ class Storage {
         setting.objectValue = objectValue;
         allSettings.add(setting);
       }
-      Setting.setValues();
     }
+    Setting.setValues();
     Setting.setIcons();
   }
 

@@ -720,7 +720,9 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
           scrollable: true,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           backgroundColor:
-              Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
+              Theme.of(context).scaffoldBackgroundColor.withOpacity(
+                    .7,
+                  ),
           insetPadding: EdgeInsets.zero,
           contentPadding: EdgeInsets.zero,
           buttonPadding: EdgeInsets.zero,
@@ -754,7 +756,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
                 ),
                 AddModelContainerMobile(
                   name: 'Book'.tr(),
-                  opacity: 0.7,
+                  opacity: .7,
                   child: DropdownButton<Book>(
                     items: _bookDropDownItems,
                     alignment: Alignment.center,
@@ -777,13 +779,14 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
               ],
             ),
           ),
-          actions: <TextButton>[
+          actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
               autofocus: false,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child: Text('Cancel'.tr()),
             ),
+            const SizedBox(width: 5),
             TextButton(
               onPressed: () {
                 SearchResults results = _bloc!.onSearchTap();

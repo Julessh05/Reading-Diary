@@ -99,19 +99,23 @@ class StatisticContainerMobile extends StatelessWidget {
     );
   }
 
+  /// The Text Style for the Title
   TextStyle get _tStyle {
-    return const TextStyle(
+    return TextStyle(
       fontSize: 25,
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.w600,
+      color: Coloring.secondaryColor,
     );
   }
 
+  /// The Text Style for the Content.
   TextStyle get _ctStyle {
-    return const TextStyle(
+    return TextStyle(
       fontSize: 17,
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.w400,
+      color: Coloring.secondaryColor,
     );
   }
 }

@@ -1,7 +1,16 @@
 library models;
 
 import 'package:flutter/material.dart'
-    show Brightness, BuildContext, Color, Icon, Icons, Locale, Theme, ThemeMode;
+    show
+        Brightness,
+        BuildContext,
+        Color,
+        Colors,
+        Icon,
+        Icons,
+        Locale,
+        Theme,
+        ThemeMode;
 import 'package:hive/hive.dart'
     show BinaryReader, BinaryWriter, HiveField, HiveType, TypeAdapter;
 import 'package:hive_flutter/adapters.dart';
@@ -146,7 +155,7 @@ class Setting {
       Setting(
         name: colorName,
         description: 'Set the Color of your App.',
-        objectValue: Coloring.mainColor,
+        objectValue: Colors.blue.shade800,
       ),
     };
     allSettings.addAll(settings);
