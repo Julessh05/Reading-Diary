@@ -19,7 +19,6 @@ import 'package:string_translate/string_translate.dart'
 void main() async {
   await Hive.initFlutter();
   await Storage.init();
-  Coloring.changeColor(Colors.blue.shade800);
   runApp(const ReadingDiary());
 }
 

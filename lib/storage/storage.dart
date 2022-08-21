@@ -1,6 +1,6 @@
 library storage;
 
-import 'package:flutter/material.dart' show Locale, ThemeMode;
+import 'package:flutter/material.dart' show Color, Locale, ThemeMode;
 import 'package:hive/hive.dart' show Box, Hive;
 import 'package:reading_diary/models/book.dart';
 import 'package:reading_diary/models/book_list.dart';
@@ -88,7 +88,7 @@ class Storage {
       for (Setting setting in _settingsBox!.values) {
         dynamic objectValue;
         switch (setting.name) {
-          case 'Language':
+          case Setting.languageName:
             final value = setting.stringValue;
             switch (value) {
               case 'en':
@@ -108,7 +108,8 @@ class Storage {
                 break;
             }
             break;
-          case 'Theme':
+
+          case Setting.themeName:
             final value = setting.stringValue;
             switch (value) {
               case 'system':
@@ -122,14 +123,19 @@ class Storage {
                 break;
             }
             break;
+
+          case Setting.colorName:
+            final value = setting.stringValue;
+            objectValue = Color(int.parse(value!, radix: 16));
+            break;
         }
         setting.stringValue = null;
         setting.objectValue = objectValue;
         allSettings.add(setting);
       }
-      Setting.setIcons();
       Setting.setValues();
     }
+    Setting.setIcons();
   }
 
   /// loads all Wishes from the Storage
@@ -187,6 +193,10 @@ class Storage {
           final value = setting.objectValue as ThemeMode;
           setting.objectValue = null;
           setting.stringValue = value.name;
+        } else if (setting.objectValue is Color) {
+          final value = setting.objectValue as Color;
+          setting.objectValue = null;
+          setting.stringValue = value.value.toRadixString(16);
         }
       }
 

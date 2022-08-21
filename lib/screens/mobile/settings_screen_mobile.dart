@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:modern_themes/modern_themes_comps.dart';
 import 'package:reading_diary/blocs/settings_bloc.dart';
 import 'package:reading_diary/components/mobile/settings_tile_mobile.dart';
+import 'package:reading_diary/logic/navigating/widget_router.dart';
 import 'package:reading_diary/main.dart';
-import 'package:reading_diary/models/setting.dart' show allSettings;
+import 'package:reading_diary/models/setting.dart' show Setting;
 import 'package:string_translate/string_translate.dart'
     hide StandardTranslations, TranslationDelegates;
 
@@ -28,6 +29,7 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
   Widget build(BuildContext context) {
     // Init Bloc
     _bloc = BlocParent.of(context);
+    Setting.changeIconOnRuntime(context);
 
     return Scaffold(
       appBar: _appBar,
@@ -63,35 +65,19 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
         children: [
           // Language Setting.
           SettingsTileMobile(
-            setting: allSettings
-                .where((element) => element.name == 'Language')
-                .first,
+            setting: Setting.settingForName(Setting.languageName),
             onTap: _showLanguageDialog,
           ),
 
           // Theme Setting
           SettingsTileMobile(
-            setting:
-                allSettings.where((element) => element.name == 'Theme').first,
+            setting: Setting.settingForName(Setting.themeName),
             onTap: _showThemeDialog,
           ),
 
-          ListTile(
-            autofocus: false,
-            enableFeedback: true,
-            isThreeLine: false,
-            title: const Text('Color Chooser'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => ColorChooserScreenMobile(
-                    changeColorFunction: (Color color) =>
-                        _bloc!.changeColor(color),
-                  ),
-                ),
-              );
-            },
+          SettingsTileMobile(
+            setting: Setting.settingForName(Setting.colorName),
+            onTap: _showColorChooser,
           ),
 
           /// Information Tile
@@ -220,6 +206,19 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
         );
       },
     );
+  }
+
+  void _showColorChooser() {
+    Navigator.push(context, MaterialPageRoute(builder: (_) {
+      if (WidgetRouter.isDesktop) {
+        return const ColorChooserScreenDesktop();
+      } else {
+        return ColorChooserScreenMobile(
+          title: 'Choose a Color'.tr(),
+          changeColorFunction: (c) => _bloc!.changeColor(c),
+        );
+      }
+    }));
   }
 
   /// shows a Dialog with
