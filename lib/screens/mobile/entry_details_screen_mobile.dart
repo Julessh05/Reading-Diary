@@ -3,7 +3,6 @@ library mobile_screens;
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
-import 'package:reading_diary/blocs/blocs.dart';
 import 'package:reading_diary/blocs/entry_details_bloc.dart';
 import 'package:reading_diary/components/mobile/model_details_container_mobile.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';

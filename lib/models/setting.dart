@@ -1,6 +1,16 @@
 library models;
 
-import 'package:flutter/material.dart' show Icon, Icons, Locale, ThemeMode;
+import 'package:flutter/material.dart'
+    show
+        Brightness,
+        BuildContext,
+        Color,
+        Colors,
+        Icon,
+        Icons,
+        Locale,
+        Theme,
+        ThemeMode;
 import 'package:hive/hive.dart'
     show BinaryReader, BinaryWriter, HiveField, HiveType, TypeAdapter;
 import 'package:modern_themes/modern_themes.dart';
@@ -28,7 +38,6 @@ class Setting {
     this.numberValue,
     this.stringValue,
     this.objectValue,
-    Icon? icon,
   }) : assert(
           boolValue != null &&
                   numberValue == null &&
@@ -50,7 +59,6 @@ class Setting {
         ) {
     _isInternal = false;
     _description = description ?? '';
-    this.icon = icon ?? const Icon(Icons.settings_applications_rounded);
   }
 
   /// called when an Internal Setting
@@ -112,11 +120,20 @@ class Setting {
   /// to the User if this Setting
   /// is shown. Can only be set
   /// in an non internal Setting.
-  late Icon icon;
+  Icon? icon;
 
   /// Getter for the preciser Decription
   /// of this Setting.
   String get description => _description;
+
+  /// the name for the Language Setting.
+  static const String languageName = 'Language';
+
+  /// the name for the Theme Setting.
+  static const String themeName = 'Theme';
+
+  /// the name for the Color Setting.
+  static const String colorName = 'Color';
 
   /// If the Settings aren't
   /// stored yet, this Method should be called.
@@ -125,16 +142,19 @@ class Setting {
   static void createSettings() {
     Iterable<Setting> settings = {
       Setting(
-        name: 'Language',
+        name: languageName,
         description: 'Set the Language of your App.',
         objectValue: TranslationLocales.english,
-        icon: const Icon(Icons.language_rounded),
       ),
       Setting(
-        name: 'Theme',
+        name: themeName,
         description: 'Set your Personal Style.',
         objectValue: ThemeMode.system,
-        icon: const Icon(Icons.color_lens_rounded),
+      ),
+      Setting(
+        name: colorName,
+        description: 'Set the Color of your App.',
+        objectValue: Colors.blue.shade800,
       ),
     };
     allSettings.addAll(settings);
@@ -143,35 +163,51 @@ class Setting {
   /// Sets the Icons for the Settings.
   /// Has to be called once when opening the App.
   static void setIcons() {
-    allSettings.where((element) => element.name == 'Language').first.icon =
-        const Icon(Icons.language_rounded);
+    settingForName(languageName).icon = const Icon(Icons.language_rounded);
 
-    allSettings.where((element) => element.name == 'Theme').first.icon =
-        const Icon(Icons.color_lens_rounded);
+    settingForName(themeName).icon = const Icon(Icons.light_mode_rounded);
+
+    settingForName(colorName).icon = const Icon(Icons.colorize_rounded);
+  }
+
+  /// Changes the Icon of a Setting at the runtime.
+  static void changeIconOnRuntime(BuildContext context) {
+    if (Theme.of(context).brightness == Brightness.dark) {
+      settingForName(themeName).icon = const Icon(Icons.dark_mode_rounded);
+    } else {
+      settingForName(themeName).icon = const Icon(Icons.light_mode_rounded);
+    }
   }
 
   /// Sets the Values to the Settings.
   static void setValues() {
     for (Setting setting in allSettings) {
       switch (setting.name) {
-        case 'Language':
+        case languageName:
           Translation.changeLanguage(setting.objectValue as Locale);
           break;
-        case 'Theme':
+        case themeName:
           Themes.changeTheme(setting.objectValue as ThemeMode);
+          break;
+        case colorName:
+          Coloring.changeColor(setting.objectValue as Color);
+          break;
       }
     }
   }
 
   /// Reads the Values and sets the Settings.
   static void readValues() {
-    allSettings
-        .where((element) => element.name == 'Language')
-        .first
-        .objectValue = Translation.activeLocale;
+    settingForName(languageName).objectValue = Translation.activeLocale;
 
-    allSettings.where((element) => element.name == 'Theme').first.objectValue =
-        Themes.themeMode;
+    settingForName(themeName).objectValue = Themes.themeMode;
+
+    settingForName(colorName).objectValue = Coloring.mainColor;
+  }
+
+  /// Returns the Setting of the specified [name]
+  static Setting settingForName(String name) {
+    return allSettings.where((element) => element.name == name).first;
   }
 }
 

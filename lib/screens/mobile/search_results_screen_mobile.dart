@@ -2,14 +2,14 @@ library mobile_screens;
 
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
-import 'package:reading_diary/blocs/blocs.dart' show EventBloc;
+import 'package:reading_diary/blocs/event_bloc.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
 import 'package:reading_diary/models/events/reload_event.dart';
 import 'package:reading_diary/models/search_results.dart';
 import 'package:reading_diary/models/wish.dart' show Wish;
-import 'package:string_translate/string_translate.dart';
+import 'package:string_translate/string_translate.dart' show Translate;
 
 /// Represents the Result of a Search.
 class SerachResultsScreenMobile extends StatefulWidget {

@@ -147,7 +147,7 @@ packages:
       name: color_chooser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0"
+    version: "0.2.2"
   convert:
     dependency: transitive
     description:
@@ -258,7 +258,7 @@ packages:
       name: helpful_extensions
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.1"
+    version: "0.2.2"
   hive:
     dependency: "direct main"
     description:
@@ -370,7 +370,7 @@ packages:
       name: modern_themes
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.7"
+    version: "1.4.0"
   package_config:
     dependency: transitive
     description:
