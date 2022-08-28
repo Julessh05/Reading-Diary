@@ -85,9 +85,9 @@ class Storage {
     if (_settingsBox!.isEmpty) {
       Setting.createSettings();
     } else {
-      // TODO-js: update
+      // TODO-js: Find other way to do this.
       if (!_settingsBox!.containsKey(Setting.colorName)) {
-        Setting.createSetting(Setting.colorName);
+        Setting.createSingleSettings({Setting.colorName});
         Setting.setValues();
         storeSettings();
       }

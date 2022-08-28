@@ -129,7 +129,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
               child: _dateContainer,
             ),
 
-            // TODO: add possibility to add an Image
+            // TODO-js: add possibility to add an Image
 
             AddModelContainerMobile(
               name: 'Book'.tr(),

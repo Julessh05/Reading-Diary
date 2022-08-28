@@ -3,6 +3,27 @@
 ---
 ---
 
+## Version 3.0.2
+
+### Bugfixes
+
+- Color Chooser Upate:
+
+    **Problem**: Color Chooser showed Background Color if Widget
+    still Active and Theme is changed.
+
+    **Solution**: Filler Background Color is removed when disposing Widget.
+
+
+### About
+
+- Release Date: 28.08.2022
+- Copyright: © Julian Schumacher 2022
+
+
+---
+---
+
 ## Version 3.0.1
 
 ### Bugfixes

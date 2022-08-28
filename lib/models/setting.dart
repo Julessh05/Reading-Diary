@@ -167,17 +167,19 @@ class Setting {
   }
 
   /// Created only one specific Setting.
-  static void createSetting(String name) {
-    switch (name) {
-      case languageName:
-        allSettings.add(_languageSetting);
-        break;
-      case themeName:
-        allSettings.add(_themeSetting);
-        break;
-      case colorName:
-        allSettings.add(_colorSetting);
-        break;
+  static void createSingleSettings(Set<String> names) {
+    for (String name in names) {
+      switch (name) {
+        case languageName:
+          allSettings.add(_languageSetting);
+          break;
+        case themeName:
+          allSettings.add(_themeSetting);
+          break;
+        case colorName:
+          allSettings.add(_colorSetting);
+          break;
+      }
     }
   }
 

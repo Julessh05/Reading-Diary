@@ -147,7 +147,7 @@ packages:
       name: color_chooser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.2"
+    version: "0.2.5"
   convert:
     dependency: transitive
     description:

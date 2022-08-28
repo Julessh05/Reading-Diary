@@ -117,7 +117,7 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
               initialValue: _bloc!.author,
             ),
 
-            // TODO: add option to add am Image
+            // TODO-js: add option to add am Image
 
             AddModelContainerMobile(
               name: 'Pages'.tr(),
