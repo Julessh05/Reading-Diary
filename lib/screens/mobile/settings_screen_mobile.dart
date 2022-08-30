@@ -211,16 +211,15 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
   /// Opens the Color Chooser
   /// Screen depending on the OS.
   void _showColorChooser() {
-    Navigator.push(context, MaterialPageRoute(builder: (_) {
-      if (WidgetRouter.isDesktop) {
-        return const ColorChooserScreenDesktop();
-      } else {
-        return ColorChooserScreenMobile(
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) {
+        return ColorChooserScreen(
           title: 'Choose a Color'.tr(),
           changeColorFunction: (c) => _bloc!.changeColor(c),
         );
-      }
-    }));
+      }),
+    );
   }
 
   /// shows a Dialog with

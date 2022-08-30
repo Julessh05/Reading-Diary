@@ -30,11 +30,7 @@ const String appVersion = '3.0.2';
 /// Also sets the [WidgetRouter.isDesktop] Variable.
 void _isDesktop() {
   const desktopOS = <String>{'macos', 'windows', 'linux'};
-  if (desktopOS.contains(Platform.operatingSystem)) {
-    WidgetRouter.isDesktop = true;
-  } else {
-    WidgetRouter.isDesktop = false;
-  }
+  WidgetRouter.isDesktop = desktopOS.contains(Platform.operatingSystem);
 }
 
 /// The Main widget for this App.
