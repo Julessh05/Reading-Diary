@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:modern_themes/modern_themes.dart' show Coloring;
 import 'package:reading_diary/blocs/settings_bloc.dart';
 import 'package:reading_diary/components/mobile/settings_tile_mobile.dart';
-import 'package:reading_diary/logic/navigating/widget_router.dart';
 import 'package:reading_diary/main.dart';
 import 'package:reading_diary/models/setting.dart' show Setting;
 import 'package:string_translate/string_translate.dart'

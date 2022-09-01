@@ -1,6 +1,6 @@
 library models;
 
-import 'package:flutter/material.dart' show hashValues, Image;
+import 'package:flutter/material.dart' show Image;
 import 'package:hive/hive.dart'
     show BinaryReader, BinaryWriter, HiveField, HiveType, TypeAdapter;
 
@@ -115,7 +115,7 @@ class Book {
   }
 
   @override
-  int get hashCode => hashValues(
+  int get hashCode => Object.hash(
         title,
         author,
         image,

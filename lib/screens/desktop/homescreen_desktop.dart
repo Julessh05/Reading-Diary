@@ -1,5 +1,6 @@
 library desktop_screens;
 
+import 'package:desktop_navigation_menu/desktop_navigation_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/blocs.dart' show HomescreenBloc;
 
@@ -20,11 +21,19 @@ class _HomescreenDesktopState extends State<HomescreenDesktop> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      drawer: Drawer(
-        child: Text('Test'),
-      ),
-      body: Center(
-        child: Text('Hello'),
+      body: const DesktopNavigationMenu(
+        views: [
+          NavigationItem(
+            menuItem: DesktopMenuItem(
+              label: 'Test',
+            ),
+            screen: Text('test'),
+          ),
+          NavigationItem(
+            menuItem: DesktopMenuItem(label: 'Lol', description: 'Looooool'),
+            screen: Text('lol'),
+          ),
+        ],
       ),
     );
   }
