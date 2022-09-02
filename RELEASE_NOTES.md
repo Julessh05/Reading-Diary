@@ -1,5 +1,26 @@
 # Release Notes 
 
+
+---
+---
+
+## Version 3.1.7
+
+### Features
+
+- Confirm Dialog when deleing Book / Entry / Wish
+
+
+### Bugfixes
+
+- Different Bugs fixed, where some Text was not beeing translated
+- Procentual Progress is now limited to 2 digits after the comma.
+
+### Security relevated Bugfixes
+
+- Check for URL's on the Add Book Screen has been updated, so that a bug where you could
+add nonsense URL's is now fixed.
+
 ---
 ---
 

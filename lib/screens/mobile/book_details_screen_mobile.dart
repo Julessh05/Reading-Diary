@@ -4,10 +4,12 @@ import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/blocs.dart' show BookDetailsBloc;
+import 'package:reading_diary/components/mobile/confirm_delete_dialog_mobile.dart';
 import 'package:reading_diary/components/mobile/model_details_container_mobile.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/book.dart' show Book;
+import 'package:reading_diary/models/reading_diary_objects.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 import 'package:url_launcher/url_launcher.dart' show LaunchMode, launchUrl;
 
@@ -60,6 +62,9 @@ class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
           onPressed: _deleteBTNPressed,
           icon: const Icon(Icons.delete_rounded),
           autofocus: false,
+          enableFeedback: true,
+          alignment: Alignment.center,
+          tooltip: 'Delete Book'.tr(),
         ),
       ],
     );
@@ -163,7 +168,7 @@ class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
               padding: const EdgeInsets.all(10),
               child: ElevatedButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('Back'.tr()),
+                child: Text('Return'.tr()),
               ),
             ),
           ),
@@ -175,8 +180,20 @@ class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
 
   /// Called when the delete Button is pressed.
   void _deleteBTNPressed() {
-    _bloc!.deleteBook(widget.book);
-    Navigator.pop(context);
+    showDialog(
+      context: context,
+      builder: (_) {
+        return confirmDeleteDialogMobile(
+          title: widget.book.title,
+          what: ReadingDiaryObjects.book,
+          context: context,
+          onConfirm: () {
+            _bloc!.deleteBook(widget.book);
+            Navigator.pop(context);
+          },
+        );
+      },
+    );
   }
 
   /// Called whe the Edit Button

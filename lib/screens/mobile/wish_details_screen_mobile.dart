@@ -8,8 +8,11 @@ import 'package:reading_diary/components/mobile/model_details_container_mobile.d
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/book.dart' show Book;
+import 'package:reading_diary/models/reading_diary_objects.dart';
 import 'package:reading_diary/models/wish.dart' show Wish;
 import 'package:string_translate/string_translate.dart' show Translate;
+
+import '../../components/mobile/confirm_delete_dialog_mobile.dart';
 
 /// Represents a single Wish of the User
 /// and shows you all information.
@@ -61,6 +64,9 @@ class _WishDetailsScreenMobileState extends State<WishDetailsScreenMobile> {
           onPressed: _deleteBTNPressed,
           icon: const Icon(Icons.delete_rounded),
           autofocus: false,
+          alignment: Alignment.center,
+          enableFeedback: true,
+          tooltip: 'Delete Wish'.tr(),
         ),
       ],
     );
@@ -106,7 +112,7 @@ class _WishDetailsScreenMobileState extends State<WishDetailsScreenMobile> {
               padding: const EdgeInsets.all(10),
               child: ElevatedButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('Back'.tr()),
+                child: Text('Return'.tr()),
               ),
             ),
           ),
@@ -118,8 +124,20 @@ class _WishDetailsScreenMobileState extends State<WishDetailsScreenMobile> {
 
   /// Called when the delete Button is pressed.
   void _deleteBTNPressed() {
-    _bloc!.deleteWish(widget.wish);
-    Navigator.pop(context);
+    showDialog(
+      context: context,
+      builder: (_) {
+        return confirmDeleteDialogMobile(
+          title: widget.wish.title,
+          what: ReadingDiaryObjects.wish,
+          context: context,
+          onConfirm: () {
+            _bloc!.deleteWish(widget.wish);
+            Navigator.pop(context);
+          },
+        );
+      },
+    );
   }
 
   /// Called whe the Edit Button

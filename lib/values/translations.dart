@@ -132,7 +132,7 @@ final Map<String, Map<Locale, String>> _translations = {
     TranslationLocales.spanish: 'Selecciona una fecha',
     TranslationLocales.portuguese: 'Escolha uma data',
   },
-  'Current Date': {
+  'Current Date:': {
     TranslationLocales.german: 'Aktuelles Datum',
     TranslationLocales.french: 'Données actuelles',
     TranslationLocales.spanish: 'Fecha actual',
@@ -487,6 +487,64 @@ final Map<String, Map<Locale, String>> _translations = {
     TranslationLocales.spanish: 'Elige un color',
     TranslationLocales.portuguese: 'Escolha uma cor',
   },
+  'Return': {
+    TranslationLocales.german: 'Zurück',
+    TranslationLocales.french: 'Revenir',
+    TranslationLocales.spanish: 'Devolver',
+    TranslationLocales.portuguese: 'Retornar',
+  },
+  'Delete Book': {
+    TranslationLocales.german: 'Buch löschen',
+    TranslationLocales.french: 'Supprimer le livre',
+    TranslationLocales.spanish: 'Eliminar libro',
+    TranslationLocales.portuguese: 'Excluir livro',
+  },
+  'Delete Entry': {
+    TranslationLocales.german: 'Eintrag löschen',
+    TranslationLocales.french: 'Supprimer l\'entrée',
+    TranslationLocales.spanish: 'Eliminar la entrada',
+    TranslationLocales.portuguese: 'Excluir entrada',
+  },
+  'Delete Wish': {
+    TranslationLocales.german: 'Wunsch löschen',
+    TranslationLocales.french: 'Supprimer le souhait',
+    TranslationLocales.spanish: 'Eliminar deseo',
+    TranslationLocales.portuguese: 'Excluir desejo',
+  },
+  'Confirm Delete': {
+    TranslationLocales.german: 'Löschen bestätigen',
+    TranslationLocales.french: 'Confirmation de la suppression',
+    TranslationLocales.spanish: 'Confirmar eliminación',
+    TranslationLocales.portuguese: 'Confirmar exclusão',
+  },
+  'Entry': {
+    TranslationLocales.german: 'Eintrag',
+    TranslationLocales.french: 'Entrée',
+    TranslationLocales.spanish: 'Entrada',
+    TranslationLocales.portuguese: 'Entrada',
+  },
+  'Wish': {
+    TranslationLocales.german: 'Wunsch',
+    TranslationLocales.french: 'Souhaiter',
+    TranslationLocales.spanish: 'Deseo',
+    TranslationLocales.portuguese: 'Desejar',
+  },
+  'Confirm Deletion of:': {
+    TranslationLocales.german: 'Löschen bestätigen von:',
+    TranslationLocales.french: 'Confirmer la suppression de :',
+    TranslationLocales.spanish: 'Confirmar eliminación de:',
+    TranslationLocales.portuguese: 'Confirmar exclusão de:',
+  },
+  'With deleting this Book, all the linked Entries will be deleted too.': {
+    TranslationLocales.german:
+        'Mit dem Löschen dieses Buches werden auch alle verknüpften Einträge gelöscht.',
+    TranslationLocales.french:
+        'Avec la suppression de ce livre, toutes les entrées liées seront également supprimées.',
+    TranslationLocales.spanish:
+        'Con la eliminación de este Libro, todas las Entradas vinculadas también se eliminarán.',
+    TranslationLocales.portuguese:
+        'Com a exclusão deste livro, todas as entradas vinculadas também serão excluídas.',
+  }
 };
 
 /// Getter for the Translations.
