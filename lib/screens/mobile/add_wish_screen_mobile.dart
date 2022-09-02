@@ -114,7 +114,7 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
                 },
               ),
             ),
-            _bloc!.wishBook == null
+            (_bloc!.wishBook == null || _bloc!.wishBook == const Book.none())
                 ? AddModelContainerMobile(
                     name: 'Title'.tr(),
                     maxLines: 1,
@@ -126,7 +126,7 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
                     },
                     initialValue: _bloc!.title,
                   )
-                : const SizedBox(height: 0, width: 0),
+                : Container(),
             AddModelContainerMobile(
               name: 'Notes'.tr(),
               maxLines: 1000,
