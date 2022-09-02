@@ -128,7 +128,7 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
                   )
                 : const SizedBox(height: 0, width: 0),
             AddModelContainerMobile(
-              name: 'Description',
+              name: 'Notes'.tr(),
               maxLines: 1000,
               done: (str) {
                 _bloc!.description = str;

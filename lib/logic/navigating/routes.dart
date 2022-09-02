@@ -51,6 +51,7 @@ class Routes {
     'Twitter': 'https://twitter.com',
     'Facebook': 'https://www.facebook.com',
     'Pinterest': 'https://www.pinterest.com',
-    'Reddit': 'https://www.reddit.com'
+    'Reddit': 'https://www.reddit.com',
+    'GommeHD': '',
   };
 }
