@@ -535,15 +535,16 @@ final Map<String, Map<Locale, String>> _translations = {
     TranslationLocales.spanish: 'Confirmar eliminación de:',
     TranslationLocales.portuguese: 'Confirmar exclusão de:',
   },
-  'With deleting this Book, all the linked Entries will be deleted too.': {
+  'With deleting this Book, all the linked Entries and Wishes will be deleted too.':
+      {
     TranslationLocales.german:
-        'Mit dem Löschen dieses Buches werden auch alle verknüpften Einträge gelöscht.',
+        'Mit dem Löschen dieses Buches werden auch alle verknüpften Einträge und Wünsche gelöscht.',
     TranslationLocales.french:
-        'Avec la suppression de ce livre, toutes les entrées liées seront également supprimées.',
+        'Avec la suppression de ce livre, toutes les entrées et souhaits liés seront également supprimés.',
     TranslationLocales.spanish:
-        'Con la eliminación de este Libro, todas las Entradas vinculadas también se eliminarán.',
+        'Con la eliminación de este Libro, todas las Entradas y Deseos vinculados también se eliminarán.',
     TranslationLocales.portuguese:
-        'Com a exclusão deste livro, todas as entradas vinculadas também serão excluídas.',
+        'Com a exclusão deste livro, todas as entradas e desejos vinculados também serão excluídos.',
   }
 };
 

@@ -37,6 +37,16 @@ class BookList {
       }
     }
     Diary.deleteAll(entriesToDelete);
+
+    final List<Wish> wishesToDelete = [];
+    for (Wish wish in Wishlist.wishes) {
+      if (wish.book == book) {
+        wishesToDelete.add(wish);
+      } else {
+        continue;
+      }
+    }
+    Wishlist.deleteAll(wishesToDelete);
     Storage.storeBooks();
   }
 

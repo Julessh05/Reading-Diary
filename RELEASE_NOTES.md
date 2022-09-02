@@ -4,17 +4,20 @@
 ---
 ---
 
-## Version 3.1.7
+## Version 3.2.7
 
 ### Features
 
 - Confirm Dialog when deleing Book / Entry / Wish
+- Wishes and Entries are now beeing deleted, when the linked Book was deleted.
 
 
 ### Bugfixes
 
 - Different Bugs fixed, where some Text was not beeing translated
 - Procentual Progress is now limited to 2 digits after the comma.
+- Updating Wish Screen
+
 
 ### Security relevated Bugfixes
 

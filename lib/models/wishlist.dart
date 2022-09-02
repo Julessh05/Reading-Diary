@@ -28,6 +28,15 @@ class Wishlist {
     Storage.storeWishes();
   }
 
+  /// Removes all the Wishes
+  /// spevified in the [wishes] List.
+  static void deleteAll(List<Wish> wishes) {
+    for (Wish wish in wishes) {
+      _wishes.remove(wish);
+    }
+    Storage.storeWishes();
+  }
+
   /// Replaces the [toReplace] with the corresponding [replace].
   static void replaceWish(Wish toReplace, Wish replace) {
     final int i = _wishes.indexOf(toReplace);
