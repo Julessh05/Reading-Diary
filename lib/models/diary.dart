@@ -54,6 +54,15 @@ class Diary {
     Storage.storeEntries();
   }
 
+  /// Removes all Entries specified in
+  /// the [entries] List
+  static void deleteAll(List<DiaryEntry> entries) {
+    for (DiaryEntry entry in entries) {
+      _entries.remove(entry);
+    }
+    Storage.storeEntries();
+  }
+
   /// Replaces the [toReplace] with the corresponding [replace]
   static void replaceEntry(DiaryEntry toReplace, DiaryEntry replace) {
     final int i = _entries.indexOf(toReplace);
