@@ -22,7 +22,11 @@ class DiaryEntry {
     required this.endPage,
   }) {
     this.date = date ?? DateTime.now();
-    this.title = title ?? 'Entry ${this.date.weekdayAsString}';
+    if (title == null || title.isEmpty) {
+      this.title = 'Entry ${this.date.weekdayAsString}';
+    } else {
+      this.title = title;
+    }
   }
 
   /// The Title of the Entry.
