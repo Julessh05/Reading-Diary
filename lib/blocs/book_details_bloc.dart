@@ -15,10 +15,10 @@ class BookDetailsBloc extends Bloc {
 
   /// Returns the Progress of the Book as a Percentual
   /// Value.
-  double calculateProcentualProgress(Book book) {
+  String calculateProcentualProgress(Book book) {
     final double onePercent = book.pages / 100;
     final double percent = book.currentPage / onePercent;
-    return percent;
+    return percent.toStringAsFixed(2);
   }
 
   @override

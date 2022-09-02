@@ -246,7 +246,11 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
   /// Opens the Screen
   /// on which you can add a new Book.
   void _openAddBookScreen(BuildContext context) {
-    Navigator.pushNamed(context, Routes.addBookScreen).then(
+    Navigator.pushNamed(
+      context,
+      Routes.addBookScreen,
+      arguments: AddOrEdit.add(),
+    ).then(
       (value) => setState(() {}),
     );
   }

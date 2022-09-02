@@ -66,9 +66,8 @@ class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
   }
 
   Scrollbar get _body {
-    final double percentualProgress = _bloc!.calculateProcentualProgress(
-      widget.book,
-    );
+    final String percentualProgress =
+        _bloc!.calculateProcentualProgress(widget.book);
     return Scrollbar(
       child: ListView(
         addAutomaticKeepAlives: true,
@@ -114,7 +113,7 @@ class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
                   semanticsLabel: 'Progress'.tr(),
                   semanticsValue: 'Percentual Value: $percentualProgress%',
                   valueColor: const AlwaysStoppedAnimation(Colors.green),
-                  value: percentualProgress * 0.01,
+                  value: double.parse(percentualProgress) * 0.01,
                 ),
                 const SizedBox(height: 10),
                 Text('$percentualProgress%')
