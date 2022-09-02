@@ -52,6 +52,7 @@ class Routes {
     'Facebook': 'https://www.facebook.com',
     'Pinterest': 'https://www.pinterest.com',
     'Reddit': 'https://www.reddit.com',
-    'GommeHD': '',
+    'GommeHD': 'https://www.gommehd.net',
+    'Discord': 'https://discord.com',
   };
 }

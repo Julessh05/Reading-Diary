@@ -4,10 +4,12 @@ import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/entry_details_bloc.dart';
+import 'package:reading_diary/components/mobile/confirm_delete_dialog_mobile.dart';
 import 'package:reading_diary/components/mobile/model_details_container_mobile.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:reading_diary/models/reading_diary_objects.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
 /// The Mobile Version of the screen that showns
@@ -63,6 +65,9 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
           onPressed: _deleteBTNPressed,
           icon: const Icon(Icons.delete_rounded),
           autofocus: false,
+          enableFeedback: true,
+          alignment: Alignment.center,
+          tooltip: 'Delete Entry'.tr(),
         ),
       ],
     );
@@ -115,7 +120,7 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
               padding: const EdgeInsets.all(10),
               child: ElevatedButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('Back'.tr()),
+                child: Text('Return'.tr()),
               ),
             ),
           ),
@@ -127,8 +132,20 @@ class _EntryDetailsScreenMobileState extends State<EntryDetailsScreenMobile> {
 
   /// Called when the delete Button is pressed.
   void _deleteBTNPressed() {
-    _bloc!.deleteEntry(widget.entry);
-    Navigator.pop(context);
+    showDialog(
+      context: context,
+      builder: (_) {
+        return confirmDeleteDialogMobile(
+          title: widget.entry.title,
+          what: ReadingDiaryObjects.entry,
+          context: context,
+          onConfirm: () {
+            _bloc!.deleteEntry(widget.entry);
+            Navigator.pop(context);
+          },
+        );
+      },
+    );
   }
 
   /// Called whe the Edit Button

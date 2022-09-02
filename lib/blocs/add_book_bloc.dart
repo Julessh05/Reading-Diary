@@ -108,8 +108,7 @@ class AddBookBloc extends Bloc {
     } else if (url!.isEmpty) {
       return true;
     } else {
-      if (Routes.supportedURLs.values
-          .any((element) => url!.toLowerCase().contains(element))) {
+      if (Routes.supportedURLs.containsValue(url)) {
         return true;
       } else {
         return false;
