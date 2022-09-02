@@ -9,7 +9,7 @@
 ### Features
 
 - Confirm Dialog when deleing Book / Entry / Wish
-- Wishes and Entries are now beeing deleted, when the linked Book was deleted.
+- Wishes and Entries are now being deleted, when the linked Book was deleted.
 
 
 ### Bugfixes
