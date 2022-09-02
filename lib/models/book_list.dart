@@ -27,6 +27,16 @@ class BookList {
   /// from the List of Books
   static void deleteBook(Book book) {
     _books.remove(book);
+    final List<DiaryEntry> entriesToDelete = [];
+    for (DiaryEntry entry in Diary.entries) {
+      // Replace Entry
+      if (entry.book == book) {
+        entriesToDelete.add(entry);
+      } else {
+        continue;
+      }
+    }
+    Diary.deleteAll(entriesToDelete);
     Storage.storeBooks();
   }
 
