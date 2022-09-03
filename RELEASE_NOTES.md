@@ -3,11 +3,12 @@
 ---
 ---
 
-## Version 3.3.4
+## Version 3.4.5
 
 ### Features
 
 - Redesign Setting Screen. ([#91](https://github.com/Jules-sh/Reading-Diary/issues/91))
+- Update Search ([#98](https://github.com/Jules-sh/Reading-Diary/issues/98))
 
 ### Bugfixes
 
@@ -17,6 +18,7 @@ That is fixed now. ([#93](https://github.com/Jules-sh/Reading-Diary/issues/93))
 - Post Security when editing Book ([#95](https://github.com/Jules-sh/Reading-Diary/issues/95))
 - When editing Books, the Params are now set right. ([#94](https://github.com/Jules-sh/Reading-Diary/issues/94))
 - Post Text Field Capitalization updated to all lower-case ([#96](https://github.com/Jules-sh/Reading-Diary/issues/96))
+- Pages can't be null when editing Book. ([#100](https://github.com/Jules-sh/Reading-Diary/issues/100))
 
 
 ### About

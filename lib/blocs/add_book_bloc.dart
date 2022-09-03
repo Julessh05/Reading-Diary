@@ -26,7 +26,7 @@ class AddBookBloc extends Bloc {
   int pages = 0;
 
   /// The Page the user is currently on
-  int? currentPage;
+  int currentPage = 0;
 
   /// Notes you have to that book.
   String notes = '';
@@ -58,7 +58,7 @@ class AddBookBloc extends Bloc {
       image: _image,
       notes: notes,
       price: price,
-      currentPage: currentPage!,
+      currentPage: currentPage,
       url: url,
     );
     final duplicateBooks = BookList.books.where((element) => element == book);
@@ -76,21 +76,22 @@ class AddBookBloc extends Bloc {
   /// Book to repalce is the [toReplace]
   Book replaceBook(Book toReplace) {
     final Book book = Book(
-        title: title,
-        pages: pages,
-        currentPage: currentPage!,
-        author: author,
-        image: _image,
-        notes: notes,
-        price: price,
-        url: url);
+      title: title,
+      pages: pages,
+      currentPage: currentPage,
+      author: author,
+      image: _image,
+      notes: notes,
+      price: price,
+      url: url,
+    );
     BookList.replaceBook(toReplace, book);
     return book;
   }
 
   /// Checks if all needed vars are filled in.
   void checkForVars() {
-    if (title.isNotEmpty && pages > 0 && currentPage != null) {
+    if (title.isNotEmpty && pages > 0 && currentPage < pages) {
       _doneButtonEnabled = true;
     } else {
       _doneButtonEnabled = false;

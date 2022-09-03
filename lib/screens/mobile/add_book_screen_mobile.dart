@@ -123,8 +123,12 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
             AddModelContainerMobile(
               name: 'Pages'.tr(),
               done: (str) {
-                setState(() {
+                if (str.isEmpty) {
+                  _bloc!.pages = 0;
+                } else {
                   _bloc!.pages = int.parse(str);
+                }
+                setState(() {
                   _bloc!.checkForVars();
                 });
               },
@@ -134,14 +138,16 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
             AddModelContainerMobile(
               name: 'Current Page'.tr(),
               done: (str) {
-                setState(() {
+                if (str.isEmpty) {
+                  _bloc!.currentPage = 0;
+                } else {
                   _bloc!.currentPage = int.parse(str);
+                }
+                setState(() {
                   _bloc!.checkForVars();
                 });
               },
-              initialValue: _bloc!.currentPage != null
-                  ? _bloc!.currentPage!.toString()
-                  : null,
+              initialValue: _bloc!.currentPage.toString(),
               keyboardType: TextInputType.number,
             ),
             AddModelContainerMobile(
