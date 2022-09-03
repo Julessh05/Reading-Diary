@@ -108,7 +108,9 @@ class AddBookBloc extends Bloc {
     } else if (url!.isEmpty) {
       return true;
     } else {
-      if (Routes.supportedURLs.containsValue(url)) {
+      if (Routes.supportedURLs.values.any(
+        (String supportedURL) => url!.toLowerCase().startsWith(supportedURL),
+      )) {
         return true;
       } else {
         return false;

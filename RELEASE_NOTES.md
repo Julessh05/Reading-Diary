@@ -1,5 +1,27 @@
 # Release Notes 
 
+---
+---
+
+## Version 3.3.3
+
+### Features
+
+- Redesign Setting Screen. ([#91](https://github.com/Jules-sh/Reading-Diary/issues/91))
+
+### Bugfixes
+
+- The last update changed the URL check, so you can't enter false URL's, but that
+had the side effect, that you could only enter this URL, and nothing behind it (like a User.).
+That is fixed now. ([#93](https://github.com/Jules-sh/Reading-Diary/issues/93))
+- Post Security when editing Book ([#95](https://github.com/Jules-sh/Reading-Diary/issues/95))
+- When editing Books, the Params are now set right. ([#94](https://github.com/Jules-sh/Reading-Diary/issues/94))
+
+
+### About
+
+- Release Date: 03.09.2022
+- Copyright: © Julian Schumacher 2022
 
 ---
 ---
@@ -23,6 +45,12 @@
 
 - Check for URL's on the Add Book Screen has been updated, so that a bug where you could
 add nonsense URL's is now fixed.
+
+
+### About
+
+- Release Date: 02.09.2022
+- Copyright: © Julian Schumacher 2022
 
 ---
 ---

@@ -11,6 +11,22 @@ import 'package:reading_diary/main.dart';
 import 'package:reading_diary/models/setting.dart' show Setting;
 import 'package:string_translate/string_translate.dart'
     hide StandardTranslations, TranslationDelegates;
+import 'package:url_launcher/url_launcher.dart';
+
+/// Enum that tells
+/// the launch Function,
+/// which one of the Social
+/// Media Button has been pressed.
+enum OpenURL {
+  /// THe User wants to open the Facebook Page
+  facebook,
+
+  /// The User wants to contact the Developer via E-Mail
+  mail,
+
+  /// The User wants to open the Github Link
+  code,
+}
 
 /// Mobile Version of the Settings Screen.
 class SettingsScreenMobile extends StatefulWidget {
@@ -51,48 +67,126 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
   /// Screen.
   Scrollbar get _body {
     return Scrollbar(
-      child: ListView(
-        addAutomaticKeepAlives: true,
-        addRepaintBoundaries: true,
-        addSemanticIndexes: true,
+      child: Stack(
+        alignment: Alignment.center,
+        fit: StackFit.expand,
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        dragStartBehavior: DragStartBehavior.down,
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        physics: const BouncingScrollPhysics(),
-        reverse: false,
-        scrollDirection: Axis.vertical,
         children: [
-          // Language Setting.
-          SettingsTileMobile(
-            setting: Setting.settingForName(Setting.languageName),
-            onTap: _showLanguageDialog,
-          ),
+          ListView(
+            addAutomaticKeepAlives: true,
+            addRepaintBoundaries: true,
+            addSemanticIndexes: true,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            dragStartBehavior: DragStartBehavior.down,
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            physics: const BouncingScrollPhysics(),
+            reverse: false,
+            scrollDirection: Axis.vertical,
+            children: <Widget>[
+              // Language Setting.
+              SettingsTileMobile(
+                setting: Setting.settingForName(Setting.languageName),
+                onTap: _showLanguageDialog,
+              ),
 
-          // Theme Setting
-          SettingsTileMobile(
-            setting: Setting.settingForName(Setting.themeName),
-            onTap: _showThemeDialog,
-          ),
+              // Theme Setting
+              SettingsTileMobile(
+                setting: Setting.settingForName(Setting.themeName),
+                onTap: _showThemeDialog,
+              ),
 
-          SettingsTileMobile(
-            setting: Setting.settingForName(Setting.colorName),
-            onTap: _showColorChooser,
-          ),
+              SettingsTileMobile(
+                setting: Setting.settingForName(Setting.colorName),
+                onTap: _showColorChooser,
+              ),
 
-          /// Information Tile
-          ListTile(
-            autofocus: false,
-            enableFeedback: true,
-            enabled: true,
-            isThreeLine: false,
-            title: Text('Information'.tr()),
-            subtitle: Text('Show detailed Information about the App'.tr()),
-            leading: const Icon(Icons.info_rounded),
-            onTap: _showInformationDialog,
+              /// Information Tile
+              ListTile(
+                autofocus: false,
+                enableFeedback: true,
+                enabled: true,
+                isThreeLine: false,
+                title: Text('Information'.tr()),
+                subtitle: Text('Show detailed Information about the App'.tr()),
+                leading: const Icon(Icons.info_rounded),
+                onTap: _showInformationDialog,
+              ),
+
+              SizedBox(height: MediaQuery.of(context).size.height / 3),
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height / 6.8,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    textBaseline: TextBaseline.alphabetic,
+                    textDirection: TextDirection.ltr,
+                    verticalDirection: VerticalDirection.down,
+                    children: <IconButton>[
+                      IconButton(
+                        alignment: Alignment.center,
+                        autofocus: false,
+                        enableFeedback: true,
+                        tooltip: ''.tr(),
+                        onPressed: () => _contact(OpenURL.facebook),
+                        icon: const Icon(Icons.facebook_rounded),
+                      ),
+                      IconButton(
+                        alignment: Alignment.center,
+                        autofocus: false,
+                        enableFeedback: true,
+                        tooltip: ''.tr(),
+                        onPressed: () => _contact(OpenURL.mail),
+                        icon: const Icon(Icons.email_rounded),
+                      ),
+                      IconButton(
+                        alignment: Alignment.center,
+                        autofocus: false,
+                        enableFeedback: true,
+                        tooltip: ''.tr(),
+                        onPressed: () => _contact(OpenURL.code),
+                        icon: const Icon(Icons.code_rounded),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 5),
+                  const Text(
+                    '© Julian Schumacher \n2022',
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),
     );
+  }
+
+  /// Opens a link depending on
+  /// the specified [what] Argument,
+  /// that tells this Function
+  /// which Button has been pressed.
+  void _contact(OpenURL what) async {
+    final Uri uri;
+    switch (what) {
+      case OpenURL.facebook:
+        uri = Uri.parse('https://www.facebook.com/jules.mediadesign');
+        break;
+      case OpenURL.mail:
+        uri = Uri.parse('mailto:Jules.media@outlook.de');
+        break;
+      case OpenURL.code:
+        uri = Uri.parse('https://github.com/Jules-sh/Reading-Diary');
+        break;
+    }
+    await launchUrl(uri, mode: LaunchMode.platformDefault);
   }
 
   /// Function called to show

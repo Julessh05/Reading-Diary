@@ -202,17 +202,15 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       onPressed: () {
-        if (widget.addOrEdit.edit) {
-          final Book newBook = _bloc!.replaceBook(_book!);
-          Navigator.pop(context);
-          Navigator.pushReplacementNamed(
-            context,
-            Routes.bookDetailsScreen,
-            arguments: newBook,
-          );
-        } else {
-          if (!_bloc!.checkURL()) {
-            _showUnsupportedURLDialog();
+        if (_bloc!.checkURL()) {
+          if (widget.addOrEdit.edit) {
+            final Book newBook = _bloc!.replaceBook(_book!);
+            Navigator.pop(context);
+            Navigator.pushReplacementNamed(
+              context,
+              Routes.bookDetailsScreen,
+              arguments: newBook,
+            );
           } else {
             final success = _bloc!.createBook();
             if (!success) {
@@ -220,6 +218,8 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
             }
             Navigator.pop(context);
           }
+        } else {
+          _showUnsupportedURLDialog();
         }
       },
       child: Text(
