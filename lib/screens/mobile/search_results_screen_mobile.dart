@@ -82,7 +82,9 @@ class _SerachResultsScreenMobileState extends State<SerachResultsScreenMobile> {
               isThreeLine: false,
               selected: false,
               title: Text(o.title),
+              subtitle: Text('Wish'.tr()),
               onTap: onTap,
+              leading: const Icon(Icons.bookmark_rounded),
             ),
           );
           break;
@@ -96,8 +98,9 @@ class _SerachResultsScreenMobileState extends State<SerachResultsScreenMobile> {
               enabled: true,
               isThreeLine: false,
               selected: false,
+              leading: const Icon(Icons.book_rounded),
               title: Text(o.title),
-              subtitle: Text(o.currentPage.toString()),
+              subtitle: Text('Book'.tr()),
               onTap: onTap,
             ),
           );
@@ -113,8 +116,9 @@ class _SerachResultsScreenMobileState extends State<SerachResultsScreenMobile> {
               isThreeLine: false,
               selected: false,
               title: Text(o.title),
-              subtitle: Text(o.book.title),
+              subtitle: Text('Entry'.tr()),
               onTap: onTap,
+              leading: const Icon(Icons.menu_book_rounded),
             ),
           );
           break;
