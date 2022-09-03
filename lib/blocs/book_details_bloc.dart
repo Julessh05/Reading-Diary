@@ -18,16 +18,8 @@ class BookDetailsBloc extends Bloc {
   String calculateProcentualProgress(Book book) {
     final double onePercent = book.pages / 100;
     final double percent = book.currentPage / onePercent;
-
     final String percentString = percent.toStringAsFixed(2);
-
-    if (percentString.endsWith('00')) {
-      return percentString.substring(0, percentString.length - 3);
-    } else if (percentString.endsWith('0')) {
-      return percentString.substring(0, percentString.length - 1);
-    } else {
-      return percentString;
-    }
+    return percentString.replaceAll(RegExp('\\.?0+\$'), '');
   }
 
   @override

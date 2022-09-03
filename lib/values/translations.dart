@@ -546,8 +546,12 @@ final Map<String, Map<Locale, String>> _translations = {
     TranslationLocales.portuguese:
         'Com a exclusão deste livro, todas as entradas e desejos vinculados também serão excluídos.',
   },
-  // TODO: add Translation
-  'Empty Search': {},
+  'Empty Search': {
+    TranslationLocales.german: 'Leere Suche',
+    TranslationLocales.french: 'Recherche vide',
+    TranslationLocales.spanish: 'Búsqueda vacía',
+    TranslationLocales.portuguese: 'Pesquisa vazia',
+  },
 };
 
 /// Getter for the Translations.
