@@ -3,7 +3,7 @@
 ---
 ---
 
-## Version 3.3.3
+## Version 3.3.4
 
 ### Features
 
@@ -16,6 +16,7 @@ had the side effect, that you could only enter this URL, and nothing behind it (
 That is fixed now. ([#93](https://github.com/Jules-sh/Reading-Diary/issues/93))
 - Post Security when editing Book ([#95](https://github.com/Jules-sh/Reading-Diary/issues/95))
 - When editing Books, the Params are now set right. ([#94](https://github.com/Jules-sh/Reading-Diary/issues/94))
+- Post Text Field Capitalization updated to all lower-case ([#96](https://github.com/Jules-sh/Reading-Diary/issues/96))
 
 
 ### About
