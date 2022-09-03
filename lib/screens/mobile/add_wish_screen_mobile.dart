@@ -97,14 +97,12 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
                 alignment: Alignment.center,
                 autofocus: false,
                 enableFeedback: true,
-                value: _bloc!.wishBook ?? const Book.none(),
+                value: _bloc!.wishBook,
                 onChanged: (book) {
-                  if (book == null) {
-                    _bloc!.wishBook = null;
-                  } else if (book == const Book.addBook()) {
+                  if (book == const Book.addBook()) {
                     _openAddBookScreen(context);
                   } else if (book == const Book.none()) {
-                    _bloc!.wishBook = null;
+                    _bloc!.wishBook = const Book.none();
                   } else {
                     _bloc!.wishBook = BookList.books
                         .where((element) => element == book)
@@ -114,7 +112,7 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
                 },
               ),
             ),
-            (_bloc!.wishBook == null || _bloc!.wishBook == const Book.none())
+            _bloc!.wishBook == const Book.none()
                 ? AddModelContainerMobile(
                     name: 'Title'.tr(),
                     maxLines: 1,
@@ -207,7 +205,7 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
         value: const Book.none(),
         onTap: () {
           setState(() {
-            _bloc!.wishBook = null;
+            _bloc!.wishBook = const Book.none();
           });
         },
         child: Text('None'.tr()),

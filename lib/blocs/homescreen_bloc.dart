@@ -49,7 +49,7 @@ class HomescreenBloc extends Bloc {
   final List<Object> _searchResults = [];
 
   /// The Book that the user filtered for.
-  Book? diarySearchBook;
+  Book diarySearchBook = const Book.none();
 
   /// getter for the current Index of the Navigation Bar.
   /// This is immutable.
@@ -63,6 +63,7 @@ class HomescreenBloc extends Bloc {
   /// on any Homscreen is tapped.
   /// Returns the List of Search Results.
   SearchResults onSearchTap() {
+    _searchResults.clear();
     for (DiaryEntry entry in Diary.entries) {
       if (entry.title.contains(searchKeyword)) {
         _searchResults.add(entry);
@@ -82,10 +83,16 @@ class HomescreenBloc extends Bloc {
         if (wish.description!.contains(searchKeyword)) {
           _searchResults.add(wish);
         }
+      } else if (wish.book != const Book.none()) {
+        if (wish.book == diarySearchBook) {
+          _searchResults.add(wish);
+        }
       } else {
         continue;
       }
     }
+
+    diarySearchBook = const Book.none();
 
     for (Book book in BookList.books) {
       if (book.title.contains(searchKeyword)) {
@@ -103,9 +110,23 @@ class HomescreenBloc extends Bloc {
       }
     }
 
+    final String keyword;
+
+    if (searchKeyword.isEmpty) {
+      if (diarySearchBook != const Book.none()) {
+        keyword = diarySearchBook.title;
+      } else {
+        keyword = 'Empty Search'.tr();
+      }
+    } else {
+      keyword = searchKeyword;
+    }
+
+    searchKeyword = '';
+
     return SearchResults(
       results: _searchResults,
-      search: searchKeyword,
+      search: keyword,
     );
   }
 
@@ -177,5 +198,8 @@ class HomescreenBloc extends Bloc {
   }
 
   @override
-  void dispose() {}
+  void dispose() {
+    _searchResults.clear();
+    searchKeyword = '';
+  }
 }

@@ -12,7 +12,7 @@ class AddWishBloc extends Bloc {
   bool _doneButtonEnabled = false;
 
   /// Book for that wish
-  Book? wishBook;
+  Book wishBook = const Book.none();
 
   /// The Title of the Wish
   String? title;
@@ -27,20 +27,14 @@ class AddWishBloc extends Bloc {
   /// Checks if all
   /// required vars are set.
   void checkForVars() {
-    if (wishBook != null || (title != null && description != null)) {
-      if (wishBook != null) {
-        if (wishBook == const Book.none()) {
-          _doneButtonEnabled = false;
-        } else {
-          _doneButtonEnabled = true;
-        }
-      } else if (title!.isNotEmpty && description!.isNotEmpty) {
+    if (wishBook == const Book.none()) {
+      if (title != null && description != null) {
         _doneButtonEnabled = true;
       } else {
         _doneButtonEnabled = false;
       }
     } else {
-      _doneButtonEnabled = false;
+      _doneButtonEnabled = true;
     }
   }
 
@@ -48,7 +42,7 @@ class AddWishBloc extends Bloc {
   /// and adds it to the
   /// Wishlist
   void createWish() {
-    if (wishBook == null || wishBook == const Book.none()) {
+    if (wishBook == const Book.none()) {
       Wishlist.addWish(
         Wish.withoutBook(
           title: title!,
@@ -58,23 +52,25 @@ class AddWishBloc extends Bloc {
     } else {
       Wishlist.addWish(
         Wish(
-          book: wishBook!,
+          book: wishBook,
           description: description,
         ),
       );
     }
   }
 
+  /// Replaces a Wish
+  /// in the Wishlist.
   Wish replaceWish(Wish toReplace) {
     final Wish wish;
-    if (wishBook == null || wishBook == const Book.none()) {
+    if (wishBook == const Book.none()) {
       wish = Wish.withoutBook(
         title: title!,
         description: description,
       );
     } else {
       wish = Wish(
-        book: wishBook!,
+        book: wishBook,
         description: description,
       );
     }
