@@ -69,9 +69,6 @@ class _SerachResultsScreenMobileState extends State<SerachResultsScreenMobile> {
     final List<ModelContainerMobile> list = [];
 
     for (Object o in widget.results.results) {
-      // ignore: prefer_function_declarations_over_variables
-      final void Function() onTap = () => _openScreen(o.runtimeType, o);
-
       switch (o.runtimeType) {
         case Wish:
           o as Wish;
@@ -100,22 +97,5 @@ class _SerachResultsScreenMobileState extends State<SerachResultsScreenMobile> {
     }
 
     return list;
-  }
-
-  /// Opens the corresponding
-  /// Screen depending on whether
-  /// a Book, a Wish or an Entry is specified.
-  void _openScreen(Type type, dynamic args) {
-    final String routeName;
-    if (type == DiaryEntry) {
-      routeName = Routes.entryDetailsScreen;
-    } else if (type == Book) {
-      routeName = Routes.bookDetailsScreen;
-    } else {
-      routeName = Routes.wishDetailsScreen;
-    }
-    Navigator.pushNamed(context, routeName, arguments: args).then(
-      (value) => EventBloc.stream.add(const ReloadEvent()),
-    );
   }
 }

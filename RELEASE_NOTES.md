@@ -21,6 +21,7 @@ That is fixed now. ([#93](https://github.com/Jules-sh/Reading-Diary/issues/93))
 - When editing Books, the Params are now set right. ([#94](https://github.com/Jules-sh/Reading-Diary/issues/94))
 - Post Text Field Capitalization updated to all lower-case ([#96](https://github.com/Jules-sh/Reading-Diary/issues/96))
 - Pages can't be null when editing Book. ([#100](https://github.com/Jules-sh/Reading-Diary/issues/100))
+- Homescreen Button Animation is fixed ([#103](https://github.com/Jules-sh/Reading-Diary/issues/103))
 
 
 

@@ -65,48 +65,62 @@ class HomescreenBloc extends Bloc {
   SearchResults onSearchTap() {
     _searchResults.clear();
     for (DiaryEntry entry in Diary.entries) {
-      if (entry.title.contains(searchKeyword)) {
-        _searchResults.add(entry);
-      } else if (entry.content.contains(searchKeyword)) {
-        _searchResults.add(entry);
-      } else if (entry.book == diarySearchBook) {
-        _searchResults.add(entry);
-      } else {
-        continue;
-      }
-    }
-
-    for (Wish wish in Wishlist.wishes) {
-      if (wish.title.contains(searchKeyword)) {
-        _searchResults.add(wish);
-      } else if (wish.description != null) {
-        if (wish.description!.contains(searchKeyword)) {
-          _searchResults.add(wish);
-        }
-      } else if (wish.book != const Book.none()) {
-        if (wish.book == diarySearchBook) {
-          _searchResults.add(wish);
-        }
-      } else {
-        continue;
-      }
-    }
-
-    diarySearchBook = const Book.none();
-
-    for (Book book in BookList.books) {
-      if (book.title.contains(searchKeyword)) {
-        _searchResults.add(book);
-      } else if (book.notes.contains(searchKeyword)) {
-        _searchResults.add(book);
-      } else if (book.author != null) {
-        if (book.author!.contains(searchKeyword)) {
-          _searchResults.add(book);
+      if (searchKeyword.isNotEmpty) {
+        if (entry.title.contains(searchKeyword)) {
+          _searchResults.add(entry);
+        } else if (entry.content.contains(searchKeyword)) {
+          _searchResults.add(entry);
+        } else if (entry.book == diarySearchBook) {
+          _searchResults.add(entry);
         } else {
           continue;
         }
       } else {
-        continue;
+        if (entry.book == diarySearchBook) {
+          _searchResults.add(entry);
+        }
+      }
+    }
+
+    for (Wish wish in Wishlist.wishes) {
+      if (searchKeyword.isNotEmpty) {
+        if (wish.title.contains(searchKeyword)) {
+          _searchResults.add(wish);
+        } else if (wish.description != null) {
+          if (wish.description!.contains(searchKeyword)) {
+            _searchResults.add(wish);
+          }
+        } else if (wish.book != const Book.none()) {
+          if (wish.book == diarySearchBook) {
+            _searchResults.add(wish);
+          }
+        }
+      } else {
+        if (wish.book != const Book.none()) {
+          if (wish.book == diarySearchBook) {
+            _searchResults.add(wish);
+          }
+        }
+      }
+    }
+
+    for (Book book in BookList.books) {
+      if (searchKeyword.isNotEmpty) {
+        if (book.title.contains(searchKeyword)) {
+          _searchResults.add(book);
+        } else if (book.notes.contains(searchKeyword)) {
+          _searchResults.add(book);
+        } else if (book.author != null) {
+          if (book.author!.contains(searchKeyword)) {
+            _searchResults.add(book);
+          }
+        }
+      } else {
+        if (book != const Book.none()) {
+          if (book == diarySearchBook) {
+            _searchResults.add(book);
+          }
+        }
       }
     }
 
@@ -123,6 +137,7 @@ class HomescreenBloc extends Bloc {
     }
 
     searchKeyword = '';
+    diarySearchBook = const Book.none();
 
     return SearchResults(
       results: _searchResults,

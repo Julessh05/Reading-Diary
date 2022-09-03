@@ -24,7 +24,7 @@ void main() async {
 
 /// The current Version of the App
 /// as a String.
-const String appVersion = '3.6.5';
+const String appVersion = '3.6.6';
 
 /// Determines the Platform this Apps is running on.
 /// Also sets the [WidgetRouter.isDesktop] Variable.

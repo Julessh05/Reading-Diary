@@ -712,96 +712,98 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
     showDialog(
       context: context,
       builder: (_) {
-        return StatefulBuilder(builder: (_, StateSetter setState) {
-          return AlertDialog(
-            scrollable: true,
+        return AlertDialog(
+          scrollable: true,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          backgroundColor:
+              Theme.of(context).scaffoldBackgroundColor.withOpacity(.95),
+          insetPadding: EdgeInsets.zero,
+          contentPadding: EdgeInsets.zero,
+          buttonPadding: EdgeInsets.zero,
+          actionsPadding: EdgeInsets.zero,
+          title: Text('Search your Entries'.tr()),
+          content: SingleChildScrollView(
             clipBehavior: Clip.antiAliasWithSaveLayer,
-            backgroundColor:
-                Theme.of(context).scaffoldBackgroundColor.withOpacity(.95),
-            insetPadding: EdgeInsets.zero,
-            contentPadding: EdgeInsets.zero,
-            buttonPadding: EdgeInsets.zero,
-            actionsPadding: EdgeInsets.zero,
-            title: Text('Search your Entries'.tr()),
-            content: SingleChildScrollView(
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              dragStartBehavior: DragStartBehavior.down,
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              reverse: false,
-              scrollDirection: Axis.vertical,
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                textBaseline: TextBaseline.alphabetic,
-                textDirection: TextDirection.ltr,
-                verticalDirection: VerticalDirection.down,
-                children: [
-                  AddModelContainerMobile(
-                    name: 'Keyword'.tr(),
-                    autofocus: true,
-                    done: (str) => _bloc!.searchKeyword = str,
-                    opacity: 0.7,
+            dragStartBehavior: DragStartBehavior.down,
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            reverse: false,
+            scrollDirection: Axis.vertical,
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              textBaseline: TextBaseline.alphabetic,
+              textDirection: TextDirection.ltr,
+              verticalDirection: VerticalDirection.down,
+              children: [
+                AddModelContainerMobile(
+                  name: 'Keyword'.tr(),
+                  autofocus: true,
+                  done: (str) => _bloc!.searchKeyword = str,
+                  opacity: 0.7,
+                ),
+                Center(
+                  child: Text(
+                    'Filter'.tr(),
+                    style: _filterLabelStyle,
                   ),
-                  Center(
-                    child: Text(
-                      'Filter'.tr(),
-                      style: _filterLabelStyle,
-                    ),
-                  ),
-                  AddModelContainerMobile(
-                    name: 'Book'.tr(),
-                    opacity: .7,
-                    child: DropdownButton<Book>(
-                      items: _bookDropDownItems,
-                      alignment: Alignment.center,
-                      autofocus: false,
-                      enableFeedback: true,
-                      value: _bloc!.diarySearchBook,
-                      onChanged: (book) {
-                        if (book == const Book.none()) {
-                          setState(() {
-                            _bloc!.diarySearchBook = const Book.none();
-                          });
-                        } else {
-                          setState(() {
-                            _bloc!.diarySearchBook = BookList.books
-                                .where((element) => element == book)
-                                .first;
-                          });
-                        }
-                      },
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                StatefulBuilder(
+                  builder: (_, StateSetter setState) {
+                    return AddModelContainerMobile(
+                      name: 'Book'.tr(),
+                      opacity: .7,
+                      child: DropdownButton<Book>(
+                        items: _bookDropDownItems,
+                        alignment: Alignment.center,
+                        autofocus: false,
+                        enableFeedback: true,
+                        value: _bloc!.diarySearchBook,
+                        onChanged: (book) {
+                          if (book == const Book.none()) {
+                            setState(() {
+                              _bloc!.diarySearchBook = const Book.none();
+                            });
+                          } else {
+                            setState(() {
+                              _bloc!.diarySearchBook = BookList.books
+                                  .where((element) => element == book)
+                                  .first;
+                            });
+                          }
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                autofocus: false,
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: Text('Cancel'.tr()),
-              ),
-              const SizedBox(width: 5),
-              TextButton(
-                onPressed: () {
-                  SearchResults results = _bloc!.onSearchTap();
-                  Navigator.pop(context);
-                  Navigator.pushNamed(
-                    context,
-                    Routes.searchResultsScreen,
-                    arguments: results,
-                  );
-                },
-                autofocus: true,
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: Text('Ok'.tr()),
-              ),
-            ],
-          );
-        });
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              autofocus: false,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Text('Cancel'.tr()),
+            ),
+            const SizedBox(width: 5),
+            TextButton(
+              onPressed: () {
+                SearchResults results = _bloc!.onSearchTap();
+                Navigator.pop(context);
+                Navigator.pushNamed(
+                  context,
+                  Routes.searchResultsScreen,
+                  arguments: results,
+                );
+              },
+              autofocus: true,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Text('Ok'.tr()),
+            ),
+          ],
+        );
       },
     );
   }

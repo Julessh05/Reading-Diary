@@ -85,12 +85,7 @@ class Storage {
     if (_settingsBox!.isEmpty) {
       Setting.createSettings();
     } else {
-      // TODO-js: Find other way to do this.
-      if (!_settingsBox!.containsKey(Setting.colorName)) {
-        Setting.createSingleSettings({Setting.colorName});
-        Setting.setValues();
-        storeSettings();
-      }
+      // TODO-js: Find a way to check if all Settings are set.
       for (Setting setting in _settingsBox!.values) {
         dynamic objectValue;
         switch (setting.name) {
