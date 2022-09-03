@@ -3,7 +3,7 @@
 ---
 ---
 
-## Version 3.6.5
+## Version 3.6.6
 
 ### Features
 
@@ -20,6 +20,7 @@ That is fixed now. ([#93](https://github.com/Jules-sh/Reading-Diary/issues/93))
 - When editing Books, the Params are now set right. ([#94](https://github.com/Jules-sh/Reading-Diary/issues/94))
 - Post Text Field Capitalization updated to all lower-case ([#96](https://github.com/Jules-sh/Reading-Diary/issues/96))
 - Pages can't be null when editing Book. ([#100](https://github.com/Jules-sh/Reading-Diary/issues/100))
+
 
 
 ### About
