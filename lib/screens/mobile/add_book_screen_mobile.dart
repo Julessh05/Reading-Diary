@@ -57,6 +57,7 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
       if (_book!.price != null) {
         _bloc!.price = _book!.price!;
       }
+      _bloc!.url = _book!.url;
       widget.addOrEdit.initialValueSet = true;
     }
 
@@ -172,6 +173,7 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
               initialValue: _bloc!.url,
               textInputAction: TextInputAction.done,
               keyboardType: TextInputType.url,
+              textCapitalization: TextCapitalization.none,
               done: (str) {
                 setState(() {
                   _bloc!.checkForVars();

@@ -20,6 +20,7 @@ class AddModelContainerMobile extends StatelessWidget {
     this.opacity = 1,
     this.suffixIcon,
     this.initialValue,
+    this.textCapitalization = TextCapitalization.sentences,
     Key? key,
   })  : assert(
           child == null && done != null || child != null,
@@ -75,7 +76,13 @@ class AddModelContainerMobile extends StatelessWidget {
   /// the TextFormField
   final Icon? suffixIcon;
 
+  /// The initial Value for this
+  /// Widget's TextField
   final String? initialValue;
+
+  /// The Text Capitalization for this
+  /// Widget's Text Field.
+  final TextCapitalization textCapitalization;
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +150,7 @@ class AddModelContainerMobile extends StatelessWidget {
                       smartQuotesType: SmartQuotesType.enabled,
                       textAlign: TextAlign.start,
                       textAlignVertical: TextAlignVertical.center,
-                      textCapitalization: TextCapitalization.sentences,
+                      textCapitalization: textCapitalization,
                       toolbarOptions: const ToolbarOptions(
                         copy: true,
                         cut: true,
