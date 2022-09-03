@@ -250,7 +250,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
       child: AnimatedCrossFade(
         duration: aDur,
         reverseDuration: aDur,
-        crossFadeState: _bloc!.wishlistFabExtended
+        crossFadeState: _bloc!.bookFabExtended
             ? CrossFadeState.showFirst
             : CrossFadeState.showSecond,
         firstChild: _bookEFab,

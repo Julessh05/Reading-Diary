@@ -10,6 +10,7 @@
 - Redesign Setting Screen. ([#91](https://github.com/Jules-sh/Reading-Diary/issues/91))
 - Update Search ([#98](https://github.com/Jules-sh/Reading-Diary/issues/98))
 - Icons shown on Model Container to represents Model ([#101](https://github.com/Jules-sh/Reading-Diary/issues/101))
+- Update Procentual Progress Bar ([#102](https://github.com/Jules-sh/Reading-Diary/issues/102))
 
 ### Bugfixes
 
