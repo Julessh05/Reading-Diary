@@ -1,14 +1,13 @@
 library mobile_components;
 
-import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
-import 'package:reading_diary/blocs/homescreen_bloc.dart';
+import 'package:reading_diary/blocs/event_bloc.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:reading_diary/models/events/reload_event.dart';
 import 'package:reading_diary/models/wish.dart' show Wish;
-import 'package:reading_diary/states/homescreen_state.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 
 /// A Container to display a single Diary Entry
@@ -23,7 +22,7 @@ class ModelContainerMobile extends StatefulWidget {
           (entry != null && book == null && wish == null) ||
               (entry == null && book != null && wish == null) ||
               (entry == null && book == null && wish != null),
-          'You can only pass either an entry or a book',
+          'You can only pass either an entry or a book or a wish',
         ),
         super(key: key);
 
@@ -41,12 +40,8 @@ class ModelContainerMobile extends StatefulWidget {
 }
 
 class _EntryContainerMobile extends State<ModelContainerMobile> {
-  HomescreenBloc? _homeBloc;
-
   @override
   Widget build(BuildContext context) {
-    _homeBloc ??= BlocParent.of(context);
-
     return GestureDetector(
       behavior: HitTestBehavior.deferToChild,
       dragStartBehavior: DragStartBehavior.down,
@@ -71,31 +66,63 @@ class _EntryContainerMobile extends State<ModelContainerMobile> {
               width: 0.3,
             ),
           ),
-          child: Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 25,
-                bottom: 15,
-              ),
-              child: DecoratedBox(
-                decoration: const BoxDecoration(),
-                position: DecorationPosition.background,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  textBaseline: TextBaseline.alphabetic,
-                  textDirection: TextDirection.ltr,
-                  verticalDirection: VerticalDirection.up,
-                  children: _children,
+          child: DecoratedBox(
+            decoration: const BoxDecoration(),
+            position: DecorationPosition.background,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              mainAxisSize: MainAxisSize.max,
+              textBaseline: TextBaseline.alphabetic,
+              textDirection: TextDirection.ltr,
+              verticalDirection: VerticalDirection.down,
+              children: [
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 25,
+                      bottom: 15,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      textBaseline: TextBaseline.alphabetic,
+                      textDirection: TextDirection.ltr,
+                      verticalDirection: VerticalDirection.up,
+                      children: _children,
+                    ),
+                  ),
                 ),
-              ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      right: 25,
+                      bottom: 15,
+                    ),
+                    child: _icon,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  /// Returns the Icon that should
+  /// be shown on the right side of this Container
+  Icon get _icon {
+    if (widget.book != null) {
+      return const Icon(Icons.book_rounded);
+    } else if (widget.entry != null) {
+      return const Icon(Icons.menu_book_rounded);
+    } else {
+      return const Icon(Icons.bookmark_rounded);
+    }
   }
 
   /// Children of the Body of
@@ -162,7 +189,7 @@ class _EntryContainerMobile extends State<ModelContainerMobile> {
       args = widget.wish!;
     }
     Navigator.pushNamed(context, routeName, arguments: args).then(
-      (value) => _homeBloc!.stateStream.add(HomescreenState()),
+      (value) => EventBloc.stream.sink.add(const ReloadEvent()),
     );
   }
 }

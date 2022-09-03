@@ -4,6 +4,7 @@ import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:color_chooser/color_chooser.dart';
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
+import 'package:helpful_extensions/helpful_extensions.dart' show ColorMapping;
 import 'package:modern_themes/modern_themes.dart' show Coloring;
 import 'package:reading_diary/blocs/settings_bloc.dart';
 import 'package:reading_diary/components/mobile/settings_tile_mobile.dart';
@@ -11,7 +12,7 @@ import 'package:reading_diary/main.dart';
 import 'package:reading_diary/models/setting.dart' show Setting;
 import 'package:string_translate/string_translate.dart'
     hide StandardTranslations, TranslationDelegates;
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart' show LaunchMode, launchUrl;
 
 /// Enum that tells
 /// the launch Function,
@@ -130,6 +131,9 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
                     verticalDirection: VerticalDirection.down,
                     children: <IconButton>[
                       IconButton(
+                        color: Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .secondaryColor,
                         alignment: Alignment.center,
                         autofocus: false,
                         enableFeedback: true,
@@ -138,6 +142,9 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
                         icon: const Icon(Icons.facebook_rounded),
                       ),
                       IconButton(
+                        color: Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .secondaryColor,
                         alignment: Alignment.center,
                         autofocus: false,
                         enableFeedback: true,
@@ -146,6 +153,9 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
                         icon: const Icon(Icons.email_rounded),
                       ),
                       IconButton(
+                        color: Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .secondaryColor,
                         alignment: Alignment.center,
                         autofocus: false,
                         enableFeedback: true,

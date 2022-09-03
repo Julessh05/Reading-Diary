@@ -3,12 +3,13 @@
 ---
 ---
 
-## Version 3.4.5
+## Version 3.6.5
 
 ### Features
 
 - Redesign Setting Screen. ([#91](https://github.com/Jules-sh/Reading-Diary/issues/91))
 - Update Search ([#98](https://github.com/Jules-sh/Reading-Diary/issues/98))
+- Icons shown on Model Container to represents Model ([#101](https://github.com/Jules-sh/Reading-Diary/issues/101))
 
 ### Bugfixes
 

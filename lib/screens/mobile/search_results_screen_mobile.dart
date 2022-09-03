@@ -3,6 +3,7 @@ library mobile_screens;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/event_bloc.dart';
+import 'package:reading_diary/components/mobile/model_container_mobile.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
@@ -64,8 +65,8 @@ class _SerachResultsScreenMobileState extends State<SerachResultsScreenMobile> {
   }
 
   /// The Children of the List View.
-  List<ListTile> get _children {
-    final List<ListTile> list = [];
+  List<ModelContainerMobile> get _children {
+    final List<ModelContainerMobile> list = [];
 
     for (Object o in widget.results.results) {
       // ignore: prefer_function_declarations_over_variables
@@ -75,51 +76,21 @@ class _SerachResultsScreenMobileState extends State<SerachResultsScreenMobile> {
         case Wish:
           o as Wish;
           list.add(
-            ListTile(
-              autofocus: false,
-              enableFeedback: true,
-              enabled: true,
-              isThreeLine: false,
-              selected: false,
-              title: Text(o.title),
-              subtitle: Text('Wish'.tr()),
-              onTap: onTap,
-              leading: const Icon(Icons.bookmark_rounded),
-            ),
+            ModelContainerMobile(wish: o),
           );
           break;
 
         case Book:
           o as Book;
           list.add(
-            ListTile(
-              autofocus: false,
-              enableFeedback: true,
-              enabled: true,
-              isThreeLine: false,
-              selected: false,
-              leading: const Icon(Icons.book_rounded),
-              title: Text(o.title),
-              subtitle: Text('Book'.tr()),
-              onTap: onTap,
-            ),
+            ModelContainerMobile(book: o),
           );
           break;
 
         case DiaryEntry:
           o as DiaryEntry;
           list.add(
-            ListTile(
-              autofocus: false,
-              enableFeedback: true,
-              enabled: true,
-              isThreeLine: false,
-              selected: false,
-              title: Text(o.title),
-              subtitle: Text('Entry'.tr()),
-              onTap: onTap,
-              leading: const Icon(Icons.menu_book_rounded),
-            ),
+            ModelContainerMobile(entry: o),
           );
           break;
 

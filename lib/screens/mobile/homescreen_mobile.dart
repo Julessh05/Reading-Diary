@@ -717,9 +717,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
             scrollable: true,
             clipBehavior: Clip.antiAliasWithSaveLayer,
             backgroundColor:
-                Theme.of(context).scaffoldBackgroundColor.withOpacity(
-                      .7,
-                    ),
+                Theme.of(context).scaffoldBackgroundColor.withOpacity(.95),
             insetPadding: EdgeInsets.zero,
             contentPadding: EdgeInsets.zero,
             buttonPadding: EdgeInsets.zero,
