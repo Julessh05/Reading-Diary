@@ -13,6 +13,11 @@
 
 - Text Editing Controller Bugfixes fixed. ([#108](https://github.com/Jules-sh/Reading-Diary/issues/108))
 
+### About
+
+- Release Date: 06.09.2022
+- Copyright: © Julian Schumacher 2022
+
 ---
 ---
 
