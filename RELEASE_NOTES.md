@@ -3,6 +3,25 @@
 ---
 ---
 
+## Version 4.0.1
+
+### Features
+
+- Add Cover Feature to Books and Entries / Wishes ([#92](https://github.com/Jules-sh/Reading-Diary/issues/92))
+
+
+### Bugfixes
+
+- Text Field Focus Selection ([#105](https://github.com/Jules-sh/Reading-Diary/issues/105))
+
+### About
+
+- Release Date: 06.09.2022
+- Copyright: © Julian Schumacher 2022
+
+---
+---
+
 ## Version 3.6.6
 
 ### Features
