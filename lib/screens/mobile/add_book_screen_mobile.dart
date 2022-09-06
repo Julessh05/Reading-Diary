@@ -1,14 +1,19 @@
 library mobile_screens;
 
+import 'dart:io';
+
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:reading_diary/blocs/add_book_bloc.dart';
 import 'package:reading_diary/components/mobile/add_model_container_mobile.dart';
 import 'package:reading_diary/components/mobile/model_details_container_mobile.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/book.dart' show Book;
+import 'package:reading_diary/models/image_screen_arguments.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 import 'package:url_launcher/url_launcher.dart' show launchUrl;
 
@@ -49,8 +54,8 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
         _bloc!.author = _book!.author!;
       }
       _bloc!.currentPage = _book!.currentPage;
-      if (_book!.image != null) {
-        _bloc!.image = _book!.image!;
+      if (_book!.coverPath != null) {
+        _bloc!.coverPath = _book!.coverPath!;
       }
       _bloc!.notes = _book!.notes;
       _bloc!.pages = _book!.pages;
@@ -63,7 +68,9 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
 
     return Scaffold(
       appBar: _appBar,
-      body: _body,
+      body: _Body(
+        addOrEdit: widget.addOrEdit,
+      ),
       extendBody: true,
       extendBodyBehindAppBar: false,
     );
@@ -75,6 +82,30 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
       automaticallyImplyLeading: true,
       title: Text('Add Book'.tr()),
     );
+  }
+}
+
+class _Body extends StatefulWidget {
+  /// The Object that determines,
+  /// how this Screen is used,
+  final AddOrEdit addOrEdit;
+
+  const _Body({required this.addOrEdit, Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  /// Corresponding Bloc for this Screen
+  AddBookBloc? _bloc;
+
+  @override
+  Widget build(BuildContext context) {
+    // Init Bloc
+    _bloc ??= BlocParent.of(context);
+
+    return _body;
   }
 
   /// Body for this Screen.
@@ -117,9 +148,11 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
               maxLines: 1,
               initialValue: _bloc!.author,
             ),
-
-            // TODO-js: add option to add am Image
-
+            AddModelContainerMobile(
+              name: 'Cover'.tr(),
+              big: _bloc!.coverPath != null,
+              child: _coverContainer,
+            ),
             AddModelContainerMobile(
               name: 'Pages'.tr(),
               done: (str) {
@@ -212,7 +245,9 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
       onPressed: () {
         if (_bloc!.checkURL()) {
           if (widget.addOrEdit.edit) {
-            final Book newBook = _bloc!.replaceBook(_book!);
+            final Book newBook = _bloc!.replaceBook(
+              widget.addOrEdit.object as Book,
+            );
             Navigator.pop(context);
             Navigator.pushReplacementNamed(
               context,
@@ -249,6 +284,166 @@ class _AddBookScreenMobileState extends State<AddBookScreenMobile> {
       child: Text(
         'Done'.tr(),
       ),
+    );
+  }
+
+  /// The Container that is
+  /// used to display the Cover Picker
+  /// or the picked Cover
+  Column get _coverContainer {
+    final bool isSet = _bloc!.coverPath != null;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      textBaseline: TextBaseline.alphabetic,
+      textDirection: TextDirection.ltr,
+      verticalDirection: VerticalDirection.down,
+      children: [
+        ElevatedButton(
+          onPressed: _pickImage,
+          autofocus: false,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          child: Text(
+            isSet ? 'Change Cover'.tr() : 'Pick a Cover'.tr(),
+          ),
+        ),
+        isSet ? const SizedBox(height: 10) : Container(),
+        isSet
+            ? ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    Routes.imageScreen,
+                    arguments: ImageScreenArguments(
+                      file: File(_bloc!.coverPath!),
+                      title: 'Cover'.tr(),
+                    ),
+                  );
+                },
+                autofocus: false,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: Text('Show current Cover'.tr()),
+              )
+            : Container(),
+      ],
+    );
+  }
+
+  /// Picks an Image from the Gallery
+  /// or provides the oppotunity
+  /// to take a new one.
+  void _pickImage() {
+    showBottomSheet(
+      context: context,
+      builder: (_) {
+        ImagePicker picker = ImagePicker();
+        return Container(
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          decoration: const BoxDecoration(shape: BoxShape.rectangle),
+          height: MediaQuery.of(context).size.height / 5,
+          alignment: Alignment.center,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            textBaseline: TextBaseline.alphabetic,
+            textDirection: TextDirection.ltr,
+            verticalDirection: VerticalDirection.down,
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  final XFile? file;
+                  try {
+                    file = await picker.pickImage(
+                      source: ImageSource.gallery,
+                    );
+
+                    if (file != null) {
+                      // Save File to Documents Directory
+                      final Directory dir =
+                          await getApplicationDocumentsDirectory();
+                      final String path = dir.path;
+                      file.saveTo('$path/${file.name}');
+
+                      setState(() {
+                        _bloc!.coverPath = file!.path;
+                        Navigator.pop(context);
+                      });
+                    } else {
+                      return;
+                    }
+                  } on Exception catch (_) {
+                    Navigator.pop(context);
+                    _showPermissionDeniedDialog();
+                  }
+                },
+                child: Text('Pick Cover from Gallery'.tr()),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  try {
+                    final XFile? file = await picker.pickImage(
+                      source: ImageSource.camera,
+                    );
+                    if (file != null) {
+                      // Save File to Documents Directory
+                      final Directory dir =
+                          await getApplicationDocumentsDirectory();
+                      final String path = dir.path;
+                      file.saveTo(path);
+
+                      setState(() {
+                        _bloc!.coverPath = file.path;
+                        Navigator.pop(context);
+                      });
+                    } else {
+                      return;
+                    }
+                  } on Exception catch (_) {
+                    Navigator.pop(context);
+                    _showPermissionDeniedDialog();
+                  }
+                },
+                child: Text('Take a new Picutre'.tr()),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showPermissionDeniedDialog() {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          alignment: Alignment.center,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          icon: const Icon(Icons.block_outlined),
+          title: Text('Permission not granted'.tr()),
+          content: Text(
+            'You denied the Permission to take pictures and use the gallery. \nPlease change that.'
+                .tr(),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              autofocus: true,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Text('Cancel'.tr()),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              autofocus: true,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Text('Ok'.tr()),
+            ),
+          ],
+        );
+      },
     );
   }
 
