@@ -310,7 +310,7 @@ class _BodyState extends State<_Body> {
             isSet ? 'Change Cover'.tr() : 'Pick a Cover'.tr(),
           ),
         ),
-        isSet ? const SizedBox(height: 10) : Container(),
+        isSet ? const SizedBox(height: 15) : Container(),
         isSet
             ? ElevatedButton(
                 onPressed: () {

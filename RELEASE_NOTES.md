@@ -3,6 +3,19 @@
 ---
 ---
 
+## Version 4.0.2
+
+### Features
+
+- add Link ([#109](https://github.com/Jules-sh/Reading-Diary/issues/109))
+
+### Bugfixes
+
+- Text Editing Controller Bugfixes fixed. ([#108](https://github.com/Jules-sh/Reading-Diary/issues/108))
+
+---
+---
+
 ## Version 4.0.1
 
 ### Features

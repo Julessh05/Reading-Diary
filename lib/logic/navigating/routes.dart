@@ -59,5 +59,6 @@ class Routes {
     'Reddit': 'https://www.reddit.com',
     'GommeHD': 'https://www.gommehd.net',
     'Discord': 'https://discord.com',
+    'Discord Server': 'https://discord.gg'
   };
 }

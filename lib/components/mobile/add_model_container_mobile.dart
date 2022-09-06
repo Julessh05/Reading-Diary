@@ -1,13 +1,13 @@
 library mobile_components;
 
-import 'package:flutter/gestures.dart';
+import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show MaxLengthEnforcement;
 
 /// A Container with an input field and
 /// the Option to replace that input field
 /// with your own Widget [child]
-class AddModelContainerMobile extends StatelessWidget {
+class AddModelContainerMobile extends StatefulWidget {
   const AddModelContainerMobile({
     required this.name,
     this.autofocus = false,
@@ -93,12 +93,48 @@ class AddModelContainerMobile extends StatelessWidget {
   final bool selectOnTap;
 
   @override
+  State<StatefulWidget> createState() => _AddModelContainerMobileState();
+}
+
+class _AddModelContainerMobileState extends State<AddModelContainerMobile> {
+  /// The Controller for this Widgets TextField.
+  final TextEditingController _controller = TextEditingController();
+
+  final FocusNode _focus = FocusNode();
+
+  bool _firstFocus = true;
+
+  @override
+  void initState() {
+    if (widget.selectOnTap) {
+      _focus.addListener(() {
+        if (_firstFocus) {
+          if (_focus.hasFocus) {
+            _controller.selection = TextSelection(
+              baseOffset: 0,
+              extentOffset: _controller.text.length,
+            );
+            _firstFocus = false;
+          }
+        } else {
+          return;
+        }
+      });
+    }
+
+    if (widget.initialValue != null) {
+      _controller.text = widget.initialValue!;
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: () {
-        if (big) {
+        if (widget.big) {
           return MediaQuery.of(context).size.height / 3.3;
-        } else if (multiline) {
+        } else if (widget.multiline) {
           return MediaQuery.of(context).size.height;
         } else {
           return MediaQuery.of(context).size.height / 4.5;
@@ -108,7 +144,9 @@ class AddModelContainerMobile extends StatelessWidget {
         elevation: 8,
         borderOnForeground: false,
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        color: Theme.of(context).scaffoldBackgroundColor.withOpacity(opacity),
+        color: Theme.of(context)
+            .scaffoldBackgroundColor
+            .withOpacity(widget.opacity),
         margin: const EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 10,
@@ -132,16 +170,18 @@ class AddModelContainerMobile extends StatelessWidget {
             textDirection: TextDirection.ltr,
             verticalDirection: VerticalDirection.down,
             children: [
-              Text(name, style: _tStyle),
+              Text(widget.name, style: _tStyle),
               const SizedBox(height: 18),
-              child ??
+              widget.child ??
                   SizedBox(
-                    height: multiline
+                    height: widget.multiline
                         ? MediaQuery.of(context).size.height / 1.2
                         : 80,
                     child: TextField(
+                      focusNode: _focus,
                       autocorrect: true,
-                      autofocus: autofocus,
+                      controller: _controller,
+                      autofocus: widget.autofocus,
                       enableIMEPersonalizedLearning: true,
                       enableInteractiveSelection: true,
                       enableSuggestions: true,
@@ -150,13 +190,13 @@ class AddModelContainerMobile extends StatelessWidget {
                       obscureText: false,
                       keyboardAppearance: Theme.of(context).brightness,
                       scrollPhysics: const BouncingScrollPhysics(),
-                      keyboardType: keyboardType,
+                      keyboardType: widget.keyboardType,
                       readOnly: false,
                       smartDashesType: SmartDashesType.enabled,
                       smartQuotesType: SmartQuotesType.enabled,
                       textAlign: TextAlign.start,
                       textAlignVertical: TextAlignVertical.center,
-                      textCapitalization: textCapitalization,
+                      textCapitalization: widget.textCapitalization,
                       toolbarOptions: const ToolbarOptions(
                         copy: true,
                         cut: true,
@@ -165,14 +205,14 @@ class AddModelContainerMobile extends StatelessWidget {
                       ),
                       selectionControls: MaterialTextSelectionControls(),
                       textDirection: TextDirection.ltr,
-                      textInputAction: textInputAction,
-                      maxLines: multiline ? 99999 : maxLines,
-                      minLines: multiline
+                      textInputAction: widget.textInputAction,
+                      maxLines: widget.multiline ? 99999 : widget.maxLines,
+                      minLines: widget.multiline
                           ? MediaQuery.of(context).size.height ~/ 20
                           : 1,
                       showCursor: true,
-                      onChanged: done,
-                      onSubmitted: done,
+                      onChanged: widget.done,
+                      onSubmitted: widget.done,
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       dragStartBehavior: DragStartBehavior.down,
                       obscuringCharacter: '*',
@@ -180,7 +220,7 @@ class AddModelContainerMobile extends StatelessWidget {
                       maxLengthEnforcement:
                           MaxLengthEnforcement.truncateAfterCompositionEnds,
                       decoration: InputDecoration(
-                        suffixIcon: suffixIcon,
+                        suffixIcon: widget.suffixIcon,
                       ),
                     ),
                   ),
@@ -191,12 +231,18 @@ class AddModelContainerMobile extends StatelessWidget {
     );
   }
 
-  /// Text Style for the [name]
+  /// Text Style for the [widget.name]
   TextStyle get _tStyle {
     return const TextStyle(
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.w500,
       fontSize: 20,
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
