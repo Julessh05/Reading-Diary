@@ -1,5 +1,6 @@
 library mobile_components;
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show MaxLengthEnforcement;
 
@@ -21,6 +22,7 @@ class AddModelContainerMobile extends StatelessWidget {
     this.suffixIcon,
     this.initialValue,
     this.textCapitalization = TextCapitalization.sentences,
+    this.selectOnTap = false,
     Key? key,
   })  : assert(
           child == null && done != null || child != null,
@@ -84,8 +86,17 @@ class AddModelContainerMobile extends StatelessWidget {
   /// Widget's Text Field.
   final TextCapitalization textCapitalization;
 
+  /// Whether the initial Value in
+  /// this Text Field should be selected
+  /// when the User taps on the
+  /// Text Field.
+  final bool selectOnTap;
+
   @override
   Widget build(BuildContext context) {
+    final TextEditingController controller = TextEditingController(
+      text: initialValue,
+    );
     return SizedBox(
       height: () {
         if (big) {
@@ -131,9 +142,8 @@ class AddModelContainerMobile extends StatelessWidget {
                     height: multiline
                         ? MediaQuery.of(context).size.height / 1.2
                         : 80,
-                    child: TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      initialValue: initialValue,
+                    child: TextField(
+                      controller: controller,
                       autocorrect: true,
                       autofocus: autofocus,
                       enableIMEPersonalizedLearning: true,
@@ -166,8 +176,23 @@ class AddModelContainerMobile extends StatelessWidget {
                           : 1,
                       showCursor: true,
                       onChanged: done,
+                      onSubmitted: done,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      dragStartBehavior: DragStartBehavior.down,
+                      obscuringCharacter: '*',
+                      scribbleEnabled: true,
                       maxLengthEnforcement:
                           MaxLengthEnforcement.truncateAfterCompositionEnds,
+                      onTap: () {
+                        if (selectOnTap) {
+                          controller.selection = TextSelection(
+                            baseOffset: 0,
+                            extentOffset: controller.value.text.length,
+                          );
+                        } else {
+                          return;
+                        }
+                      },
                       decoration: InputDecoration(
                         suffixIcon: suffixIcon,
                       ),

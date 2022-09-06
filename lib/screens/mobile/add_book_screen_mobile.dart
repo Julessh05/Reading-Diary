@@ -181,6 +181,7 @@ class _BodyState extends State<_Body> {
                 });
               },
               initialValue: _bloc!.currentPage.toString(),
+              selectOnTap: widget.addOrEdit.edit ? false : true,
               keyboardType: TextInputType.number,
             ),
             AddModelContainerMobile(
