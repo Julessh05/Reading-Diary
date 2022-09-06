@@ -1,5 +1,7 @@
 library mobile_components;
 
+import 'dart:io';
+
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/blocs/event_bloc.dart';
@@ -67,7 +69,9 @@ class _EntryContainerMobile extends State<ModelContainerMobile> {
             ),
           ),
           child: DecoratedBox(
-            decoration: const BoxDecoration(),
+            decoration: BoxDecoration(
+              image: _backgroundImage,
+            ),
             position: DecorationPosition.background,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,6 +114,43 @@ class _EntryContainerMobile extends State<ModelContainerMobile> {
           ),
         ),
       ),
+    );
+  }
+
+  /// The Background Image for this Widget.
+  /// This is only shown when a book has a Cover.
+  DecorationImage? get _backgroundImage {
+    final FileImage image;
+
+    if (widget.book != null && widget.book!.coverPath != null) {
+      // Case of Book
+      image = FileImage(File(widget.book!.coverPath!));
+    } else if (widget.entry != null && widget.entry!.book.coverPath != null) {
+      // Case of Entry
+      image = FileImage(File(widget.entry!.book.coverPath!));
+    } else if (widget.wish != null &&
+        widget.wish!.book != const Book.none() &&
+        widget.wish!.book.coverPath != null) {
+      // Case of Wish.
+      image = FileImage(File(widget.wish!.book.coverPath!));
+    } else {
+      return null;
+    }
+    return DecorationImage(
+      image: image,
+      alignment: Alignment.center,
+      filterQuality: FilterQuality.high,
+      fit: BoxFit.cover,
+      colorFilter: ColorFilter.mode(
+        Theme.of(context).scaffoldBackgroundColor.withOpacity(.55),
+        BlendMode.dstATop,
+      ),
+      invertColors: false,
+      isAntiAlias: true,
+      opacity: 1,
+      repeat: ImageRepeat.noRepeat,
+      scale: 1,
+      matchTextDirection: true,
     );
   }
 

@@ -31,7 +31,7 @@ class Diary {
       title: book.title,
       pages: book.pages,
       author: book.author,
-      image: book.image,
+      coverPath: book.coverPath,
       notes: book.notes,
       price: book.price,
       currentPage: entry.endPage,

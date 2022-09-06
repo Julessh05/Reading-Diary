@@ -552,6 +552,18 @@ final Map<String, Map<Locale, String>> _translations = {
     TranslationLocales.spanish: 'Búsqueda vacía',
     TranslationLocales.portuguese: 'Pesquisa vazia',
   },
+  // TODO-js: Add Translations
+  'Cover': {},
+  'Pick a Cover': {},
+  'Change Cover': {},
+  'Show current Cover': {},
+  'Show Cover': {},
+  'Take a new Picutre': {},
+  'Pick Cover from Gallery': {},
+  'Permission not granted': {},
+  'You denied the Permission to take pictures and use the gallery. \nPlease change that.':
+      {},
+  'Image': {},
 };
 
 /// Getter for the Translations.

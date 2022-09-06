@@ -412,22 +412,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
   /// a Button to choose the Date or
   /// the chosen Date.
   Widget get _dateContainer {
-    if (_bloc!.entryDate == null) {
-      return Column(
-        children: [
-          ElevatedButton(
-            onPressed: _dateDialog,
-            autofocus: false,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            child: Text('Pick a Date'.tr()),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            '${'Current Date:'.tr()} ${DateTime.now().day}.${DateTime.now().month}.${DateTime.now().year}',
-          )
-        ],
-      );
-    } else {
+    if (_bloc!.entryDate != null) {
       return GestureDetector(
         dragStartBehavior: DragStartBehavior.down,
         behavior: HitTestBehavior.translucent,
@@ -452,6 +437,27 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
             Text('Tap to change'.tr()),
           ],
         ),
+      );
+    } else {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        textBaseline: TextBaseline.alphabetic,
+        textDirection: TextDirection.ltr,
+        verticalDirection: VerticalDirection.down,
+        children: [
+          ElevatedButton(
+            onPressed: _dateDialog,
+            autofocus: false,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            child: Text('Pick a Date'.tr()),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            '${'Current Date:'.tr()} ${DateTime.now().day}.${DateTime.now().month}.${DateTime.now().year}',
+          )
+        ],
       );
     }
   }

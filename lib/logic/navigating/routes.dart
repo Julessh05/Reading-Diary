@@ -42,6 +42,11 @@ class Routes {
   /// that represents the Search Results
   static const String searchResultsScreen = '/search_results';
 
+  /// The Route Name for the Screen
+  /// that displays an Image in full-screen
+  /// format.
+  static const String imageScreen = '/image';
+
   /// All the Urls that are supported in
   /// the Post Section for Books.
   /// The Scheme of the App is:

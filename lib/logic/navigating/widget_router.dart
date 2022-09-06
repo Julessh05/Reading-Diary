@@ -8,8 +8,11 @@ import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
+import 'package:reading_diary/models/image_screen_arguments.dart';
 import 'package:reading_diary/models/search_results.dart';
 import 'package:reading_diary/models/wish.dart' show Wish;
+import 'package:reading_diary/screens/desktop/image_screen_desktop.dart';
+import 'package:reading_diary/screens/mobile/image_screen_mobile.dart';
 import 'package:reading_diary/screens/screens.dart';
 
 /// Widget that returns the corresponding Screen
@@ -17,12 +20,17 @@ import 'package:reading_diary/screens/screens.dart';
 class WidgetRouter extends StatelessWidget {
   /// Standard Widget Router.
   /// You have to pass a Route Name manually here.
-  WidgetRouter({required String routeName, Key? key}) : super(key: key) {
+  WidgetRouter({
+    required String routeName,
+    Key? key,
+  }) : super(key: key) {
     _routeName = routeName;
   }
 
   /// Widget Router for the Homescreen
-  WidgetRouter.homescreen({Key? key}) : super(key: key) {
+  WidgetRouter.homescreen({
+    Key? key,
+  }) : super(key: key) {
     _routeName = Routes.homescreen;
   }
 
@@ -57,12 +65,16 @@ class WidgetRouter extends StatelessWidget {
   }
 
   /// Shows the Unknown Screen
-  WidgetRouter.unknownScreen({Key? key}) : super(key: key) {
+  WidgetRouter.unknownScreen({
+    Key? key,
+  }) : super(key: key) {
     _routeName = Routes.unknownscreen;
   }
 
   /// Widget Router for the Settings Screen
-  WidgetRouter.settingsScreen({Key? key}) : super(key: key) {
+  WidgetRouter.settingsScreen({
+    Key? key,
+  }) : super(key: key) {
     _routeName = Routes.settingsScreen;
   }
 
@@ -104,9 +116,21 @@ class WidgetRouter extends StatelessWidget {
 
   /// The Widget Router for the Screen that
   /// represents the Search Results
-  WidgetRouter.searchResultsScreen({required RouteSettings settings, Key? key})
-      : super(key: key) {
+  WidgetRouter.searchResultsScreen({
+    required RouteSettings settings,
+    Key? key,
+  }) : super(key: key) {
     _routeName = Routes.searchResultsScreen;
+    _settings = settings;
+  }
+
+  /// The Widget Router that calls the
+  /// Screen to show an Image full Screen format.
+  WidgetRouter.imageScreen({
+    required RouteSettings settings,
+    Key? key,
+  }) : super(key: key) {
+    _routeName = Routes.imageScreen;
     _settings = settings;
   }
 
@@ -214,6 +238,15 @@ class WidgetRouter extends StatelessWidget {
             ? const SearchResultsScreenDesktop()
             : SerachResultsScreenMobile(
                 results: _settings!.arguments as SearchResults,
+              );
+
+      case Routes.imageScreen:
+        return isDesktop
+            ? ImageScreenDesktop(
+                args: _settings!.arguments as ImageScreenArguments,
+              )
+            : ImageScreenMobile(
+                args: _settings!.arguments as ImageScreenArguments,
               );
 
       // Case for the Unknown Screen.

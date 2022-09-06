@@ -1,6 +1,5 @@
 library models;
 
-import 'package:flutter/material.dart' show Image;
 import 'package:hive/hive.dart'
     show BinaryReader, BinaryWriter, HiveField, HiveType, TypeAdapter;
 
@@ -12,7 +11,7 @@ class Book {
   Book({
     required this.title,
     this.author,
-    this.image,
+    this.coverPath,
     required this.pages,
     required this.currentPage,
     this.notes = '',
@@ -26,7 +25,7 @@ class Book {
     this.pages = 1,
     this.author,
     this.currentPage = 1,
-    this.image,
+    this.coverPath,
     this.notes = '',
     this.price,
     this.url,
@@ -39,7 +38,7 @@ class Book {
     this.pages = 1,
     this.author,
     this.currentPage = 1,
-    this.image,
+    this.coverPath,
     this.notes = '',
     this.price,
     this.url,
@@ -64,7 +63,7 @@ class Book {
   /// at least it makes the most sense.
   /// But it can be anything else.
   @HiveField(2)
-  final Image? image;
+  final String? coverPath;
 
   /// The Number of Pages
   /// the Book has.
@@ -103,7 +102,7 @@ class Book {
     if (other is Book) {
       return other.title == title &&
           other.author == author &&
-          other.image == image &&
+          other.coverPath == coverPath &&
           other.pages == pages &&
           other.currentPage == currentPage &&
           other.notes == notes &&
@@ -118,7 +117,7 @@ class Book {
   int get hashCode => Object.hash(
         title,
         author,
-        image,
+        coverPath,
         pages,
         currentPage,
         notes,

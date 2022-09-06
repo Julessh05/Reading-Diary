@@ -1,5 +1,7 @@
 library mobile_screens;
 
+import 'dart:io';
+
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ import 'package:reading_diary/components/mobile/model_details_container_mobile.d
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/add_or_edit.dart';
 import 'package:reading_diary/models/book.dart' show Book;
+import 'package:reading_diary/models/image_screen_arguments.dart';
 import 'package:reading_diary/models/reading_diary_objects.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 import 'package:url_launcher/url_launcher.dart' show LaunchMode, launchUrl;
@@ -70,6 +73,7 @@ class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
     );
   }
 
+  /// The Body for this Screen.
   Scrollbar get _body {
     final String percentualProgress =
         _bloc!.calculateProcentualProgress(widget.book);
@@ -90,6 +94,13 @@ class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
                   name: 'Author'.tr(),
                   data: widget.book.author!,
                   small: true,
+                )
+              : Container(),
+          widget.book.coverPath != null
+              ? ModelDetailsContainerMobile(
+                  name: 'Cover'.tr(),
+                  small: true,
+                  child: _coverContainer,
                 )
               : Container(),
           ModelDetailsContainerMobile(
@@ -176,6 +187,24 @@ class _BookDetailsScreenMobileState extends State<BookDetailsScreenMobile> {
         ],
       ),
     );
+  }
+
+  /// The Container that shows the Cover
+  Widget get _coverContainer {
+    return ElevatedButton(
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            Routes.imageScreen,
+            arguments: ImageScreenArguments(
+              file: File(widget.book.coverPath!),
+              title: 'Cover'.tr(),
+            ),
+          );
+        },
+        child: Text(
+          'Show Cover'.tr(),
+        ));
   }
 
   /// Called when the delete Button is pressed.

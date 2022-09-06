@@ -1,7 +1,6 @@
 library blocs;
 
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
-import 'package:flutter/material.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/book_list.dart';
@@ -19,7 +18,7 @@ class AddBookBloc extends Bloc {
   String? author;
 
   /// An image of the book
-  Image? _image;
+  String? coverPath;
 
   /// The number of pages this
   /// book has
@@ -38,9 +37,6 @@ class AddBookBloc extends Bloc {
   /// Post connected to this Book.
   String? url;
 
-  /// Setter for the Image to this Book.
-  set image(Image img) => _image = img;
-
   /// The Variable that determines whether the
   /// Done Button is enabled or not.
   bool get doneButtonEnabled => _doneButtonEnabled;
@@ -55,7 +51,7 @@ class AddBookBloc extends Bloc {
       title: title,
       author: author,
       pages: pages,
-      image: _image,
+      coverPath: coverPath,
       notes: notes,
       price: price,
       currentPage: currentPage,
@@ -80,7 +76,7 @@ class AddBookBloc extends Bloc {
       pages: pages,
       currentPage: currentPage,
       author: author,
-      image: _image,
+      coverPath: coverPath,
       notes: notes,
       price: price,
       url: url,
