@@ -94,9 +94,6 @@ class AddModelContainerMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller = TextEditingController(
-      text: initialValue,
-    );
     return SizedBox(
       height: () {
         if (big) {
@@ -143,7 +140,6 @@ class AddModelContainerMobile extends StatelessWidget {
                         ? MediaQuery.of(context).size.height / 1.2
                         : 80,
                     child: TextField(
-                      controller: controller,
                       autocorrect: true,
                       autofocus: autofocus,
                       enableIMEPersonalizedLearning: true,
@@ -183,16 +179,6 @@ class AddModelContainerMobile extends StatelessWidget {
                       scribbleEnabled: true,
                       maxLengthEnforcement:
                           MaxLengthEnforcement.truncateAfterCompositionEnds,
-                      onTap: () {
-                        if (selectOnTap) {
-                          controller.selection = TextSelection(
-                            baseOffset: 0,
-                            extentOffset: controller.value.text.length,
-                          );
-                        } else {
-                          return;
-                        }
-                      },
                       decoration: InputDecoration(
                         suffixIcon: suffixIcon,
                       ),
