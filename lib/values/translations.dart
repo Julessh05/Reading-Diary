@@ -552,18 +552,71 @@ final Map<String, Map<Locale, String>> _translations = {
     TranslationLocales.spanish: 'Búsqueda vacía',
     TranslationLocales.portuguese: 'Pesquisa vazia',
   },
-  // TODO-js: Add Translations
-  'Cover': {},
-  'Pick a Cover': {},
-  'Change Cover': {},
-  'Show current Cover': {},
-  'Show Cover': {},
-  'Take a new Picutre': {},
-  'Pick Cover from Gallery': {},
-  'Permission not granted': {},
+  'Cover': {
+    TranslationLocales.german: 'Buchcover',
+    TranslationLocales.french: 'Couverture du livre',
+    TranslationLocales.spanish: 'Tapa del libro',
+    TranslationLocales.portuguese: 'Capa de livro',
+  },
+  'Pick a Cover': {
+    TranslationLocales.german: 'Wähle ein Cover',
+    TranslationLocales.french: 'Choisissez une couverture',
+    TranslationLocales.spanish: 'Elige una portada',
+    TranslationLocales.portuguese: 'Escolha uma capa',
+  },
+  'Change Cover': {
+    TranslationLocales.german: 'Cover ändern',
+    TranslationLocales.french: 'Changer de couverture',
+    TranslationLocales.spanish: 'Cubierta de cambio',
+    TranslationLocales.portuguese: 'Alterar capa',
+  },
+  'Show current Cover': {
+    TranslationLocales.german: 'Aktuelles Cover anzeigen',
+    TranslationLocales.french: 'Afficher la couverture actuelle',
+    TranslationLocales.spanish: 'Mostrar portada actual',
+    TranslationLocales.portuguese: 'Mostrar capa atual',
+  },
+  'Show Cover': {
+    TranslationLocales.german: 'Cover anzeigen',
+    TranslationLocales.french: 'Afficher la couverture',
+    TranslationLocales.spanish: 'Mostrar portada',
+    TranslationLocales.portuguese: 'Mostrar capa',
+  },
+  'Take a new Picutre': {
+    TranslationLocales.german: 'Neues Foto aufnehmen',
+    TranslationLocales.french: 'Prendre une nouvelle photo',
+    TranslationLocales.spanish: 'Tomar una nueva foto',
+    TranslationLocales.portuguese: 'Tire uma nova foto',
+  },
+  'Pick Cover from Gallery': {
+    TranslationLocales.german: 'Cover aus Galerie auswählen',
+    TranslationLocales.french: 'Choisissez la couverture de la galerie',
+    TranslationLocales.spanish: 'Elegir portada de la galería',
+    TranslationLocales.portuguese: 'Escolha a capa da galeria',
+  },
+  'Permission not granted': {
+    TranslationLocales.german: 'Erlaubnis nicht erteilt',
+    TranslationLocales.french: 'Autorisation non accordée',
+    TranslationLocales.spanish: 'Permiso no concedido',
+    TranslationLocales.portuguese: 'Permissão não concedida',
+  },
   'You denied the Permission to take pictures and use the gallery. \nPlease change that.':
-      {},
-  'Image': {},
+      {
+    TranslationLocales.german:
+        'Du hast die Erlabnis auf die Kamera und Galerie zuzugreifen nicht erteilt. \nBitte ändere das.',
+    TranslationLocales.french:
+        'Vous avez refusé l\'autorisation de prendre des photos et d\'utiliser la galerie. \nVeuillez changer cela.',
+    TranslationLocales.spanish:
+        'Negaste el Permiso para tomar fotos y usar la galería. \nCambia eso.',
+    TranslationLocales.portuguese:
+        'Você negou a permissão para tirar fotos e usar a galeria. \nPor favor, mude isso.',
+  },
+  'Image': {
+    TranslationLocales.german: 'Bild',
+    TranslationLocales.french: 'Image',
+    TranslationLocales.spanish: 'Imagen',
+    TranslationLocales.portuguese: 'Imagem',
+  },
 };
 
 /// Getter for the Translations.

@@ -128,9 +128,6 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
               name: 'Date'.tr(),
               child: _dateContainer,
             ),
-
-            // TODO-js: add possibility to add an Image
-
             AddModelContainerMobile(
               name: 'Book'.tr(),
               child: DropdownButton<Book>(
