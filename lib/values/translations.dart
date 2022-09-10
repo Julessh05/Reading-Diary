@@ -617,6 +617,12 @@ final Map<String, Map<Locale, String>> _translations = {
     TranslationLocales.spanish: 'Imagen',
     TranslationLocales.portuguese: 'Imagem',
   },
+  'Change way of input': {
+    TranslationLocales.german: 'Eingabeart ändern',
+    TranslationLocales.french: 'Changer le mode de saisie',
+    TranslationLocales.spanish: 'Cambiar forma de entrada',
+    TranslationLocales.portuguese: 'Alterar forma de entrada',
+  }
 };
 
 /// Getter for the Translations.

@@ -3,6 +3,7 @@ library mobile_components;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show MaxLengthEnforcement;
+import 'package:helpful_extensions/helpful_extensions.dart';
 
 /// A Container with an input field and
 /// the Option to replace that input field
@@ -23,6 +24,7 @@ class AddModelContainerMobile extends StatefulWidget {
     this.initialValue,
     this.textCapitalization = TextCapitalization.sentences,
     this.selectOnTap = false,
+    this.iconButton,
     Key? key,
   })  : assert(
           child == null && done != null || child != null,
@@ -91,6 +93,10 @@ class AddModelContainerMobile extends StatefulWidget {
   /// when the User taps on the
   /// Text Field.
   final bool selectOnTap;
+
+  /// An Icon button in the right
+  /// upper corner of this Widget.
+  final IconButton? iconButton;
 
   @override
   State<StatefulWidget> createState() => _AddModelContainerMobileState();
@@ -170,7 +176,37 @@ class _AddModelContainerMobileState extends State<AddModelContainerMobile> {
             textDirection: TextDirection.ltr,
             verticalDirection: VerticalDirection.down,
             children: [
-              Text(widget.name, style: _tStyle),
+              widget.iconButton != null
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      textBaseline: TextBaseline.alphabetic,
+                      textDirection: TextDirection.ltr,
+                      verticalDirection: VerticalDirection.down,
+                      children: [
+                        const Spacer(flex: 2),
+                        Text(widget.name, style: _tStyle),
+                        const Spacer(flex: 1),
+                        widget.iconButton != null
+                            ? IconButton(
+                                alignment: widget.iconButton!.alignment,
+                                autofocus: widget.iconButton!.autofocus,
+                                constraints: widget.iconButton!.constraints,
+                                enableFeedback: true,
+                                tooltip: widget.iconButton!.tooltip,
+                                style: widget.iconButton!.style,
+                                icon: widget.iconButton!.icon,
+                                onPressed: () =>
+                                    widget.iconButton!.onPressed!(),
+                                color: Theme.of(context)
+                                    .scaffoldBackgroundColor
+                                    .secondaryColor,
+                              )
+                            : Container(),
+                      ],
+                    )
+                  : Text(widget.name, style: _tStyle),
               const SizedBox(height: 18),
               widget.child ??
                   SizedBox(

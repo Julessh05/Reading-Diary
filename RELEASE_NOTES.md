@@ -3,6 +3,17 @@
 ---
 ---
 
+## Version 4.0.4
+
+### Enhancements
+
+- TextField and Slider Changes ([#110](https://github.com/Jules-sh/Reading-Diary/issues/110))
+- Color Chooser Update
+
+
+---
+---
+
 ## Version 4.0.2
 
 ### Features

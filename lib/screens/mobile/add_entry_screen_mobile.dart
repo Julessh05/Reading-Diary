@@ -102,7 +102,6 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
           children: <Widget>[
             AddModelContainerMobile(
               name: 'Title'.tr(),
-              autofocus: true,
               maxLines: 1,
               done: (title) {
                 setState(() {
@@ -150,6 +149,18 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
             AddModelContainerMobile(
               name: 'Pages read'.tr(),
               big: true,
+              iconButton: IconButton(
+                tooltip: 'Change way of input'.tr(),
+                onPressed: () {
+                  setState(() {
+                    _bloc!.pagesReadSliderActive =
+                        !_bloc!.pagesReadSliderActive;
+                  });
+                },
+                icon: _bloc!.pagesReadSliderActive
+                    ? const Icon(Icons.edit)
+                    : const Icon(Icons.edit_attributes_outlined),
+              ),
               child: _pagesReadChild,
             ),
             FittedBox(
@@ -260,113 +271,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
   /// Returns the Widget with which you
   /// can make an input, of how many pages you read.
   Widget get _pagesReadChild {
-    if (_bloc!.entryBook == const Book.none()) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.max,
-        textBaseline: TextBaseline.alphabetic,
-        textDirection: TextDirection.ltr,
-        verticalDirection: VerticalDirection.down,
-        children: [
-          TextField(
-            autocorrect: true,
-            autofocus: false,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            dragStartBehavior: DragStartBehavior.down,
-            enableIMEPersonalizedLearning: true,
-            enableInteractiveSelection: true,
-            enableSuggestions: true,
-            enabled: true,
-            expands: false,
-            obscureText: false,
-            keyboardAppearance: Theme.of(context).brightness,
-            scrollPhysics: const BouncingScrollPhysics(),
-            keyboardType: TextInputType.number,
-            readOnly: false,
-            smartDashesType: SmartDashesType.enabled,
-            smartQuotesType: SmartQuotesType.enabled,
-            textAlign: TextAlign.start,
-            textAlignVertical: TextAlignVertical.center,
-            textCapitalization: TextCapitalization.words,
-            toolbarOptions: const ToolbarOptions(
-              copy: true,
-              cut: true,
-              paste: true,
-              selectAll: true,
-            ),
-            scribbleEnabled: true,
-            selectionControls: MaterialTextSelectionControls(),
-            textDirection: TextDirection.ltr,
-            textInputAction: TextInputAction.next,
-            maxLines: 1,
-            minLines: 1,
-            selectionHeightStyle: BoxHeightStyle.tight,
-            selectionWidthStyle: BoxWidthStyle.tight,
-            showCursor: true,
-            onSubmitted: (str) {
-              _bloc!.entryStartPage = int.parse(str);
-            },
-            onChanged: (str) {
-              _bloc!.entryStartPage = int.parse(str);
-            },
-            maxLengthEnforcement:
-                MaxLengthEnforcement.truncateAfterCompositionEnds,
-            decoration: InputDecoration(
-              labelText: 'Start Page'.tr(),
-            ),
-          ),
-          const SizedBox(height: 15),
-          TextField(
-            autocorrect: true,
-            autofocus: false,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            dragStartBehavior: DragStartBehavior.down,
-            enableIMEPersonalizedLearning: true,
-            enableInteractiveSelection: true,
-            enableSuggestions: true,
-            enabled: true,
-            expands: false,
-            obscureText: false,
-            keyboardAppearance: Theme.of(context).brightness,
-            scrollPhysics: const BouncingScrollPhysics(),
-            keyboardType: TextInputType.number,
-            readOnly: false,
-            smartDashesType: SmartDashesType.enabled,
-            smartQuotesType: SmartQuotesType.enabled,
-            textAlign: TextAlign.start,
-            textAlignVertical: TextAlignVertical.center,
-            textCapitalization: TextCapitalization.words,
-            toolbarOptions: const ToolbarOptions(
-              copy: true,
-              cut: true,
-              paste: true,
-              selectAll: true,
-            ),
-            scribbleEnabled: true,
-            selectionControls: MaterialTextSelectionControls(),
-            textDirection: TextDirection.ltr,
-            textInputAction: TextInputAction.next,
-            maxLines: 1,
-            minLines: 1,
-            selectionHeightStyle: BoxHeightStyle.tight,
-            selectionWidthStyle: BoxWidthStyle.tight,
-            showCursor: true,
-            onSubmitted: (str) {
-              _bloc!.entryEndPage = int.parse(str);
-            },
-            onChanged: (str) {
-              _bloc!.entryEndPage = int.parse(str);
-            },
-            maxLengthEnforcement:
-                MaxLengthEnforcement.truncateAfterCompositionEnds,
-            decoration: InputDecoration(
-              labelText: 'End Page'.tr(),
-            ),
-          ),
-        ],
-      );
-    } else {
+    if (_bloc!.pagesReadSliderActive && _bloc!.entryBook != const Book.none()) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.end,
@@ -389,7 +294,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
             inactiveColor: Coloring.mainColor.withOpacity(.4),
             activeColor: Coloring.mainColor,
             semanticFormatterCallback: (double newValue) {
-              return '$newValue books read';
+              return '$newValue pages read';
             },
             labels: RangeLabels(
               _bloc!.entryStartPage.toString(),
@@ -398,6 +303,160 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
             values: RangeValues(
               _bloc!.entryStartPage!.toDouble(),
               _bloc!.entryEndPage!.toDouble(),
+            ),
+          ),
+        ],
+      );
+    } else {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.max,
+        textBaseline: TextBaseline.alphabetic,
+        textDirection: TextDirection.ltr,
+        verticalDirection: VerticalDirection.down,
+        children: [
+          TextFormField(
+            autocorrect: true,
+            autofocus: false,
+            initialValue: _bloc!.entryStartPage?.toString(),
+            enableIMEPersonalizedLearning: true,
+            enableInteractiveSelection: true,
+            enableSuggestions: true,
+            enabled: true,
+            expands: false,
+            obscureText: false,
+            keyboardAppearance: Theme.of(context).brightness,
+            scrollPhysics: const BouncingScrollPhysics(),
+            keyboardType: TextInputType.number,
+            readOnly: false,
+            smartDashesType: SmartDashesType.enabled,
+            smartQuotesType: SmartQuotesType.enabled,
+            textAlign: TextAlign.start,
+            textAlignVertical: TextAlignVertical.center,
+            textCapitalization: TextCapitalization.words,
+            toolbarOptions: const ToolbarOptions(
+              copy: true,
+              cut: true,
+              paste: true,
+              selectAll: true,
+            ),
+            selectionControls: MaterialTextSelectionControls(),
+            textDirection: TextDirection.ltr,
+            textInputAction: TextInputAction.next,
+            maxLines: 1,
+            minLines: 1,
+            showCursor: true,
+            onSaved: (str) {
+              if (str != null) {
+                setState(() {
+                  try {
+                    _bloc!.entryStartPage = int.parse(str);
+                  } on Exception catch (_) {
+                    _bloc!.entryStartPage = 0;
+                  }
+                  _bloc!.checkForVars();
+                });
+              } else {
+                return;
+              }
+            },
+            onFieldSubmitted: (str) {
+              setState(() {
+                try {
+                  _bloc!.entryStartPage = int.parse(str);
+                } on Exception catch (_) {
+                  _bloc!.entryStartPage = 0;
+                }
+                _bloc!.checkForVars();
+              });
+            },
+            onChanged: (str) {
+              setState(() {
+                try {
+                  _bloc!.entryStartPage = int.parse(str);
+                } on Exception catch (_) {
+                  _bloc!.entryStartPage = 0;
+                }
+                _bloc!.checkForVars();
+              });
+            },
+            maxLengthEnforcement:
+                MaxLengthEnforcement.truncateAfterCompositionEnds,
+            decoration: InputDecoration(
+              labelText: 'Start Page'.tr(),
+            ),
+          ),
+          const SizedBox(height: 15),
+          TextFormField(
+            autocorrect: true,
+            autofocus: false,
+            initialValue: _bloc!.entryEndPage?.toString(),
+            enableIMEPersonalizedLearning: true,
+            enableInteractiveSelection: true,
+            enableSuggestions: true,
+            enabled: true,
+            expands: false,
+            obscureText: false,
+            keyboardAppearance: Theme.of(context).brightness,
+            scrollPhysics: const BouncingScrollPhysics(),
+            keyboardType: TextInputType.number,
+            readOnly: false,
+            smartDashesType: SmartDashesType.enabled,
+            smartQuotesType: SmartQuotesType.enabled,
+            textAlign: TextAlign.start,
+            textAlignVertical: TextAlignVertical.center,
+            textCapitalization: TextCapitalization.words,
+            toolbarOptions: const ToolbarOptions(
+              copy: true,
+              cut: true,
+              paste: true,
+              selectAll: true,
+            ),
+            selectionControls: MaterialTextSelectionControls(),
+            textDirection: TextDirection.ltr,
+            textInputAction: TextInputAction.next,
+            maxLines: 1,
+            minLines: 1,
+            showCursor: true,
+            onSaved: (str) {
+              if (str != null) {
+                setState(() {
+                  try {
+                    _bloc!.entryEndPage = int.parse(str);
+                  } on Exception catch (_) {
+                    _bloc!.entryEndPage = 0;
+                  }
+                  _bloc!.checkForVars();
+                });
+              } else {
+                return;
+              }
+            },
+            onFieldSubmitted: (str) {
+              setState(() {
+                try {
+                  _bloc!.entryEndPage = int.parse(str);
+                } on Exception catch (_) {
+                  _bloc!.entryEndPage = 0;
+                }
+                _bloc!.checkForVars();
+              });
+            },
+            onChanged: (str) {
+              setState(() {
+                try {
+                  _bloc!.entryEndPage = int.parse(str);
+                } on Exception catch (_) {
+                  _bloc!.entryEndPage = 0;
+                }
+                _bloc!.checkForVars();
+              });
+            },
+            maxLengthEnforcement:
+                MaxLengthEnforcement.truncateAfterCompositionEnds,
+            decoration: InputDecoration(
+              labelText: 'End Page'.tr(),
             ),
           ),
         ],
