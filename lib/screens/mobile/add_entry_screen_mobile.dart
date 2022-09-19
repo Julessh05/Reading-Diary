@@ -1,7 +1,5 @@
 library mobile_screens;
 
-import 'dart:ui' show BoxHeightStyle, BoxWidthStyle;
-
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';

@@ -135,18 +135,24 @@ class Setting {
   /// the name for the Color Setting.
   static const String colorName = 'Color';
 
+  /// The Setting that manages the Language
+  /// of this App-
   static final Setting _languageSetting = Setting(
     name: languageName,
     description: 'Set the Language of your App.',
     objectValue: TranslationLocales.english,
   );
 
+  /// The Setting that manages the Theme
+  /// of this App-
   static final Setting _themeSetting = Setting(
     name: themeName,
     description: 'Set your Personal Style.',
     objectValue: ThemeMode.system,
   );
 
+  /// The Setting that manages the main Color
+  /// of this App-
   static final Setting _colorSetting = Setting(
     name: colorName,
     description: 'Set the Color of your App.',
@@ -230,7 +236,15 @@ class Setting {
 
   /// Returns the Setting of the specified [name]
   static Setting settingForName(String name) {
-    return allSettings.where((element) => element.name == name).first;
+    bool ex = false;
+    do {
+      try {
+        return allSettings.where((element) => element.name == name).first;
+      } on Exception {
+        ex = true;
+        createSettings();
+      }
+    } while (ex);
   }
 }
 

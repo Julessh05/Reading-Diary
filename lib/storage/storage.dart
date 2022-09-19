@@ -85,29 +85,12 @@ class Storage {
     if (_settingsBox!.isEmpty) {
       Setting.createSettings();
     } else {
-      // TODO-js: Find a way to check if all Settings are set.
       for (Setting setting in _settingsBox!.values) {
         dynamic objectValue;
         switch (setting.name) {
           case Setting.languageName:
             final value = setting.stringValue;
-            switch (value) {
-              case 'en':
-                objectValue = TranslationLocales.english;
-                break;
-              case 'de':
-                objectValue = TranslationLocales.german;
-                break;
-              case 'fr':
-                objectValue = TranslationLocales.french;
-                break;
-              case 'es':
-                objectValue = TranslationLocales.spanish;
-                break;
-              case 'pt':
-                objectValue = TranslationLocales.portuguese;
-                break;
-            }
+            objectValue = TranslationLocales.getLocale(value!);
             break;
 
           case Setting.themeName:
