@@ -51,7 +51,7 @@ class _ReadingDiaryState extends State<ReadingDiary> {
     super.initState();
   }
 
-  /// The Method that hadles events
+  /// The Method that handles
   /// padded through the Events Stream
   void _handleEvents(Event event) {
     if (event is ReloadEvent) {
@@ -61,7 +61,7 @@ class _ReadingDiaryState extends State<ReadingDiary> {
 
   @override
   Widget build(BuildContext context) {
-    // Chack for Desktop and set
+    // Check for Desktop and set
     // corresponding Values
     _isDesktop();
 
@@ -90,7 +90,7 @@ class _ReadingDiaryState extends State<ReadingDiary> {
       scrollBehavior: const MaterialScrollBehavior(),
       title: title,
       onGenerateTitle: (_) => title,
-      restorationScopeId: '$title restauration scope ID',
+      restorationScopeId: '$title restoration scope ID',
       useInheritedMediaQuery: false,
 
       // Locales
@@ -124,7 +124,7 @@ class _ReadingDiaryState extends State<ReadingDiary> {
 
   /// Most routes for this App.
   /// Only contains Routes that don't have
-  /// a paramter to pass.
+  /// a parameter to pass.
   Map<String, Widget Function(BuildContext)> get _routes {
     return {
       Routes.homescreen: (_) => WidgetRouter.homescreen(),
@@ -188,7 +188,7 @@ class _ReadingDiaryState extends State<ReadingDiary> {
     }
   }
 
-  /// Returnst the Unknown Screen.
+  /// Returns the Unknown Screen.
   /// Called everytime, the App did not find a Route
   /// to navigate to.
   MaterialPageRoute<UnknwonScreen> _onUnkownRoute(RouteSettings settings) {
