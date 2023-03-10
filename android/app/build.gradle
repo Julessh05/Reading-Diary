@@ -81,6 +81,7 @@ android {
         includeInBundle true
     }
     buildToolsVersion '33.0.0'
+    namespace 'com.jules.reading_diary'
 }
 
 flutter {

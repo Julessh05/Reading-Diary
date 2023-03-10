@@ -332,7 +332,7 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
       context: context,
       builder: (_) {
         return const AboutDialog(
-          applicationLegalese: '© Julian Schumacher 2022',
+          applicationLegalese: '© Julian Schumacher 2023',
           applicationName: 'Reading Diary',
           applicationVersion: appVersion,
           applicationIcon: Icon(Icons.menu_book_rounded),
