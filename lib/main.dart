@@ -24,7 +24,7 @@ void main() async {
 
 /// The current Version of the App
 /// as a String.
-const String appVersion = '4.0.4';
+const String appVersion = '1.0.0';
 
 /// Determines the Platform this Apps is running on.
 /// Also sets the [WidgetRouter.isDesktop] Variable.
@@ -91,7 +91,6 @@ class _ReadingDiaryState extends State<ReadingDiary> {
       title: title,
       onGenerateTitle: (_) => title,
       restorationScopeId: '$title restoration scope ID',
-      useInheritedMediaQuery: false,
 
       // Locales
       locale: Translation.activeLocale,
