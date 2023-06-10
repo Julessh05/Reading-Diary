@@ -137,15 +137,20 @@ class _AddModelContainerMobileState extends State<AddModelContainerMobile> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      /*
       height: () {
+        const double minHeight = 175;
+        final double height;
         if (widget.big) {
-          return MediaQuery.of(context).size.height / 3.3;
+          height = MediaQuery.of(context).size.height / 3.3;
         } else if (widget.multiline) {
-          return MediaQuery.of(context).size.height;
+          height = MediaQuery.of(context).size.height;
         } else {
-          return MediaQuery.of(context).size.height / 4.5;
+          height = MediaQuery.of(context).size.height / 4.5;
         }
+        return height < minHeight ? minHeight : height;
       }(),
+       */
       child: Card(
         elevation: 8,
         borderOnForeground: false,
