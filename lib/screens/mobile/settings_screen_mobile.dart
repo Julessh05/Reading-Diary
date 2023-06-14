@@ -167,7 +167,7 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
                   ),
                   const SizedBox(height: 5),
                   const Text(
-                    '© Julian Schumacher \n2022',
+                    '© Julian Schumacher \n2023',
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -190,10 +190,10 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
         uri = Uri.parse('https://www.facebook.com/jules.mediadesign');
         break;
       case OpenURL.mail:
-        uri = Uri.parse('mailto:Jules.media@outlook.de');
+        uri = Uri.parse('mailto:support@julianschumacher.dev');
         break;
       case OpenURL.code:
-        uri = Uri.parse('https://github.com/Jules-sh/Reading-Diary');
+        uri = Uri.parse('https://github.com/Julessh05/Reading-Diary');
         break;
     }
     await launchUrl(uri, mode: LaunchMode.platformDefault);

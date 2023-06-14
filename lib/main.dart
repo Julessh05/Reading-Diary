@@ -24,7 +24,7 @@ void main() async {
 
 /// The current Version of the App
 /// as a String.
-const String appVersion = '1.0.0';
+const String appVersion = '1.1.0';
 
 /// Determines the Platform this Apps is running on.
 /// Also sets the [WidgetRouter.isDesktop] Variable.
@@ -79,7 +79,9 @@ class _ReadingDiaryState extends State<ReadingDiary> {
       /* Developer Section */
       checkerboardOffscreenLayers: false,
       checkerboardRasterCacheImages: false,
-      debugShowCheckedModeBanner: true,
+
+      // Set to false to make Screenshots.
+      debugShowCheckedModeBanner: false,
       showPerformanceOverlay: false,
       showSemanticsDebugger: false,
       debugShowMaterialGrid: false,

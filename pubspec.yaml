@@ -1,5 +1,7 @@
 name: reading_diary
 description: An App in which you can document your Reading Process, the Books you read etc...
+repository: https://github.com/Julessh05/Reading-Diary
+homepage: https://julianschumacher.dev/projects/reading_diary
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -15,7 +17,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.1.0+1
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
@@ -39,7 +41,7 @@ dependencies:
 
   # Flutter
   url_launcher: ^6.1.11
-  image_picker: ^0.8.7+5
+  image_picker: ^0.8.8
   path_provider: ^2.0.15
 
   # Own Dependencies
