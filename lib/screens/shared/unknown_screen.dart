@@ -6,7 +6,7 @@ import 'package:string_translate/string_translate.dart' show Translate;
 /// The Screen shown when something went wrong
 /// and the original screen wasn't found
 class UnknwonScreen extends StatelessWidget {
-  const UnknwonScreen({Key? key}) : super(key: key);
+  const UnknwonScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

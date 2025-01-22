@@ -36,7 +36,7 @@ void _isDesktop() {
 /// The Main widget for this App.
 /// Returns the Material App.
 class ReadingDiary extends StatefulWidget {
-  const ReadingDiary({Key? key}) : super(key: key);
+  const ReadingDiary({super.key});
 
   @override
   State<StatefulWidget> createState() => _ReadingDiaryState();

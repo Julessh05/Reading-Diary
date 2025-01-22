@@ -13,7 +13,7 @@ class Diary {
   /// stored in this Diary
   static final List<DiaryEntry> _entries = [];
 
-  /// Returns an umodifiable View
+  /// Returns an unmodifiable View
   /// of the List containing all Entries.
   static UnmodifiableListView<DiaryEntry> get entries =>
       UnmodifiableListView(_entries);
@@ -23,8 +23,8 @@ class Diary {
   static void addEntry(DiaryEntry entry) {
     _entries.add(entry);
     final Book book = BookList.books.firstWhere(
-      (element) =>
-          (element.title == entry.book.title) &&
+          (element) =>
+      (element.title == entry.book.title) &&
           (element.author == entry.book.author),
     );
     final newBook = Book(

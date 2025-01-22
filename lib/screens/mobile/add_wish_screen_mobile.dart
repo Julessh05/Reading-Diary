@@ -17,8 +17,8 @@ import 'package:string_translate/string_translate.dart' show Translate;
 class AddWishScreenMobile extends StatefulWidget {
   const AddWishScreenMobile({
     required this.addOrEdit,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// The Object that determines
   /// how this screen should be used.
@@ -184,8 +184,8 @@ class _AddWishScreenMobileState extends State<AddWishScreenMobile> {
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.grey.shade400),
-        foregroundColor: MaterialStateProperty.all(Colors.white),
+        backgroundColor: WidgetStateProperty.all(Colors.grey.shade400),
+        foregroundColor: WidgetStateProperty.all(Colors.white),
       ),
       onPressed: null,
       child: Text(

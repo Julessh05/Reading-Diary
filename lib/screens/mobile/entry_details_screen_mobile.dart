@@ -17,8 +17,8 @@ import 'package:string_translate/string_translate.dart' show Translate;
 class EntryDetailsScreenMobile extends StatefulWidget {
   const EntryDetailsScreenMobile({
     required this.entry,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// The Entry this
   /// Screen represents / shows

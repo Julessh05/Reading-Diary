@@ -3,7 +3,7 @@ library desktop_screens;
 import 'package:flutter/material.dart';
 
 class SearchResultsScreenDesktop extends StatefulWidget {
-  const SearchResultsScreenDesktop({Key? key}) : super(key: key);
+  const SearchResultsScreenDesktop({super.key});
 
   @override
   State<SearchResultsScreenDesktop> createState() =>

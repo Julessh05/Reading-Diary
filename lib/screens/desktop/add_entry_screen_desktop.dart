@@ -3,7 +3,7 @@ library mobile_screens;
 import 'package:flutter/material.dart';
 
 class AddEntryScreenDesktop extends StatefulWidget {
-  const AddEntryScreenDesktop({Key? key}) : super(key: key);
+  const AddEntryScreenDesktop({super.key});
 
   @override
   State<AddEntryScreenDesktop> createState() => _AddEntryScreenDesktopState();

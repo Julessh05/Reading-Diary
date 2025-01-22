@@ -3,7 +3,7 @@ library desktop_screens;
 import 'package:flutter/material.dart';
 
 class SettingsScreenDesktop extends StatefulWidget {
-  const SettingsScreenDesktop({Key? key}) : super(key: key);
+  const SettingsScreenDesktop({super.key});
 
   @override
   State<SettingsScreenDesktop> createState() => _SettingsScreenDesktopState();

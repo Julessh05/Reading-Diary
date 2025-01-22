@@ -13,8 +13,8 @@ import 'package:string_translate/string_translate.dart' show Translate;
 class SerachResultsScreenMobile extends StatefulWidget {
   const SerachResultsScreenMobile({
     required this.results,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// The Search Results this Screen represents.
   final SearchResults results;
@@ -67,21 +67,21 @@ class _SerachResultsScreenMobileState extends State<SerachResultsScreenMobile> {
 
     for (Object o in widget.results.results) {
       switch (o.runtimeType) {
-        case Wish:
+        case Wish _:
           o as Wish;
           list.add(
             ModelContainerMobile(wish: o),
           );
           break;
 
-        case Book:
+        case Book _:
           o as Book;
           list.add(
             ModelContainerMobile(book: o),
           );
           break;
 
-        case DiaryEntry:
+        case DiaryEntry _:
           o as DiaryEntry;
           list.add(
             ModelContainerMobile(entry: o),

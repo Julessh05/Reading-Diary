@@ -19,14 +19,13 @@ class ModelContainerMobile extends StatefulWidget {
     this.entry,
     this.book,
     this.wish,
-    Key? key,
-  })  : assert(
+    super.key,
+  }) : assert(
           (entry != null && book == null && wish == null) ||
               (entry == null && book != null && wish == null) ||
               (entry == null && book == null && wish != null),
           'You can only pass either an entry or a book or a wish',
-        ),
-        super(key: key);
+        );
 
   /// The Entry this Container correpsonds to
   final DiaryEntry? entry;

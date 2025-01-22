@@ -21,8 +21,8 @@ import 'package:url_launcher/url_launcher.dart' show LaunchMode, launchUrl;
 class BookDetailsScreenMobile extends StatefulWidget {
   const BookDetailsScreenMobile({
     required this.book,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// The Book this Screen
   /// represents

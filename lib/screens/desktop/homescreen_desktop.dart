@@ -9,7 +9,7 @@ import 'package:string_translate/string_translate.dart' show Translate;
 /// The Desktop Version of the Homescreen
 /// for this App.
 class HomescreenDesktop extends StatefulWidget {
-  const HomescreenDesktop({Key? key}) : super(key: key);
+  const HomescreenDesktop({super.key});
 
   @override
   State<HomescreenDesktop> createState() => _HomescreenDesktopState();

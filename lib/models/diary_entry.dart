@@ -1,7 +1,7 @@
 library models;
 
 import 'package:flutter/material.dart' show Image;
-import 'package:helpful_extensions/helpful_extensions.dart' show Weekday;
+import 'package:helpful_extensions/helpful_extensions.dart';
 import 'package:hive/hive.dart'
     show BinaryReader, BinaryWriter, HiveField, HiveType, TypeAdapter;
 import 'package:reading_diary/models/book.dart' show Book;
@@ -23,7 +23,7 @@ class DiaryEntry {
   }) {
     this.date = date ?? DateTime.now();
     if (title == null || title.isEmpty) {
-      this.title = 'Entry ${this.date.weekdayAsString}';
+      this.title = 'Entry ${this.date.weekdayAsEnum.completeName}';
     } else {
       this.title = title;
     }

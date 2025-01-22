@@ -1,7 +1,7 @@
 library mobile_components;
 
 import 'package:flutter/material.dart'
-    show BuildContext, Key, ListTile, StatelessWidget, Text, Widget;
+    show BuildContext, ListTile, StatelessWidget, Text, Widget;
 import 'package:reading_diary/models/setting.dart' show Setting;
 import 'package:string_translate/string_translate.dart' show Translate;
 
@@ -16,8 +16,8 @@ class SettingsTileMobile extends StatelessWidget {
   const SettingsTileMobile({
     required this.setting,
     required this.onTap,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// The Setting this
   /// Tile represents.

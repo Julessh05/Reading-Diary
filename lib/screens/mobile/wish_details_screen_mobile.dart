@@ -19,8 +19,8 @@ import '../../components/mobile/confirm_delete_dialog_mobile.dart';
 class WishDetailsScreenMobile extends StatefulWidget {
   const WishDetailsScreenMobile({
     required this.wish,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// The Wish this Screen
   /// represents.

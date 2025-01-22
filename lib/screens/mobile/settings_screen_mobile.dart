@@ -31,7 +31,7 @@ enum OpenURL {
 
 /// Mobile Version of the Settings Screen.
 class SettingsScreenMobile extends StatefulWidget {
-  const SettingsScreenMobile({Key? key}) : super(key: key);
+  const SettingsScreenMobile({super.key});
 
   @override
   State<SettingsScreenMobile> createState() => _SettingsScreenMobileState();

@@ -19,8 +19,8 @@ import 'package:string_translate/string_translate.dart' show Translate;
 class AddEntryScreenMobile extends StatefulWidget {
   const AddEntryScreenMobile({
     required this.addOrEdit,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// The Objec to determine whether this
   /// Screen is used to add or edit an Entry
@@ -256,8 +256,8 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.grey.shade400),
-        foregroundColor: MaterialStateProperty.all(Colors.white),
+        backgroundColor: WidgetStateProperty.all(Colors.grey.shade400),
+        foregroundColor: WidgetStateProperty.all(Colors.white),
       ),
       onPressed: null,
       child: Text(
@@ -333,12 +333,6 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
             textAlign: TextAlign.start,
             textAlignVertical: TextAlignVertical.center,
             textCapitalization: TextCapitalization.words,
-            toolbarOptions: const ToolbarOptions(
-              copy: true,
-              cut: true,
-              paste: true,
-              selectAll: true,
-            ),
             selectionControls: MaterialTextSelectionControls(),
             textDirection: TextDirection.ltr,
             textInputAction: TextInputAction.next,
@@ -405,12 +399,6 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
             textAlign: TextAlign.start,
             textAlignVertical: TextAlignVertical.center,
             textCapitalization: TextCapitalization.words,
-            toolbarOptions: const ToolbarOptions(
-              copy: true,
-              cut: true,
-              paste: true,
-              selectAll: true,
-            ),
             selectionControls: MaterialTextSelectionControls(),
             textDirection: TextDirection.ltr,
             textInputAction: TextInputAction.next,
@@ -542,8 +530,6 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
               onSecondary: Theme.of(context).colorScheme.onSecondary,
               error: Theme.of(context).colorScheme.error,
               onError: Theme.of(context).colorScheme.onError,
-              background: Theme.of(context).colorScheme.background,
-              onBackground: Theme.of(context).colorScheme.onBackground,
               surface: Theme.of(context).colorScheme.surface,
               onSurface: Theme.of(context).brightness == Brightness.light
                   ? Colors.black

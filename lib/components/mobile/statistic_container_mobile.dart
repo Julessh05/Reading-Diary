@@ -10,8 +10,8 @@ class StatisticContainerMobile extends StatelessWidget {
   const StatisticContainerMobile({
     required this.statistic,
     this.onTap,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// The Statistic this Container Displays
   final Statistic statistic;

@@ -2,7 +2,7 @@ library logic;
 
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/material.dart'
-    show BuildContext, Key, RouteSettings, StatelessWidget, Widget;
+    show BuildContext, RouteSettings, StatelessWidget, Widget;
 import 'package:reading_diary/blocs/blocs.dart' hide EventBloc;
 import 'package:reading_diary/logic/navigating/routes.dart';
 import 'package:reading_diary/models/add_or_edit.dart';
@@ -22,15 +22,15 @@ class WidgetRouter extends StatelessWidget {
   /// You have to pass a Route Name manually here.
   WidgetRouter({
     required String routeName,
-    Key? key,
-  }) : super(key: key) {
+    super.key,
+  }) {
     _routeName = routeName;
   }
 
   /// Widget Router for the Homescreen
   WidgetRouter.homescreen({
-    Key? key,
-  }) : super(key: key) {
+    super.key,
+  }) {
     _routeName = Routes.homescreen;
   }
 
@@ -38,8 +38,8 @@ class WidgetRouter extends StatelessWidget {
   /// add a new Diary Entry
   WidgetRouter.addEntryScreen({
     required RouteSettings settings,
-    Key? key,
-  }) : super(key: key) {
+    super.key,
+  }) {
     _routeName = Routes.addEntryScreen;
     _settings = settings;
   }
@@ -48,8 +48,8 @@ class WidgetRouter extends StatelessWidget {
   /// with which you can add a new Book
   WidgetRouter.addBookScreen({
     required RouteSettings settings,
-    Key? key,
-  }) : super(key: key) {
+    super.key,
+  }) {
     _routeName = Routes.addBookScreen;
     _settings = settings;
   }
@@ -58,23 +58,23 @@ class WidgetRouter extends StatelessWidget {
   /// add a Wish to your Book Wishlist
   WidgetRouter.addWishScreen({
     required RouteSettings settings,
-    Key? key,
-  }) : super(key: key) {
+    super.key,
+  }) {
     _routeName = Routes.addWishScreen;
     _settings = settings;
   }
 
   /// Shows the Unknown Screen
   WidgetRouter.unknownScreen({
-    Key? key,
-  }) : super(key: key) {
+    super.key,
+  }) {
     _routeName = Routes.unknownscreen;
   }
 
   /// Widget Router for the Settings Screen
   WidgetRouter.settingsScreen({
-    Key? key,
-  }) : super(key: key) {
+    super.key,
+  }) {
     _routeName = Routes.settingsScreen;
   }
 
@@ -84,8 +84,8 @@ class WidgetRouter extends StatelessWidget {
   /// Entry is passed
   WidgetRouter.entryDetailsScreen({
     required RouteSettings settings,
-    Key? key,
-  }) : super(key: key) {
+    super.key,
+  }) {
     _routeName = Routes.entryDetailsScreen;
     _settings = settings;
   }
@@ -96,8 +96,8 @@ class WidgetRouter extends StatelessWidget {
   /// Book is passed
   WidgetRouter.bookDetailsScreen({
     required RouteSettings settings,
-    Key? key,
-  }) : super(key: key) {
+    super.key,
+  }) {
     _routeName = Routes.bookDetailsScreen;
     _settings = settings;
   }
@@ -108,8 +108,8 @@ class WidgetRouter extends StatelessWidget {
   /// Wish is passed
   WidgetRouter.wishDetailsScreen({
     required RouteSettings settings,
-    Key? key,
-  }) : super(key: key) {
+    super.key,
+  }) {
     _routeName = Routes.wishDetailsScreen;
     _settings = settings;
   }
@@ -118,8 +118,8 @@ class WidgetRouter extends StatelessWidget {
   /// represents the Search Results
   WidgetRouter.searchResultsScreen({
     required RouteSettings settings,
-    Key? key,
-  }) : super(key: key) {
+    super.key,
+  }) {
     _routeName = Routes.searchResultsScreen;
     _settings = settings;
   }
@@ -128,8 +128,8 @@ class WidgetRouter extends StatelessWidget {
   /// Screen to show an Image full Screen format.
   WidgetRouter.imageScreen({
     required RouteSettings settings,
-    Key? key,
-  }) : super(key: key) {
+    super.key,
+  }) {
     _routeName = Routes.imageScreen;
     _settings = settings;
   }
@@ -149,7 +149,6 @@ class WidgetRouter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (_routeName) {
-
       // Case for the Homescreen
       case Routes.homescreen:
         return BlocParent(

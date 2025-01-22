@@ -11,12 +11,11 @@ class ModelDetailsContainerMobile extends StatelessWidget {
     this.child,
     this.small = false,
     this.multiline = false,
-    Key? key,
-  })  : assert(
+    super.key,
+  }) : assert(
           child == null && data != null || child != null && data == null,
           'You can eighter pass a child or a String of data, not both.',
-        ),
-        super(key: key);
+        );
 
   /// The Name of the Field
   final String name;

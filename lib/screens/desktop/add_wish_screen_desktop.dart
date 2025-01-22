@@ -3,7 +3,7 @@ library desktop_screens;
 import 'package:flutter/material.dart';
 
 class AddWishScreenDesktop extends StatefulWidget {
-  const AddWishScreenDesktop({Key? key}) : super(key: key);
+  const AddWishScreenDesktop({super.key});
 
   @override
   State<AddWishScreenDesktop> createState() => _AddWishScreenDesktopState();

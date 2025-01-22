@@ -22,8 +22,8 @@ import 'package:url_launcher/url_launcher.dart' show launchUrl;
 class AddBookScreenMobile extends StatefulWidget {
   const AddBookScreenMobile({
     required this.addOrEdit,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// The Object that determines,
   /// how this Screen is used,
@@ -90,7 +90,7 @@ class _Body extends StatefulWidget {
   /// how this Screen is used,
   final AddOrEdit addOrEdit;
 
-  const _Body({required this.addOrEdit, Key? key}) : super(key: key);
+  const _Body({required this.addOrEdit});
 
   @override
   State<StatefulWidget> createState() => _BodyState();
@@ -205,8 +205,7 @@ class _BodyState extends State<_Body> {
               },
               keyboardType: TextInputType.number,
               suffixIcon: const Icon(Icons.euro_rounded),
-              initialValue:
-                  _bloc!.price != null ? _bloc!.price!.toString() : null,
+              initialValue: _bloc!.price?.toString(),
             ),
             AddModelContainerMobile(
               name: 'Post',
@@ -278,8 +277,8 @@ class _BodyState extends State<_Body> {
       autofocus: false,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.grey.shade400),
-        foregroundColor: MaterialStateProperty.all(Colors.white),
+        backgroundColor: WidgetStateProperty.all(Colors.grey.shade400),
+        foregroundColor: WidgetStateProperty.all(Colors.white),
       ),
       onPressed: null,
       child: Text(
@@ -559,7 +558,7 @@ class _BodyState extends State<_Body> {
 /// A Screen that shows all supported
 /// urls for the Book Post Param
 class _SupportedURLs extends StatelessWidget {
-  const _SupportedURLs({Key? key}) : super(key: key);
+  const _SupportedURLs();
 
   @override
   Widget build(BuildContext context) {

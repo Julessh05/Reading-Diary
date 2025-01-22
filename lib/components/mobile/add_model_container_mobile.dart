@@ -25,7 +25,7 @@ class AddModelContainerMobile extends StatefulWidget {
     this.textCapitalization = TextCapitalization.sentences,
     this.selectOnTap = false,
     this.iconButton,
-    Key? key,
+    super.key,
   })  : assert(
           child == null && done != null || child != null,
           'If you don\'t speficy a child, you have to pass a done Function',
@@ -33,8 +33,7 @@ class AddModelContainerMobile extends StatefulWidget {
         assert(
           big == true && child != null || big == false,
           'You can only have a bigger container, when you specify your own child',
-        ),
-        super(key: key);
+        );
 
   /// The Name of the Input Field.
   /// Shown on top of the Field
@@ -238,12 +237,6 @@ class _AddModelContainerMobileState extends State<AddModelContainerMobile> {
                       textAlign: TextAlign.start,
                       textAlignVertical: TextAlignVertical.center,
                       textCapitalization: widget.textCapitalization,
-                      toolbarOptions: const ToolbarOptions(
-                        copy: true,
-                        cut: true,
-                        paste: true,
-                        selectAll: true,
-                      ),
                       selectionControls: MaterialTextSelectionControls(),
                       textDirection: TextDirection.ltr,
                       textInputAction: widget.textInputAction,

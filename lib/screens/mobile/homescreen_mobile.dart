@@ -24,7 +24,7 @@ import 'package:string_translate/string_translate.dart' show Translate;
 
 /// Homescreen for mobile devices
 class HomescreenMobile extends StatefulWidget {
-  const HomescreenMobile({Key? key}) : super(key: key);
+  const HomescreenMobile({super.key});
 
   @override
   State<HomescreenMobile> createState() => _HomescreenMobileState();
