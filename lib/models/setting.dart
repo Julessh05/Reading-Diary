@@ -1,5 +1,3 @@
-library models;
-
 import 'package:flutter/material.dart'
     show
         Brightness,
@@ -11,7 +9,7 @@ import 'package:flutter/material.dart'
         Locale,
         Theme,
         ThemeMode;
-import 'package:hive/hive.dart'
+import 'package:hive_ce/hive.dart'
     show BinaryReader, BinaryWriter, HiveField, HiveType, TypeAdapter;
 import 'package:modern_themes/modern_themes.dart';
 import 'package:string_translate/string_translate.dart'
@@ -156,7 +154,7 @@ class Setting {
   static final Setting _colorSetting = Setting(
     name: colorName,
     description: 'Set the Color of your App.',
-    objectValue: Colors.blue.shade800,
+    objectValue: Colors.amberAccent.shade400,
   );
 
   /// If the Settings aren't

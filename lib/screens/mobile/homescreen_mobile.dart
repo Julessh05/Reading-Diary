@@ -1,5 +1,3 @@
-library mobile_screens;
-
 import 'package:bloc_implementation/bloc_implementation.dart'
     hide BlocNotFoundException, BlocState;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
@@ -716,7 +714,7 @@ class _HomescreenMobileState extends State<HomescreenMobile> {
           scrollable: true,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           backgroundColor:
-              Theme.of(context).scaffoldBackgroundColor.withOpacity(.95),
+              Theme.of(context).scaffoldBackgroundColor.withValues(alpha: .95),
           insetPadding: EdgeInsets.zero,
           contentPadding: EdgeInsets.zero,
           buttonPadding: EdgeInsets.zero,

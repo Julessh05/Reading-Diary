@@ -1,5 +1,3 @@
-library mobile_components;
-
 import 'package:flutter/material.dart'
     show BuildContext, ListTile, StatelessWidget, Text, Widget;
 import 'package:reading_diary/models/setting.dart' show Setting;

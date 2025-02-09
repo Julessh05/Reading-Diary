@@ -1,5 +1,3 @@
-library mobile_screens;
-
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:reading_diary/components/mobile/model_container_mobile.dart';
@@ -10,8 +8,8 @@ import 'package:reading_diary/models/wish.dart' show Wish;
 import 'package:string_translate/string_translate.dart' show Translate;
 
 /// Represents the Result of a Search.
-class SerachResultsScreenMobile extends StatefulWidget {
-  const SerachResultsScreenMobile({
+class SearchResultsScreenMobile extends StatefulWidget {
+  const SearchResultsScreenMobile({
     required this.results,
     super.key,
   });
@@ -20,11 +18,11 @@ class SerachResultsScreenMobile extends StatefulWidget {
   final SearchResults results;
 
   @override
-  State<SerachResultsScreenMobile> createState() =>
-      _SerachResultsScreenMobileState();
+  State<SearchResultsScreenMobile> createState() =>
+      _SearchResultsScreenMobileState();
 }
 
-class _SerachResultsScreenMobileState extends State<SerachResultsScreenMobile> {
+class _SearchResultsScreenMobileState extends State<SearchResultsScreenMobile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

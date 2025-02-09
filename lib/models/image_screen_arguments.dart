@@ -1,5 +1,3 @@
-library models;
-
 import 'dart:io';
 
 /// The Arguments passed to an Image Screen.

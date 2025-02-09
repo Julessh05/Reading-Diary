@@ -1,5 +1,3 @@
-library mobile_components;
-
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show MaxLengthEnforcement;
@@ -156,7 +154,7 @@ class _AddModelContainerMobileState extends State<AddModelContainerMobile> {
         clipBehavior: Clip.antiAliasWithSaveLayer,
         color: Theme.of(context)
             .scaffoldBackgroundColor
-            .withOpacity(widget.opacity),
+            .withValues(alpha: widget.opacity),
         margin: const EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 10,

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of models;
+part of 'diary_entry.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -22,8 +22,8 @@ class DiaryEntryAdapter extends TypeAdapter<DiaryEntry> {
       image: fields[3] as Image?,
       date: fields[4] as DateTime?,
       book: fields[7] as Book,
-      startPage: fields[5] as int,
-      endPage: fields[6] as int,
+      startPage: (fields[5] as num).toInt(),
+      endPage: (fields[6] as num).toInt(),
     );
   }
 

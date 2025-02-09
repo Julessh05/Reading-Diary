@@ -1,5 +1,3 @@
-library logic;
-
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/material.dart'
     show BuildContext, RouteSettings, StatelessWidget, Widget;
@@ -235,7 +233,7 @@ class WidgetRouter extends StatelessWidget {
       case Routes.searchResultsScreen:
         return isDesktop
             ? const SearchResultsScreenDesktop()
-            : SerachResultsScreenMobile(
+            : SearchResultsScreenMobile(
                 results: _settings!.arguments as SearchResults,
               );
 

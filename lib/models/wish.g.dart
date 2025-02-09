@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of models;
+part of 'wish.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

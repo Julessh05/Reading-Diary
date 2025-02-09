@@ -1,5 +1,3 @@
-library mobile_screens;
-
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:color_chooser/color_chooser.dart';
 import 'package:flutter/gestures.dart' show DragStartBehavior;

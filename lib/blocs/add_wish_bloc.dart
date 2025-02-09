@@ -1,5 +1,3 @@
-library blocs;
-
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/wish.dart' show Wish;

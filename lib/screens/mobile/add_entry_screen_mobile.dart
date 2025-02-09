@@ -1,5 +1,3 @@
-library mobile_screens;
-
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
@@ -289,7 +287,7 @@ class _AddEntryScreenMobileState extends State<AddEntryScreenMobile> {
                 _bloc!.checkForVars();
               });
             },
-            inactiveColor: Coloring.mainColor.withOpacity(.4),
+            inactiveColor: Coloring.mainColor.withValues(alpha: .4),
             activeColor: Coloring.mainColor,
             semanticFormatterCallback: (double newValue) {
               return '$newValue pages read';

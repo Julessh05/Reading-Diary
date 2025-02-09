@@ -1,5 +1,3 @@
-library blocs;
-
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;
 import 'package:flutter/material.dart' show Color, Locale, ThemeMode;
 import 'package:modern_themes/modern_themes.dart';

@@ -1,5 +1,3 @@
-library models;
-
 import 'dart:collection' show UnmodifiableListView;
 
 import 'package:reading_diary/models/wish.dart' show Wish;

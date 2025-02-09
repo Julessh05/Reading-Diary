@@ -1,5 +1,3 @@
-library blocs;
-
 import 'dart:async';
 
 import 'package:bloc_implementation/bloc_implementation.dart' show Bloc;

@@ -1,5 +1,3 @@
-library models;
-
 import 'package:reading_diary/models/book.dart' show Book;
 import 'package:reading_diary/models/diary_entry.dart' show DiaryEntry;
 import 'package:reading_diary/models/wish.dart' show Wish;

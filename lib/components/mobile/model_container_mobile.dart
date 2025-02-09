@@ -1,5 +1,3 @@
-library mobile_components;
-
 import 'dart:io';
 
 import 'package:flutter/gestures.dart' show DragStartBehavior;
@@ -141,7 +139,7 @@ class _EntryContainerMobile extends State<ModelContainerMobile> {
       filterQuality: FilterQuality.high,
       fit: BoxFit.cover,
       colorFilter: ColorFilter.mode(
-        Theme.of(context).scaffoldBackgroundColor.withOpacity(.55),
+        Theme.of(context).scaffoldBackgroundColor.withValues(alpha: .55),
         BlendMode.dstATop,
       ),
       invertColors: false,

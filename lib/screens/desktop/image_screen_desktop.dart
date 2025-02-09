@@ -1,5 +1,3 @@
-library desktop_screens;
-
 import 'package:flutter/material.dart';
 import 'package:reading_diary/models/image_screen_arguments.dart';
 

@@ -54,8 +54,8 @@ android {
 
     defaultConfig {
         applicationId "com.jules.reading_diary"
-        minSdk 34
-        targetSdk 35
+minSdk 35
+         targetSdk 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
@@ -76,7 +76,7 @@ android {
         includeInApk true
         includeInBundle true
     }
-    buildToolsVersion '35.0.0'
+    buildToolsVersion '35.0.1'
     namespace 'com.jules.reading_diary'
 }
 

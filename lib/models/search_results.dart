@@ -1,5 +1,3 @@
-library models;
-
 /// Represents a single SearchResult
 /// List.
 /// In this case the T is the Object,

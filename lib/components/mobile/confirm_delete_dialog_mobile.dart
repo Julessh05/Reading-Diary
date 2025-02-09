@@ -1,5 +1,3 @@
-library mobile_components;
-
 import 'package:flutter/material.dart'
     show
         AlertDialog,

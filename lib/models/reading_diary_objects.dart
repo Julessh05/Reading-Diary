@@ -1,5 +1,3 @@
-library models;
-
 /// An Enum that contains all
 /// possible Object Types used
 /// in this App

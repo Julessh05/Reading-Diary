@@ -1,7 +1,5 @@
-library storage;
-
 import 'package:flutter/material.dart' show Color, Locale, ThemeMode;
-import 'package:hive/hive.dart' show Box, Hive;
+import 'package:hive_ce/hive.dart' show Box, Hive;
 import 'package:reading_diary/models/book.dart';
 import 'package:reading_diary/models/book_list.dart';
 import 'package:reading_diary/models/diary.dart';

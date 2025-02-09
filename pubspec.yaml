@@ -36,13 +36,13 @@ dependencies:
 
   # Third Party
   ## Hive
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
+  hive_ce: ^2.9.0
+  hive_ce_flutter: ^2.2.0
 
   # Flutter
-  url_launcher: ^6.1.11
-  image_picker: ^0.8.8
-  path_provider: ^2.0.15
+  url_launcher: ^6.3.1
+  image_picker: ^1.1.2
+  path_provider: ^2.1.5
 
   # Own Dependencies
   string_translate: ^1.4.5
@@ -59,15 +59,15 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.4.11
-  hive_generator: ^2.0.1
+  build_runner: ^2.4.14
+  hive_ce_generator: ^1.8.2
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -1,9 +1,7 @@
-library main;
-
 import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart' show Hive, HiveX;
+import 'package:hive_ce_flutter/hive_flutter.dart' show Hive, HiveX;
 import 'package:modern_themes/modern_themes.dart';
 import 'package:reading_diary/blocs/event_bloc.dart';
 import 'package:reading_diary/logic/navigating/routes.dart';

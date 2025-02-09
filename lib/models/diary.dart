@@ -1,5 +1,3 @@
-library models;
-
 import 'dart:collection' show UnmodifiableListView;
 
 import 'package:reading_diary/models/book.dart' show Book;
@@ -23,8 +21,8 @@ class Diary {
   static void addEntry(DiaryEntry entry) {
     _entries.add(entry);
     final Book book = BookList.books.firstWhere(
-          (element) =>
-      (element.title == entry.book.title) &&
+      (element) =>
+          (element.title == entry.book.title) &&
           (element.author == entry.book.author),
     );
     final newBook = Book(

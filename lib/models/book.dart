@@ -1,6 +1,4 @@
-library models;
-
-import 'package:hive/hive.dart'
+import 'package:hive_ce/hive.dart'
     show BinaryReader, BinaryWriter, HiveField, HiveType, TypeAdapter;
 
 part 'book.g.dart';
@@ -125,8 +123,8 @@ class Book {
         url,
       );
 
-  // @override
-  // String toString() {
-  //   return "title: $title, pages: $pages, current Ppge; $currentPage";
-  // }
+// @override
+// String toString() {
+//   return "title: $title, pages: $pages, current Ppge; $currentPage";
+// }
 }

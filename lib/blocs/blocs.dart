@@ -1,4 +1,4 @@
-library blocs;
+library;
 
 /// Through importing this File,
 /// you have access to all Blocs

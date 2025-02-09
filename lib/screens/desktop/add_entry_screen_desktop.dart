@@ -1,5 +1,3 @@
-library mobile_screens;
-
 import 'package:flutter/material.dart';
 
 class AddEntryScreenDesktop extends StatefulWidget {

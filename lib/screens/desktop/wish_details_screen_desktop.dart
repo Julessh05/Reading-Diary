@@ -1,5 +1,3 @@
-library desktop_screens;
-
 import 'package:flutter/material.dart';
 
 class WishDetailsScreenDesktop extends StatefulWidget {

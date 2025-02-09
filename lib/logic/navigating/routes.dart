@@ -1,5 +1,3 @@
-library logic;
-
 /// Contains all Route Names
 /// used in this App.
 class Routes {

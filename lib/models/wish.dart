@@ -1,6 +1,4 @@
-library models;
-
-import 'package:hive/hive.dart'
+import 'package:hive_ce/hive.dart'
     show BinaryReader, BinaryWriter, HiveField, HiveType, TypeAdapter;
 import 'package:reading_diary/models/book.dart' show Book;
 

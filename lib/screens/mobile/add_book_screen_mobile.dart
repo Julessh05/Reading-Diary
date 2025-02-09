@@ -1,5 +1,3 @@
-library mobile_screens;
-
 import 'dart:io';
 
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;

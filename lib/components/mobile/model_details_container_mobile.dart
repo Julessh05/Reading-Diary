@@ -1,5 +1,3 @@
-library mobile_components;
-
 import 'package:flutter/material.dart';
 
 /// A Container that shows a specific Part of information,

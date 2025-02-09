@@ -1,5 +1,3 @@
-library shared_screens;
-
 import 'package:flutter/material.dart';
 import 'package:string_translate/string_translate.dart' show Translate;
 

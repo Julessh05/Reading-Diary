@@ -1,5 +1,3 @@
-library desktop_screens;
-
 import 'package:bloc_implementation/bloc_implementation.dart' show BlocParent;
 import 'package:desktop_navigation_menu/desktop_navigation_menu.dart';
 import 'package:flutter/material.dart';

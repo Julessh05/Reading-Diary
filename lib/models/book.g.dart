@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of models;
+part of 'book.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -20,10 +20,10 @@ class BookAdapter extends TypeAdapter<Book> {
       title: fields[0] as String,
       author: fields[1] as String?,
       coverPath: fields[2] as String?,
-      pages: fields[3] as int,
-      currentPage: fields[4] as int,
-      notes: fields[5] as String,
-      price: fields[6] as double?,
+      pages: (fields[3] as num).toInt(),
+      currentPage: (fields[4] as num).toInt(),
+      notes: fields[5] == null ? '' : fields[5] as String,
+      price: (fields[6] as num?)?.toDouble(),
       url: fields[7] as String?,
     );
   }

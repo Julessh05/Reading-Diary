@@ -1,5 +1,3 @@
-library models;
-
 import 'package:reading_diary/models/book.dart' show Book;
 
 /// Represents a single

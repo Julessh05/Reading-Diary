@@ -1,5 +1,3 @@
-library mobile_components;
-
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:helpful_extensions/helpful_extensions.dart' show ColorMapping;
