@@ -36,16 +36,16 @@ android {
             keyPassword keystoreProperties['keyPassword']
         }
     }
-    compileSdk 35
-    ndkVersion '27.0.12077973'
+    compileSdk 36
+    ndkVersion '29.0.13113456'
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
     }
 
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = '21'
     }
 
     sourceSets {
@@ -54,8 +54,8 @@ android {
 
     defaultConfig {
         applicationId "com.jules.reading_diary"
-minSdk 35
-         targetSdk 35
+        minSdk 35
+        targetSdk 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
@@ -76,8 +76,11 @@ minSdk 35
         includeInApk true
         includeInBundle true
     }
-    buildToolsVersion '35.0.1'
+    buildToolsVersion '36.0.0'
     namespace 'com.jules.reading_diary'
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 flutter {

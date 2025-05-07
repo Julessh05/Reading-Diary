@@ -7,7 +7,7 @@ class EntryDetailsBloc extends Bloc {
   /// Deletes the specified [entry], which
   /// is the Entry that the corresponding Screen
   /// represents.
-  /// This [entry] is beeing removed from the
+  /// This [entry] is being removed from the
   /// Diary.
   void deleteEntry(DiaryEntry entry) {
     Diary.deleteEntry(entry);

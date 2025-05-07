@@ -373,8 +373,12 @@ class _BodyState extends State<_Body> {
                       return;
                     }
                   } on Exception catch (_) {
-                    Navigator.pop(context);
-                    _showPermissionDeniedDialog();
+                    if (mounted) {
+                      Navigator.pop(context);
+                      _showPermissionDeniedDialog();
+                    } else {
+                      // TODO: implement error handling, when state in not mounted in a view
+                    }
                   }
                 },
                 child: Text('Pick Cover from Gallery'.tr()),
@@ -400,8 +404,12 @@ class _BodyState extends State<_Body> {
                       return;
                     }
                   } on Exception catch (_) {
-                    Navigator.pop(context);
-                    _showPermissionDeniedDialog();
+                    if (mounted) {
+                      Navigator.pop(context);
+                      _showPermissionDeniedDialog();
+                    } else {
+                      // TODO: implement error handling when screen is not mounted in a hierarchy
+                    }
                   }
                 },
                 child: Text('Take a new Picutre'.tr()),

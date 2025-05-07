@@ -25,7 +25,7 @@ class Storage {
   /// Key for the [_entryBox]
   static const String _entryBoxKEY = 'Entry Box';
 
-  /// A Box in which all the Book whises
+  /// A Box in which all the Book wishes
   /// of the User is stored.
   static Box<Wish>? _wishBox;
 
@@ -178,7 +178,7 @@ class Storage {
         } else if (setting.objectValue is Color) {
           final value = setting.objectValue as Color;
           setting.objectValue = null;
-          setting.stringValue = value.value.toRadixString(16);
+          setting.stringValue = value.toARGB32().toRadixString(16);
         }
       }
 

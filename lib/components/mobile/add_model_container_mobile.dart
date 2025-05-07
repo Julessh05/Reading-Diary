@@ -248,7 +248,7 @@ class _AddModelContainerMobileState extends State<AddModelContainerMobile> {
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       dragStartBehavior: DragStartBehavior.down,
                       obscuringCharacter: '*',
-                      scribbleEnabled: true,
+                      stylusHandwritingEnabled: true,
                       maxLengthEnforcement:
                           MaxLengthEnforcement.truncateAfterCompositionEnds,
                       decoration: InputDecoration(
