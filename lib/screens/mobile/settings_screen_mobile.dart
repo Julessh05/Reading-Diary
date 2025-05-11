@@ -165,7 +165,7 @@ class _SettingsScreenMobileState extends State<SettingsScreenMobile> {
                   ),
                   const SizedBox(height: 5),
                   const Text(
-                    '© Julian Schumacher \n2023',
+                    '© Julian Schumacher \n2025',
                     textAlign: TextAlign.center,
                   ),
                 ],
