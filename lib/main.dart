@@ -110,7 +110,7 @@ class _ReadingDiaryState extends State<ReadingDiary> {
       routes: _routes,
       initialRoute: Routes.homescreen,
       onGenerateRoute: (settings) => _onGenerateRoute(settings),
-      onUnknownRoute: (settings) => _onUnkownRoute(settings),
+      onUnknownRoute: (settings) => _onUnknownRoute(settings),
 
       // Themes,
       themeMode: Themes.themeMode,
@@ -190,7 +190,7 @@ class _ReadingDiaryState extends State<ReadingDiary> {
   /// Returns the Unknown Screen.
   /// Called everytime, the App did not find a Route
   /// to navigate to.
-  MaterialPageRoute<UnknwonScreen> _onUnkownRoute(RouteSettings settings) {
+  MaterialPageRoute<UnknwonScreen> _onUnknownRoute(RouteSettings settings) {
     return MaterialPageRoute(
       builder: (_) => const UnknwonScreen(),
     );

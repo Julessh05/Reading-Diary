@@ -57,7 +57,7 @@ class Book {
   final String? author;
 
   /// Some kind of Image.
-  /// This sould be the Book Cover,
+  /// This should be the Book Cover,
   /// at least it makes the most sense.
   /// But it can be anything else.
   @HiveField(2)
@@ -73,7 +73,7 @@ class Book {
   /// A Field to store the page the user
   /// is currently on.
   /// Is always "updated".
-  /// THis is done trough creating
+  /// This is done trough creating
   /// a new Book and making a "deep clone"
   /// with only this value changed.
   @HiveField(4)
@@ -123,8 +123,8 @@ class Book {
         url,
       );
 
-// @override
-// String toString() {
-//   return "title: $title, pages: $pages, current Ppge; $currentPage";
-// }
+ @override
+ String toString() {
+   return "title: $title, pages: $pages, current Page; $currentPage";
+ }
 }
